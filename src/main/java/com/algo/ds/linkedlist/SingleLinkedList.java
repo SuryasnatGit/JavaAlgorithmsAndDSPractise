@@ -34,7 +34,7 @@ public class SingleLinkedList<E> implements Cloneable {
 		count = 0;
 	}
 
-	private boolean isEmpty() {
+    public boolean isEmpty() {
 		return count == 0;
 	}
 
@@ -174,4 +174,8 @@ public class SingleLinkedList<E> implements Cloneable {
 		// return current;
 		return null;
 	}
+
+    public int size() {
+        return count;
+    }
 }
