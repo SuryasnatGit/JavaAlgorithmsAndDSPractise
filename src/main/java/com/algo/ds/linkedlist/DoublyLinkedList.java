@@ -1,5 +1,9 @@
 package com.algo.ds.linkedlist;
 
+/**
+ * this is also a impl of deque using a doubly linked list.
+ *
+ */
 public class DoublyLinkedList {
 
 	private class Link{
