@@ -1,5 +1,8 @@
 package com.algo.ds.linkedlist;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class ArrayList<E> implements List<E> {
 
 	private E[] data;
@@ -76,5 +79,38 @@ public class ArrayList<E> implements List<E> {
 			temp[i] = data[i];
 		}
 		data = temp;
+	}
+
+	private class ArrayIterator implements Iterator<E> {
+
+		private int j;
+		private boolean removable = false; // checks if remove can be called at
+											// this time
+
+		@Override
+		public boolean hasNext() {
+			return j < size;
+		}
+
+		@Override
+		public E next() {
+			if (j == size)
+				throw new NoSuchElementException("no next element");
+			removable = true; // this can be removed
+			return data[j++];
+		}
+
+		public void remove() {
+			if (!removable)
+				throw new NoSuchElementException("nothing to remove");
+			ArrayList.this.remove(j - 1);
+			j--;
+			removable = false; // once removed set to false
+		}
+
+		public Iterator<E> iterator() {
+			return new ArrayIterator();
+		}
+
 	}
 }

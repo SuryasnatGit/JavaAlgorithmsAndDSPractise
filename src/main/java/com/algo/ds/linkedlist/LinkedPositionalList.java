@@ -1,5 +1,8 @@
 package com.algo.ds.linkedlist;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class LinkedPositionalList<E> implements PositionalList<E> {
 
 	private static class Node<E> implements Position<E> {
@@ -166,5 +169,70 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
 		succ.setPrev(middle);
 		size++;
 		return middle;
+	}
+
+	private class PositionIterator implements Iterator<Position<E>> {
+
+		private Position<E> cursor = first();
+		private Position<E> recent = null;
+
+		@Override
+		public boolean hasNext() {
+			return cursor != null;
+		}
+
+		@Override
+		public Position<E> next() {
+			if (cursor == null)
+				throw new NoSuchElementException("no next element");
+			recent = cursor;
+			cursor = after(cursor);
+			return recent;
+		}
+
+		public void delete() {
+			if (recent == null)
+				throw new IllegalStateException("nothing to delete");
+			LinkedPositionalList.this.remove(recent);
+			recent = null; // donot allow remove again until next is called
+		}
+
+	}
+
+	private class PositionIterable implements Iterable<Position<E>> {
+
+		@Override
+		public Iterator<Position<E>> iterator() {
+			return new PositionIterator();
+		}
+
+	}
+
+	public Iterable<Position<E>> positions() {
+		return new PositionIterable();
+	}
+
+	private class ElementIterator implements Iterator<E> {
+
+		private Iterator<Position<E>> iter = new PositionIterator();
+
+		@Override
+		public boolean hasNext() {
+			return iter.hasNext();
+		}
+
+		@Override
+		public E next() {
+			return iter.next().getElement();
+		}
+
+		public void remove() {
+			iter.remove();
+		}
+
+	}
+
+	public Iterator<E> elemIter() {
+		return new ElementIterator();
 	}
 }
