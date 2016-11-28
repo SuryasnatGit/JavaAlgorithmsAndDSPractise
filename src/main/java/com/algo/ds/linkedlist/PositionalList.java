@@ -1,5 +1,7 @@
 package com.algo.ds.linkedlist;
 
+import java.util.Iterator;
+
 public interface PositionalList<E> {
 
 	int size();
@@ -25,5 +27,7 @@ public interface PositionalList<E> {
 	E set(Position<E> p, E e) throws IllegalArgumentException;
 
 	E remove(Position<E> p) throws IllegalArgumentException;
+
+	public Iterator<E> elemIter();
 
 }

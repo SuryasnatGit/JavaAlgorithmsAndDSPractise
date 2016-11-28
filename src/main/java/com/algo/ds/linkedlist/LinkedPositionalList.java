@@ -3,7 +3,7 @@ package com.algo.ds.linkedlist;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedPositionalList<E> implements PositionalList<E> {
+public class LinkedPositionalList<E> implements PositionalList<E>, Iterable<E> {
 
 	private static class Node<E> implements Position<E> {
 
@@ -234,5 +234,29 @@ public class LinkedPositionalList<E> implements PositionalList<E> {
 
 	public Iterator<E> elemIter() {
 		return new ElementIterator();
+	}
+
+	public void insertionSort(PositionalList<Integer> list) {
+		Position<Integer> marker = list.first();
+		while (marker != list.last()) {
+			Position<Integer> pivot = list.after(marker);
+			Integer value = pivot.getElement();
+			if (value > marker.getElement()) {
+				marker = pivot;
+			} else {
+				Position<Integer> walk = marker;// find leftmost item > value
+				while (walk != list.first() && list.before(walk).getElement() > value) {
+					walk = list.before(walk);
+				}
+				list.remove(pivot);// remove pivot value
+				list.addBefore(walk, value);// reinsert in front of walk.
+			}
+		}
+	}
+
+	@Override
+	public Iterator<E> iterator() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
