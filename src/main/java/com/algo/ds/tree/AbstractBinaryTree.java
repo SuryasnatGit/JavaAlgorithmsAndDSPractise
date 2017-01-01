@@ -37,4 +37,28 @@ public abstract class AbstractBinaryTree<E> extends AbstractTree<E> implements B
 			snapShot.add(right(p));
 		return snapShot;
 	}
+
+	/**
+	 * overrides positions to make inorder the default order for binary tree
+	 */
+	@Override
+	public Iterable<Position<E>> positions() {
+		return inorder();
+	}
+
+	private Iterable<Position<E>> inorder() {
+		List<Position<E>> snapshot = new ArrayList<>();
+		if (!isEmpty()) {
+			inorderSubTree(root(), snapshot);
+		}
+		return snapshot;
+	}
+
+	private void inorderSubTree(Position<E> p, List<Position<E>> snapshot) {
+		if (left(p) != null)
+			inorderSubTree(left(p), snapshot);
+		snapshot.add(p);
+		if (right(p) != null)
+			inorderSubTree(right(p), snapshot);
+	}
 }

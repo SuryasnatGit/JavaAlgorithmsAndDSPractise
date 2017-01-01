@@ -1,8 +1,11 @@
 package com.algo.ds.tree;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import com.algo.ds.linkedlist.Position;
+import com.algo.ds.tree.LinkedBinaryTree.Node;
 
 public interface Tree<E> extends Iterable<E> {
 
@@ -91,4 +94,12 @@ public interface Tree<E> extends Iterable<E> {
 	 * @return
 	 */
 	Iterable<Position<E>> positions();
+
+	Position<E> addRightChild(Position<E> p, E elem) throws IllegalArgumentException;
+
+	Position<E> addLeftChild(Position<E> p, E elem) throws IllegalArgumentException;
+
+	Position<E> addRoot(E elem) throws IllegalArgumentException;
+
+	Iterable<Position<E>> preorder();
 }

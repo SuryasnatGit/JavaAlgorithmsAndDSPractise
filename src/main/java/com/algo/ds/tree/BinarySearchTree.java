@@ -2,60 +2,61 @@ package com.algo.ds.tree;
 
 public class BinarySearchTree {
 
-	private class Node{
+	private class Node {
 		private int data;
 		private Node leftChild;
 		private Node rightChild;
-		
-		public void displayNode(){
-			System.out.println("Node: "+data);
+
+		public void displayNode() {
+			System.out.println("Node: " + data);
 		}
 	}
-	
+
 	private Node root;
-	
+
 	public BinarySearchTree() {
 		root = null;
 	}
-	
+
 	/**
 	 * Time complexity- O(logN)
+	 * 
 	 * @param key
 	 * @return
 	 */
-	public Node find(int key){
+	public Node find(int key) {
 		Node current = root;
-		while(current.data != key){
-			if(key < current.data)
+		while (current.data != key) {
+			if (key < current.data)
 				current = current.leftChild;
 			else
 				current = current.rightChild;
-			if(current == null)
+			if (current == null)
 				return null;
 		}
 		return current;
 	}
-	
-	public void insert(int d){
+
+	public void insert(int d) {
 		Node newNode = new Node();
 		newNode.data = d;
-		
-		if(root == null)
+
+		if (root == null)
 			root = newNode;
-		else{
+		else {
 			Node current = root;
 			Node parent;
-			while(true){
+			while (true) {
 				parent = current;
-				if(d < current.data){ // go left
+				if (d < current.data) { // go left
 					current = current.leftChild;
-					if(current == null){
+					if (current == null) {
 						parent.leftChild = newNode;
 						return;
 					}
-				}else{ // go right
+				} else { // go right
 					current = current.rightChild;
-					if(current == null){
+					if (current == null) {
 						parent.rightChild = newNode;
 						return;
 					}
@@ -63,36 +64,36 @@ public class BinarySearchTree {
 			}
 		}
 	}
-	
-	public void inorder(Node root){
-		if(root != null){
+
+	public void inorder(Node root) {
+		if (root != null) {
 			inorder(root.leftChild);
 			root.displayNode();
 			inorder(root.rightChild);
 		}
 	}
-	
-	public void delete(int key){
+
+	public void delete(int key) {
 		Node current = root;
 		Node parent = root;
 		boolean isLeftChild = true;
-		while(current.data != key){
+		while (current.data != key) {
 			parent = current;
-			if(key < current.data){
+			if (key < current.data) {
 				isLeftChild = true;
 				current = current.leftChild;
-			}else{
+			} else {
 				isLeftChild = false;
 				current = current.rightChild;
 			}
-			if(current == null)
-				return false;
+			// if(current == null)
+			// return false;
 		}
-		
-		if(current.leftChild == null && current.rightChild == null){
-			if(current == root)
+
+		if (current.leftChild == null && current.rightChild == null) {
+			if (current == root)
 				root = null;
-			else if(isLeftChild)
+			else if (isLeftChild)
 				parent.leftChild = null;
 			else
 				parent.rightChild = null;

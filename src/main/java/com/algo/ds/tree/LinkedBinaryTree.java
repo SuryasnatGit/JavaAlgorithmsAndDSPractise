@@ -9,7 +9,7 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 	/**
 	 * Nested node class
 	 */
-	protected class Node<E> implements Position<E> {
+	protected static class Node<E> implements Position<E> {
 
 		private E element;
 		private Node<E> parent;
@@ -54,6 +54,10 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 		@Override
 		public E getElement() throws IllegalStateException {
 			return element;
+		}
+
+		public void displayNode() {
+			System.out.println("Node: " + element);
 		}
 
 	}
@@ -126,6 +130,7 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
+	@Override
 	public Position<E> addRoot(E elem) throws IllegalArgumentException {
 		if (!isEmpty())
 			throw new IllegalArgumentException("tree is not empty");
@@ -143,6 +148,7 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
+	@Override
 	public Position<E> addLeftChild(Position<E> p, E elem) throws IllegalArgumentException {
 		Node<E> parent = validate(p);
 		if (parent.getLeftChild() != null)
@@ -162,6 +168,7 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
+	@Override
 	public Position<E> addRightChild(Position<E> p, E elem) throws IllegalArgumentException {
 		Node<E> parent = validate(p);
 		if (parent.getRightChild() != null)
@@ -185,4 +192,62 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 		node.setElement(elem);
 		return temp;
 	}
+
+	/**
+	 * Attach sub-trees t1 as left sub-tree and t2 as right sub-tree to the
+	 * external p
+	 * 
+	 * @param p
+	 * @param t1
+	 * @param t2
+	 * @throws IllegalArgumentException
+	 */
+	public void attach(Position<E> p, LinkedBinaryTree<E> t1, LinkedBinaryTree<E> t2) throws IllegalArgumentException {
+		Node<E> node = validate(p);
+		if (isInternal(node))
+			throw new IllegalArgumentException("not external node");
+		size += t1.size + t2.size;
+		if (!t1.isEmpty()) {
+			t1.root.parent = node;
+			node.setLeftChild(t1.root);
+			t1.root = null;
+			t1.size = 0;
+		}
+		if (!t2.isEmpty()) {
+			t2.root.parent = node;
+			node.setRightChild(t2.root);
+			t2.root = null;
+			t2.size = 0;
+		}
+	}
+
+	/**
+	 * removes the element at p and replaces it with its child
+	 * 
+	 * @param p
+	 * @return
+	 */
+	public E delete(Position<E> p) {
+		Node<E> node = validate(p);
+		if (numChildren(node) == 2)
+			throw new IllegalArgumentException("p has 2 children");
+		Node<E> parent = node.getParent();
+		Node<E> child = node.getLeftChild() != null ? node.getLeftChild() : node.getRightChild();
+		child.setParent(parent);
+		if (node == root) {
+			root = child;
+		} else {
+			if (node == parent.getLeftChild())
+				parent.setLeftChild(child);
+			else
+				parent.setRightChild(child);
+		}
+		size--;
+		node.setElement(null);// to aid in GC
+		node.setLeftChild(null);
+		node.setRightChild(null);
+		node.setParent(node);// as per our contract for no parent
+		return node.getElement();
+	}
+
 }
