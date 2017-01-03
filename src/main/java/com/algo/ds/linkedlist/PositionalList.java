@@ -2,6 +2,8 @@ package com.algo.ds.linkedlist;
 
 import java.util.Iterator;
 
+import com.algo.ds.linkedlist.LinkedPositionalList.PositionIterable;
+
 public interface PositionalList<E> {
 
 	int size();
@@ -29,5 +31,7 @@ public interface PositionalList<E> {
 	E remove(Position<E> p) throws IllegalArgumentException;
 
 	public Iterator<E> elemIter();
+
+	Iterable<Position<E>> positions();
 
 }

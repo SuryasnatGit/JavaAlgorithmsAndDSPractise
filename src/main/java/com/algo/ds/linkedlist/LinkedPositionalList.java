@@ -199,7 +199,7 @@ public class LinkedPositionalList<E> implements PositionalList<E>, Iterable<E> {
 
 	}
 
-	private class PositionIterable implements Iterable<Position<E>> {
+	public class PositionIterable implements Iterable<Position<E>> {
 
 		@Override
 		public Iterator<Position<E>> iterator() {
@@ -208,6 +208,7 @@ public class LinkedPositionalList<E> implements PositionalList<E>, Iterable<E> {
 
 	}
 
+	@Override
 	public Iterable<Position<E>> positions() {
 		return new PositionIterable();
 	}
