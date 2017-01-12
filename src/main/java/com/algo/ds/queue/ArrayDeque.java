@@ -1,6 +1,12 @@
 package com.algo.ds.queue;
 
-
+/**
+ * Array impl of deque using circular array
+ * 
+ * @author ctsuser1
+ *
+ * @param <E>
+ */
 public class ArrayDeque<E> implements Dequeue<E> {
 
     private E[] data;
