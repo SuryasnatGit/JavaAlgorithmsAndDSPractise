@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import com.algo.ds.linkedlist.PositionalList;
+
 /**
  * Heap-Order Property: In a heap T, for every position p other than the root, the key stored at p is greater than or
  * equal to the key stored at p�s parent.
@@ -151,5 +153,18 @@ public class ArrayBasedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, 
 		downheap(0);
 		return entry;
 	}
+
+    public <E> void pqSort(PositionalList<E> S, PriorityQueue<E, V> P) {
+        int n = S.size();
+        for (int i = 0; i < n; i++) {
+            E elem = S.remove(S.first());
+            P.insert(elem, null);
+        }
+        // key added to S in increasing order
+        for (int i = 0; i < n; i++) {
+            E key = P.removeMin().getKey();
+            S.addLast(key);
+        }
+    }
 
 }
