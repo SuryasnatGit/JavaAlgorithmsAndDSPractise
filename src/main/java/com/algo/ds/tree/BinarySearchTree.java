@@ -73,7 +73,7 @@ public class BinarySearchTree {
 		}
 	}
 
-	public void delete(int key) {
+	public boolean delete(int key) {
 		Node current = root;
 		Node parent = root;
 		boolean isLeftChild = true;
@@ -86,17 +86,80 @@ public class BinarySearchTree {
 				isLeftChild = false;
 				current = current.rightChild;
 			}
-			// if(current == null)
-			// return false;
+			if (current == null)
+				return false;
 		}
 
+		// when we reach this point we know that current is the node which is to be deleted.
+		// case 1 : when current(node to be deleted does not have any children
 		if (current.leftChild == null && current.rightChild == null) {
 			if (current == root)
 				root = null;
-			else if (isLeftChild)
-				parent.leftChild = null;
-			else
-				parent.rightChild = null;
+			else {
+				if (isLeftChild)
+					parent.leftChild = null;
+				else
+					parent.rightChild = null;
+			}
 		}
+
+		// case 2: when current(node to be deleted) has only left child
+		if (current.rightChild == null) {
+			if (current == root)
+				root = null;
+			else {
+				if (isLeftChild)
+					parent.leftChild = current.leftChild;
+				else
+					parent.rightChild = current.leftChild;
+			}
+		}
+
+		// case 3: when current(node to be deleted) has only right child
+		if (current.rightChild == null) {
+			if (current == root)
+				root = null;
+			else {
+				if (isLeftChild)
+					parent.leftChild = current.rightChild;
+				else
+					parent.rightChild = current.rightChild;
+			}
+		}
+
+		// case 4: when current node(node to be deleted) has both left and right children.
+		// find the successor here.
+		if (current.leftChild != null && current.rightChild != null) {
+			Node successor = findSuccessor(current);
+			if (current == root)
+				root = null;
+			else {
+				if (isLeftChild)
+					parent.leftChild = successor;
+				else
+					parent.rightChild = successor;
+			}
+			successor.leftChild = current.leftChild;
+		}
+		return true;
+
+	}
+
+	private Node findSuccessor(Node deleteNode) {
+		Node successor = null;
+		Node successorParent = null;
+		Node current = deleteNode.rightChild;
+		while (current != null) {
+			successorParent = successor;
+			successor = current;
+			current = current.leftChild;
+		}
+		// at this point there is no more left child of successor.
+		// check if successor has right child, if so add to left of successor parent
+		if (successor != deleteNode.rightChild) {
+			successorParent.leftChild = successor.rightChild;
+			successor.rightChild = deleteNode.rightChild;
+		}
+		return successor;
 	}
 }

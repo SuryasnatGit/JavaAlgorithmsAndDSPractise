@@ -32,31 +32,31 @@ public class ArrayBasedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, 
 		super(comp);
 	}
 
-    /**
-     * create a priority queue initialized with given key, value pairs
-     * 
-     * @param keys
-     * @param values
-     */
-    public ArrayBasedHeapPriorityQueue(K[] keys, V[] values) {
-        super();
-        for (int i = 0; i < Math.min(keys.length, values.length); i++) {
-            heap.add(new PQEntry(keys[i], values[i]));
-        }
-        heapify();
-    }
+	/**
+	 * create a priority queue initialized with given key, value pairs
+	 * 
+	 * @param keys
+	 * @param values
+	 */
+	public ArrayBasedHeapPriorityQueue(K[] keys, V[] values) {
+		super();
+		for (int i = 0; i < Math.min(keys.length, values.length); i++) {
+			heap.add(new PQEntry(keys[i], values[i]));
+		}
+		heapify();
+	}
 
-    /**
-     * performs bottom-up heap construction in linear time. start at parent of last entry
-     */
-    private void heapify() {
-        int rootIndex = parent(size() - 1);
-        for (int j = rootIndex; j >= 0; j--) {
-            downheap(j);
-        }
-    }
+	/**
+	 * performs bottom-up heap construction in linear time. start at parent of last entry
+	 */
+	private void heapify() {
+		int rootIndex = parent(size() - 1);
+		for (int j = rootIndex; j >= 0; j--) {
+			downheap(j);
+		}
+	}
 
-    protected int parent(int j) {
+	protected int parent(int j) {
 		return (j - 1) / 2;
 	}
 
@@ -108,17 +108,17 @@ public class ArrayBasedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, 
 		}
 	}
 
-    /**
-     * Time complexity - O(1)
-     */
+	/**
+	 * Time complexity - O(1)
+	 */
 	@Override
 	public int size() {
 		return heap.size();
 	}
 
-    /**
-     * Time complexity - O(1)
-     */
+	/**
+	 * Time complexity - O(1) for array representation and O(log N) for linked list representation
+	 */
 	@Override
 	public Entry<K, V> insert(K key, V value) {
 		checkKey(key);
@@ -128,9 +128,9 @@ public class ArrayBasedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, 
 		return entry;
 	}
 
-    /**
-     * Time complexity - O(1)
-     */
+	/**
+	 * Time complexity - O(1)
+	 */
 	@Override
 	public Entry<K, V> min() {
 		if (heap.isEmpty())
@@ -138,9 +138,9 @@ public class ArrayBasedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, 
 		return heap.get(0);
 	}
 
-    /**
-     * Time complexity - O(1)
-     */
+	/**
+	 * Time complexity - O(1) for array representation and O(log N) for linked list representation
+	 */
 	@Override
 	public Entry<K, V> removeMin() {
 		if (heap.isEmpty())
@@ -150,6 +150,10 @@ public class ArrayBasedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, 
 		heap.remove(size() - 1);
 		downheap(0);
 		return entry;
+	}
+
+	public List<Entry<K, V>> getHeap() {
+		return heap;
 	}
 
 }
