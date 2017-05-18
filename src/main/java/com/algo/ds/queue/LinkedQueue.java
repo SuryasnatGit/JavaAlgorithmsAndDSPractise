@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 public class LinkedQueue<E> implements Iterable<E>, Queue<E> {
 
-	private class Node<E> {
+	public class Node<E> {
 		private E data;
 		private Node<E> next;
 
@@ -36,6 +36,7 @@ public class LinkedQueue<E> implements Iterable<E>, Queue<E> {
 		return size == 0;
 	}
 
+	@Override
 	public int size() {
 		return size;
 	}
@@ -75,6 +76,16 @@ public class LinkedQueue<E> implements Iterable<E>, Queue<E> {
 		if (isEmpty())
 			last = null; // for GC
 		return data;
+	}
+
+	@Override
+	public void display() {
+		Node<E> head = first;
+		while (head != null) {
+			E data = head.data;
+			System.out.println(data);
+			head = head.next;
+		}
 	}
 
 }

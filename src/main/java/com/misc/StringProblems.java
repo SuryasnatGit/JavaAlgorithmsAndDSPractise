@@ -1,7 +1,9 @@
 package com.misc;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class StringProblems {
@@ -14,8 +16,14 @@ public class StringProblems {
 		// System.out.println(p.isUniqueString("tableta"));
 
 		// System.out.println(p.isUniqueString1("surya"));
-		System.out.println(p.isUniqueString3("a"));
+		// System.out.println(p.isUniqueString3("a"));
 		// System.out.println(p.isUniqueString1("table"));
+
+		p.findStringPermutation1("table", "blate");
+		p.findStringPermutation1("man", "nam");
+		System.out.println(p.findStringPermutation2("table", "blate"));
+		System.out.println(p.findStringPermutation2("man", "nan"));
+		System.out.println(p.findStringPermutation2("life", "file"));
 
 	}
 
@@ -118,6 +126,57 @@ public class StringProblems {
 				return false;
 			// else set the array element at pos index to true
 			arr[pos] = true;
+		}
+		return true;
+	}
+
+	/**
+	 * sort the strings and compare it. complexity - O(NlogN)
+	 * 
+	 * @param input1
+	 * @param input2
+	 */
+	public void findStringPermutation1(String input1, String input2) {
+		char[] inputchar1 = input1.toCharArray();
+		char[] inputchar2 = input2.toCharArray();
+		Arrays.sort(inputchar1);
+		Arrays.sort(inputchar2);
+		String sortInput1 = new String(inputchar1);
+		String sortInput2 = new String(inputchar2);
+		System.out.println(sortInput1.equals(sortInput2) ? "is a permutation " : "is not a permutation");
+	}
+
+	/**
+	 * Using hashtable. complexity - O(N)
+	 * 
+	 * @param input1
+	 * @param input2
+	 */
+	public boolean findStringPermutation2(String input1, String input2) {
+		if (input1.length() != input2.length())
+			return false;
+		Map<Character, Integer> map = new HashMap<>();
+		for (char ch : input1.toCharArray()) {
+			if (map.containsKey(ch)) {
+				Integer count = map.get(ch) + 1;
+				map.put(ch, count);
+			} else {
+				map.put(ch, 1);
+			}
+		}
+
+		for (char ch : input2.toCharArray()) {
+			if (map.containsKey(ch)) {
+				Integer count = map.get(ch) - 1;
+				map.put(ch, count);
+			} else {
+				return false;
+			}
+		}
+
+		for (Character ch : map.keySet()) {
+			if (map.get(ch) != 0)
+				return false;
 		}
 		return true;
 	}

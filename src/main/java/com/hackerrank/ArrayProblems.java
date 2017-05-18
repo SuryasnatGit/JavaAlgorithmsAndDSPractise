@@ -8,6 +8,14 @@ public class ArrayProblems {
 		ArrayProblems ap = new ArrayProblems();
 		ap.maxHourglassSum();
 
+		System.out.println(Integer.toBinaryString(10));
+		System.out.println(Integer.toBinaryString(15));
+		int s = 31 / 0;
+		if (s > 0)
+			System.out.println("YES");
+		else
+			System.out.println("NO");
+		System.out.println(s);
 	}
 
 	/**
