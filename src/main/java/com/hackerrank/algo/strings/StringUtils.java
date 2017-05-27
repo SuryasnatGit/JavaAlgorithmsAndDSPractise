@@ -76,6 +76,16 @@ public class StringUtils {
 			System.out.println(++count);
 	}
 	
+	public void numberSeparator(String input){
+		for(char c : input.toCharArray()){
+			Integer.parseInt(c);
+		}
+		int length = input.length();
+		for(int i=0;i<length;i++){
+			input.substring(i, endIndex)
+		}
+	}
+	
 	public static void main(String[] args){
 		StringUtils su = new StringUtils();
 //		su.starcase(8);
