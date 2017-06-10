@@ -5,6 +5,10 @@ public class Link {
 	private int data;
 	public Link next;
 
+	public Link() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Link(int d) {
 		data = d;
 	}
