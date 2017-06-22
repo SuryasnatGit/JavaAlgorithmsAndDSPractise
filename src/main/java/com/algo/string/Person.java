@@ -1,4 +1,4 @@
-package com.misc;
+package com.algo.string;
 
 public class Person implements Comparable<Person> {
 

@@ -1,4 +1,4 @@
-package com.misc;
+package com.algo.string;
 
 import java.util.Comparator;
 

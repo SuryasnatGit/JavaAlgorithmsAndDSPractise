@@ -2,6 +2,9 @@ package com.misc;
 
 import org.junit.Test;
 
+import com.algo.string.ComparatorTest;
+import com.algo.string.Person;
+
 public class ComparableTestClasss {
 
 	@Test

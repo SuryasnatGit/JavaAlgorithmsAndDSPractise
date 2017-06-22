@@ -1,4 +1,4 @@
-package com.misc;
+package com.algo.string;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,11 +19,13 @@ public class StringProblems {
 		// System.out.println(p.isUniqueString3("a"));
 		// System.out.println(p.isUniqueString1("table"));
 
-		p.findStringPermutation1("table", "blate");
-		p.findStringPermutation1("man", "nam");
-		System.out.println(p.findStringPermutation2("table", "blate"));
-		System.out.println(p.findStringPermutation2("man", "nan"));
-		System.out.println(p.findStringPermutation2("life", "file"));
+		// p.findStringPermutation1("table", "blate");
+		// p.findStringPermutation1("man", "nam");
+		// System.out.println(p.findStringPermutation2("table", "blate"));
+		// System.out.println(p.findStringPermutation2("man", "nan"));
+		// System.out.println(p.findStringPermutation2("life", "file"));
+		System.out.println(p.isIsomorphicStrings("att", "pee"));
+		System.out.println(p.isIsomorphicStrings("att", "bad"));
 
 	}
 
@@ -180,5 +182,38 @@ public class StringProblems {
 		}
 		return true;
 	}
+	
+	/**
+	 * Given two strings s and t, determine if they are isomorphic. Two strings
+	 * are isomorphic if the characters in s can be replaced to get t.
+	 * 
+	 * For example,"egg" and "add" are isomorphic, "foo" and "bar" are not.
+	 * complexity - O(n)
+	 * 
+	 * @param s1
+	 * @param s2
+	 * @return
+	 */
+	public boolean isIsomorphicStrings(String s1, String s2) {
+		if (s1 == null || s2 == null)
+			return false;
+		if (s1.length() != s2.length())
+			return false;
+		Map<Character, Character> charMap = new HashMap<>();
+		for (int i = 0; i < s1.length(); i++) {
+			char ch1 = s1.charAt(i);
+			char ch2 = s2.charAt(i);
+			if (charMap.containsKey(ch1)) {
+				if (!charMap.get(ch1).equals(ch2))
+					return false;
+			} else {
+				if (charMap.containsValue(ch2))
+					return false;
+				charMap.put(ch1, ch2);
+			}
+		}
+		return true;
+	}
+
 
 }
