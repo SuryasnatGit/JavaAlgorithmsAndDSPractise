@@ -9,7 +9,7 @@ import java.util.Set;
 public class StringProblems {
 
 	public static void main(String[] args) {
-		StringProblems p = new StringProblems();
+		StringProblems sp = new StringProblems();
 		// p.stringPermutations("TABLE");
 		// System.out.println(p.isUniqueString("surya"));
 		// System.out.println(p.isUniqueString("suryasnat"));
@@ -24,9 +24,12 @@ public class StringProblems {
 		// System.out.println(p.findStringPermutation2("table", "blate"));
 		// System.out.println(p.findStringPermutation2("man", "nan"));
 		// System.out.println(p.findStringPermutation2("life", "file"));
-		System.out.println(p.isIsomorphicStrings("att", "pee"));
-		System.out.println(p.isIsomorphicStrings("att", "bad"));
+		// System.out.println(p.isIsomorphicStrings("att", "pee"));
+		// System.out.println(p.isIsomorphicStrings("att", "bad"));
+		char[] arr = { 'm', 'y', ' ', 't', ' ' };
 
+		System.out.println(sp.urlifyString(new String(arr), 4));
+		// System.out.println(sp.urlifyString("Mr John Smith ", 20));
 	}
 
 	private void stringPermutations(String str) {
@@ -182,13 +185,12 @@ public class StringProblems {
 		}
 		return true;
 	}
-	
+
 	/**
-	 * Given two strings s and t, determine if they are isomorphic. Two strings
-	 * are isomorphic if the characters in s can be replaced to get t.
+	 * Given two strings s and t, determine if they are isomorphic. Two strings are isomorphic if the characters in s
+	 * can be replaced to get t.
 	 * 
-	 * For example,"egg" and "add" are isomorphic, "foo" and "bar" are not.
-	 * complexity - O(n)
+	 * For example,"egg" and "add" are isomorphic, "foo" and "bar" are not. complexity - O(n)
 	 * 
 	 * @param s1
 	 * @param s2
@@ -215,5 +217,57 @@ public class StringProblems {
 		return true;
 	}
 
+	/**
+	 * Write a method to replace all the spaces in a string with ‘%20’. You may assume that the string has sufficient
+	 * space at the end to hold the additional characters, and that you are given the “true” length of the string.
+	 * 
+	 * Examples:
+	 * 
+	 * Input : "Mr John Smith", 13 Output : Mr%20John%20Smith
+	 * 
+	 * Input : "Mr John Smith ", 13 Output : Mr%20John%20Smith
+	 * 
+	 * @param input
+	 * @param trueLength
+	 * @return
+	 */
+	public String urlifyString(String input, int trueLength) {
+		char[] charArray = input.toCharArray();
+		// length of string
+		int currLength = charArray.length;
+		int spaceLength = 0;
+		int index = trueLength - 1;
+		// calculate space length
+		for (int i = 0; i < index; i++) {
+			if (charArray[i] == ' ')
+				spaceLength++;
+		}
+
+		// // truncate trailing spaces and re-calculate new length
+		// while (charArray[currLength - 1] == ' ') {
+		// spaceLength--;
+		// currLength--;
+		// }
+
+		int newIndex = index + 2 * spaceLength;
+
+		// string termination
+		charArray[newIndex + 1] = '\0';
+
+		if (newIndex > trueLength)
+			return "null";
+
+		for (int i = index - 1; i >= 0; i--) {
+			if (charArray[i] == ' ') {
+				charArray[newIndex] = '0';
+				charArray[newIndex - 1] = '2';
+				charArray[newIndex - 2] = '%';
+			} else {
+				charArray[newIndex--] = charArray[i];
+			}
+		}
+
+		return new String(charArray);
+	}
 
 }

@@ -27,6 +27,17 @@ public class Arrays {
 		// System.out.print(intarr[j] + " ");
 		// }
 
+		int ar1[] = { 1, 12, 15, 26, 38 };
+		int ar2[] = { 2, 13, 17, 30, 45 };
+
+		int n1 = ar1.length;
+		int n2 = ar2.length;
+		if (n1 == n2) {
+			// System.out.println("Median is " + arrays.medianOfSortedArrays1(ar1, ar2, n1));
+			System.out.println("Median is " + arrays.medianOfSortedArrays2(ar1, ar2));
+		} else
+			System.out.println("arrays are of unequal size");
+
 	}
 
 	public void reverse(int[] a) {
@@ -236,4 +247,148 @@ public class Arrays {
 		return sb.length() == 0 ? "" : sb.substring(0, sb.length() - 1);
 	}
 
+	/**
+	 * Question: There are 2 sorted arrays A and B of size n each. Write an algorithm to find the median of the array
+	 * obtained after merging the above 2 arrays(i.e. array of length 2n). The complexity should be O(log(n))
+	 * 
+	 * Method 1 (Simply count while Merging) Use merge procedure of merge sort. Keep track of count while comparing
+	 * elements of two arrays. If count becomes n(For 2n elements), we have reached the median. Take the average of the
+	 * elements at indexes n-1 and n in the merged array. See the below implementation.
+	 * 
+	 * Time Complexity: O(n)
+	 * 
+	 * @param ar1
+	 * @param ar2
+	 * @param n
+	 * @return
+	 */
+	public int medianOfSortedArrays1(int[] ar1, int[] ar2, int n) {
+		int i = 0, j = 0; // counters for ar1 and ar2
+		int count; // to loop through n
+		int m1 = -1, m2 = -1; // median of ar1 and ar2
+
+		for (count = 0; count <= n; count++) {
+			// if all elements of ar1 is < smallest or first element of ar2
+			if (i == n) {
+				m1 = m2;
+				m2 = ar2[0];
+				break;
+			}
+			// if all elements of ar2 is < smallest or first element of ar1
+			if (j == n) {
+				m1 = m2;
+				m2 = ar1[0];
+				break;
+			}
+			if (ar1[i] < ar2[j]) {
+				// store the previous median
+				m1 = m2;
+				m2 = ar1[i];
+				i++;
+			} else {
+				// store the previous median
+				m1 = m2;
+				m2 = ar2[j];
+				j++;
+			}
+		}
+		return (m1 + m2) / 2;
+	}
+
+	public int medianOfSortedArrays2(int[] a, int[] b) {
+		int m = a.length;
+		int n = b.length;
+		int mid = (m + n) / 2;
+		if (mid % 2 != 0)
+			return medianOfKth(a, b, mid, 0, m - 1, 0, n - 1); // odd
+		else
+			return (medianOfKth(a, b, mid, 0, m - 1, 0, n - 1) + medianOfKth(a, b, mid - 1, 0, m - 1, 0, n - 1)) / 2; // even
+
+	}
+
+	private int medianOfKth(int[] a, int[] b, int k, int startA, int endA, int startB, int endB) {
+		int lenA = startA - endA + 1;
+		int lenB = startB - endB + 1;
+		if (lenA == 0)
+			return b[startB + k];
+		if (lenB == 0)
+			return a[startA + k];
+		if (k == 0)
+			return a[startA] < b[startB] ? a[startA] : b[startB];
+
+		int midA = (lenA * k) / (lenA + lenB);
+		int midB = k - midA - 1;
+
+		// make midA and miidB array index
+		midA = midA + startA;
+		midB = midB + startB;
+
+		if (a[midA] > b[midB]) {
+			k = k - (midB - startB + 1);
+			endA = midA;
+			startB = midB + 1;
+		} else {
+			k = k - (midA - startA + 1);
+			endB = midB;
+			startA = midA + 1;
+		}
+		return medianOfKth(a, b, k, startA, endA, startB, endB);
+	}
+
+	/**
+	 * complexity - O(nlogn)
+	 * 
+	 * @param arr
+	 * @param k
+	 * @return
+	 */
+	public int kthLargestElementInArray(int[] arr, int k) {
+		java.util.Arrays.sort(arr);
+		return arr[arr.length - k];
+	}
+
+	/**
+	 * using quick select.
+	 * 
+	 * Average case time is O(n), worst case time is O(n^2).
+	 * 
+	 * @param arr
+	 * @param k
+	 * @return
+	 */
+	public int kthLargestElementInArray1(int[] arr, int k) {
+		if (k == 0 || arr == null)
+			return -1;
+		return getKthElement(arr, arr.length - k + 1, 0, arr.length - 1);
+	}
+
+	private int getKthElement(int[] arr, int k, int start, int end) {
+		int pivot = arr[end];
+		int left = start;
+		int right = end;
+		while (true) {
+			while (arr[left] < pivot && left < right)
+				left++;
+			while (arr[right] >= pivot && right > left)
+				right--;
+			if (left == right)
+				break;
+			swap(arr, left, right);
+		}
+		swap(arr, left, end);
+
+		if (k == left + 1)
+			return pivot;
+		if (k < left + 1)
+			return getKthElement(arr, k, start, left - 1);
+		else
+			return getKthElement(arr, k, left + 1, end);
+	}
+
+	private void swap(int[] arr, int left, int right) {
+		int temp = arr[left];
+		arr[left] = arr[right];
+		arr[right] = temp;
+
+	}
 }
