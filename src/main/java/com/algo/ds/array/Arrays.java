@@ -1,5 +1,7 @@
 package com.algo.ds.array;
 
+import java.util.PriorityQueue;
+
 public class Arrays {
 
 	public static void main(String[] args) {
@@ -37,7 +39,10 @@ public class Arrays {
 			System.out.println("Median is " + arrays.medianOfSortedArrays2(ar1, ar2));
 		} else
 			System.out.println("arrays are of unequal size");
-
+		
+		System.out.println(arrays.kthLargestElementInArray(ar1, 4));
+		System.out.println(arrays.kthLargestElementInArray1(ar2, 4));
+		System.out.println(arrays.kthLargestElementInArray2(ar2, 1));
 	}
 
 	public void reverse(int[] a) {
@@ -348,7 +353,7 @@ public class Arrays {
 	}
 
 	/**
-	 * using quick select.
+	 * using quick select which is similar to quicksort.
 	 * 
 	 * Average case time is O(n), worst case time is O(n^2).
 	 * 
@@ -390,5 +395,25 @@ public class Arrays {
 		arr[left] = arr[right];
 		arr[right] = temp;
 
+	}
+	
+	/**
+	 * We can use a min heap to solve this problem. The heap stores the top k
+	 * elements. Whenever the size is greater than k, delete the min. Time
+	 * complexity is O(nlog(k)). Space complexity is O(k) for storing the top k
+	 * numbers.
+	 * 
+	 * @param arr
+	 * @param k
+	 * @return
+	 */
+	public int kthLargestElementInArray2(int[] arr, int k) {
+		PriorityQueue<Integer> pq = new PriorityQueue<>(k);
+		for(int i=0;i<arr.length;i++){
+			pq.offer(arr[i]);
+			if(pq.size() > k) 
+				pq.poll();
+		}
+		return pq.peek();
 	}
 }
