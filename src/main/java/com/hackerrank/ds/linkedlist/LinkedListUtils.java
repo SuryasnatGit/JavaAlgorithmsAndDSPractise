@@ -97,6 +97,23 @@ public class LinkedListUtils {
 			return head;
 		}
 	}
+	
+	public int getNthNodeFromEnd(Link head, int n){
+		Link temp = head;
+		int c = 0;
+		while(temp != null){
+			c++;
+			temp = temp.next;
+		}
+		temp = head;
+		int c1 = 0;
+		while(temp != null){
+			c1++;
+			if(c1 == c-n) return temp.getKey();
+			temp = temp.next;
+		}
+		return 0;
+	}
 
 	public static void main(String[] args) {
 		LinkedListUtils utils = new LinkedListUtils();
@@ -121,7 +138,8 @@ public class LinkedListUtils {
 		Link b2 = new Link(4);
 		b1.next = b2;
 		// utils.displayList(b1);
-		utils.displayList(utils.deleteNode(a1, 3));
+//		utils.displayList(utils.deleteNode(a1, 3));
+		System.out.println(utils.getNthNodeFromEnd(a1, 3));
 		// a.next = new Link(5);
 		// System.out.println("********");
 		// utils.displayList(utils.mergeSortedListsRecursive(a1, b1));
