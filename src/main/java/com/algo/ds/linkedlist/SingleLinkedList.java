@@ -23,6 +23,11 @@ public class SingleLinkedList<E> implements Cloneable {
 		public void setNext(Link<E> next) {
 			this.next = next;
 		}
+
+		@Override
+		public String toString() {
+			return "Link [data=" + data + ", next=" + next + "]";
+		}
 	}
 
 	private Link<E> first, last;
@@ -34,7 +39,7 @@ public class SingleLinkedList<E> implements Cloneable {
 		count = 0;
 	}
 
-    public boolean isEmpty() {
+	public boolean isEmpty() {
 		return count == 0;
 	}
 
@@ -81,11 +86,12 @@ public class SingleLinkedList<E> implements Cloneable {
 	}
 
 	public void displayList() {
-		// Link current = first;
-		// while (current != null) {
-		// current.display();
-		// current = current.next;
-		// }
+		Link<E> current = first;
+		while (current != null) {
+			System.out.print(current.getData() + " -> ");
+			current = current.next;
+		}
+		System.out.print("null");
 	}
 
 	@Override
@@ -106,12 +112,12 @@ public class SingleLinkedList<E> implements Cloneable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SingleLinkedList other = (SingleLinkedList) obj;
+		SingleLinkedList<E> other = (SingleLinkedList<E>) obj;
 		if (count != other.count)
 			return false;
 
-		Link A = first;
-		Link B = other.first;
+		Link<E> A = first;
+		Link<E> B = other.first;
 		while (A != null) {
 			if (!A.getData().equals(B.getData()))
 				return false;
@@ -139,43 +145,58 @@ public class SingleLinkedList<E> implements Cloneable {
 		return other;
 	}
 
-	public Link findByKey(int key) {
-		return null;
-		// Link current = first;
-		// while (current.data != key) { // keep on looping until current data
-		// is
-		// // not equal to key
-		// if (current.next == null) // if not found
-		// return null;
-		// else
-		// current = current.next;
-		// }
-		// return current; // found and return current
+	public Link<E> findByKey(int key) {
+		Link<E> current = first;
+		while (!current.getData().equals(key)) { // keep on looping until current data
+			// is not equal to key
+			if (current.next == null) // if not found
+				return null;
+			else
+				current = current.next;
+		}
+		return current; // found and return current
 	}
 
-	public Link deleteByKey(int key) {
-		// Link previous = first;
-		// Link current = first;
-		// while (current.data != key) { // keep on looping until current data
-		// is
-		// // not equal to key
-		// if (current.next == null) // if not found
-		// return null;
-		// else {
-		// previous = current; // shift previous and current
-		// current = current.next;
-		// }
-		// }
-		// if (current == first)
-		// first = first.next;
-		// else
-		// previous.next = current.next;
-		//
-		// return current;
-		return null;
+	public Link<E> deleteByKey(int key) {
+		Link<E> previous = first;
+		Link<E> current = first;
+		while (!current.getData().equals(key)) { // keep on looping until current data is
+			// not equal to key
+			if (current.next == null) // if not found
+				return null;
+			else {
+				previous = current; // shift previous and current
+				current = current.next;
+			}
+		}
+		if (current == first)
+			first = first.next;
+		else
+			previous.next = current.next;
+
+		return current;
 	}
 
-    public int size() {
-        return count;
-    }
+	public int size() {
+		return count;
+	}
+
+	public static void main(String[] args) {
+		SingleLinkedList<Integer> sll = new SingleLinkedList<>();
+		sll.addFirst(10);
+		sll.addFirst(20);
+		sll.addLast(30);
+		sll.addLast(40);
+		sll.displayList();
+		sll.deleteByKey(30);
+		System.out.println();
+		sll.displayList();
+		sll.deleteByKey(20);
+		System.out.println();
+		sll.displayList();
+		sll.deleteByKey(10);
+		sll.deleteByKey(40);
+		System.out.println();
+		sll.displayList();
+	}
 }

@@ -1,5 +1,8 @@
 package com.algo.ds.linkedlist.problems;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.algo.ds.linkedlist.Link;
 
 public class LeetCodeProblems {
@@ -7,8 +10,8 @@ public class LeetCodeProblems {
 	/**
 	 * Given a linked list, determine if it has a cycle in it.
 	 * 
-	 * If we have 2 pointers - fast and slow. It is guaranteed that the fast one
-	 * will meet the slow one if there exists a circle.
+	 * If we have 2 pointers - fast and slow. It is guaranteed that the fast one will meet the slow one if there exists
+	 * a circle.
 	 * 
 	 * @param head
 	 * @return
@@ -27,13 +30,12 @@ public class LeetCodeProblems {
 	}
 
 	/**
-	 * Merge two sorted linked lists and return it as a new list. The new list
-	 * should be made by splicing together the nodes of the first two lists.
+	 * Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the
+	 * nodes of the first two lists.
 	 * 
-	 * The key to solve the problem is defining a fake head. Then compare the
-	 * first elements from each list. Add the smaller one to the merged list.
-	 * Finally, when one of them is empty, simply append it to the merged list,
-	 * since it is already sorted.
+	 * The key to solve the problem is defining a fake head. Then compare the first elements from each list. Add the
+	 * smaller one to the merged list. Finally, when one of them is empty, simply append it to the merged list, since it
+	 * is already sorted.
 	 * 
 	 * @param a
 	 * @param b
@@ -61,26 +63,157 @@ public class LeetCodeProblems {
 		return tempHead.next;
 	}
 
+	/**
+	 * Use 2 nested for loops. Outer loop will be for each node of the 1st list and inner loop will be for 2nd list. In
+	 * the inner loop, check if any of nodes of 2nd list is same as the current node of first linked list. Time
+	 * complexity of this method will be O(mn) where m and n are the number of nodes in two lists.
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	public int intersectionOfLinkedLists_1(Link a, Link b) {
+		Link pa = a;
+		while (pa != null) {
+			Link pb = b;
+			while (pb != null) {
+				if (pa.getKey() == pb.getKey())
+					return pa.getKey();
+				pb = pb.next;
+			}
+			pa = pa.next;
+		}
+		return 0;
+	}
+
+	/**
+	 * Time Complexity: O(m+n) Auxiliary Space: O(1)
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
+	public int intersectionOfLinkedLists_2(Link a, Link b) {
+		int ca = getCount(a);
+		int cb = getCount(b);
+		if (ca > cb) {
+			int d = ca - cb;
+			return intersectingNode(d, a, b);
+		} else {
+			int d = cb - ca;
+			return intersectingNode(d, b, a);
+		}
+	}
+
+	private int intersectingNode(int d, Link l1, Link l2) {
+		Link curr1 = l1;
+		Link curr2 = l2;
+		for (int i = 0; i < d; i++) {
+			curr1 = curr1.next;
+		}
+		// now both curr1 and curr2 are at the same position
+		while (curr1 != null && curr2 != null) {
+			if (curr1.getKey() == curr2.getKey())
+				return curr1.getKey();
+			curr1 = curr1.next;
+			curr2 = curr2.next;
+		}
+		return 0;
+	}
+
+	private int getCount(Link l) {
+		int count = 0;
+		Link curr = l;
+		while (curr != null) {
+			count++;
+			curr = curr.next;
+		}
+		return count;
+	}
+
+	public Link unionListOfLists(Link a, Link b) {
+		Link head = new Link();
+		Link pa = a;
+		Link pb = b;
+		while (pa != null) {
+			head = pushToList(pa.getKey(), head);
+			pa = pa.next;
+		}
+		while (pb != null) {
+			if (!isPresent(pb.getKey(), head))
+				head = pushToList(pb.getKey(), head);
+			pb = pb.next;
+		}
+		return head;
+	}
+
+	private boolean isPresent(int key, Link head) {
+		Link cur = head;
+		while (cur != null) {
+			if (cur.getKey() == key)
+				return true;
+			cur = cur.next;
+		}
+		return false;
+	}
+
+	private Link pushToList(int key, Link head) {
+		Link temp = new Link(key);
+		temp.next = head;
+		head = temp;
+		return head;
+	}
+
+	public Link intersectionListOfLists(Link a, Link b) {
+		Link result = new Link();
+		Link pa = a;
+		Link pb = b;
+		while (pb != null) {
+			if (isPresent(pb.getKey(), pa))
+				result = pushToList(pb.getKey(), result);
+			pb = pb.next;
+		}
+		return result;
+	}
+
 	public static void main(String[] args) {
+		Map<Integer, Integer> map = new HashMap<>();
+		map.put(10, 10);
+		map.put(20, 20);
+		// System.out.println(map.get(5));
 		LeetCodeProblems prob = new LeetCodeProblems();
-		Link a1 = new Link(10);
-//		Link a2 = new Link(20);
-//		a1.next = a2;
-		System.out.println(a1.toString());
-//		Link a3 = new Link(30);
-//		a2.next = a3;
-//		System.out.println(a1.toString());
-//		System.out.println(prob.hasCycle(a1));
-//		a3.next = a1;
-//		// System.out.println(a1.toString());
-//		System.out.println(prob.hasCycle(a1));
-		
-		
+		// Link a1 = new Link(10);
+		// // Link a2 = new Link(20);
+		// // a1.next = a2;
+		// System.out.println(a1.toString());
+		// // Link a3 = new Link(30);
+		// // a2.next = a3;
+		// // System.out.println(a1.toString());
+		// // System.out.println(prob.hasCycle(a1));
+		// // a3.next = a1;
+		// // // System.out.println(a1.toString());
+		// // System.out.println(prob.hasCycle(a1));
+		//
+		// Link b1 = new Link(5);
+		// Link b2 = new Link(15);
+		// b1.next = b2;
+		// System.out.println(b1.toString());
+		// System.out.println(prob.merge2SortedLists(a1, b1).toString());
+
+		Link a1 = new Link(15);
+		Link a2 = new Link(20);
+		a1.next = a2;
+		Link a3 = new Link(30);
+		a2.next = a3;
+
 		Link b1 = new Link(5);
-		Link b2 = new Link(15);
+		Link b2 = new Link(20);
 		b1.next = b2;
-		System.out.println(b1.toString());
-		System.out.println(prob.merge2SortedLists(a1, b1).toString());
+		Link b3 = new Link(30);
+		b2.next = b3;
+		System.out.println(prob.intersectionOfLinkedLists_2(a1, b1));
+		System.out.println(prob.unionListOfLists(a1, b1));
+		System.out.println(prob.intersectionListOfLists(a1, b1));
 	}
 
 }

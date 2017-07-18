@@ -311,6 +311,100 @@ public class MiscellaneousLLProblems {
 		return fakeHead1.next;
 	}
 
+	public Link getIntersectionNode(Link linkA, Link linkB) {
+		if (linkA == null || linkB == null)
+			return null;
+		while (linkA != null && linkB != null) {
+			if (linkA.getKey() == linkB.getKey())
+				return linkA;
+			else {
+				linkA = linkA.next;
+				linkB = linkB.next;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Remove all elements from a linked list of integers that have value val.
+	 * 
+	 * Example
+	 * 
+	 * Given: 1 --> 2 --> 6 --> 3 --> 4 --> 5 --> 6, val = 6 Return: 1 --> 2 --> 3 --> 4 --> 5
+	 * 
+	 * @param head
+	 * @param val
+	 * @return
+	 */
+	public Link removeAllNodesWithValue(Link head, int val) {
+		Link temp = new Link(0);
+		temp.next = head;
+		Link p = temp; // new pointer points to temp
+		while (p.next != null) {
+			if (p.next.getKey() == val) {
+				Link tempNext = p.next;
+				p.next = tempNext.next;
+			} else {
+				p = p.next;
+			}
+		}
+		return temp.next;
+	}
+
+	/**
+	 * Given a linked list, swap every two adjacent nodes and return its head.
+	 * 
+	 * For example, given 1->2->3->4, you should return the list as 2->1->4->3.
+	 * 
+	 * Your algorithm should use only constant space. You may not modify the values in the list, only nodes itself can
+	 * be changed.
+	 * 
+	 * @param head
+	 * @return
+	 */
+	public Link swapNodesInPairs_1(Link head) {
+		if (head == null || head.next == null)
+			return head;
+		Link temp = new Link(0);
+		temp.next = head;
+		Link p = temp;
+		while (p.next != null && p.next.next != null) {
+			Link temp1 = p; // pointer to track first node
+			p = p.next;
+			temp1.next = p.next;
+
+			Link temp2 = p.next.next; // to track next node of the pair
+			p.next.next = p;
+			p.next = temp2;
+		}
+		return temp.next;
+	}
+
+	public Link swapNodesInPairs_2(Link head) {
+		if (head == null || head.next == null)
+			return head;
+		Link temp = new Link(0);
+		temp.next = head;
+
+		Link p1 = head;
+		Link p2 = head.next;
+		Link pre = temp;
+		while (p1 != null && p2 != null) {
+			pre.next = p2;
+
+			Link temp1 = p2.next;
+			p2.next = p1;
+			pre = p1;
+			p1.next = temp1;
+
+			p1 = p1.next;
+			if (temp1 != null)
+				p2 = temp1.next;
+		}
+		return temp.next;
+
+	}
+
 	public static void main(String[] args) {
 		MiscellaneousLLProblems prob = new MiscellaneousLLProblems();
 
@@ -354,7 +448,33 @@ public class MiscellaneousLLProblems {
 		// System.out.println(prob.oddEvenList(l.next).toString());
 		// prob.testRemoveDuplicates();
 		// prob.testCompletelyRemoveDuplicates();
-		prob.testPartitionListByValue();
+		// prob.testPartitionListByValue();
+		// prob.testRemoveAllNodesWithValue();
+		prob.testSwapNodesInPairs_1();
+	}
+
+	private void testSwapNodesInPairs_1() {
+		Link l1 = new Link(1);
+		Link l2 = new Link(2);
+		Link l3 = new Link(3);
+		Link l4 = new Link(4);
+		l1.next = l2;
+		l2.next = l3;
+		l3.next = l4;
+		System.out.println(l1.toString());
+		System.out.println(swapNodesInPairs_2(l1).toString());
+	}
+
+	private void testRemoveAllNodesWithValue() {
+		Link l1 = new Link(1);
+		Link l2 = new Link(3);
+		Link l3 = new Link(3);
+		Link l4 = new Link(4);
+		l1.next = l2;
+		l2.next = l3;
+		l3.next = l4;
+		System.out.println(l1.toString());
+		System.out.println(removeAllNodesWithValue(l1, 3).toString());
 	}
 
 	private void testRemoveDuplicates() {

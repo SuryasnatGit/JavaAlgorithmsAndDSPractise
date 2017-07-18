@@ -27,13 +27,13 @@ public class Arrays {
 		// System.out.print(intarr[j] + " ");
 		// }
 
-		int ar1[] = { 1, 12, 15, 26, 38 };
-		int ar2[] = { 2, 13, 17, 30, 45 };
+		int ar1[] = { 1, 12, 15, 26, 38, 47 };
+		int ar2[] = { 2, 13, 18, 30, 45, 53 };
 
 		int n1 = ar1.length;
 		int n2 = ar2.length;
 		if (n1 == n2) {
-			// System.out.println("Median is " + arrays.medianOfSortedArrays1(ar1, ar2, n1));
+			System.out.println("Median is " + arrays.medianOfSortedArrays1(ar1, ar2, n1));
 			System.out.println("Median is " + arrays.medianOfSortedArrays2(ar1, ar2));
 		} else
 			System.out.println("arrays are of unequal size");
@@ -295,6 +295,13 @@ public class Arrays {
 		return (m1 + m2) / 2;
 	}
 
+	/**
+	 * Complexity - O(logN)
+	 * 
+	 * @param a
+	 * @param b
+	 * @return
+	 */
 	public int medianOfSortedArrays2(int[] a, int[] b) {
 		int m = a.length;
 		int n = b.length;
@@ -307,8 +314,9 @@ public class Arrays {
 	}
 
 	private int medianOfKth(int[] a, int[] b, int k, int startA, int endA, int startB, int endB) {
-		int lenA = startA - endA + 1;
-		int lenB = startB - endB + 1;
+		int lenA = endA - startA + 1;
+		int lenB = endB - startB + 1;
+		// special cases
 		if (lenA == 0)
 			return b[startB + k];
 		if (lenB == 0)
