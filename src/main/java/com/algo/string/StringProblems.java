@@ -28,7 +28,8 @@ public class StringProblems {
 		// System.out.println(p.isIsomorphicStrings("att", "bad"));
 		char[] arr = { 'm', 'y', ' ', 't', ' ' };
 
-		System.out.println(sp.urlifyString(new String(arr), 4));
+		// System.out.println(sp.urlifyString(new String(arr), 4));
+		System.out.println(sp.asciiToInt("-2147483"));
 		// System.out.println(sp.urlifyString("Mr John Smith ", 20));
 	}
 
@@ -268,6 +269,59 @@ public class StringProblems {
 		}
 
 		return new String(charArray);
+	}
+
+	/**
+	 * Implement atoi to convert a string to an integer.
+	 * 
+	 * Hint: Carefully consider all possible input cases. If you want a challenge, please do not see below and ask
+	 * yourself what are the possible input cases.
+	 * 
+	 * Analysis
+	 * 
+	 * The following cases should be considered for this problem:
+	 * 
+	 * 1. null or empty string 2. white spaces 3. +/- sign 4. calculate real value 5. handle min & max
+	 * 
+	 * @param input
+	 * @return
+	 */
+	public int asciiToInt(String input) {
+		System.out.println("input :" + input);
+		if (input == null || input.length() < 1)
+			return 0;
+
+		// trim white space
+		input = input.trim();
+
+		// check negative or positive
+		char flag = '+';
+		int i = 0;
+		if (input.charAt(0) == '-') {
+			flag = '-';
+			i++;
+		} else if (input.charAt(0) == '+') {
+			i++;
+		}
+
+		// calculate value
+		double res = 0;
+		while (input.length() > i && input.charAt(i) >= '0' && input.charAt(i) <= '9') {
+			res = res * 10 + (input.charAt(i) - '0');
+			i++;
+		}
+
+		// check sign
+		if (flag == '-')
+			res = -res;
+
+		// check int limits
+		if (res > Integer.MAX_VALUE)
+			return Integer.MAX_VALUE;
+		else if (res < Integer.MIN_VALUE)
+			return Integer.MIN_VALUE;
+
+		return (int) res;
 	}
 
 }

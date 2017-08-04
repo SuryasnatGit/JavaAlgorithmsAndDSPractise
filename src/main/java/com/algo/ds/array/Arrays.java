@@ -1,5 +1,11 @@
 package com.algo.ds.array;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.PriorityQueue;
 
 public class Arrays {
@@ -7,10 +13,10 @@ public class Arrays {
 	public static void main(String[] args) {
 
 		Arrays arrays = new Arrays();
-		String s = "the dog is black";
-		System.out.println(s);
-		System.out.println(arrays.reverseWordsinString1(s.toCharArray()));
-		System.out.println(arrays.reverseWordsInString2(s));
+		// String s = "the dog is black";
+		// System.out.println(s);
+		// System.out.println(arrays.reverseWordsinString1(s.toCharArray()));
+		// System.out.println(arrays.reverseWordsInString2(s));
 		/*
 		 * int[] a = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 		 * 
@@ -29,20 +35,38 @@ public class Arrays {
 		// System.out.print(intarr[j] + " ");
 		// }
 
-		int ar1[] = { 1, 12, 15, 26, 38, 47 };
-		int ar2[] = { 2, 13, 18, 30, 45, 53 };
+		// int ar1[] = { 1, 12, 15, 26, 38, 47 };
+		// int ar2[] = { 2, 13, 18, 30, 45, 53 };
+		//
+		// int n1 = ar1.length;
+		// int n2 = ar2.length;
+		// if (n1 == n2) {
+		// System.out.println("Median is " + arrays.medianOfSortedArrays1(ar1, ar2, n1));
+		// System.out.println("Median is " + arrays.medianOfSortedArrays2(ar1, ar2));
+		// } else
+		// System.out.println("arrays are of unequal size");
 
-		int n1 = ar1.length;
-		int n2 = ar2.length;
-		if (n1 == n2) {
-			System.out.println("Median is " + arrays.medianOfSortedArrays1(ar1, ar2, n1));
-			System.out.println("Median is " + arrays.medianOfSortedArrays2(ar1, ar2));
-		} else
-			System.out.println("arrays are of unequal size");
-		
-		System.out.println(arrays.kthLargestElementInArray(ar1, 4));
-		System.out.println(arrays.kthLargestElementInArray1(ar2, 4));
-		System.out.println(arrays.kthLargestElementInArray2(ar2, 1));
+		// System.out.println(arrays.kthLargestElementInArray(ar1, 4));
+		// System.out.println(arrays.kthLargestElementInArray1(ar2, 4));
+		// System.out.println(arrays.kthLargestElementInArray2(ar2, 1));
+
+		Interval i1 = arrays.new Interval(1, 3);
+		Interval i2 = arrays.new Interval(2, 6);
+		Interval i3 = arrays.new Interval(8, 10);
+		Interval i4 = arrays.new Interval(15, 18);
+		List<Interval> list = new ArrayList<>();
+		list.add(i3);
+		list.add(i2);
+		list.add(i1);
+		list.add(i4);
+
+		System.out.println("Output ->" + arrays.mergeIntervals(list));
+		System.out.println("Merged ->" + arrays.insertInterval(list, arrays.new Interval(4, 16)));
+
+		int[] arr = new int[] { 2, 7, 11, 15 };
+		int[] twoSum = arrays.twoSum_2(arr, 19);
+		for (int i = 0; i < twoSum.length; i++)
+			System.out.println(twoSum[i]);
 	}
 
 	public void reverse(int[] a) {
@@ -404,12 +428,10 @@ public class Arrays {
 		arr[right] = temp;
 
 	}
-	
+
 	/**
-	 * We can use a min heap to solve this problem. The heap stores the top k
-	 * elements. Whenever the size is greater than k, delete the min. Time
-	 * complexity is O(nlog(k)). Space complexity is O(k) for storing the top k
-	 * numbers.
+	 * We can use a min heap to solve this problem. The heap stores the top k elements. Whenever the size is greater
+	 * than k, delete the min. Time complexity is O(nlog(k)). Space complexity is O(k) for storing the top k numbers.
 	 * 
 	 * @param arr
 	 * @param k
@@ -417,11 +439,194 @@ public class Arrays {
 	 */
 	public int kthLargestElementInArray2(int[] arr, int k) {
 		PriorityQueue<Integer> pq = new PriorityQueue<>(k);
-		for(int i=0;i<arr.length;i++){
+		for (int i = 0; i < arr.length; i++) {
 			pq.offer(arr[i]);
-			if(pq.size() > k) 
+			if (pq.size() > k)
 				pq.poll();
 		}
 		return pq.peek();
+	}
+
+	/**
+	 * Given a collection of intervals, merge all overlapping intervals.
+	 * 
+	 * For example, Given [1,3],[2,6],[8,10],[15,18], return [1,6],[8,10],[15,18].
+	 * 
+	 * Analysis
+	 * 
+	 * The key to solve this problem is defining a Comparator first to sort the array list of Intervals.
+	 * 
+	 * @param input
+	 * @return
+	 */
+	public List<Interval> mergeIntervals(List<Interval> input) {
+		System.out.println("input ->" + input);
+		List<Interval> result = new ArrayList<>();
+
+		if (input == null || input.isEmpty())
+			return input;
+
+		// use comparator to sort
+		Collections.sort(input, new Comparator<Interval>() {
+			@Override
+			public int compare(Interval i1, Interval i2) {
+				if (i1.start != i2.start)
+					return i1.start - i2.start;
+				else
+					return i1.end - i2.end;
+			}
+		});
+
+		Interval pre = input.get(0);
+		for (int i = 0; i < input.size(); i++) {
+			Interval current = input.get(i);
+			if (current.start > pre.end) {
+				result.add(pre);
+				pre = current;
+			} else {
+				Interval merge = new Interval(pre.start, Math.max(pre.end, current.end));
+				pre = merge;
+			}
+		}
+		result.add(pre);
+
+		return result;
+	}
+
+	/**
+	 * Given a set of non-overlapping & sorted intervals, insert a new interval into the intervals (merge if necessary).
+	 * 
+	 * Example 1: Given intervals [1,3],[6,9], insert and merge [2,5] in as [1,5],[6,9].
+	 * 
+	 * Example 2: Given [1,2],[3,5],[6,7],[8,10],[12,16], insert and merge [4,9] in as [1,2],[3,10],[12,16].
+	 * 
+	 * This is because the new interval [4,9] overlaps with [3,5],[6,7],[8,10]. Thoughts of This Problem
+	 * 
+	 * Quickly summarize 3 cases. Whenever there is intersection, created a new interval.
+	 * 
+	 * @param input
+	 * @param newInterval
+	 * @return
+	 */
+	public List<Interval> insertInterval(List<Interval> input, Interval newInterval) {
+		List<Interval> result = new ArrayList<>();
+		for (Interval current : input) {
+			if (current.end < newInterval.start)
+				result.add(current);
+			else if (current.start > newInterval.end) {
+				result.add(newInterval);
+				newInterval = current;
+			} else if (current.end >= newInterval.start || current.start <= newInterval.end)
+				newInterval = new Interval(Math.min(current.start, newInterval.start),
+						Math.max(current.end, newInterval.end));
+		}
+		result.add(newInterval);
+		return result;
+	}
+
+	public class Interval {
+		int start;
+		int end;
+
+		public Interval(int start, int end) {
+			this.start = start;
+			this.end = end;
+		}
+
+		@Override
+		public String toString() {
+			return "Interval [start=" + start + ", end=" + end + "]";
+		}
+
+	}
+
+	/**
+	 * Given an array of integers, find two numbers such that they add up to a specific target number.
+	 * 
+	 * The function twoSum should return indices of the two numbers such that they add up to the target, where index1
+	 * must be less than index2. Please note that your returned answers (both index1 and index2) are not zero-based.
+	 * 
+	 * For example:
+	 * 
+	 * Input: numbers={2, 7, 11, 15}, target=9 Output: index1=0, index2=1 Java Solution
+	 * 
+	 * The optimal solution to solve this problem is using a HashMap. For each element of the array, (target-nums[i])
+	 * and the index are stored in the HashMap.
+	 * 
+	 * @param arr
+	 * @param target
+	 * @return
+	 */
+	public int[] twoSum_1(int[] arr, int target) {
+		if (arr == null || arr.length < 2)
+			return new int[] { 0, 0 };
+
+		Map<Integer, Integer> map = new HashMap<>();
+		for (int i = 0; i < arr.length; i++) {
+			if (map.containsKey(arr[i]))
+				return new int[] { map.get(arr[i]), i };
+			else
+				map.put(target - arr[i], i);
+		}
+		return new int[] { 0, 0 };
+	}
+
+	/**
+	 * Input array is sorted. To solve this problem, we can use two points to scan the array from both sides. See Java
+	 * solution below:
+	 * 
+	 * @param arr
+	 * @param target
+	 * @return
+	 */
+	public int[] twoSum_2(int[] arr, int target) {
+		if (arr == null || arr.length < 2)
+			return new int[] { 0, 0 };
+
+		int i = 0;
+		int j = arr.length - 1;
+		while (i < j) {
+			int sum = arr[i] + arr[j];
+			if (sum < target)
+				i++;
+			else if (sum > target)
+				j--;
+			else
+				return new int[] { i, j };
+		}
+		return new int[] { 0, 0 };
+	}
+
+	/**
+	 * Given two sorted integer arrays A and B, merge B into A as one sorted array.
+	 * 
+	 * Note: You may assume that A has enough space to hold additional elements from B. The number of elements
+	 * initialized in A and B are m and n respectively.
+	 * 
+	 * Analysis
+	 * 
+	 * The key to solve this problem is moving element of A and B backwards. If B has some elements left after A is
+	 * done, also need to handle that case.
+	 * 
+	 * @param a
+	 * @param m
+	 * @param b
+	 * @param n
+	 */
+	public void mergeSortedArrays(int[] a, int m, int[] b, int n) {
+		while (m > 0 && n > 0) {
+			if (a[m - 1] > b[n - 1]) {
+				a[m + n - 1] = a[m - 1];
+				m--;
+			} else {
+				a[m + n - 1] = b[n - 1];
+				n--;
+			}
+		}
+
+		while (n > 0) {
+			a[m + n - 1] = b[n - 1];
+			n--;
+		}
 	}
 }
