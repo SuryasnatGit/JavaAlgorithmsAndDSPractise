@@ -7,30 +7,31 @@ import com.algo.ds.stack.LinkedListStack;
 import com.algo.ds.stack.Stack;
 import com.algo.ds.tree.TreeNode;
 
-public class TreeTraversalUtility {
+public class TreeTraversalUtility<K, V> {
 
 	/**
-	 * Preorder binary tree traversal is a classic interview problem about trees. The key to solve this problem is to
-	 * understand the following:
-	 * 
-	 * What is preorder? (parent node is processed before its children) Use Stack from Java Core library The key is
-	 * using a stack to store left and right children, and push right child first so that it is processed after the left
-	 * child.<br/>
+	 * Preorder binary tree traversal is a classic interview problem about
+	 * trees. The key to solve this problem is to understand the following:
+	 * <br/>
+	 * What is preorder? (parent node is processed before its children) Use
+	 * Stack from Java Core library.<br/>
+	 * The key is using a stack to store left and right children, and push right
+	 * child first so that it is processed after the left child.<br/>
 	 * order is P-> LC -> RC
 	 * 
 	 * @param root
 	 * @return
 	 */
-	public List<Integer> preorderTraversal(TreeNode root) {
+	public List<Integer> preorderTraversal(TreeNode<K, V> root) {
 		List<Integer> list = new ArrayList<>();
 		if (root == null)
 			return list;
 
 		// define a stack
-		Stack<TreeNode> stack = new LinkedListStack<>();
+		Stack<TreeNode<K, V>> stack = new LinkedListStack<>();
 		stack.push(root);
 		while (!stack.isEmpty()) {
-			TreeNode node = stack.pop();
+			TreeNode<K, V> node = stack.pop();
 			list.add(node.value);
 			if (node.right != null)
 				stack.push(node.right);
@@ -51,19 +52,19 @@ public class TreeTraversalUtility {
 	 * @param root
 	 * @return
 	 */
-	public List<Integer> inorderTraversal_1(TreeNode root) {
+	public List<Integer> inorderTraversal_1(TreeNode<K, V> root) {
 		List<Integer> list = new ArrayList<>();
 		if (root == null)
 			return list;
 
-		Stack<TreeNode> stack = new LinkedListStack<>();
-		TreeNode p = root;
+		Stack<TreeNode<K, V>> stack = new LinkedListStack<>();
+		TreeNode<K, V> p = root;
 		while (!stack.isEmpty() || p != null) {
 			if (p != null) {
 				stack.push(p);
 				p = p.left;
 			} else {
-				TreeNode node = stack.pop();
+				TreeNode<K, V> node = stack.pop();
 				list.add(node.value);
 				node = node.right;
 			}
@@ -80,14 +81,14 @@ public class TreeTraversalUtility {
 	 * @param root
 	 * @return
 	 */
-	public List<Integer> inorderTraversal_2(TreeNode root) {
+	public List<Integer> inorderTraversal_2(TreeNode<K, V> root) {
 		if (root != null)
 			helper(root);
 
 		return list;
 	}
 
-	private void helper(TreeNode node) {
+	private void helper(TreeNode<K, V> node) {
 		if (node.left != null)
 			helper(node.left);
 
@@ -97,18 +98,18 @@ public class TreeTraversalUtility {
 			helper(node.right);
 	}
 
-	public List<Integer> inorderTraversal_3(TreeNode root) {
+	public List<Integer> inorderTraversal_3(TreeNode<K, V> root) {
 		List<Integer> list = new ArrayList<>();
-		Stack<TreeNode> stack = new LinkedListStack<>();
+		Stack<TreeNode<K, V>> stack = new LinkedListStack<>();
 
-		TreeNode p = root;
+		TreeNode<K, V> p = root;
 		// go to end of left edge
 		while (p != null) {
 			stack.push(p);
 			p = p.left;
 		}
 		while (!stack.isEmpty()) {
-			TreeNode node = stack.pop();
+			TreeNode<K, V> node = stack.pop();
 			list.add(node.value);
 			if (node.right != null) {
 				node = node.right;
@@ -121,7 +122,7 @@ public class TreeTraversalUtility {
 		return list;
 	}
 
-	public void postOrderTraversal_recursive(TreeNode root) {
+	public void postOrderTraversal_recursive(TreeNode<K, V> root) {
 		if (root != null) {
 			postOrderTraversal_recursive(root.left);
 			postOrderTraversal_recursive(root.right);
@@ -129,16 +130,18 @@ public class TreeTraversalUtility {
 		}
 	}
 
-	public List<Integer> postOrderTraversal_iterative(TreeNode root) {
+	public List<Integer> postOrderTraversal_iterative(TreeNode<K, V> root) {
 		List<Integer> list = new ArrayList<>();
-		Stack<TreeNode> stack = new LinkedListStack<>();
+		Stack<TreeNode<K, V>> stack = new LinkedListStack<>();
 
 		if (root == null)
 			return list;
 
 		stack.push(root);
 		while (!stack.isEmpty()) {
-			TreeNode temp = stack.top(); // we will just peek at the top rather than popping it tp determine if it's
+			TreeNode<K, V> temp = stack.top(); // we will just peek at the top
+												// rather than popping it tp
+												// determine if it's
 											// left child and right child are empty. if so then add the value to list.
 			if (temp.left == null && temp.right == null) {// this means the node is a child node
 				temp = stack.pop();
@@ -156,5 +159,51 @@ public class TreeTraversalUtility {
 			}
 		}
 		return list;
+	}
+
+	/**
+	 * recursive approach. time complexity is O(N^2) worst case
+	 * 
+	 * @param root
+	 */
+	public void levelOrderTraversal(TreeNode<K, V> root) {
+		int h = height(root);
+		for (int i = 1; i <= h; i++) {
+			printGivenLevel(root, i);
+		}
+	}
+
+	private void printGivenLevel(TreeNode<K, V> root, int level) {
+		if (root == null)
+			return;
+		if (level == 1)
+			System.out.print(root.value + " ");
+		else if (level > 1) {
+			printGivenLevel(root.left, level - 1);
+			printGivenLevel(root.right, level - 1);
+		}
+	}
+
+	private int height(TreeNode<K, V> root) {
+		if (root == null)
+			return 0;
+		else {
+			int lh = height(root.left);
+			int rh = height(root.right);
+			if (lh > rh)
+				return lh + 1;
+			else
+				return rh + 1;
+		}
+	}
+
+	public static void main(String[] args) {
+		TreeTraversalUtility<Integer, Integer> ut = new TreeTraversalUtility<>();
+		TreeNode<Integer, Integer> root = new TreeNode<>(1, 1);
+		root.left = new TreeNode<>(2, 2);
+		root.right = new TreeNode<>(3, 3);
+		root.left.left = new TreeNode<>(4, 4);
+		root.left.right = new TreeNode<>(5, 5);
+		ut.levelOrderTraversal(root);
 	}
 }
