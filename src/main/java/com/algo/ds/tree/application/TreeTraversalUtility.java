@@ -1,7 +1,11 @@
 package com.algo.ds.tree.application;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.algo.ds.stack.LinkedListStack;
 import com.algo.ds.stack.Stack;
@@ -10,13 +14,11 @@ import com.algo.ds.tree.TreeNode;
 public class TreeTraversalUtility<K, V> {
 
 	/**
-	 * Preorder binary tree traversal is a classic interview problem about
-	 * trees. The key to solve this problem is to understand the following:
-	 * <br/>
-	 * What is preorder? (parent node is processed before its children) Use
-	 * Stack from Java Core library.<br/>
-	 * The key is using a stack to store left and right children, and push right
-	 * child first so that it is processed after the left child.<br/>
+	 * Preorder binary tree traversal is a classic interview problem about trees. The key to solve this problem is to
+	 * understand the following: <br/>
+	 * What is preorder? (parent node is processed before its children) Use Stack from Java Core library.<br/>
+	 * The key is using a stack to store left and right children, and push right child first so that it is processed
+	 * after the left child.<br/>
 	 * order is P-> LC -> RC
 	 * 
 	 * @param root
@@ -142,7 +144,8 @@ public class TreeTraversalUtility<K, V> {
 			TreeNode<K, V> temp = stack.top(); // we will just peek at the top
 												// rather than popping it tp
 												// determine if it's
-											// left child and right child are empty. if so then add the value to list.
+												// left child and right child are empty. if so then add the value to
+												// list.
 			if (temp.left == null && temp.right == null) {// this means the node is a child node
 				temp = stack.pop();
 				list.add(temp.value);
@@ -197,6 +200,136 @@ public class TreeTraversalUtility<K, V> {
 		}
 	}
 
+	/**
+	 * Given a binary tree, return the bottom-up level order traversal of its nodes' values.
+	 * 
+	 * For example, given binary tree {3,9,20,#,#,15,7},
+	 * 
+	 * 3 / \ 9 20 / \ 15 7 return its level order traversal as [[15,7], [9,20],[3]]
+	 * 
+	 * @param root
+	 * @return
+	 */
+	public List<List<Integer>> levelOrderTraversal_bottomUp(TreeNode<K, V> root) {
+
+		List<List<Integer>> result = levelOrderTraversal_topDown(root);
+
+		// reverse the list
+		Collections.reverse(result);
+
+		return result;
+	}
+
+	/**
+	 * Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by
+	 * level).
+	 * 
+	 * For example: Given binary tree {3,9,20,#,#,15,7},
+	 * 
+	 * 3 / \ 9 20 / \ 15 7 return its level order traversal as [[3], [9,20], [15,7]]
+	 * 
+	 * Analysis
+	 * 
+	 * It is obvious that this problem can be solve by using a queue. However, if we use one queue we can not track when
+	 * each level starts. So we use two queues to track the current level and the next level.
+	 * 
+	 * @param root
+	 * @return
+	 */
+	public List<List<Integer>> levelOrderTraversal_topDown(TreeNode<K, V> root) {
+		List<List<Integer>> result = new ArrayList<>();
+
+		if (root == null)
+			return result;
+
+		LinkedList<TreeNode<K, V>> current = new LinkedList<>();// keep track of current level
+		LinkedList<TreeNode<K, V>> next = new LinkedList<>();// keep track of next level
+		current.offer(root);
+
+		List<Integer> numberList = new ArrayList<>();
+		while (!current.isEmpty()) {
+			TreeNode<K, V> head = current.poll();
+			numberList.add(head.value);
+			if (head.left != null)
+				next.offer(head.left);
+			if (head.right != null)
+				next.offer(head.right);
+
+			if (current.isEmpty()) {
+				current = next;
+				next = new LinkedList<>();
+				result.add(numberList);
+				numberList = new ArrayList<>();
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * Given a binary tree, return the vertical order traversal of its nodes' values. (ie, from top to bottom, column by
+	 * column).
+	 * 
+	 * Java Solution
+	 * 
+	 * For each node, its left child's degree is -1 and is right child's degree is +1. We can do a level order traversal
+	 * and save the degree information.
+	 * 
+	 * @param root
+	 * @return
+	 */
+	public List<List<Integer>> verticalOrderTraversal(TreeNode<K, V> root) {
+		List<List<Integer>> result = new ArrayList<>();
+
+		if (root == null)
+			return result;
+
+		Map<Integer, List<Integer>> map = new HashMap<>();
+
+		LinkedList<TreeNode<K, V>> queue = new LinkedList<>();
+		LinkedList<Integer> level = new LinkedList<>();
+
+		queue.offer(root);
+		level.offer(0);
+
+		int minLevel = 0;
+		int maxLevel = 0;
+
+		while (!queue.isEmpty()) {
+			TreeNode<K, V> p = queue.poll();
+			int l = level.poll();
+
+			minLevel = Math.min(minLevel, l);
+			maxLevel = Math.max(maxLevel, l);
+
+			if (map.containsKey(l)) {
+				map.get(l).add(p.value);
+			} else {
+				List<Integer> list = new ArrayList<>();
+				list.add(p.value);
+				map.put(l, list);
+			}
+
+			if (p.left != null) {
+				queue.offer(p.left);
+				level.offer(l - 1);
+			}
+
+			if (p.right != null) {
+				queue.offer(p.right);
+				level.offer(l + 1);
+			}
+		}
+
+		System.out.println(map);
+		for (int i = minLevel; i <= maxLevel; i++) {
+			if (map.containsKey(i)) {
+				result.add(map.get(i));
+			}
+		}
+
+		return result;
+	}
+
 	public static void main(String[] args) {
 		TreeTraversalUtility<Integer, Integer> ut = new TreeTraversalUtility<>();
 		TreeNode<Integer, Integer> root = new TreeNode<>(1, 1);
@@ -205,5 +338,9 @@ public class TreeTraversalUtility<K, V> {
 		root.left.left = new TreeNode<>(4, 4);
 		root.left.right = new TreeNode<>(5, 5);
 		ut.levelOrderTraversal(root);
+		System.out.println();
+		System.out.println(ut.levelOrderTraversal_topDown(root));
+		System.out.println(ut.levelOrderTraversal_bottomUp(root));
+		System.out.println(ut.verticalOrderTraversal(root));
 	}
 }

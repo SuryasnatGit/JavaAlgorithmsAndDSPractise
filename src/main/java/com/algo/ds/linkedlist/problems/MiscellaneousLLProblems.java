@@ -110,6 +110,126 @@ public class MiscellaneousLLProblems {
 	}
 
 	/**
+	 * Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.
+	 * 
+	 * If the number of nodes is not a multiple of k then left-out nodes in the end should remain as it is.
+	 * 
+	 * You may not alter the values in the nodes, only nodes itself may be changed.
+	 * 
+	 * Only constant memory is allowed.
+	 * 
+	 * For example, Given this linked list: 1->2->3->4->5
+	 * 
+	 * For k = 2, you should return: 2->1->4->3->5
+	 * 
+	 * For k = 3, you should return: 3->2->1->4->5
+	 * 
+	 * @param head
+	 * @param k
+	 * @return
+	 */
+	public Link reverseNodesInKGroup(Link head, int k) {
+		if (head == null || k == 1)
+			return head;
+
+		Link temp = new Link(0);
+		temp.next = head;
+
+		Link pre = temp;
+		Link p = head;
+		int i = 0;
+		while (p != null) {
+			i++;
+			if (i % k == 0) {
+				pre = reverse(pre, p.next);
+				p = pre.next;
+			} else {
+				p = p.next;
+			}
+		}
+		return temp.next;
+	}
+
+	/**
+	 * 0->1->2->3->4->5->6 | | pre next
+	 *
+	 * after calling pre = reverse(pre, next)
+	 * 
+	 * 0->3->2->1->4->5->6 | | pre next
+	 **/
+	private Link reverse(Link pre, Link next) {
+		Link last = pre.next;
+		Link curr = last.next;
+		while (curr != next) {
+			last.next = curr.next;
+			curr.next = pre.next;
+			pre.next = curr;
+			curr = last.next;
+		}
+		return last;
+	}
+
+	/**
+	 * Reverse a linked list from position m to n. Do it in-place and in one-pass.
+	 * 
+	 * For example: given 1->2->3->4->5->NULL, m = 2 and n = 4, return 1->4->3->2->5->NULL.
+	 * 
+	 * 
+	 * @param head
+	 * @param m
+	 * @param n
+	 * @return
+	 */
+	public Link reverseListBetween(Link head, int m, int n) {
+		if (head == null || m == n)
+			return head;
+
+		Link prev = null; // track (m-1)th node
+		Link first = new Link(0);// track mth mode
+		Link second = new Link(0);// track (n+1)th node
+
+		int i = 0;
+		Link p = head;
+		while (p != null) {
+			i++;
+
+			if (i == m - 1)
+				prev = p;
+
+			if (i == m)
+				first.next = p;
+
+			if (i == n) {
+				second.next = p.next;
+				p.next = null;
+			}
+
+			p = p.next;
+		}
+
+		if (first.next == null)
+			return head;
+
+		Link p1 = first.next;
+		Link p2 = p1.next;
+		p1.next = second.next;
+
+		while (p1 != null && p2 != null) {
+			Link temp = p2.next;
+			p2.next = p1;
+			p1 = p2;
+			p2 = temp;
+		}
+
+		if (prev != null)
+			prev.next = p1;
+		else
+			return p1;
+
+		return head;
+	}
+
+	/**
 	 * A linked list is given such that each node contains an additional random pointer which could point to any node in
 	 * the list or null.
 	 * 
@@ -450,7 +570,22 @@ public class MiscellaneousLLProblems {
 		// prob.testCompletelyRemoveDuplicates();
 		// prob.testPartitionListByValue();
 		// prob.testRemoveAllNodesWithValue();
-		prob.testSwapNodesInPairs_1();
+		// prob.testSwapNodesInPairs_1();
+		prob.testReverseNodesInKGroup();
+	}
+
+	private void testReverseNodesInKGroup() {
+		Link l1 = new Link(1);
+		Link l2 = new Link(2);
+		Link l3 = new Link(3);
+		Link l4 = new Link(4);
+		Link l5 = new Link(5);
+		l1.next = l2;
+		l2.next = l3;
+		l3.next = l4;
+		l4.next = l5;
+		System.out.println(l1.toString());
+		System.out.println(reverseNodesInKGroup(l1, 3).toString());
 	}
 
 	private void testSwapNodesInPairs_1() {

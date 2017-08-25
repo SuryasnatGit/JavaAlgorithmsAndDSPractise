@@ -176,6 +176,81 @@ public class LeetCodeProblems {
 		return result;
 	}
 
+	/**
+	 * Given a linked list, remove the nth node from the end of list and return its head.
+	 * 
+	 * For example, given linked list 1->2->3->4->5 and n = 2, the result is 1->2->3->5.
+	 * 
+	 * 2 pass solution - Calculate the length first, and then remove the nth from the beginning.
+	 * 
+	 * @param head
+	 * @param n
+	 * @return
+	 */
+	public Link removeNthNodeFromEnd_1(Link head, int n) {
+		if (head == null)
+			return head;
+
+		// calculate the length
+		Link p = head;
+		int i = 0;
+		while (p != null) {
+			i++;
+			p = p.next;
+		}
+
+		// if 1st node is being removed.
+		int fromStart = i - n + 1;
+		if (fromStart == 1)
+			return head.next;
+
+		// if node to be removed is not first one
+		p = head;
+		i = 0;
+		while (p != null) {
+			i++;
+			if (i == fromStart - 1) {
+				p.next = p.next.next;
+			}
+			p = p.next;
+		}
+		return head;
+	}
+
+	/**
+	 * One pass solution - Use fast and slow pointers. The fast pointer is n steps ahead of the slow pointer. When the
+	 * fast reaches the end, the slow pointer points at the previous element of the target element.
+	 * 
+	 * @param head
+	 * @param n
+	 * @return
+	 */
+	public Link removeNthNodeFromEnd_2(Link head, int n) {
+		if (head == null)
+			return head;
+
+		Link fast = head;
+		Link slow = head;
+
+		// advance fast pointer by n steps
+		for (int i = 0; i < n; i++) {
+			fast = fast.next;
+		}
+
+		// check if 1st node is being removed
+		if (fast == null)
+			return head.next;
+
+		while (fast.next != null) {
+			fast = fast.next;
+			slow = slow.next;
+		}
+
+		slow.next = slow.next.next;
+
+		return head;
+	}
+
 	public static void main(String[] args) {
 		Map<Integer, Integer> map = new HashMap<>();
 		map.put(10, 10);
