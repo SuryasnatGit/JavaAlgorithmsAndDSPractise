@@ -51,8 +51,7 @@ public class BinaryTreeUtil<K, V> {
 	 * Inorder traversal of BST retrieves elements of tree in the sorted order. The inorder traversal uses stack to
 	 * store to be explored nodes of tree (threaded tree avoids stack and recursion for traversal, see this post). The
 	 * idea is to keep track of popped elements which participate in the order statics. Hypothetical algorithm is
-	 * provided below,
-	 * 
+	 * provided below, Problem with this approach - this takes extra space.<br/>
 	 * Time complexity: O(n) where n is total nodes in tree
 	 * 
 	 * kth largest element will be (n-k)th smallest element

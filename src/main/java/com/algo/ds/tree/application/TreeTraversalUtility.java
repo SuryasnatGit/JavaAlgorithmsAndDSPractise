@@ -100,6 +100,12 @@ public class TreeTraversalUtility<K, V> {
 			helper(node.right);
 	}
 
+	/**
+	 * inorder traversal using stack
+	 * 
+	 * @param root
+	 * @return
+	 */
 	public List<Integer> inorderTraversal_3(TreeNode<K, V> root) {
 		List<Integer> list = new ArrayList<>();
 		Stack<TreeNode<K, V>> stack = new LinkedListStack<>();
@@ -328,6 +334,40 @@ public class TreeTraversalUtility<K, V> {
 		}
 
 		return result;
+	}
+
+	/**
+	 * Using Morris Traversal, we can traverse the tree without using stack and recursion. The idea of Morris Traversal
+	 * is based on Threaded Binary Tree. In this traversal, we first create links to Inorder successor and print the
+	 * data using these links, and finally revert the changes to restore original tree.
+	 * 
+	 * @param root
+	 */
+	public void morrisTraversal(TreeNode<K, V> root) {
+		TreeNode<K, V> curr, pre;
+		if (root == null)
+			return;
+		curr = root;
+		while (curr != null) {
+			if (curr.left == null) {
+				System.out.println(curr.value + " ");
+				curr = curr.right;
+			} else {
+				pre = curr.left;
+				while (pre.right != null && pre.right != curr)
+					pre = pre.right;
+
+				if (pre.right == null) {
+					pre.right = curr;
+					curr = curr.left;
+				} else {
+					// restore
+					pre.right = null;
+					System.out.println(curr.value);
+					curr = curr.right;
+				}
+			}
+		}
 	}
 
 	public static void main(String[] args) {

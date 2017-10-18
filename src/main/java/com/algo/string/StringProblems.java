@@ -28,7 +28,7 @@ public class StringProblems {
 		// System.out.println(p.isIsomorphicStrings("att", "bad"));
 		char[] arr = { 'm', 'y', ' ', 't', ' ' };
 
-		// System.out.println(sp.urlifyString(new String(arr), 4));
+		System.out.println(sp.urlifyString(new String("my name is     "), 10));
 		System.out.println(sp.asciiToInt("-2147483"));
 		// System.out.println(sp.urlifyString("Mr John Smith ", 20));
 	}
@@ -234,37 +234,24 @@ public class StringProblems {
 	 */
 	public String urlifyString(String input, int trueLength) {
 		char[] charArray = input.toCharArray();
-		// length of string
-		int currLength = charArray.length;
 		int spaceLength = 0;
-		int index = trueLength - 1;
+
 		// calculate space length
-		for (int i = 0; i < index; i++) {
+		for (int i = 0; i < trueLength; i++) {
 			if (charArray[i] == ' ')
 				spaceLength++;
 		}
 
-		// // truncate trailing spaces and re-calculate new length
-		// while (charArray[currLength - 1] == ' ') {
-		// spaceLength--;
-		// currLength--;
-		// }
+		int newLength = trueLength + 2 * spaceLength;
 
-		int newIndex = index + 2 * spaceLength;
-
-		// string termination
-		charArray[newIndex + 1] = '\0';
-
-		if (newIndex > trueLength)
-			return "null";
-
-		for (int i = index - 1; i >= 0; i--) {
-			if (charArray[i] == ' ') {
-				charArray[newIndex] = '0';
-				charArray[newIndex - 1] = '2';
-				charArray[newIndex - 2] = '%';
+		for (int i = trueLength - 1, j = newLength - 1; i >= 0; i--) {
+			char c = charArray[i];
+			if (c == ' ') {
+				charArray[j--] = '0';
+				charArray[j--] = '2';
+				charArray[j--] = '%';
 			} else {
-				charArray[newIndex--] = charArray[i];
+				charArray[j--] = c;
 			}
 		}
 

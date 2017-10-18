@@ -100,13 +100,13 @@ public class Palindrome {
 	}
 
 	/**
-	 * Instead of first traversing over the string ss for finding the number of occurences of each element and then
-	 * determining the countcount of characters with odd number of occurences in ss, we can determine the value of
-	 * countcount on the fly while traversing over ss.
+	 * Instead of first traversing over the string s for finding the number of occurrences of each element and then
+	 * determining the count of characters with odd number of occurrences in s, we can determine the value of count on
+	 * the fly while traversing over s.
 	 * 
-	 * Time complexity : O(n)O(n). We traverse over the string ss of length nn once only.
+	 * Time complexity : O(n). We traverse over the string s of length n once only.
 	 * 
-	 * Space complexity : O(128)O(128). A mapmap of constant size(128) is used.
+	 * Space complexity : O(128). A map of constant size(128) is used.
 	 * 
 	 * @param input
 	 * @return
@@ -126,23 +126,23 @@ public class Palindrome {
 	}
 
 	/**
-	 * Another modification of the last approach could be by making use of a setset for keeping track of the number of
-	 * elements with odd number of occurences in ss. For doing this, we traverse over the characters of the string ss.
-	 * Whenver the number of occurences of a character becomes odd, we put its entry in the setset. Later on, if we find
-	 * the same element again, lead to its number of occurences as even, we remove its entry from the setset. Thus, if
-	 * the element occurs again(indicating an odd number of occurences), its entry won't exist in the setset.
+	 * Another modification of the last approach could be by making use of a set for keeping track of the number of
+	 * elements with odd number of occurrences in s. For doing this, we traverse over the characters of the string s.
+	 * Whenever the number of occurrences of a character becomes odd, we put its entry in the set. Later on, if we find
+	 * the same element again, lead to its number of occurrences as even, we remove its entry from the set. Thus, if the
+	 * element occurs again(indicating an odd number of occurrences), its entry won't exist in the set.
 	 * 
-	 * Based on this idea, when we find a character in the string ss that isn't present in the setset(indicating an odd
-	 * number of occurences currently for this character), we put its corresponding entry in the setset. If we find a
-	 * character that is already present in the setset(indicating an even number of occurences currently for this
-	 * character), we remove its corresponding entry from the setset.
+	 * Based on this idea, when we find a character in the string s that isn't present in the set(indicating an odd
+	 * number of occurrences currently for this character), we put its corresponding entry in the set. If we find a
+	 * character that is already present in the set(indicating an even number of occurrences currently for this
+	 * character), we remove its corresponding entry from the set.
 	 * 
-	 * At the end, the size of setset indicates the number of elements with odd number of occurences in ss. If it is
-	 * lesser than 2, a palindromic permutation of the string ss is possible, otherwise not.
+	 * At the end, the size of set indicates the number of elements with odd number of occurrences in s. If it is lesser
+	 * than 2, a palindromic permutation of the string s is possible, otherwise not.
 	 * 
-	 * Time complexity : O(n)O(n). We traverse over the string ss of length nn once only.
+	 * Time complexity : O(n). We traverse over the string s of length n once only.
 	 * 
-	 * Space complexity : O(n)O(n). The setset can grow upto a maximum size of nn in case of all distinct elements.
+	 * Space complexity : O(n)O(n). The set can grow upto a maximum size of n in case of all distinct elements.
 	 * 
 	 * @param input
 	 * @return

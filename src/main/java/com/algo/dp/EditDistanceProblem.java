@@ -6,9 +6,9 @@ public class EditDistanceProblem {
 	 * Complexity - O(3^n) if 3 is the number of operations (insert, remove, replace)
 	 * 
 	 * @param s1
-	 *            string 1
+	 *            source string 1
 	 * @param s2
-	 *            string 2
+	 *            target string 2
 	 * @param m
 	 *            length of s1
 	 * @param n
