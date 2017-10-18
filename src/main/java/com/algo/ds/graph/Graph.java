@@ -1,5 +1,9 @@
 package com.algo.ds.graph;
 
+
+import java.util.Iterator;
+import java.util.LinkedList;
+
 import com.algo.ds.queue.QueueAsArray;
 import com.algo.ds.stack.StackAsArray;
 
@@ -11,16 +15,22 @@ public class Graph {
 	private int numVer;
 	private StackAsArray stack;
 	private QueueAsArray queue;
+    // array of linked lists for adjacency list
+    private LinkedList<Integer>[] adjList;
 	
-	public Graph() {
+    public Graph(int n) {
 		vertexArray = new Vertex[MAX_VERTEX];
 		adjMatrix = new int[MAX_VERTEX][MAX_VERTEX];
-		numVer = 0;
+        numVer = n;
 		for(int i=0;i<MAX_VERTEX;i++)
 			for(int j=0;j<MAX_VERTEX;j++)
 				adjMatrix[i][j] = 0; // initialize
 		stack = new StackAsArray(MAX_VERTEX);
 		queue = new QueueAsArray(MAX_VERTEX);
+        // for adjacency list
+        adjList = new LinkedList[numVer];
+        for (int i = 0; i < numVer; i++)
+            adjList[i] = new LinkedList<>();
 	}
 	
 	public void addVertex(char l){
@@ -109,6 +119,36 @@ public class Graph {
 		}
 	}
 	
+    public void addEdge_adjList(int v, int w) {
+        adjList[v].add(w);
+    }
+
+    public void bfs_adjacencyList(int n) {
+        // checker for vertex visited or not. by default its valse
+        boolean[] isVisited = new boolean[n];
+
+        // create a queue for BFS
+        LinkedList<Integer> queue = new LinkedList<>();
+        isVisited[n] = true; // its visited
+        queue.add(n);
+
+        while (!queue.isEmpty()) {
+            // remove element from queue
+            Integer elem = queue.poll();
+            System.out.println(elem);
+            // Get all adjacent vertices of the dequeued vertex elem
+            // If a adjacent has not been visited, then mark it visited and enqueue it
+            for (Iterator<Integer> iter = adjList[elem].iterator(); iter.hasNext();) {
+                Integer next = iter.next();
+                if (!isVisited[next]) {
+                    isVisited[next] = true;
+                    queue.add(next);
+                }
+            }
+        }
+
+    }
+
 	public void minimumSpanningTree(){
 		vertexArray[0].wasVisited = true; // start at 0, mark it and push it.
 		stack.push((char)0);

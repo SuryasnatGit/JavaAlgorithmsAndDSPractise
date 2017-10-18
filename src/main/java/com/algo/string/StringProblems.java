@@ -219,8 +219,8 @@ public class StringProblems {
 	}
 
 	/**
-	 * Write a method to replace all the spaces in a string with ‘%20’. You may assume that the string has sufficient
-	 * space at the end to hold the additional characters, and that you are given the “true” length of the string.
+	 * Write a method to replace all the spaces in a string with ï¿½%20ï¿½. You may assume that the string has sufficient
+	 * space at the end to hold the additional characters, and that you are given the ï¿½trueï¿½ length of the string.
 	 * 
 	 * Examples:
 	 * 
@@ -311,4 +311,36 @@ public class StringProblems {
 		return (int) res;
 	}
 
+    /**
+     * We are playing the Guess Game. The game is as follows: I pick a number from 1 to n. You have to guess which
+     * number I picked. Every time you guess wrong, I'll tell you whether the number is higher or lower. You call a
+     * pre-defined API guess(int num) which returns 3 possible results (-1, 1, or 0): <br>
+     * -1 : My number is lower <br>
+     * 1 : My number is higher <br>
+     * 0 : Congrats! You got it! <br>
+     * Binary search problem
+     * 
+     * @param n
+     * @return
+     */
+    public int guessNumber(int n) {
+        int low = 1;
+        int high = n;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int result = guess(mid);
+            if (result == 0)
+                return mid;
+            else if (result == 1)
+                high = mid - 1;
+            else
+                low = mid + 1;
+        }
+        return -1;
+    }
+
+    private int guess(int mid) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }
