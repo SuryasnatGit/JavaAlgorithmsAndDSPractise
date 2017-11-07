@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.algo.ds.linkedlist.Position;
 
-public abstract class AbstractBinaryTree<E> extends AbstractTree<E> implements BinaryTree<E> {
+public abstract class AbstractBinaryTree<E> extends AbstractTree<E> implements IBinaryTree<E> {
 
 	@Override
 	public Position<E> sibling(Position<E> p) throws IllegalArgumentException {

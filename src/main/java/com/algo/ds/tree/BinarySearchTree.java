@@ -1,5 +1,16 @@
 package com.algo.ds.tree;
 
+/**
+ * Binary Search Tree, is a node-based binary tree data structure which has the following properties: <br/>
+ * 
+ * The left subtree of a node contains only nodes with keys less than the node’s key. <br/>
+ * The right subtree of a node contains only nodes with keys greater than the node’s key. <br/>
+ * The left and right subtree each must also be a binary search tree. <br/>
+ * There must be no duplicate nodes.
+ * 
+ * @author Suryasnat
+ *
+ */
 public class BinarySearchTree {
 
 	private class Node {
@@ -116,7 +127,7 @@ public class BinarySearchTree {
 		}
 
 		// case 3: when current(node to be deleted) has only right child
-		if (current.rightChild == null) {
+		if (current.leftChild == null) {
 			if (current == root)
 				root = null;
 			else {

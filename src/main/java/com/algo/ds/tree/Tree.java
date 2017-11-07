@@ -1,11 +1,8 @@
 package com.algo.ds.tree;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import com.algo.ds.linkedlist.Position;
-import com.algo.ds.tree.LinkedBinaryTree.Node;
 
 public interface Tree<E> extends Iterable<E> {
 
@@ -26,8 +23,7 @@ public interface Tree<E> extends Iterable<E> {
 	Position<E> parent(Position<E> p) throws IllegalArgumentException;
 
 	/**
-	 * returns an iterable collection containing the children of position p, if
-	 * any
+	 * returns an iterable collection containing the children of position p, if any
 	 * 
 	 * @param p
 	 * @return
