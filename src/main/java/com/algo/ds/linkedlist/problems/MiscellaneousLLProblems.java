@@ -273,6 +273,7 @@ public class MiscellaneousLLProblems {
 		if (head == null)
 			return head;
 
+		// 1. copy next
 		RandomLink current = head;
 		while (current != null) {
 			RandomLink temp = new RandomLink();
@@ -281,12 +282,14 @@ public class MiscellaneousLLProblems {
 			current = current.next.next;
 		}
 
+		// 2. reset current and copy random
 		current = head;
 		while (current != null) {
 			current.next.random = current.random.next;
 			current = current.next.next;
 		}
 
+		// 3. reset head and split
 		current = head;
 		RandomLink copy = head.next;
 		// separate the lists
