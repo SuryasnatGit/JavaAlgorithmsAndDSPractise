@@ -1,5 +1,14 @@
 package com.algo.ds.tree;
 
+/**
+ * "A binary tree is threaded by making all right child pointers that would normally be null point to the inorder
+ * successor of the node (if it exists), and all left child pointers that would normally be null point to the inorder
+ * predecessor of the node. <br/>
+ * Single Threaded: each node is threaded towards either the in-order predecessor or successor (left or right).
+ * 
+ * @author Suryasnat
+ *
+ */
 public class SingleThreadedBinaryTree {
 
 	class Node {

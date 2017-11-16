@@ -105,9 +105,10 @@ public class LinkList {
 
 	public void printList(Node head) {
 		while (head != null) {
-			System.out.println(head.data);
+			System.out.print(head.data + "->");
 			head = head.next;
 		}
+		System.out.println("NULL");
 	}
 
 	public Node find(Node head, int data) {
