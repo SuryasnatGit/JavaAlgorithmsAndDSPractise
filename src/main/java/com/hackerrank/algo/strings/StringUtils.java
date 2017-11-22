@@ -1,5 +1,10 @@
 package com.hackerrank.algo.strings;
 
+
+import java.util.HashSet;
+import java.util.Set;
+
+
 public class StringUtils {
 
 	/**
@@ -76,6 +81,52 @@ public class StringUtils {
 			System.out.println(++count);
 	}
 
+    public void marsExploration(String input) {
+        String sos = "SOS";
+        int c = 0;
+        for (int j = 0; j < input.length(); j++) {
+            for (int i = 0; i < sos.length(); i++) {
+                if (sos.charAt(i) != input.charAt(j))
+                    c++;
+            }
+        }
+        System.out.println(c);
+
+    }
+
+    private Set<Integer> weightedUniformString(String input) {
+        Set<Integer> set = new HashSet<>();
+        int weight = 0;
+        char prev = ' ';
+        for (int i = 0; i < input.length(); i++) {
+            char curr = input.charAt(i);
+            if (curr != prev)
+                weight = 0;
+            weight += curr - 'a' + 1;
+            set.add(weight);
+            prev = curr;
+        }
+        return set;
+    }
+
+    private int separateTheNumbers(String input) {
+        if (input.charAt(0) == '0')
+            return -1;
+
+        for (int length = 1; length * 2 <= input.length(); length++) {
+            int firstNumber = Integer.parseInt(input.substring(0, length));
+            StringBuilder sb = new StringBuilder();
+            int number = firstNumber;
+            while (sb.length() < input.length()) {
+                sb.append(number);
+                number++;
+            }
+            if (sb.toString().equals(input))
+                return firstNumber;
+        }
+        return -1;
+    }
+
 	// public void numberSeparator(String input){
 	// for(char c : input.toCharArray()){
 	// Integer.parseInt(c);
@@ -93,9 +144,11 @@ public class StringUtils {
 		// su.reducedString("aaabcc");
 		// su.reducedString("aaabbcc");
 		// su.reducedString("aabbcc");
-		su.camelCase("theMainProblemIsMoney");
-		su.camelCase("the");
-		su.camelCase("");
+        // su.camelCase("theMainProblemIsMoney");
+        // su.camelCase("the");
+        // su.camelCase("");
+        su.marsExploration("SOSSPSSQSSOR");
+        su.marsExploration("SOSSOT");
 	}
 
 }

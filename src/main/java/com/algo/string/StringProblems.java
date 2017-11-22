@@ -10,7 +10,7 @@ public class StringProblems {
 
 	public static void main(String[] args) {
 		StringProblems sp = new StringProblems();
-		// p.stringPermutations("TABLE");
+        sp.stringPermutations("TABLE");
 		// System.out.println(p.isUniqueString("surya"));
 		// System.out.println(p.isUniqueString("suryasnat"));
 		// System.out.println(p.isUniqueString("tableta"));
@@ -33,7 +33,7 @@ public class StringProblems {
 		// System.out.println(sp.urlifyString("Mr John Smith ", 20));
 	}
 
-	private void stringPermutations(String str) {
+    public void stringPermutations(String str) {
 		permutations(str, "");
 	}
 
