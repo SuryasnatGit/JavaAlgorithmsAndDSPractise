@@ -263,6 +263,64 @@ public class StringUtils {
 		return true;
 	}
 
+	/**
+	 * The IsNumber function takes a String and returns true if that string is a number, and false otherwise. This
+	 * implementation, however, has several bugs in it. Your task is to find and fix those bugs. Please note that you
+	 * should be fixing bugs in this implementation, not implementing your own version.
+	 * 
+	 * Parameters: - Numbers should be base-10 only. They may be negative, and may have decimal portions</br/>
+	 * - Numbers should not have any size restrictions (as might be imposed by the sizes of doubles or longs)</br/>
+	 * - Numbers should not have any extra characters, such as whitespace or letters</br/>
+	 * - Numbers should not have leading zeros (007 is a secret agent, not a number) - 0.5, .01, 9., and 1.000 are all
+	 * numbers, however. 00.5 is not.
+	 * 
+	 * Keep in mind that an engineer will be reviewing your code, and write it in a way that would pass a peer code
+	 * review
+	 * 
+	 * INCOMPLETE!!!! some test cases don't pass
+	 */
+	boolean isNumber(String toTest) {
+		boolean hasNonZeroChar = false;
+		boolean decimalEncountered = false;
+		int numberOfDecimals = 0;
+		if (toTest != null) {
+			int ind = toTest.indexOf(".");
+			for (int i = 0; i < toTest.length(); i++) {
+				char c = toTest.charAt(i);
+				if (c == '.') {
+					decimalEncountered = true;
+					numberOfDecimals++;
+					if (numberOfDecimals > 1)
+						return false;
+					continue;
+				} else if (c >= '1' && c < '9') {
+					hasNonZeroChar = true;
+				} else if (c == '0') {
+					if (!hasNonZeroChar) {
+						if (i < toTest.length() - 1) {
+							char nextCharAfter = toTest.charAt(i + 1);
+							if (nextCharAfter == '.')
+								continue;
+							else if (nextCharAfter >= '1' && nextCharAfter < '9')
+								hasNonZeroChar = true;
+							else if (!hasNonZeroChar)
+								return false;
+						} else
+							break;
+					}
+				} else if (c == '-') {
+					if (i != 0)
+						return false;
+				} else if ((c >= 'A' && c < 'Z') || (c >= 'a' && c < 'z')) {
+					return false;
+				}
+			}
+			return true;
+		}
+		return false;
+
+	}
+
 	// public void numberSeparator(String input){
 	// for(char c : input.toCharArray()){
 	// Integer.parseInt(c);
@@ -275,6 +333,18 @@ public class StringUtils {
 	//
 	public static void main(String[] args) {
 		StringUtils su = new StringUtils();
+		System.out.println("Expected : false . Actual : " + su.isNumber("00.5"));// pass F
+		System.out.println("Expected : false . Actual : " + su.isNumber("007")); // pass F
+		System.out.println("Expected : true . Actual : " + su.isNumber("0.5")); // pass T
+		System.out.println("Expected : true . Actual : " + su.isNumber(".05")); // fail T
+		System.out.println("Expected : false . Actual : " + su.isNumber("00 5")); // pass F
+		System.out.println("Expected : false . Actual : " + su.isNumber("5ER")); // pass F
+		System.out.println("Expected : true . Actual : " + su.isNumber("9.")); // pass T
+		System.out.println("Expected : true . Actual : " + su.isNumber("1.000"));// pass T
+		System.out.println("Expected : false . Actual : " + su.isNumber("aq6")); // pass
+		System.out.println("Expected : false . Actual : " + su.isNumber("9.3e")); // pass
+		System.out.println("Expected : false . Actual : " + su.isNumber("0.5.5")); // pass F
+		System.out.println("Expected : true . Actual : " + su.isNumber("0.0002")); // fail F
 		// su.starcase(8);
 		// su.reducedString("aaabccc");
 		// su.reducedString("aaabcc");
@@ -295,9 +365,9 @@ public class StringUtils {
 		// su.challengingPalindromes("bac", "bac");
 		// su.challengingPalindromes("abc", "def");
 		// su.challengingPalindromes("jdfh", "fds");
-		su.challengingPalindromes(
-				"piiylotxanmkcljvyycmrtscndzivghxaigwxskrksqjokvncectsfxpgyorkufsaaciqgncvxtghwtpbnfskrmpzcymxugwjdixjrijytxlcasqpdljzlnxvpsbjqekrunuehmhngyumgjhboeobqnlifeskivabbaeputxuurwpowhfusacejxomosqbomleugdhzlvtzvjkzpfzyczivpioarkaxawrpxyzosglxxlpwnwnlzfjdldrffudmywwpjtlkxmoirwvolekxpmyhdyjaeqwknfpapuegircdowkuseybnbrcwscmlugzfkovxysypzekeedcemnkihrylizmakzwcdhqdxfkrvsqfhcliubnuwcjkdgpoynppagpzhmmovfuradzempdwjfvvtgmsalswwbvjahwerctoezqyyzosxhijgkzkspppvvljvedhurqyxrlhtezgphnbpuhgkmrclivkhnztoxsejnoepwpajuqrwzxnowqxqpjbxzsybtyafrqtleckzuxdlwouwijcghhgnsowijqphemojmzaieorvnbnswiuuyytmutivrdupcguvsgngmqwwskxgldlvdrmmaqhczctldsryaygnndfgjgnualnzrulirvgrhhpsozmstvdjcsmaachwigjscnapsumxpzlllvjjfoamemxuutilacvkeccfezywbftnbwyjtybgrjtqckytlhdzzuwqkcgesmfucyqpjlqxsjrjsnfuwbdcdqsajdimlrcvtjcxoettgxxjjbcnwunuuyeruotkwxkxctoveuneccenuevotcxkxwktoureyuunuwncbjjxxgtteoxcjtvcrlmidjasqdcdbwufnsjrjsxqljpqycufmsegcityhewgmvcakcxunuxogdvurumqogwljlfhysyjvvefpkbyibzeqfjhzymhdkdzueqdhnyvqtunonrxjnfbrukwlfitfmovpqn",
-				"rohznpyfcozugjybluvniqukmswcwsriwfqnhotbayaeqvyphrkwutqicjowqmqneitncvuazznjojvltijkfxgmuuxqaypftsrhsifdbppevhqedzpwomzrsdejwfsuuxekqwuzzdhltykcqtjrgbytjywbntfbwyzefccekvcalituuxmemaofjjvlllzpxmuspancsjgiwhcaamscjdvtsmzosphhrgvrilurznlaungjgfdnngyayrsdltczchqammrdvldlgxkswwqmgngsvugcpudrvitumtyyuuiwsnbnvroeiazmjomehpqjiwosnghhgcjiwuowldxuzkceltqrfaytbyszxbjpqxqwonxzwrqujapwpeonjesxotznhkvilcrmkghupbnhpgzethlrxyqruhdevjlvvpppskzkgjihxsozyyqzeotcrewhajvbwwslasmgtvvfjwdpmezdarufvommhzpgappnyopgdkjcwunbuilchfqsvrkfxdqhdcwzkamzilyrhiknmecdeekezpysyxvokfzgulmcswcrbnbyesukwodcrigeupapfnkwqeajydhympxkelovwriomxkltjpwwymduffrdldjfzlnwnwplxxlgsozyxprwaxakraoipvizcyzfpzkjvztvlzhdguelmobqsomoxjecasufhwopwruuxtupeabbaviksefilnqboeobhjgmuygnhmheunurkeqjbspvxnlzjldpqsaclxtyjirjxahdfhfrjsxyukjfmruwpjajjcvjbkxptgqcyxdcvaajmdhkbaaxqvzigybwniufucucbztnisvhqszvktilnagluptrwdgtcdzjjxcnwesqxffbxyuqmqvydzsruhxevqymjurmjnilnrkeepdsyysvbaeksozxfnzxewjrvcboxljnxjdxgfhtgrdxohnjtiynspkwgtn");
+		// su.challengingPalindromes(
+		// "piiylotxanmkcljvyycmrtscndzivghxaigwxskrksqjokvncectsfxpgyorkufsaaciqgncvxtghwtpbnfskrmpzcymxugwjdixjrijytxlcasqpdljzlnxvpsbjqekrunuehmhngyumgjhboeobqnlifeskivabbaeputxuurwpowhfusacejxomosqbomleugdhzlvtzvjkzpfzyczivpioarkaxawrpxyzosglxxlpwnwnlzfjdldrffudmywwpjtlkxmoirwvolekxpmyhdyjaeqwknfpapuegircdowkuseybnbrcwscmlugzfkovxysypzekeedcemnkihrylizmakzwcdhqdxfkrvsqfhcliubnuwcjkdgpoynppagpzhmmovfuradzempdwjfvvtgmsalswwbvjahwerctoezqyyzosxhijgkzkspppvvljvedhurqyxrlhtezgphnbpuhgkmrclivkhnztoxsejnoepwpajuqrwzxnowqxqpjbxzsybtyafrqtleckzuxdlwouwijcghhgnsowijqphemojmzaieorvnbnswiuuyytmutivrdupcguvsgngmqwwskxgldlvdrmmaqhczctldsryaygnndfgjgnualnzrulirvgrhhpsozmstvdjcsmaachwigjscnapsumxpzlllvjjfoamemxuutilacvkeccfezywbftnbwyjtybgrjtqckytlhdzzuwqkcgesmfucyqpjlqxsjrjsnfuwbdcdqsajdimlrcvtjcxoettgxxjjbcnwunuuyeruotkwxkxctoveuneccenuevotcxkxwktoureyuunuwncbjjxxgtteoxcjtvcrlmidjasqdcdbwufnsjrjsxqljpqycufmsegcityhewgmvcakcxunuxogdvurumqogwljlfhysyjvvefpkbyibzeqfjhzymhdkdzueqdhnyvqtunonrxjnfbrukwlfitfmovpqn",
+		// "rohznpyfcozugjybluvniqukmswcwsriwfqnhotbayaeqvyphrkwutqicjowqmqneitncvuazznjojvltijkfxgmuuxqaypftsrhsifdbppevhqedzpwomzrsdejwfsuuxekqwuzzdhltykcqtjrgbytjywbntfbwyzefccekvcalituuxmemaofjjvlllzpxmuspancsjgiwhcaamscjdvtsmzosphhrgvrilurznlaungjgfdnngyayrsdltczchqammrdvldlgxkswwqmgngsvugcpudrvitumtyyuuiwsnbnvroeiazmjomehpqjiwosnghhgcjiwuowldxuzkceltqrfaytbyszxbjpqxqwonxzwrqujapwpeonjesxotznhkvilcrmkghupbnhpgzethlrxyqruhdevjlvvpppskzkgjihxsozyyqzeotcrewhajvbwwslasmgtvvfjwdpmezdarufvommhzpgappnyopgdkjcwunbuilchfqsvrkfxdqhdcwzkamzilyrhiknmecdeekezpysyxvokfzgulmcswcrbnbyesukwodcrigeupapfnkwqeajydhympxkelovwriomxkltjpwwymduffrdldjfzlnwnwplxxlgsozyxprwaxakraoipvizcyzfpzkjvztvlzhdguelmobqsomoxjecasufhwopwruuxtupeabbaviksefilnqboeobhjgmuygnhmheunurkeqjbspvxnlzjldpqsaclxtyjirjxahdfhfrjsxyukjfmruwpjajjcvjbkxptgqcyxdcvaajmdhkbaaxqvzigybwniufucucbztnisvhqszvktilnagluptrwdgtcdzjjxcnwesqxffbxyuqmqvydzsruhxevqymjurmjnilnrkeepdsyysvbaeksozxfnzxewjrvcboxljnxjdxgfhtgrdxohnjtiynspkwgtn");
 	}
 
 }
