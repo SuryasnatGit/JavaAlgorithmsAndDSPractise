@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 public abstract class AbstractPriorityQueue<K, V> implements PriorityQueue<K, V> {
 
-	protected class PQEntry<K, V> implements Entry<K, V> {
+	public class PQEntry<K, V> implements Entry<K, V> {
 
 		private K key;
 		private V value;
@@ -30,6 +30,11 @@ public abstract class AbstractPriorityQueue<K, V> implements PriorityQueue<K, V>
 
 		protected void setValue(V value) {
 			this.value = value;
+		}
+
+		@Override
+		public String toString() {
+			return "PQEntry [key=" + key + ", value=" + value + "]";
 		}
 	}
 
