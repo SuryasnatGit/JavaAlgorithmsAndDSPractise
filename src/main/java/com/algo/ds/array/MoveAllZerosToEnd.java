@@ -1,5 +1,13 @@
-package com.interview.array;
 
+
+package com.algo.ds.array;
+
+
+/**
+ * {0,0,1,2,0,5,6,7,0} becomes 125670000
+ * 
+ * @author ctsuser1
+ */
 public class MoveAllZerosToEnd {
 
     public void moveZeros(int arr[]){
