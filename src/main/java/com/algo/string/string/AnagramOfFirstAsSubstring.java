@@ -20,6 +20,7 @@ import java.util.Map;
 public class AnagramOfFirstAsSubstring {
 
     /**
+     * Method 1- brute force. <br/>
      * Get all substrings of str2(O(N^2)). for each substring of str2, check if its an anagram(O(M)). total complexity -
      * O(N^2 * M)
      * 
@@ -27,13 +28,13 @@ public class AnagramOfFirstAsSubstring {
      * @param str2
      * @return
      */
-    public boolean isSubString_bruteForce(char str1[], char str2[]) {
+    public boolean isAnagramSubString_bruteForce(char str1[], char str2[]) {
         // find all substrings of str2. complexity - O(N^2)
         int l2 = str2.length;
         for (int i = 0; i < l2; i++) {
             for (int j = i + 1; j <= l2; j++) {
                 String subStr = new String(str2).substring(i, j);
-                System.out.println("SubString ->" + subStr);
+                // System.out.println("SubString ->" + subStr);
                 if (isAnagram(str1, subStr.toCharArray()))
                     return true;
             }
@@ -70,7 +71,7 @@ public class AnagramOfFirstAsSubstring {
         return true;
     }
 
-    public boolean isSubString(char str1[], char str2[]) {
+    public boolean isAnagramSubString(char str1[], char str2[]) {
         int index = 0;
         int curLen = 0;
         Map<Character, Integer> count = new HashMap<Character, Integer>();
@@ -126,17 +127,55 @@ public class AnagramOfFirstAsSubstring {
         if (count.containsKey(ch)) {
             int c = count.get(ch);
             count.put(ch, c + 1);
-        } else {
+        }
+        else {
             count.put(ch, 1);
         }
     }
     
+    /**
+     * Using sorting: We can sort array of strings so that all anagrams come together. Then print all anagrams by
+     * linearly traversing the sorted array. The time complexity of this solution is O(mnLogn) (We would be doing
+     * O(nLogn) comparisons in sorting and a comparison would take O(m) time)
+     * 
+     * @param str1
+     * @param str2
+     * @return
+     */
+    public boolean isAnagramSubString_sorting(char str1[], char str2[]) {
+        // find all substrings of str2. complexity - O(n^2) ( n is length of string)
+        int len1 = str1.length;
+        int len2 = str2.length;
+        for (int i = 0; i < len2; i++) {
+            for (int j = i + 1; j <= len2; j++) {
+                // Step 1 - find substring of str2
+                char subStr[] = new String(str2).substring(i, j).toCharArray();
+                // If length of both strings is not same, then they cannot be anagram
+                if (len1 != subStr.length)
+                    continue;
+
+                // Step 2 -Sort both the strings. complexity - best case is O(nlogn) . worst case is O(n^2) where n is
+                // length of string
+                Arrays.sort(str1);
+                Arrays.sort(subStr);
+
+                // System.out.println("str1 :" + new String(str1));
+                // System.out.println("subStr :" + new String(subStr));
+
+                // Step 3 - compare sorted strings. Complexity - O(n)
+                if (new String(str1).equals(new String(subStr)))
+                    return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String args[]){
         char str1[] = "aaabccde".toCharArray();
         char str2[] = "tbcdaacaaecbd".toCharArray();
         AnagramOfFirstAsSubstring ana = new AnagramOfFirstAsSubstring();
-        // System.out.println(ana.isSubString(str1, str2));
-
-        System.out.println(ana.isSubString_bruteForce(str1, str2));
+        System.out.println(ana.isAnagramSubString_bruteForce(str1, str2));
+        System.out.println(ana.isAnagramSubString(str1, str2));
+        System.out.println(ana.isAnagramSubString_sorting(str1, str2));
     }
 }
