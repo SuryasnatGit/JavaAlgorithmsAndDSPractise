@@ -1,31 +1,40 @@
-package com.interview.linklist;
+
+
+package com.algo.ds.linkedlist;
+
 
 /**
- * http://www.geeksforgeeks.org/remove-duplicates-from-a-sorted-linked-list/
- * Test cases
- * All duplicates
- * No duplicates
- * Duplicates only in starting
- * Duplicates only at the end
+ * http://www.geeksforgeeks.org/remove-duplicates-from-a-sorted-linked-list/ <br/>
+ * 
+ * 
+ * Test cases : <br/>
+ * All duplicates <br/>
+ * No duplicates <br/>
+ * Duplicates only in starting <br/>
+ * Duplicates only at the end <br/>
  * 0 1 or more nodes in the list
+ * 
+ * Time Complexity: O(n) where n is number of nodes in the given linked list.
+ *
  */
 public class RemoveDuplicatesSortedList {
 
-    public void removeDuplicates(Node head){
-        if(head == null){
+    public void removeDuplicates(Node head) {
+        if (head == null) {
             return;
         }
         Node current = head;
-        while(current != null && current.next != null){
-            if(current.data == current.next.data){
+        while (current != null && current.next != null) {
+            if (current.data == current.next.data) {
                 current.next = current.next.next;
-            }else{
+            }
+            else {
                 current = current.next;
             }
         }
     }
-    
-    public static void main(String args[]){
+
+    public static void main(String args[]) {
         LinkList ll = new LinkList();
         Node head = null;
         head = ll.addNode(1, head);
