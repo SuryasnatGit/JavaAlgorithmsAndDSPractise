@@ -1,14 +1,19 @@
 package com.algo.string.string;
 
 /**
- * a[i] = a[a[i]] in-place Write a program to modify the array such that arr[I] = arr[arr[I]]. Do this in place i.e.
- * with out using additional memory.
+ * a[i] = a[a[i]] in-place Write a program to modify the array such that arr[I]
+ * = arr[arr[I]]. Do this in place i.e. with out using additional memory.
  * 
  * input : {2,3,1,0} output : {1,0,3,2}
  * 
  * This is a simple application of cycle leader iteration algorithm.
  * 
- * Things to note : size of input array will always be of the form 3^k+1 ie,2, 4, 10, 28, 82..
+ * Things to note : size of input array will always be of the form 3^k+1 ie,2,
+ * 4, 10, 28, 82..
+ * 
+ * time complexity - O(n). Each item in a cycle is shifted at most once. Thus
+ * time complexity of the cycle leader algorithm is O(n). The time complexity of
+ * the reverse operation is O(n).
  * 
  * @author Suryasnat
  *
@@ -25,9 +30,9 @@ public class CycleLeaderIteration {
 			char temp = str[start + index];
 			char temp1;
 			while (newIndex != power) {
-				if (index % 2 == 0) {
+				if (index % 2 == 0) { // if old index is even
 					newIndex = index / 2;
-				} else {
+				} else { // else if old index is odd
 					newIndex = len / 2 + index / 2;
 				}
 				temp1 = str[start + newIndex];

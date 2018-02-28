@@ -1,4 +1,4 @@
-package com.interview.linklist;
+package com.algo.ds.linkedlist;
 
 /**
  * http://www.geeksforgeeks.org/given-a-linked-list-which-is-sorted-how-will-you-insert-in-sorted-way/
@@ -9,6 +9,8 @@ package com.interview.linklist;
  * already sorted
  * reverse sorted
  * negative positive numbers 
+ * 
+ * time complexity - O(n)
  */
 public class InsertionSortLinkList {
 
