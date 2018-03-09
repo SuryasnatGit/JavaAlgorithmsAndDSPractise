@@ -1,10 +1,19 @@
-package com.interview.string;
+
+
+package com.algo.string.string;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+
+/**
+ * Same as GroupAnagramsTogether
+ * 
+ * @author ctsuser1
+ */
 public class PrintAnagramTogether {
 
     public void print(String[] string){
