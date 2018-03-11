@@ -1,8 +1,9 @@
 package com.algo.ds.sorting;
 
 /**
- * QuickSort is a Divide and Conquer algorithm. It picks an element as pivot and partitions the given array around the
- * picked pivot. There are many different versions of quickSort that pick pivot in different ways.
+ * QuickSort is a Divide and Conquer algorithm. It picks an element as pivot and
+ * partitions the given array around the picked pivot. There are many different
+ * versions of quickSort that pick pivot in different ways.
  * 
  * <p>
  * Always pick first element as pivot. (implemented below)
@@ -16,6 +17,22 @@ package com.algo.ds.sorting;
  * <p>
  * Pick median as pivot.
  * </p>
+ * 
+ * It works by first selecting a ‘pivot’ element, then re-ordering either side
+ * of the list so that everything before the pivot is less than the pivot and
+ * everything after is greater. Quicksort is then called recursively on either
+ * side of the pivot.
+ * 
+ * Despite quicksort having a worst-case performance of O(n^2)O(n ​2 ​​ ), it is
+ * sometimes regarded at the same level performance-wise as O(n \log n)O(nlogn)
+ * sorts like merge sort or heapsort. This is due to its average case being
+ * O(nlogn), it will often perform even better in practice than the O(nlogn)
+ * sorts.
+ * 
+ * Time complexity: Worst case : O(n^2) Best case : O(n log n) Average case :
+ * O(n log n)
+ * 
+ * Space complexity: Worst case : O(log n) auxiliary
  * 
  * @author Suryasnat
  *

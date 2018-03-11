@@ -1,4 +1,4 @@
-package com.interview.linklist;
+package com.algo.ds.linkedlist;
 
 import java.util.HashMap;
 import java.util.Map;

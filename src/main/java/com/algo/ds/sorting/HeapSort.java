@@ -1,26 +1,23 @@
 package com.algo.ds.sorting;
 
 /**
- * Date 04/03/2015
- * @author tusroy
+ * * Heap Sort Given an array sort it using heap sort.
  * 
- * Heap Sort
- * Given an array sort it using heap sort
+ * Solution : First convert the original array to create the heap out of the
+ * array Then move the max element to last position and do heapify to recreate
+ * the heap with rest of the array element. Repeat this process. If the heap
+ * used was a min-heap, the resulting list will be in ascending order, and a
+ * max-heap will give them in descending order.
  * 
- * Solution :
- * First convert the original array to create the heap out of the array
- * Then move the max element to last position and do heapify to recreate the heap
- * with rest of the array element. Repeat this process
+ * Time complexity O(nlogn).
  * 
- * Time complexity
- * O(nlogn)
+ * Unfortunately heapsort is not stable so sorting a list that is already sorted
+ * could quite possibly end up in a different order.
  * 
- * Test cases
- * Null array
- * 1 element array
- * 2 element array
+ * Test cases Null array 1 element array 2 element array sorted array reverse
  * sorted array
- * reverse sorted array
+ * 
+ * 
  */
 public class HeapSort {
 
