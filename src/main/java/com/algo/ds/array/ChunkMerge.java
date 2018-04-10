@@ -1,4 +1,4 @@
-package com.interview.array;
+package com.algo.ds.array;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,9 +15,7 @@ import java.util.PriorityQueue;
 public class ChunkMerge {
     
     class Triplet implements Comparable<Triplet>{
-        int pos;
         int val;
-        int index;
         @Override
         public int compareTo(Triplet o) {
             if(val <= o.val){
@@ -31,25 +29,22 @@ public class ChunkMerge {
     public List<Integer> mergeUsingHeap(List<List<Integer>> chunks){
         List<Integer> result = new ArrayList<Integer>();
         PriorityQueue<Triplet> queue = new PriorityQueue<Triplet>();
-        //add first element of every chunk into queue
-        for(int i=0; i < chunks.size(); i++){
-            Triplet p = new Triplet();
-            p.pos = i;
-            p.val = chunks.get(i).get(0);
-            p.index = 1;
-            queue.add(p);
+
+		// my approach
+		for (List<Integer> list : chunks) {
+			for (Integer i : list) {
+				Triplet e = new Triplet();
+				e.val = i;
+				queue.add(e);
+			}
         }
         
-        while(!queue.isEmpty()){
-            Triplet p = queue.poll();
-            result.add(p.val);
-            if(p.index < chunks.get(p.pos).size()){
-                p.val = chunks.get(p.pos).get(p.index);
-                p.index += 1;
-                queue.add(p);
-            }
+		while (!queue.isEmpty()) {
+			Triplet poll = queue.poll();
+			result.add(poll.val);
         }
-        return result;
+
+		return result;
     }
     
     public List<Integer> mergeChunksOfDifferentSize(List<List<Integer>> chunks){

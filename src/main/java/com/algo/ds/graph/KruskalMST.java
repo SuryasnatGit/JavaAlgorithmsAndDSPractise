@@ -1,4 +1,4 @@
-package com.interview.graph;
+package com.algo.ds.graph;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,15 +8,12 @@ import java.util.List;
 /**
  * Date 09/25/2014
  *
- * @author Tushar Roy
- *         <p>
- *         Find minimum spanning tree usinig Kruskals algorithm
- *         <p>
- *         Time complexity - O(ElogE)
- *         Space complexity - O(E + V)
- *         <p>
- *         References
- *         https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
+ * <p>
+ * Find minimum spanning tree usinig Kruskals algorithm
+ * <p>
+ * Time complexity - O(ElogE + E) Space complexity - O(E + V)
+ * <p>
+ * References https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
  */
 
 public class KruskalMST {
@@ -38,7 +35,7 @@ public class KruskalMST {
         List<Edge<Integer>> allEdges = graph.getAllEdges();
         EdgeComparator edgeComparator = new EdgeComparator();
 
-        //sort all edges in non decreasing order
+		// sort all edges in non decreasing order. complexity - O(E log E)
         Collections.sort(allEdges, edgeComparator);
         DisjointSet disjointSet = new DisjointSet();
 
@@ -49,6 +46,7 @@ public class KruskalMST {
 
         List<Edge<Integer>> resultEdge = new ArrayList<Edge<Integer>>();
 
+		// time complexity - O(E)
         for (Edge<Integer> edge : allEdges) {
             //get the sets of two vertices of the edge
             long root1 = disjointSet.findSet(edge.getVertex1().getId());

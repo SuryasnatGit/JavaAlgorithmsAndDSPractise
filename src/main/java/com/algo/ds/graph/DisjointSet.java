@@ -4,23 +4,33 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author tusroy Date 06/20/2015
+ * Video link - https://youtu.be/ID00PMy0-vE
  * 
- *         Video link - https://youtu.be/ID00PMy0-vE
+ * Disjoint sets using path compression and union by rank Supports 3 operations<br/>
+ * 1) makeSet - creates a singleton set containing new element x and returns the position <br/>
+ * 2) union - merges the sets<br/>
+ * 3) findSet - returns an element of the set which is an element that identifies the set.
  * 
- *         Disjoint sets using path compression and union by rank Supports 3 operations 1) makeSet 2) union 3) findSet
+ * <br/>
+ * union by rank - make the node who has higher rank the parent and the node which has lower rank
+ * the child.
  * 
- *         For m operations and total n elements time complexity is O(m*f(n)) where f(n) is very slowly growing
- *         function. For most cases f(n) <= 4 so effectively total time will be O(m). Proof in Coreman book.
+ * For m operations and total n elements time complexity is O(m*f(n)) where f(n) is very slowly
+ * growing function. For most cases f(n) <= 4 so effectively total time will be O(m). Proof in
+ * Coreman book.
+ * 
+ * <br/>
+ * Usage - Kruskal algorithm for MST, finding cycle in undirected graph
  */
 public class DisjointSet {
 
 	private Map<Long, Node> map = new HashMap<>();
 
 	class Node {
-		long data;
-		Node parent;
-		int rank;
+		int rank; // depth of tree
+		long data; // actual data
+		Node parent; // parent node
+
 	}
 
 	/**
