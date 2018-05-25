@@ -1,12 +1,9 @@
-package com.interview.array;
+package com.algo.ds.array;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Date 01/01/2016
- * @author Tushar Roy
- *
  * Given 3 sorted array find common elements in these 3 sorted array.
  *
  * Time complexity is O(m + n + k)
@@ -30,7 +27,7 @@ public class CommonThreeSortedArray {
                 i++;
             } else if (input2[j] < input3[k]) {
                 j++;
-            } else {
+			} else { // when a<b and b<c, i.e c is smallest
                 k++;
             }
         }
