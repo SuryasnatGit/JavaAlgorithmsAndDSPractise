@@ -1,6 +1,6 @@
 
 
-package com.algo.string.string;
+package com.algo.string;
 
 import java.util.ArrayList;
 import java.util.Arrays;

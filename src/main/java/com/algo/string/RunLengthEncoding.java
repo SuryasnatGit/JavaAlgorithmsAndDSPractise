@@ -1,4 +1,4 @@
-package com.algo.string.string;
+package com.algo.string;
 
 /**
  * Given an input string, write a function that returns the Run Length Encoded string for the input string.

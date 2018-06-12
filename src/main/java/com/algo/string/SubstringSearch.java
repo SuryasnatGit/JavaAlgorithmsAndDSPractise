@@ -1,4 +1,4 @@
-package com.interview.string;
+package com.algo.string;
 
 /**
  * Date 09/22/2014

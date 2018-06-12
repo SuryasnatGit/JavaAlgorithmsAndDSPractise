@@ -1,4 +1,4 @@
-package com.interview.string;
+package com.algo.string;
 
 public class LexicographicRankInPermutation {
 

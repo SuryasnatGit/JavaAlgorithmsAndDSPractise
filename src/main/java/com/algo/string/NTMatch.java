@@ -1,4 +1,4 @@
-package com.interview.string;
+package com.algo.string;
 
 /**
 .Given an input string S write a function which returns true if it satisfies S = nT. Basically you have to find if a given string can be represented from a substring by iterating it �n� times. n >= 2

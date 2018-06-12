@@ -1,4 +1,4 @@
-package com.algo.string.string;
+package com.algo.string;
 
 /**
  * http://www.geeksforgeeks.org/an-in-place-algorithm-for-string-transformation/.

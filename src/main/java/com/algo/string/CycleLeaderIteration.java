@@ -1,4 +1,4 @@
-package com.algo.string.string;
+package com.algo.string;
 
 /**
  * a[i] = a[a[i]] in-place Write a program to modify the array such that arr[I]

@@ -1,4 +1,4 @@
-package com.interview.string;
+package com.algo.string;
 
 import java.util.HashSet;
 import java.util.Set;

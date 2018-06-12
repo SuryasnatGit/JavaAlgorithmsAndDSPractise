@@ -1,6 +1,6 @@
 
 
-package com.algo.string.string;
+package com.algo.string;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,8 +14,8 @@ import com.algo.ds.trie.Trie;
 
 /**
  * https://leetcode.com/problems/anagrams/. <br/>
- * Given an array of words, print all anagrams together. For example, if the given array is {“cat”, “dog”, “tac”, “god”,
- * “act”}, then output may be “cat tac act dog god”.
+ * Given an array of words, print all anagrams together. For example, if the given array is {“cat�?, “dog�?, “tac�?, “god�?,
+ * “act�?}, then output may be “cat tac act dog god�?.
  */
 public class GroupAnagramsTogether {
 

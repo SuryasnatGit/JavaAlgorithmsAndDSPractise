@@ -1,6 +1,6 @@
 
 
-package com.algo.string.string;
+package com.algo.string;
 
 /**
  * Date 04/09/2016
