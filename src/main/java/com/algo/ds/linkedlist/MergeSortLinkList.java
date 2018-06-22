@@ -1,14 +1,9 @@
-package com.interview.linklist;
+package com.algo.ds.linkedlist;
 
 /**
- * http://www.geeksforgeeks.org/merge-sort-for-linked-list/
- * Test cases
- * 0 nodes
- * 1 nodes
- * 2 nodes
- * 3 nodes
- * fully sorted
- * reverse sorted
+ * http://www.geeksforgeeks.org/merge-sort-for-linked-list/.
+ * 
+ * complexity - O(n log n) Test cases 0 nodes 1 nodes 2 nodes 3 nodes fully sorted reverse sorted
  */
 public class MergeSortLinkList {
 
@@ -17,7 +12,7 @@ public class MergeSortLinkList {
         if(head == null || head.next == null){
             return head;
         }
-        Node head1 = frontBackSplit(head);
+        Node head1 = getMiddleOfList(head);
         head = sort(head,isAscending);
         head1 = sort(head1,isAscending);
         return sortedMerge(head, head1, isAscending);
@@ -49,7 +44,7 @@ public class MergeSortLinkList {
         }
     }
     
-    private Node frontBackSplit(Node head){
+    private Node getMiddleOfList(Node head){
         if(head == null){
             return null;
         }
@@ -73,7 +68,7 @@ public class MergeSortLinkList {
         head = ll.addNode(-3, head);
         head = ll.addNode(45, head);
         head = ll.addNode(5, head);
-        head = msll.sort(head, false);
+		head = msll.sort(head, true);
         ll.printList(head);
     }
 }
