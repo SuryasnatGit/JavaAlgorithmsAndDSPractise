@@ -1,4 +1,4 @@
-package com.interview.tree;
+package com.algo.ds.tree;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -42,6 +42,11 @@ public class TreeTraversals {
         System.out.print(root.data + " ");
     }
 
+	/**
+	 * inorder traversal without recursion using iterative way using stack
+	 * 
+	 * @param root
+	 */
     public void inorderItr(Node root){
         Deque<Node> stack = new LinkedList<Node>();
         Node node = root;
