@@ -2,9 +2,9 @@ package com.algo.common;
 
 public class Node {
 
-	private int data;
-	private Node left;
-	private Node right;
+	public int data;
+	public Node left;
+	public Node right;
 
 	public Node(int d) {
 		this.data = d;
@@ -30,5 +30,10 @@ public class Node {
 
 	public void setRight(Node right) {
 		this.right = right;
+	}
+
+	@Override
+	public String toString() {
+		return "Node [data=" + data + ", left=" + left + ", right=" + right + "]";
 	}
 }

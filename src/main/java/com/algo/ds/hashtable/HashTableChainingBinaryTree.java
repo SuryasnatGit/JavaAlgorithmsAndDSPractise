@@ -2,6 +2,16 @@ package com.algo.ds.hashtable;
 
 import com.algo.ds.tree.TreeNode;
 
+/**
+ * Hash Map implementation using balanced binary search tree. O(log N) lookup time. The advantage of
+ * this is potentially using less space, since we no longer allocate a large array. We can also
+ * iterate through the keys in order, which can be useful sometimes.
+ * 
+ * @author surya
+ *
+ * @param <K>
+ * @param <V>
+ */
 public class HashTableChainingBinaryTree<K, V> {
 
 	private TreeNode<K, V>[] table;

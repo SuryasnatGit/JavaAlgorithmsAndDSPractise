@@ -1,7 +1,5 @@
-package com.interview.tree;
+package com.algo.ds.tree;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Stack;
 
 /**
@@ -14,7 +12,6 @@ public class NextInorderSuccessorOfTwoTree {
     private Node root2 = null;
     Stack<Node> stack1 = new Stack<Node>();
     Stack<Node> stack2 = new Stack<Node>();
-    Set<Node> visited = new HashSet<Node>();
 
     NextInorderSuccessorOfTwoTree(Node root1, Node root2) {
         this.root1 = root1;

@@ -1,9 +1,13 @@
-package com.interview.tree;
+package com.algo.ds.tree;
 
 /**
- * http://www.careercup.com/question?id=6241652616200192
- * Test cases:
- * 0,1 or more nodes in the tree
+ * http://www.careercup.com/question?id=6241652616200192.
+ * 
+ * Given a Binary Tree (balanced or not) write a method that transforms the tree in a degenerate
+ * tree (basically a data structure like a sorted linked list where each node has the left child
+ * null) and returns the new root. This must be made in place, no external memory usage is allowed.
+ * 
+ * Test cases: 0,1 or more nodes in the tree
  */
 public class BinaryTreeToSortedLinkList {
 
