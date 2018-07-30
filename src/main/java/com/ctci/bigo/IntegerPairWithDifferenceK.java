@@ -7,9 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Given an array of distinct integer values, count the number of pairs of integers that have
- * difference k. For example, given the array {1, 7, 5, 9, 2, 12, 3} and the difference k = 2, there
- * are four pairs with difference 2: (1, 3), (3, 5), (5, 7), (7, 9) .
+ * Given an array of distinct integer values, count the number of pairs of
+ * integers that have difference k. For example, given the array {1, 7, 5, 9, 2,
+ * 12, 3} and the difference k = 2, there are four pairs with difference 2: (1,
+ * 3), (3, 5), (5, 7), (7, 9) .
+ * 
+ * LeetCode 532 - K-diff Pairs in an Array
  * 
  * @author surya
  *
@@ -32,7 +35,8 @@ public class IntegerPairWithDifferenceK {
 	}
 
 	/**
-	 * complexity - O(N^2). bottleneck is repeated search of other side of pair which can be optimized.
+	 * complexity - O(N^2). bottleneck is repeated search of other side of pair
+	 * which can be optimized.
 	 * 
 	 * @param arr
 	 * @param k
@@ -52,8 +56,8 @@ public class IntegerPairWithDifferenceK {
 	}
 
 	/**
-	 * Both step 1(sorting) - O(N log N) and step 2 - binary search is O(N log N). So until first step
-	 * is optimized the complexity will still remain O(N log N)
+	 * Both step 1(sorting) - O(N log N) and step 2 - binary search is O(N log N).
+	 * So until first step is optimized the complexity will still remain O(N log N)
 	 * 
 	 * @param arr
 	 * @param k
@@ -74,20 +78,20 @@ public class IntegerPairWithDifferenceK {
 	}
 
 	/**
-	 * get rid of step 1 (sorting) all together. how to find things quickly in unsorted array.. using
-	 * hash table. overall time complexity - O(N)
+	 * get rid of step 1 (sorting) all together. how to find things quickly in
+	 * unsorted array.. using hash table. overall time complexity - O(N)
 	 * 
 	 * @param arr
 	 * @param k
 	 * @return
 	 */
-	public List<Pair> getPairs_hashTable(int[] arr, int k){
+	public List<Pair> getPairs_hashTable(int[] arr, int k) {
 		List<Pair> list = new ArrayList<>();
 		Map<Integer, Boolean> map = new HashMap<>();
-		for(int i=0;i<arr.length;i++) {
+		for (int i = 0; i < arr.length; i++) {
 			map.put(arr[i], true);
 		}
-		for(int i=0;i<arr.length;i++) {
+		for (int i = 0; i < arr.length; i++) {
 			if (arr[i] - k > 0 && map.get(arr[i] - k) != null && map.get(arr[i] - k)) {
 				list.add(new Pair(arr[i], arr[i] - k));
 			}
@@ -96,6 +100,53 @@ public class IntegerPairWithDifferenceK {
 			}
 		}
 		return list;
+	}
+
+	/**
+	 * Another approach using java sliding window
+	 * 
+	 * @param nums
+	 * @param k
+	 * @return
+	 */
+	public int getPairs_slidingWindow(int[] nums, int k) {
+		if (k < 0 || nums.length <= 1) {
+			return 0;
+		}
+
+		Arrays.sort(nums);
+		int count = 0;
+		int left = 0;
+		int right = 1;
+
+		while (right < nums.length) {
+			int firNum = nums[left];
+			int secNum = nums[right];
+			// If less than k, increase the right index
+			if (secNum - firNum < k) {
+				right++;
+			}
+			// If larger than k, increase the left index
+			else if (secNum - firNum > k) {
+				left++;
+			}
+			// If equal, move left and right to next different number
+			else {
+				count++;
+				while (left < nums.length && nums[left] == firNum) {
+					left++;
+				}
+				while (right < nums.length && nums[right] == secNum) {
+					right++;
+				}
+
+			}
+			// left and right should not be the same number
+			if (right == left) {
+				right++;
+			}
+		}
+		return count;
 	}
 
 	/**
