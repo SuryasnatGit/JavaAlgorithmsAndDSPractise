@@ -10,19 +10,23 @@ import com.algo.ds.linkedlist.SortedList;
  */
 public class HashChain {
 
-	private int arraySize;
+	private int bucketSize;
 	private SortedList[] sortedListArr;
 	
 	public HashChain(int size) {
-		arraySize = size;
-		sortedListArr = new SortedList[arraySize];
-		for(int i=0;i<arraySize;i++){
+		bucketSize = size;
+		sortedListArr = new SortedList[bucketSize];
+		for (int i = 0; i < bucketSize; i++) {
 			sortedListArr[i] = new SortedList(); // initialize each element of the array with SortedList object
 		}
 	}
 	
 	public int hashFunc(int key){
-		return key % arraySize;
+		return key % bucketSize;
+	}
+
+	public int getBucketIndex(int hashCode) {
+		return hashCode % bucketSize;
 	}
 	
     /**
@@ -32,12 +36,14 @@ public class HashChain {
      */
 	public void insert(Link link){
 		int hashVal = hashFunc(link.getKey());
-		sortedListArr[hashVal].insert(link);
+		int bucketIndex = getBucketIndex(hashVal);
+		sortedListArr[bucketIndex].insert(link);
 	}
 	
 	public void delete(int key){
 		int hashVal = hashFunc(key);
-		sortedListArr[hashVal].delete(key);
+		int bucketIndex = getBucketIndex(hashVal);
+		sortedListArr[bucketIndex].delete(key);
 	}
 	
     /**
@@ -48,7 +54,8 @@ public class HashChain {
      */
 	public Link find(int key){
 		int hashVal = hashFunc(key);
-		Link link = sortedListArr[hashVal].find(key);
+		int bucketIndex = getBucketIndex(hashVal);
+		Link link = sortedListArr[bucketIndex].find(key);
 		return link;
 	}
 	

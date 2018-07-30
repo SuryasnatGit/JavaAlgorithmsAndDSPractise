@@ -1,18 +1,21 @@
-package com.interview.tree;
+package com.algo.ds.tree;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Stack;
 
 /**
  * http://www.glassdoor.com/Interview/Create-an-iterator-to-traverse-a-binary-tree-When-the-next-function-is-called-on-the-binary-tree-return-the-value-at-the-QTN_674695.htm
- * null tree.
+ * 
+ * Create an iterator to traverse a binary tree. When the next function is called on the binary tree
+ * return the value at the next node as if you are doing an inorder traversal of the tree.
+ * Restrictions: Nodes do not have pointers to their parent node and you can't use recursion.
+ * 
+ * 
  */
 public class NextInorderSuccessorIterator {
 
     private Node root = null;
     Stack<Node> stack = new Stack<Node>();
-    Set<Node> visited = new HashSet<Node>();
+
     NextInorderSuccessorIterator(Node root){
         this.root = root;
     }

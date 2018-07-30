@@ -43,6 +43,7 @@ Output: root of below tree
  /
 6
 
+Complexity - O(n). Space complexity - O(n)
  */
 public class BinaryTreeFromParentRepresentation {
 
