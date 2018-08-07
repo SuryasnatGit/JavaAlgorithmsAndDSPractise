@@ -14,7 +14,7 @@ import java.util.Set;
  * @author Suryasnat
  *
  */
-public class Palindrome {
+public class PalindromePermutation {
 
 	/**
 	 * Brute force - If a string with an even length is a palindrome, every character in the string must always occur an
@@ -158,7 +158,7 @@ public class Palindrome {
 	}
 
 	public static void main(String[] args) {
-		Palindrome p = new Palindrome();
+		PalindromePermutation p = new PalindromePermutation();
 		System.out.println(p.canPermutatePalindrome1("table"));
 		System.out.println(p.canPermutatePalindrome1("abba"));
 		System.out.println(p.canPermutatePalindrome2("table"));

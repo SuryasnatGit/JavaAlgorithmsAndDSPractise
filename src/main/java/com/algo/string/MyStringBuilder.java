@@ -1,6 +1,6 @@
 package com.algo.string;
 
-public class StringBuilder {
+public class MyStringBuilder {
 
 	// buffer to hold the string
 	private char[] buffer;
@@ -12,7 +12,7 @@ public class StringBuilder {
 	/**
 	 * default constructor
 	 */
-	public StringBuilder() {
+	public MyStringBuilder() {
 		buffer = new char[16];
 	}
 
@@ -21,13 +21,13 @@ public class StringBuilder {
 	 * 
 	 * @param l
 	 */
-	public StringBuilder(int l) {
+	public MyStringBuilder(int l) {
 		capacity = l;
 		buffer = new char[capacity];
 		length = 0;
 	}
 
-	public StringBuilder append(String str) {
+	public MyStringBuilder append(String str) {
 		String tempStr = str;
 		if (str == null)
 			str = "null";
@@ -54,7 +54,7 @@ public class StringBuilder {
 	}
 
 	public static void main(String[] args) {
-		StringBuilder sb = new StringBuilder(20);
+		MyStringBuilder sb = new MyStringBuilder(20);
 		sb.append("hi how r u");
 		System.out.println(sb.toString());
 		sb.append("i am fine thank you");

@@ -43,6 +43,9 @@ public class StringProblems {
 		System.out.println(sp.compressedString("aabcccccaaa"));
 		System.out.println(sp.compressedString("ABCDEFFFFFFFF"));
 		System.out.println(sp.compressedString("ABCDEF"));
+		System.out.println(sp.leftRotation("surya", 2));
+		System.out.println(sp.leftRotation("apple", 3));
+		System.out.println(sp.rightRotation("surya", 2));
 	}
 
 	private int count = 0;
@@ -582,7 +585,7 @@ public class StringProblems {
 	 */
 	public String compressedString(String input) {
 		int count = 1;
-		StringBuilder sb = new StringBuilder();
+		MyStringBuilder sb = new MyStringBuilder();
 		for (int i = 0; i < input.length(); i++) {
 			char ch = input.charAt(i);
 			if (i + 1 == input.length()) {
@@ -605,5 +608,35 @@ public class StringProblems {
 		}
 
 		return sb.toString().length() > input.length() ? input : sb.toString();
+	}
+
+	/**
+	 * Rotating to the left by n is the same as rotating to the right by length-n. time and space
+	 * complexity - O(N)
+	 * 
+	 * @param input
+	 * @param d
+	 * @return
+	 */
+	public String leftRotation(String input, int d) {
+		int n = input.length();
+		if (d > n)
+			d %= n;
+		char[] ch = new char[n];
+		for (int i = 0; i < n; i++) {
+			ch[(i + (n - d)) % n] = input.charAt(i);
+		}
+		return new String(ch);
+	}
+
+	public String rightRotation(String input, int d) {
+		int n = input.length();
+		if (d > n)
+			d %= n;
+		char[] ch = new char[n];
+		for (int i = 0; i < n; i++) {
+			ch[(i + d) % n] = input.charAt(i);
+		}
+		return new String(ch);
 	}
 }

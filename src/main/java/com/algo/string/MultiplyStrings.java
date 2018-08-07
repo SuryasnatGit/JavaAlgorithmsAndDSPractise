@@ -1,14 +1,28 @@
-package com.algo.string.string;
+package com.algo.string;
 
 /**
- * https://leetcode.com/discuss/questions/oj/multiply-strings
+ * https://leetcode.com/discuss/questions/oj/multiply-strings.
+ * 
+ * Given two non-negative integers num1 and num2 represented as strings, return the product of num1
+ * and num2, also represented as a string.
+ * 
+ * Example 1:
+ * 
+ * Input: num1 = "2", num2 = "3" Output: "6" Example 2:
+ * 
+ * Input: num1 = "123", num2 = "456" Output: "56088" Note:
+ * 
+ * The length of both num1 and num2 is < 110. Both num1 and num2 contain only digits 0-9. Both num1
+ * and num2 do not contain any leading zero, except the number 0 itself. You must not use any
+ * built-in BigInteger library or convert the inputs to integer directly.
+ * 
  */
 public class MultiplyStrings {
 
 	public String multipleNumbersAsString(int num1, int num2) {
 		// reverse the string as multiplication starts from index 0
-		String s1 = new StringBuilder(Integer.toString(num1)).reverse().toString();
-		String s2 = new StringBuilder(Integer.toString(num2)).reverse().toString();
+		String s1 = new java.lang.StringBuilder(Integer.toString(num1)).reverse().toString();
+		String s2 = new java.lang.StringBuilder(Integer.toString(num2)).reverse().toString();
 
 		int[] d = new int[s1.length() + s2.length()];
 		for (int i = 0; i < s1.length(); i++) {
@@ -16,7 +30,7 @@ public class MultiplyStrings {
 				d[i + j] += (s1.charAt(i) - '0') * (s2.charAt(j) - '0');
 			}
 		}
-		StringBuilder sb = new StringBuilder();
+		java.lang.StringBuilder sb = new java.lang.StringBuilder();
 		for (int i = 0; i < d.length; i++) {
 			int modulo = d[i] % 10;
 			int carry = d[i] / 10;
@@ -98,7 +112,7 @@ public class MultiplyStrings {
 		return buff.toString();
 	}
 
-	public String add(char[] num1, char[] num2) {
+	private String add(char[] num1, char[] num2) {
 		int index1 = num1.length - 1;
 		int index2 = num2.length - 1;
 		int carry = 0;
@@ -132,10 +146,39 @@ public class MultiplyStrings {
 		return buffer.reverse().toString();
 	}
 
+	/**
+	 * easiest solution.
+	 * 
+	 * @param num1
+	 * @param num2
+	 * @return
+	 */
+	public String multiply(String num1, String num2) {
+		int m = num1.length(), n = num2.length();
+		int[] pos = new int[m + n];
+
+		for (int i = m - 1; i >= 0; i--) {
+			for (int j = n - 1; j >= 0; j--) {
+				int mul = (num1.charAt(i) - '0') * (num2.charAt(j) - '0');
+				int p1 = i + j, p2 = i + j + 1;
+				int sum = mul + pos[p2];
+
+				pos[p1] += sum / 10;
+				pos[p2] = (sum) % 10;
+			}
+		}
+
+		java.lang.StringBuilder sb = new java.lang.StringBuilder();
+		for (int p : pos)
+			if (!(sb.length() == 0 && p == 0))
+				sb.append(p);
+		return sb.length() == 0 ? "0" : sb.toString();
+	}
+
 	public static void main(String args[]) {
 		MultiplyStrings ms = new MultiplyStrings();
 		System.out.println(ms.multiplyLargeNumberAsStrings("6752716719037375654442652725945722915786612669126862029212",
 				"2840271321219335147"));
-		System.out.println(ms.multipleNumbersAsString(23, 64));
+		System.out.println(ms.multiply("23", "64"));
 	}
 }
