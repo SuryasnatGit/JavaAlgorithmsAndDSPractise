@@ -1,11 +1,8 @@
-package com.interview.array;
+package com.algo.ds.array;
 
 import java.util.Arrays;
 
 /**
- * Date 12/30/2015
- * @author Tushar Roy
- *
  * Given an array of unique elements rearrange the array to be a < b > c < d > e form
  *
  * Time complexity - O(n)
@@ -15,6 +12,13 @@ import java.util.Arrays;
  */
 public class ZigZagArrangement {
 
+	/**
+	 * We can convert in O(n) time using an Efficient Approach. The idea is to use modified one pass of
+	 * bubble sort. Maintain a flag for representing which order(i.e. < or >) currently we need. If the
+	 * current two elements are not in that order then swap those elements otherwise not.
+	 * 
+	 * @param input
+	 */
     public void rearrange(int input[]) {
         boolean isLess = true;
         for (int i = 0; i < input.length - 1; i++) {

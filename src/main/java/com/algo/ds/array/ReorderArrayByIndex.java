@@ -1,13 +1,23 @@
-package com.interview.array;
+package com.algo.ds.array;
 
 import java.util.Arrays;
 
 /**
- * Date 12/29/2015
- * @author Tushar Roy
- *
  * Given two arrays one with values and other with index where values should be positioned. Move values to correct
- * position
+ * position.
+ * 
+ * Example:
+
+Input:  arr[]   = [10, 11, 12];
+        index[] = [1, 0, 2];
+Output: arr[]   = [11, 10, 12]
+        index[] = [0,  1,  2] 
+
+Input:  arr[]   = [50, 40, 70, 60, 90]
+        index[] = [3,  0,  4,  1,  2]
+Output: arr[]   = [40, 60, 90, 50, 70]
+        index[] = [0,  1,  2,  3,   4] 
+
  *
  * Time complexity - O(n)
  * Space complexity - O(1)
@@ -21,14 +31,14 @@ public class ReorderArrayByIndex {
         }
         for (int i = 0 ; i < index.length; i++) {
             while (index[i] != i) {
-                int sIndex = index[index[i]];
-                int sVal = input[index[i]];
+				int sIndex = index[index[i]];// 0
+				int sVal = input[index[i]];// 40
 
-                index[index[i]] = index[i];
-                input[index[i]] = input[i];
+				index[index[i]] = index[i];// index[1] = 0
+				input[index[i]] = input[i];// input[1] = 40
 
-                index[i] = sIndex;
-                input[i] = sVal;
+				index[i] = sIndex;// index[0] = 0
+				input[i] = sVal;// input[0] = 40
             }
         }
     }

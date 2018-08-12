@@ -1,4 +1,4 @@
-package com.interview.array;
+package com.algo.ds.array;
 
 import java.util.ArrayList;
 import java.util.Collections;
