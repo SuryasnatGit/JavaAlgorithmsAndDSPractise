@@ -1,11 +1,9 @@
-package com.interview.stackqueue;
+package com.algo.ds.queue;
 
 import java.util.Deque;
 import java.util.LinkedList;
 
 /**
- * Date 03/17/2015
- * @author tusroy
  * 
  * Given a string with unbalanced brackets how do you remove minimum number
  * of extra brackets so that you are left with balanced brackets in the string
@@ -38,7 +36,7 @@ import java.util.LinkedList;
  */
 public class RemoveExtraBrackets {
 
-    public int remove(char input[]){
+    public int remove_usingStack(char input[]){
         if(input == null){
             return 0;
         }
@@ -129,7 +127,7 @@ public class RemoveExtraBrackets {
     public static void main(String args[]){
         RemoveExtraBrackets reb = new RemoveExtraBrackets();
         char input1[] = ")(".toCharArray();
-        int pos = reb.remove(input1);
+        int pos = reb.remove_usingStack(input1);
         printArray(input1, pos);
       
         char input1_1[] = ")(".toCharArray();
@@ -137,7 +135,7 @@ public class RemoveExtraBrackets {
         printArray(input1_1, pos);
       
         char input2[] = "(((abc)(lm)(()".toCharArray();
-        pos = reb.remove(input2);
+        pos = reb.remove_usingStack(input2);
         printArray(input2, pos);
  
         char input2_1[] = "(((abc)(lm)(()".toCharArray();
@@ -145,7 +143,7 @@ public class RemoveExtraBrackets {
         printArray(input2_1, pos);
  
         char input3[] = "(((c)(l))))(()))".toCharArray();
-        pos = reb.remove(input3);
+        pos = reb.remove_usingStack(input3);
         printArray(input3, pos);
  
         char input3_1[] = "(((c)(l))))(()))".toCharArray();
@@ -153,7 +151,7 @@ public class RemoveExtraBrackets {
         printArray(input3_1, pos);
  
         char input4[] = "((((".toCharArray();
-        pos = reb.remove(input4);
+        pos = reb.remove_usingStack(input4);
         printArray(input4, pos);
  
         char input4_1[] = "((((".toCharArray();
@@ -161,7 +159,7 @@ public class RemoveExtraBrackets {
         printArray(input4_1, pos);
  
         char input5[] = "))))".toCharArray();
-        pos = reb.remove(input5);
+        pos = reb.remove_usingStack(input5);
         printArray(input5, pos);
  
         char input5_1[] = "))))".toCharArray();
@@ -169,7 +167,7 @@ public class RemoveExtraBrackets {
         printArray(input5_1, pos);
 
         char input6[] = "((Test))(Great)".toCharArray();
-        pos = reb.remove(input6);
+        pos = reb.remove_usingStack(input6);
         printArray(input6, pos);
  
         char input6_1[] = "((Test))(Great)".toCharArray();

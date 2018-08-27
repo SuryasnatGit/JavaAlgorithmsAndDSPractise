@@ -1,22 +1,35 @@
-package com.interview.array;
+package com.algo.ds.array;
 
 /**
- * Date 03/06/2016
- * @author Tushar Roy
+ * Find if there exists an increasing triplet subsequence. Similar method to longest increasing
+ * subsequence in nlogn time.
+ * 
+ * Given an unsorted array return whether an increasing subsequence of length 3 exists or not in the
+ * array.
+ * 
+ * Formally the function should:
+ * 
+ * Return true if there exists i, j, k such that arr[i] < arr[j] < arr[k] given 0 ≤ i < j < k ≤ n-1
+ * else return false. Note: Your algorithm should run in O(n) time complexity and O(1) space
+ * complexity.
+ * 
+ * Example 1:
+ * 
+ * Input: [1,2,3,4,5] Output: true
+ * 
+ * Example 2:
+ * 
+ * Input: [5,4,3,2,1] Output: false
  *
- * Find if there exists an increasing triplet subsequence.
- * Similar method to longest increasing subsequence in nlogn time.
- *
- * Time complexity is O(n)
- * Space complexity is O(1)
+ * Time complexity is O(n) Space complexity is O(1)
  *
  * https://leetcode.com/problems/increasing-triplet-subsequence/
  */
 public class IncreasingTripletSubsequence {
     public boolean increasingTriplet(int[] nums) {
-        int T[] = new int[3];
+		int T[] = new int[3]; // O(1) space
         int len = 0;
-        for (int i = 0; i < nums.length; i++) {
+		for (int i = 0; i < nums.length; i++) {// O(n) time
             boolean found = false;
             for (int j = 0; j < len; j++) {
                 if (T[j] >= nums[i]) {

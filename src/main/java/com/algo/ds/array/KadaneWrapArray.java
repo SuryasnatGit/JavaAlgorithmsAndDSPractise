@@ -1,12 +1,18 @@
 package com.algo.ds.array;
 
 /**
- * http://www.geeksforgeeks.org/maximum-contiguous-circular-sum/. The maximum subarray problem is
- * the task of finding the contiguous subarray within a one-dimensional array of numbers which has
- * the largest sum.
+ * http://www.geeksforgeeks.org/maximum-contiguous-circular-sum/.
  * 
- * Example: int [] A = {−2, 1, −3, 4, −1, 2, 1, −5, 4}; Output: contiguous subarray with the largest
- * sum is 4, −1, 2, 1, with sum 6.
+ * Given n numbers (both +ve and -ve), arranged in a circle, fnd the maximum sum of consecutive
+ * number.
+ * 
+ * Examples:
+ * 
+ * Input: a[] = {8, -8, 9, -9, 10, -11, 12} Output: 22 (12 + 8 - 8 + 9 - 9 + 10)
+ * 
+ * Input: a[] = {10, -3, -4, 7, 6, 5, -4, -1} Output: 23 (7 + 6 + 5 - 4 -1 + 10)
+ * 
+ * Input: a[] = {-1, 40, -14, 7, 6, 5, -4, -1} Output: 52 (7 + 6 + 5 - 4 - 1 - 1 + 40)
  * 
  * Test cases:<br/>
  * All negative<br/>
@@ -51,21 +57,7 @@ public class KadaneWrapArray {
 		return maxSum;
 	}
 
-	/**
-	 * complexity - O(n).
-	 * 
-	 * start: 
-	 * 	max_so_far = 0 
-	 * 	max_ending_here = 0
-	 * 
-	 * loop i= 0 to n 
-	 * 	(i) max_ending_here = max_ending_here + a[i] 
-	 * 	(ii) if(max_ending_here < 0) max_ending_here = 0 
-	 * 	(iii) if(max_so_far < max_ending_here) max_so_far = max_ending_here return max_so_far
-	 * 
-	 * @param arr
-	 * @return
-	 */
+
     public Triplet kadaneWrap(int arr[]){
         Triplet straightKadane = kadane(arr);
         int sum =0;
@@ -117,7 +109,21 @@ public class KadaneWrapArray {
         return p;
     }
     
-	// Kadane algorithm
+	/**
+	 * Kadane algorithm.
+	 * 
+	 * complexity - O(n).
+	 * 
+	 * start: max_so_far = 0 max_ending_here = 0
+	 * 
+	 * loop i= 0 to n <br/>
+	 * (i) max_ending_here = max_ending_here + a[i] <br/>
+	 * (ii) if(max_ending_here < 0) max_ending_here = 0 <br/>
+	 * (iii) if(max_so_far < max_ending_here) max_so_far = max_ending_here return max_so_far
+	 * 
+	 * @param arr
+	 * @return
+	 */
 	public int kandane(int[] arrA) {
 		int max_end_here = 0;
 		int max_so_far = 0;

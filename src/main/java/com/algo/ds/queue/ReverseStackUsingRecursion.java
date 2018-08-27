@@ -1,4 +1,4 @@
-package com.interview.stackqueue;
+package com.algo.ds.queue;
 
 import java.util.Deque;
 import java.util.Iterator;
