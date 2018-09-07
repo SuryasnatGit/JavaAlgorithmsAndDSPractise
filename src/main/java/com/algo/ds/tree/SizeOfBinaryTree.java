@@ -1,9 +1,6 @@
-package com.interview.tree;
+package com.algo.ds.tree;
 
 /**
- * Date 03/05/2015
- * @author tusroy
- * 
  * Given a root of binary tree, return size of binar tree
  * 
  * Solution:

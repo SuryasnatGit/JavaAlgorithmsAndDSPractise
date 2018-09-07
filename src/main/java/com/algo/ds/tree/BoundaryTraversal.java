@@ -1,12 +1,21 @@
-package com.interview.tree;
+package com.algo.ds.tree;
 
 /**
- * http://www.geeksforgeeks.org/boundary-traversal-of-binary-tree/
- * Test cases
- * All left children
- * All right children
- * Full tree
- * Complete tree
+ * http://www.geeksforgeeks.org/boundary-traversal-of-binary-tree/.
+ * 
+ * We break the problem in 3 parts: <br/>
+ * 1. Print the left boundary in top-down manner. <br/>
+ * 2. Print all leaf nodes from left to right, which can again be sub-divided into two sub-parts:
+ * <br/>
+ * .2.1 Print all leaf nodes of left sub-tree from left to right. <br/>
+ * 2.2 Print all leaf nodes of right subtree from left to right. <br/>
+ * 3. Print the right boundary in bottom-up manner.
+ * 
+ * Test cases :
+ * 	All left children 
+ *  All right children 
+ *  Full tree 
+ *  Complete tree
  */
 public class BoundaryTraversal {
 
@@ -32,7 +41,7 @@ public class BoundaryTraversal {
         System.out.println(root.data);
         if(root.right != null){
             printRightSide(root.right);
-        }else{
+		} else if (root.left != null) {
             printRightSide(root.left);
         }
     }
@@ -43,8 +52,8 @@ public class BoundaryTraversal {
         }
         if(root.left != null){
             printLeftSide(root.left);
-        }else{
-            printRightSide(root.right);
+		} else if (root.right != null) {
+			printLeftSide(root.right);
         }
         System.out.println(root.data);
     }
