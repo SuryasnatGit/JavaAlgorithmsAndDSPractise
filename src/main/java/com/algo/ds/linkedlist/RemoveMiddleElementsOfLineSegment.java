@@ -1,8 +1,24 @@
-package com.interview.linklist;
+package com.algo.ds.linkedlist;
 
 /**
- * http://www.geeksforgeeks.org/given-linked-list-line-segments-remove-middle-points/
- * @author tusroy
+ * http://www.geeksforgeeks.org/given-linked-list-line-segments-remove-middle-points/.
+ * 
+ * Input:  (0,10)->(1,10)->(5,10)->(7,10)
+                                  |
+                                (7,5)->(20,5)->(40,5)
+Output: Linked List should be changed to following
+        (0,10)->(7,10)
+                  |
+                (7,5)->(40,5) 
+The given linked list represents a horizontal line from (0,10) 
+to (7, 10) followed by a vertical line from (7, 10) to (7, 5), 
+followed by a horizontal line from (7, 5) to (40, 5).
+
+Input:     (2,3)->(4,3)->(6,3)->(10,3)->(12,3)
+Output: Linked List should be changed to following
+    (2,3)->(12,3) 
+There is only one vertical line, so all middle points are removed.
+ * 
  * Test cases:
  * 0 or more nodes
  * All points are edge of line segments so nothing gets removed
