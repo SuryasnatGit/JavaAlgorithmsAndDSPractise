@@ -1,66 +1,122 @@
-package com.interview.tree;
+package com.algo.ds.tree;
 
 /**
- * Date 03/24/2016
- * @author Tushar Roy
- *
  * Populate next pointer for each node of binary tree.
  *
- * Time complexity O(n)
- * Space complexity O(1)
+ * Time complexity O(n) Space complexity O(1)
  *
- * https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/
+ * https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/.
+ * 
+ * Given a binary tree
+ * 
+ * struct TreeLinkNode { TreeLinkNode *left; TreeLinkNode *right; TreeLinkNode *next; } Populate
+ * each next pointer to point to its next right node. If there is no next right node, the next
+ * pointer should be set to NULL.
+ * 
+ * Initially, all next pointers are set to NULL.
+ * 
+ * Note:
+ * 
+ * You may only use constant extra space. Recursive approach is fine, implicit stack space does not
+ * count as extra space for this problem. Example:
+ * 
+ * Given the following binary tree,
+ * 
+ * 1 / \ 2 3 / \ \ 4 5 7 After calling your function, the tree should look like:
+ * 
+ * 1 -> NULL / \ 2 -> 3 -> NULL / \ \ 4-> 5 -> 7 -> NULL
  */
 public class ConnectNodesAtSameLevel {
 
-    public void connect(Node root) {
-        if (root == null) {
-            return;
-        }
+	/**
+	 * Starting at any node, its left child's next value will be the node's right child, and it's right
+	 * child's next value will be the node's next value's left child. We need to make sure the next
+	 * value isn't null, so we add in a ternary conditional check.
+	 * 
+	 * @param root
+	 */
+	public void connect_simpleRecursive(Node root) {
+		connect_simpleRecursive(root, null);
+	}
 
-        Node firstNode = root;
-        Node prevNode = null;
-        while (firstNode != null) {
-            root = firstNode;
-            firstNode = null;
-            prevNode = null;
-            while (root != null) {
-                if (root.left != null) {
-                    if (firstNode == null) {
-                        firstNode = root.left;
-                    }
-                    if (prevNode != null) {
-                        prevNode.next = root.left;
-                    }
-                    prevNode = root.left;
-                }
-                if (root.right != null) {
-                    if (firstNode == null) {
-                        firstNode = root.right;
-                    }
-                    if (prevNode != null) {
-                        prevNode.next = root.right;
-                    }
-                    prevNode = root.right;
-                }
-                root = root.next;
-            }
-        }
-    }
+	private void connect_simpleRecursive(Node root, Node next) {
+		if (root == null)
+			return;
+		root.next = next;
+		connect_simpleRecursive(root.left, root.right);
+		connect_simpleRecursive(root.right, root.next != null ? root.next.left : null);
+	}
 
-    public static void main(String args[]){
-        BinaryTree bt = new BinaryTree();
-        Node root = null;
-        root = bt.addNode(10, root);
-        root = bt.addNode(15, root);
-        root = bt.addNode(5, root);
-        root = bt.addNode(7, root);
-        root = bt.addNode(19, root);
-        root = bt.addNode(20, root);
-        root = bt.addNode(-1, root);
-        root = bt.addNode(21, root);
-        ConnectNodesAtSameLevel cns = new ConnectNodesAtSameLevel();
+	/**
+	 * O(1) space and O(n) time
+	 * 
+	 * @param root
+	 */
+	public void connect_iterative(Node root) {
+		if (root == null)
+			return;
+		Node curr_level = root;
+		while (curr_level != null) {
+			Node temp = curr_level;
+			while (temp != null) {
+				if (temp.left != null)
+					temp.left.next = temp.right;
+				if (temp.right != null && temp.next != null)
+					temp.right.next = temp.next.left;
+				temp = temp.next;
+			}
+			curr_level = curr_level.left;
+		}
+	}
 
-        cns.connect(root);
-    }
+	public void connect(Node root) {
+		if (root == null) {
+			return;
+		}
+
+		Node firstNode = root;
+		Node prevNode = null;
+		while (firstNode != null) {
+			root = firstNode;
+			firstNode = null;
+			prevNode = null;
+			while (root != null) {
+				if (root.left != null) {
+					if (firstNode == null) {
+						firstNode = root.left;
+					}
+					if (prevNode != null) {
+						prevNode.next = root.left;
+					}
+					prevNode = root.left;
+				}
+				if (root.right != null) {
+					if (firstNode == null) {
+						firstNode = root.right;
+					}
+					if (prevNode != null) {
+						prevNode.next = root.right;
+					}
+					prevNode = root.right;
+				}
+				root = root.next;
+			}
+		}
+	}
+
+	public static void main(String args[]) {
+		BinaryTree bt = new BinaryTree();
+		Node root = null;
+		root = bt.addNode(10, root);
+		root = bt.addNode(15, root);
+		root = bt.addNode(5, root);
+		root = bt.addNode(7, root);
+		root = bt.addNode(19, root);
+		root = bt.addNode(20, root);
+		root = bt.addNode(-1, root);
+		root = bt.addNode(21, root);
+		ConnectNodesAtSameLevel cns = new ConnectNodesAtSameLevel();
+
+		cns.connect(root);
+	}
 }
