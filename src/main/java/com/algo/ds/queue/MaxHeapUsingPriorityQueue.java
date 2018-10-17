@@ -24,9 +24,14 @@ public class MaxHeapUsingPriorityQueue {
 		});
 	}
 
+	/**
+	 * complexity - n log n
+	 * 
+	 * @param input
+	 */
 	public void insert(int[] input) {
 		for (int i = 0; i < input.length; i++) {
-			pq.offer(input[i]);
+			pq.offer(input[i]); // log n
 		}
 	}
 
@@ -34,6 +39,11 @@ public class MaxHeapUsingPriorityQueue {
 		return pq.peek();
 	}
 
+	/**
+	 * log n
+	 * 
+	 * @return
+	 */
 	public int extractMax() {
 		return pq.poll();
 	}
