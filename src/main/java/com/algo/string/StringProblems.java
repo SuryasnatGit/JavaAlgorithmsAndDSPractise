@@ -39,6 +39,7 @@ public class StringProblems {
 		// // System.out.println(sp.urlifyString("Mr John Smith ", 20));
 		// System.out.println(sp.oneEdit("abba", "bbc"));
 		// System.out.println(sp.oneEdit("abba", "bba"));
+
 		// System.out.println(sp.oneEdit_1("apple", "appl"));
 		// System.out.println(sp.oneEdit_1("apple", "applm"));
 		// System.out.println(sp.oneEdit_1("appl", "apple"));
@@ -55,6 +56,19 @@ public class StringProblems {
 		// System.out.println(sp.isUniqueString_sort("abcc"));
 		// System.out.println(sp.checkPermutation("dad", "adda"));
 		System.out.println(sp.stringRotation("bat", "abt"));
+
+		System.out.println(sp.compressedString("apple"));
+		System.out.println(sp.compressedString("aabcccccaaa"));
+		System.out.println(sp.compressedString("ABCDEFFFFFFFF"));
+		System.out.println(sp.compressedString("ABCDEF"));
+		System.out.println(sp.leftRotation("surya", 2));
+		System.out.println(sp.leftRotation("apple", 3));
+		System.out.println(sp.rightRotation("surya", 2));
+		System.out.println(sp.palindromeIndex("bobj"));
+		System.out.println(sp.palindromeIndex("bob"));
+		System.out.println(sp.palindromeIndex("abob"));
+		System.out.println(sp.palindromeIndex("blob"));
+
 	}
 
 	private int count = 0;
@@ -334,9 +348,9 @@ public class StringProblems {
 	}
 
 	/**
-	 * Write a method to replace all the spaces in a string with �%20�. You may assume that the
+	 * Write a method to replace all the spaces in a string with ï¿½%20ï¿½. You may assume that the
 	 * string has sufficient space at the end to hold the additional characters, and that you are given
-	 * the �true� length of the string.
+	 * the ï¿½trueï¿½ length of the string.
 	 * 
 	 * Examples:
 	 * 
@@ -454,6 +468,70 @@ public class StringProblems {
 				low = mid + 1;
 		}
 		return -1;
+	}
+
+	/**
+	 * Validate if a given string is numeric. Some examples: "0" -> true "0.1" -> true "abc" -> false.
+	 * 
+	 * A string could be divided into these four substrings in the order from left to right: s1. Leading
+	 * whitespaces (optional). s2. Plus (+) or minus (â€“) sign (optional). s3. Number. s4. Optional
+	 * trailing whitespaces (optional). We ignore s1, s2, s4 and evaluate whether s3 is a valid number.
+	 * We realize that a number could either be a whole number or a decimal number. For a whole number,
+	 * it is easy: We evaluate whether s3 contains only digits and we are done.
+	 * 
+	 * On the other hand, a decimal number could be further divided into three parts: a. Integer part b.
+	 * Decimal point c. Fractional part The integer and fractional parts contain only digits. For
+	 * example, the number â€œ3.64â€� has integer part (3) and fractional part (64). Both of them are
+	 * optional, but at least one of them must present. For example, a single dot â€˜.â€™ is not a valid
+	 * number, but â€œ1.â€�, â€œ.1â€�, and â€œ1.0â€� are all valid. Please note that â€œ1.â€� is valid
+	 * because it implies â€œ1.0â€�.
+	 * 
+	 * @param input
+	 * @return
+	 */
+	public boolean isNumber(String input) {
+		int i = 0;
+		int n = input.length();
+
+		// 1. leading whitespace check
+		while (i < n && Character.isWhitespace(input.charAt(i)))
+			i++;
+		// 2. sign check
+		if (i < n && (input.charAt(i) == '+' || input.charAt(i) == '-'))
+			i++;
+		boolean isNumeric = false;
+		// 3. number check
+		while (i < n && Character.isDigit(input.charAt(i))) {
+			i++;
+			isNumeric = true;
+		}
+		// 4. decimal check
+		if (i < n && input.charAt(i) == '.') {
+			i++;
+			while (i < n && Character.isDigit(input.charAt(i))) {
+				i++;
+				isNumeric = true;
+			}
+		}
+
+		// if we want to extend this further by adding exponential part check, then add
+		// this code.
+		if (isNumeric && i < n && input.charAt(i) == 'e') {
+			i++;
+			isNumeric = false;
+			if (i < n && (input.charAt(i) == '+' || input.charAt(i) == '-'))
+				i++;
+			while (i < n && Character.isDigit(input.charAt(i))) {
+				i++;
+				isNumeric = true;
+			}
+		}
+
+		// 5. trailing whitespace check
+		while (i < n && Character.isWhitespace(input.charAt(i)))
+			i++;
+
+		return (i == n && isNumeric);
 	}
 
 	private int guess(int mid) {
@@ -827,33 +905,29 @@ public class StringProblems {
 	}
 
 	/**
-	 * Given a number, print all possible combinations of strings that can be used to dial the given
-	 * number in a phone with following specifications.
+	 * Given a string of lowercase letters in the range ascii[a-z], determine a character that can be
+	 * removed to make the string a palindrome. There may be more than one solution, but any will do.
+	 * For example, if your string is "bcbc", you can either remove 'b' at index or 'c' at index . If
+	 * the word is already a palindrome or there is no solution, return -1. Otherwise, return the index
+	 * of a character to remove.
 	 * 
-	 * In the given phone, we can dial, 2 using A or B or C, 3 using D or E or F, ������. 8 using T or U
-	 * or V, 9 using W or X or Y or Z, 1 using only 1 0 using 0.
-	 * 
-	 * For example if 23, is the given phone number, the program should print AD, AE, AF, BD, BE, BF,
-	 * CD, CE, CF
-	 * 
-	 * 
+	 * @param input
+	 * @return
 	 */
-	public void stringCombinationForPhoneNumber(String phoneNum) {
-		Map<Integer, String> map = new HashMap<>();
-		// populate the map
-		map.put(0, "0");
-		map.put(1, "1");
-		map.put(2, "ABC");
-		map.put(3, "DEF");
-		map.put(4, "GHI");
-		map.put(5, "JKL");
-		map.put(6, "MNO");
-		map.put(7, "PQRS");
-		map.put(8, "TUV");
-		map.put(9, "WXYZ");
+	public int palindromeIndex(String input) {
+		for (int i = 0, j = input.length() - 1; i < j; i++, j--) {
+			if (input.charAt(i) != input.charAt(j)) {
+				return isPalindrome(input, i + 1, j) ? i : j;
+			}
+		}
+		return -1;
+	}
 
-		// call recursive function
-		// printStringsRecursive(map, 0, phoneNum);
-
+	private boolean isPalindrome(String input, int beginIndex, int endIndex) {
+		while (beginIndex <= endIndex) {
+			if (input.charAt(beginIndex++) != input.charAt(endIndex--))
+				return false;
+		}
+		return true;
 	}
 }
