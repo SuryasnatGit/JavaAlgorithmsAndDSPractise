@@ -1,8 +1,8 @@
-package com.interview.array;
+
+
+package com.algo.ds.array;
 
 /**
- * Date 03/12/2016
- * @author Tushar Roy
  *
  * Given an unsorted array find maximum gap between consecutive element in sorted array.
  *

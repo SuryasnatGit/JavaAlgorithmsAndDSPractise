@@ -1,16 +1,19 @@
-package com.interview.stackqueue;
 
-import java.util.*;
+
+package com.algo.ds.queue;
+
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Set;
+
 
 /**
- * Date 02/29/2016
- * @author Tushar Roy
- *
- * Given a string remove duplicates from the string maintaining order
- * and getting lexicographically smallest string.
- *
- * Reference:
- * https://leetcode.com/problems/remove-duplicate-letters/
+ * Given a string remove duplicates from the string maintaining order and getting lexicographically smallest string.
+ * Reference: https://leetcode.com/problems/remove-duplicate-letters/. Example 1: Input: "bcabc" Output: "abc" Example
+ * 2: Input: "cbacdcbc" Output: "acdb"
  */
 public class RemoveDuplicateMaintainingOrder {
     public String removeDuplicateLetters(String s) {

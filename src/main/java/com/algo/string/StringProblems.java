@@ -46,6 +46,10 @@ public class StringProblems {
 		System.out.println(sp.leftRotation("surya", 2));
 		System.out.println(sp.leftRotation("apple", 3));
 		System.out.println(sp.rightRotation("surya", 2));
+		System.out.println(sp.palindromeIndex("bobj"));
+		System.out.println(sp.palindromeIndex("bob"));
+		System.out.println(sp.palindromeIndex("abob"));
+		System.out.println(sp.palindromeIndex("blob"));
 	}
 
 	private int count = 0;
@@ -383,6 +387,74 @@ public class StringProblems {
         return -1;
     }
 
+	/**
+	 * Validate if a given string is numeric. Some examples: "0" -> true "0.1" ->
+	 * true "abc" -> false.
+	 * 
+	 * A string could be divided into these four substrings in the order from left
+	 * to right: s1. Leading whitespaces (optional). s2. Plus (+) or minus (–) sign
+	 * (optional). s3. Number. s4. Optional trailing whitespaces (optional). We
+	 * ignore s1, s2, s4 and evaluate whether s3 is a valid number. We realize that
+	 * a number could either be a whole number or a decimal number. For a whole
+	 * number, it is easy: We evaluate whether s3 contains only digits and we are
+	 * done.
+	 * 
+	 * On the other hand, a decimal number could be further divided into three
+	 * parts: a. Integer part b. Decimal point c. Fractional part The integer and
+	 * fractional parts contain only digits. For example, the number “3.64” has
+	 * integer part (3) and fractional part (64). Both of them are optional, but at
+	 * least one of them must present. For example, a single dot ‘.’ is not a valid
+	 * number, but “1.”, “.1”, and “1.0” are all valid. Please note that “1.” is
+	 * valid because it implies “1.0”.
+	 * 
+	 * @param input
+	 * @return
+	 */
+	public boolean isNumber(String input) {
+		int i = 0;
+		int n = input.length();
+
+		// 1. leading whitespace check
+		while (i < n && Character.isWhitespace(input.charAt(i)))
+			i++;
+		// 2. sign check
+		if (i < n && (input.charAt(i) == '+' || input.charAt(i) == '-'))
+			i++;
+		boolean isNumeric = false;
+		// 3. number check
+		while (i < n && Character.isDigit(input.charAt(i))) {
+			i++;
+			isNumeric = true;
+		}
+		// 4. decimal check
+		if (i < n && input.charAt(i) == '.') {
+			i++;
+			while (i < n && Character.isDigit(input.charAt(i))) {
+				i++;
+				isNumeric = true;
+			}
+		}
+
+		// if we want to extend this further by adding exponential part check, then add
+		// this code.
+		if (isNumeric && i < n && input.charAt(i) == 'e') {
+			i++;
+			isNumeric = false;
+			if (i < n && (input.charAt(i) == '+' || input.charAt(i) == '-'))
+				i++;
+			while (i < n && Character.isDigit(input.charAt(i))) {
+				i++;
+				isNumeric = true;
+			}
+		}
+
+		// 5. trailing whitespace check
+		while (i < n && Character.isWhitespace(input.charAt(i)))
+			i++;
+
+		return (i == n && isNumeric);
+	}
+
     private int guess(int mid) {
         // TODO Auto-generated method stub
         return 0;
@@ -638,5 +710,33 @@ public class StringProblems {
 			ch[(i + d) % n] = input.charAt(i);
 		}
 		return new String(ch);
+	}
+
+	/**
+	 * Given a string of lowercase letters in the range ascii[a-z], determine a
+	 * character that can be removed to make the string a palindrome. There may be
+	 * more than one solution, but any will do. For example, if your string is
+	 * "bcbc", you can either remove 'b' at index or 'c' at index . If the word is
+	 * already a palindrome or there is no solution, return -1. Otherwise, return
+	 * the index of a character to remove.
+	 * 
+	 * @param input
+	 * @return
+	 */
+	public int palindromeIndex(String input) {
+		for (int i = 0, j = input.length() - 1; i < j; i++, j--) {
+			if (input.charAt(i) != input.charAt(j)) {
+				return isPalindrome(input, i + 1, j) ? i : j;
+			}
+		}
+		return -1;
+	}
+
+	private boolean isPalindrome(String input, int beginIndex, int endIndex) {
+		while (beginIndex <= endIndex) {
+			if (input.charAt(beginIndex++) != input.charAt(endIndex--))
+				return false;
+		}
+		return true;
 	}
 }

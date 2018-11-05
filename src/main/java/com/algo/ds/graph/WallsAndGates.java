@@ -1,24 +1,21 @@
-package com.interview.graph;
+
+
+package com.algo.ds.graph;
+
 
 import java.util.Deque;
 import java.util.LinkedList;
 
+
 /**
- * You are given a m x n 2D grid initialized with these three possible values.
- *      -1 - A wall or an obstacle.
- *      0 - A gate.
- *      INF - Infinity means an empty room. We use the value 231 - 1 = 2147483647 to represent INF as
- *      you may assume that the distance to a gate is less than 2147483647.
- *
- * Fill each empty room with the distance to its nearest gate. If it is impossible to reach a gate, it should be filled with INF
- *
- * Time complexity O(n*m)
- * Space complexity O(n*m)
- *
+ * You are given a m x n 2D grid initialized with these three possible values. -1 - A wall or an obstacle. 0 - A gate.
+ * INF - Infinity means an empty room. We use the value 231 - 1 = 2147483647 to represent INF as you may assume that the
+ * distance to a gate is less than 2147483647. Fill each empty room with the distance to its nearest gate. If it is
+ * impossible to reach a gate, it should be filled with INF Time complexity O(n*m) Space complexity O(n*m)
  * https://leetcode.com/problems/walls-and-gates/
  */
 public class WallsAndGates {
-    private static final int d[][] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+    private static final int d[][] = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
     private static final int INF = Integer.MAX_VALUE;
 
     public void wallsAndGates(int[][] rooms) {
@@ -32,7 +29,7 @@ public class WallsAndGates {
 
     }
 
-    private  void addNeighbors(int[][] rooms, int row, int col, Deque<Cell> queue) {
+    private void addNeighbors(int[][] rooms, int row, int col, Deque<Cell> queue) {
         for (int[] d1 : d) {
             int r1 = row + d1[0];
             int c1 = col + d1[1];
