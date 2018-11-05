@@ -39,13 +39,22 @@ public class StringProblems {
 		// // System.out.println(sp.urlifyString("Mr John Smith ", 20));
 		// System.out.println(sp.oneEdit("abba", "bbc"));
 		// System.out.println(sp.oneEdit("abba", "bba"));
-		System.out.println(sp.compressedString("apple"));
-		System.out.println(sp.compressedString("aabcccccaaa"));
-		System.out.println(sp.compressedString("ABCDEFFFFFFFF"));
-		System.out.println(sp.compressedString("ABCDEF"));
-		System.out.println(sp.leftRotation("surya", 2));
-		System.out.println(sp.leftRotation("apple", 3));
-		System.out.println(sp.rightRotation("surya", 2));
+		// System.out.println(sp.oneEdit_1("apple", "appl"));
+		// System.out.println(sp.oneEdit_1("apple", "applm"));
+		// System.out.println(sp.oneEdit_1("appl", "apple"));
+		// System.out.println(sp.oneEdit_1("apple", "appless"));
+		// System.out.println(sp.compressedString("apple"));
+		// System.out.println(sp.compressedString("aabcccccaaa"));
+		// System.out.println(sp.compressedString("ABCDEFFFFFFFF"));
+		// System.out.println(sp.compressedString("ABCDEF"));
+		// System.out.println(sp.leftRotation("surya", 2));
+		// System.out.println(sp.leftRotation("apple", 3));
+		// System.out.println(sp.rightRotation("surya", 2));
+		// System.out.println(sp.isUniqueString_usingBits("abcdzz"));
+		// System.out.println(sp.isUniqueString_sort("abc"));
+		// System.out.println(sp.isUniqueString_sort("abcc"));
+		// System.out.println(sp.checkPermutation("dad", "adda"));
+		System.out.println(sp.stringRotation("bat", "abt"));
 	}
 
 	private int count = 0;
@@ -75,7 +84,7 @@ public class StringProblems {
 	 * 
 	 * @param str
 	 */
-    public void stringPermutations(String str) {
+	public void stringPermutations(String str) {
 		permutations(str, "");
 	}
 
@@ -83,8 +92,7 @@ public class StringProblems {
 		if (string.length() == 0) {
 			System.out.println(prefix);
 			System.out.println(++count);
-		}
-		else {
+		} else {
 			for (int i = 0; i < string.length(); i++) {
 				String rem = string.substring(0, i) + string.substring(i + 1);
 				permutations(rem, prefix + string.charAt(i));
@@ -140,7 +148,8 @@ public class StringProblems {
 	}
 
 	/**
-	 * Time complexity - O(N^2) as for each iteration of N, the indexOf check runs N times.
+	 * Time complexity - O(N^2) as for each iteration of N, the indexOf check runs N times. If extra
+	 * space is not allowed.
 	 * 
 	 * @param s
 	 * @return
@@ -181,19 +190,53 @@ public class StringProblems {
 	}
 
 	/**
+	 * time complexity - O(N) if extra space is not allowed
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public boolean isUniqueString_usingBits(String s) {
+		int checker = 0;
+		for (int i = 0; i < s.length(); i++) {
+			int val = s.charAt(i) - 'a';
+			if ((checker & (1 << val)) > 0)
+				return false;
+			checker |= (1 << val); // inclusive OR (|)
+		}
+		return true;
+	}
+
+	/**
+	 * If modification is allowed. O(n log n) + O(n)
+	 * 
+	 * @return
+	 */
+	public boolean isUniqueString_sort(String s) {
+		char[] charArray = s.toCharArray();
+		Arrays.sort(charArray); // O(n log n)
+		for (int i = 0; i < charArray.length - 1; i++) { // O(n)
+			if (charArray[i] == charArray[i + 1])
+				return false;
+		}
+		return true;
+	}
+
+	/**
 	 * sort the strings and compare it. complexity - O(NlogN)
 	 * 
 	 * @param input1
 	 * @param input2
 	 */
-	public void findStringPermutation1(String input1, String input2) {
+	public boolean findStringPermutation1(String input1, String input2) {
+		if (input1.length() != input2.length())
+			return false;
 		char[] inputchar1 = input1.toCharArray();
 		char[] inputchar2 = input2.toCharArray();
 		Arrays.sort(inputchar1);
 		Arrays.sort(inputchar2);
 		String sortInput1 = new String(inputchar1);
 		String sortInput2 = new String(inputchar2);
-		System.out.println(sortInput1.equals(sortInput2) ? "is a permutation " : "is not a permutation");
+		return sortInput1.equals(sortInput2);
 	}
 
 	/**
@@ -232,8 +275,36 @@ public class StringProblems {
 	}
 
 	/**
-	 * Given two strings s and t, determine if they are isomorphic. Two strings are isomorphic if the characters in s
-	 * can be replaced to get t.
+	 * Solution #2: Check if the two strings have identical character counts. We can also use the
+	 * definition of a permutation-two words with the same character counts-to implement this algorithm.
+	 * We simply iterate through this code, counting how many times each character appears. Then,
+	 * afterwards, we compare the two arrays.
+	 * 
+	 * @param s
+	 * @param t
+	 * @return
+	 */
+	public boolean checkPermutation(String s, String t) {
+		if (s.length() != t.length())
+			return false;
+
+		// assume character set is ascii
+		int[] count = new int[128];
+
+		for (char c : s.toCharArray()) {
+			count[c]++;
+		}
+		for (char c : t.toCharArray()) {
+			count[c]--;
+			if (count[c] < 0)
+				return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Given two strings s and t, determine if they are isomorphic. Two strings are isomorphic if the
+	 * characters in s can be replaced to get t.
 	 * 
 	 * For example,"egg" and "add" are isomorphic, "foo" and "bar" are not. complexity - O(n)
 	 * 
@@ -263,8 +334,9 @@ public class StringProblems {
 	}
 
 	/**
-	 * Write a method to replace all the spaces in a string with ï¿½%20ï¿½. You may assume that the string has sufficient
-	 * space at the end to hold the additional characters, and that you are given the ï¿½trueï¿½ length of the string.
+	 * Write a method to replace all the spaces in a string with ï¿½%20ï¿½. You may assume that the
+	 * string has sufficient space at the end to hold the additional characters, and that you are given
+	 * the ï¿½trueï¿½ length of the string.
 	 * 
 	 * Examples:
 	 * 
@@ -305,8 +377,8 @@ public class StringProblems {
 	/**
 	 * Implement atoi to convert a string to an integer.
 	 * 
-	 * Hint: Carefully consider all possible input cases. If you want a challenge, please do not see below and ask
-	 * yourself what are the possible input cases.
+	 * Hint: Carefully consider all possible input cases. If you want a challenge, please do not see
+	 * below and ask yourself what are the possible input cases.
 	 * 
 	 * Analysis
 	 * 
@@ -355,38 +427,39 @@ public class StringProblems {
 		return (int) res;
 	}
 
-    /**
-     * We are playing the Guess Game. The game is as follows: I pick a number from 1 to n. You have to guess which
-     * number I picked. Every time you guess wrong, I'll tell you whether the number is higher or lower. You call a
-     * pre-defined API guess(int num) which returns 3 possible results (-1, 1, or 0): <br>
-     * -1 : My number is lower <br>
-     * 1 : My number is higher <br>
-     * 0 : Congrats! You got it! <br>
-     * Binary search problem
-     * 
-     * @param n
-     * @return
-     */
-    public int guessNumber(int n) {
-        int low = 1;
-        int high = n;
-        while (low <= high) {
-            int mid = low + (high - low) / 2;
-            int result = guess(mid);
-            if (result == 0)
-                return mid;
-            else if (result == 1)
-                high = mid - 1;
-            else
-                low = mid + 1;
-        }
-        return -1;
-    }
+	/**
+	 * We are playing the Guess Game. The game is as follows: I pick a number from 1 to n. You have to
+	 * guess which number I picked. Every time you guess wrong, I'll tell you whether the number is
+	 * higher or lower. You call a pre-defined API guess(int num) which returns 3 possible results (-1,
+	 * 1, or 0): <br>
+	 * -1 : My number is lower <br>
+	 * 1 : My number is higher <br>
+	 * 0 : Congrats! You got it! <br>
+	 * Binary search problem
+	 * 
+	 * @param n
+	 * @return
+	 */
+	public int guessNumber(int n) {
+		int low = 1;
+		int high = n;
+		while (low <= high) {
+			int mid = low + (high - low) / 2;
+			int result = guess(mid);
+			if (result == 0)
+				return mid;
+			else if (result == 1)
+				high = mid - 1;
+			else
+				low = mid + 1;
+		}
+		return -1;
+	}
 
-    private int guess(int mid) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
+	private int guess(int mid) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	public Object firstNonRepeatingCharInString(String input) {
 		Hashtable hashChar = new Hashtable();
@@ -531,7 +604,9 @@ public class StringProblems {
 	/**
 	 * There are three types of edits that can be performed on strings: insert a character, remove a
 	 * character, or replace a character. Given two strings, write a function to check if they are one
-	 * edit (or zero edits) away. time complexity - O(M + N)
+	 * edit (or zero edits) away. time complexity - O(M + N).
+	 * 
+	 * EXAMPLE pale, ple -) true . pales, pale -) true . pale, bale -) true pale, bae -) false.
 	 * 
 	 * @param s1
 	 * @param s2
@@ -572,6 +647,90 @@ public class StringProblems {
 
 		System.out.println(count);
 		return count == 1;
+	}
+
+	/**
+	 * This is one of those problems where it's helpful to think about the "meaning" of each of these
+	 * operations. What does it mean for two strings to be one insertion, replacement, or removal away
+	 * from each other? Replacement: Consider two strings, such as bale and pale, that are one
+	 * replacement away. Yes, that does mean that you could replace a character in bale to make pale.
+	 * But more precisely, it means that they are different only in one place. Insertion: The strings
+	 * apple and aple are one insertion away. This means that if you compared the strings, they would be
+	 * identical-except for a shift at some point in the strings. Removal: The strings apple and aple
+	 * are also one removal away, since removal is just the inverse of insertion.
+	 * 
+	 * complexity - 0 (n) time, where n is the length of the shorter string.
+	 * 
+	 * @param s1
+	 * @param s2
+	 * @return
+	 */
+	public boolean oneEdit_1(String s1, String s2) {
+		if (s1.length() == s2.length())
+			return oneEditReplace(s1, s2);
+		else if (s1.length() + 1 == s2.length())
+			return oneEditInsert(s1, s2);
+		else if (s1.length() - 1 == s2.length())
+			return oneEditInsert(s2, s1);
+		return false;
+	}
+
+	private boolean oneEditReplace(String s1, String s2) {
+		boolean foundDiff = false;
+		for (int i = 0; i < s1.length(); i++) {
+			if (s1.charAt(i) != s2.charAt(i)) {
+				if (foundDiff)
+					return false; // if subsequent diff occurs then this is not a one edit replace
+				foundDiff = true; // set the boolean to true for first occurance
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * 
+	 * @param s1
+	 *            is the shorter string
+	 * @param s2
+	 *            is the longer string
+	 * @return
+	 */
+	private boolean oneEditInsert(String s1, String s2) {
+		int index1 = 0;
+		int index2 = 0;
+		while (index1 < s1.length() && index2 < s2.length()) {
+			if (s1.charAt(index1) != s2.charAt(index2)) {
+				if (index1 != index2)
+					return false;
+				index2++;
+			} else {
+				index1++;
+				index2++;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * The runtime is O(p + k^2), where p is the size of the original string and k is the number of
+	 * character sequences. For example, if the string is aabccdeeaa, then there are six character
+	 * sequences. It 's slow because string concatenation operates in O(n^2). Instead of this
+	 * concatenation we can use StringBuilder
+	 * 
+	 * @param input
+	 * @return
+	 */
+	public String compressedString_bad(String input) {
+		int conseqetiveCount = 0;
+		String compressedString = "";
+		for (int i = 0; i < input.length(); i++) {
+			conseqetiveCount++;
+			if (i + 1 >= input.length() || input.charAt(i) != input.charAt(i + 1)) {
+				compressedString += input.charAt(i) + conseqetiveCount;
+				conseqetiveCount = 0;// reset it
+			}
+		}
+		return (compressedString.length() < input.length()) ? compressedString : input;
 	}
 
 	/**
@@ -638,5 +797,63 @@ public class StringProblems {
 			ch[(i + d) % n] = input.charAt(i);
 		}
 		return new String(ch);
+	}
+
+	/**
+	 * Assume you have a method isSubstring which checks if one word is a substring of another. Given
+	 * two strings, s1 and s2, write code to check if s2 is a rotation of s1 using only one call to
+	 * isSubstring (e.g., waterbottle is a rotation of erbottlewat ).
+	 * 
+	 * We ask what the rotation point is. If a string is broken down into x and y, so thst xy = s1 and
+	 * yx = s2, then yx is a substring of xyxy. i.e s2 is always a substring of s1s1.
+	 * 
+	 * The runtime of this varies based on the runtime of isSubString. But if you assume that
+	 * isSubstring runs in O(A+B) time (on strings of length A and B), then the runtime of isRotation is
+	 * O( N) .
+	 * 
+	 * @return
+	 */
+	public boolean stringRotation(String s1, String s2) {
+		int len1 = s1.length();
+		if (len1 == s2.length() && len1 > 0) {
+			String s1s1 = s1 + s1;
+			return isSubString(s1s1, s2);
+		}
+		return false;
+	}
+
+	private boolean isSubString(String s1, String s2) {
+		return s1.contains(s2);
+	}
+
+	/**
+	 * Given a number, print all possible combinations of strings that can be used to dial the given
+	 * number in a phone with following specifications.
+	 * 
+	 * In the given phone, we can dial, 2 using A or B or C, 3 using D or E or F, ………………. 8 using T or U
+	 * or V, 9 using W or X or Y or Z, 1 using only 1 0 using 0.
+	 * 
+	 * For example if 23, is the given phone number, the program should print AD, AE, AF, BD, BE, BF,
+	 * CD, CE, CF
+	 * 
+	 * 
+	 */
+	public void stringCombinationForPhoneNumber(String phoneNum) {
+		Map<Integer, String> map = new HashMap<>();
+		// populate the map
+		map.put(0, "0");
+		map.put(1, "1");
+		map.put(2, "ABC");
+		map.put(3, "DEF");
+		map.put(4, "GHI");
+		map.put(5, "JKL");
+		map.put(6, "MNO");
+		map.put(7, "PQRS");
+		map.put(8, "TUV");
+		map.put(9, "WXYZ");
+
+		// call recursive function
+		// printStringsRecursive(map, 0, phoneNum);
+
 	}
 }
