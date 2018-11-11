@@ -64,52 +64,69 @@ public class LinkedListUtils {
 
 	private void displayList(Link head) {
 		while (head != null) {
-			System.out.println(head.getKey());
+			System.out.print(head.getKey() + "->");
 			head = head.next;
 		}
 	}
 
 	/**
-	 * wip. not 100% correct
-	 * 
-	 * @param head
-	 * @param x
-	 * @return
+	 *
 	 */
-	public Link deleteNode(Link head, int x) {
-		if (head == null) {
-			return null;
-		} else {
-			Link current = head;
-			Link previous = head;
-			while (current.next != null) {
-				previous = current;
-				if (current.getKey() > x) {
-					previous.next = current.next;
-					previous = previous.next;
-					current = previous;
-				}
-
-				current = current.next;
-
-			}
-			// if(current.getKey() > x)
+	public Link deleteNodeInMiddle(Link head, int x) {
+		if (head == null)
+			return head;
+		Link current = head;
+		if (x == 0) {
+			head = current.next;
 			return head;
 		}
+
+		// find previous node of the node to be deleted
+		for (int i = 0; current != null && i < x - 1; i++) {
+			current = current.next;
+		}
+
+		// if x is more than number of nodes
+		if (current == null || current.next == null)
+			return head;
+
+		// unlink the deleted node from the list
+		current.next = current.next.next;
+
+		return head;
 	}
-	
-	public int getNthNodeFromEnd(Link head, int n){
+
+	/**
+	 * Delete Middle Node: Implement an algorithm to delete a node in the middle (Le., any node but the
+	 * fi rst and last node, not necessarily the exact middle) of a singly linked list, given only
+	 * access to that node. EXAMPLE Input: the node c from the linked list a - >b- >c - >d - >e- >f
+	 * Result: nothing is returned, but the new linked list looks like a->b->d->e->f
+	 * 
+	 * @param n
+	 * @return
+	 */
+	public boolean deleteMiddleNode(Link n) {
+		if (n == null || n.next == null)
+			return false;
+		Link next = n.next;
+		n.data = next.data;
+		n.next = next.next;
+		return true;
+	}
+
+	public int getNthNodeFromEnd(Link head, int n) {
 		Link temp = head;
 		int c = 0;
-		while(temp != null){
+		while (temp != null) {
 			c++;
 			temp = temp.next;
 		}
 		temp = head;
 		int c1 = 0;
-		while(temp != null){
+		while (temp != null) {
 			c1++;
-			if(c1 == c-n) return temp.getKey();
+			if (c1 == c - n)
+				return temp.getKey();
 			temp = temp.next;
 		}
 		return 0;
@@ -133,13 +150,14 @@ public class LinkedListUtils {
 		a1.next = a2;
 		a2.next = a3;
 		utils.displayList(a1);
-		System.out.println("********");
 		Link b1 = new Link(3);
 		Link b2 = new Link(4);
 		b1.next = b2;
 		// utils.displayList(b1);
-//		utils.displayList(utils.deleteNode(a1, 3));
-		System.out.println(utils.getNthNodeFromEnd(a1, 3));
+		Link l = utils.deleteNodeInMiddle(a1, 3);
+		utils.displayList(l);
+		// utils.displayList(head);
+		// System.out.println(utils.getNthNodeFromEnd(a1, 3));
 		// a.next = new Link(5);
 		// System.out.println("********");
 		// utils.displayList(utils.mergeSortedListsRecursive(a1, b1));

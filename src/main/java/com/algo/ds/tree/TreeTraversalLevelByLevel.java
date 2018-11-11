@@ -1,11 +1,9 @@
-package com.interview.tree;
+package com.algo.ds.tree;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * Date 04/18/2015
- * @author tusroy
  * 
  * Video link - https://youtu.be/7uG0gLDbhsI
  * 

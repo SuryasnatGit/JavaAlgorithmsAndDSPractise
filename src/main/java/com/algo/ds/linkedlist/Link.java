@@ -2,7 +2,7 @@ package com.algo.ds.linkedlist;
 
 public class Link {
 
-	private int data;
+	public int data;
 	public Link next;
 
 	public Link() {

@@ -1,7 +1,7 @@
 package com.algo.ds.sorting;
 
 /**
- * * Heap Sort Given an array sort it using heap sort.
+ * * Heap Sort: Given an array, sort it using heap sort.
  * 
  * Solution : First convert the original array to create the heap out of the
  * array Then move the max element to last position and do heapify to recreate
@@ -23,7 +23,7 @@ public class HeapSort {
 
     public void sort(int arr[]){
         for(int i=1; i < arr.length; i++){
-            heapAdd(arr, i);
+            buildMaxHeap(arr, i);
         }
         
         for(int i = arr.length-1; i > 0 ; i--){
@@ -32,6 +32,12 @@ public class HeapSort {
         }
     }
     
+	/**
+	 * complexity - O(log n) called n-1 times
+	 * 
+	 * @param arr
+	 * @param end
+	 */
     private void heapify(int arr[], int end){
         int i = 0;
         int leftIndex;
@@ -64,7 +70,13 @@ public class HeapSort {
         arr[y] = temp;
     }
     
-    private void heapAdd(int arr[], int end){
+	/**
+	 * complexity - O(n)
+	 * 
+	 * @param arr
+	 * @param end
+	 */
+    private void buildMaxHeap(int arr[], int end){
         int i = end;
         while(i > 0){
             if(arr[i] > arr[(i-1)/2]){
