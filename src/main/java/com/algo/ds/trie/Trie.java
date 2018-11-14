@@ -3,15 +3,13 @@ package com.algo.ds.trie;
 import java.util.Map;
 
 /**
- * A trie is a data structure used for efficient retrieval of data associated
- * with keys. If key is of length n, then using trie worst case time complexity
- * for searching the record associated with this key is O(n). Insertion of (key,
- * record) pair also takes O(n) time in worst case.
+ * A trie is a data structure used for efficient retrieval of data associated with keys. If key is
+ * of length n, then using trie worst case time complexity for searching the record associated with
+ * this key is O(n). Insertion of (key, record) pair also takes O(n) time in worst case.
  * 
- * Trie's retrieval/insertion time in worst case is better than hashTable and
- * binary search tree both of which take worst case time of O(n) for
- * retrieval/insertion. The trie structure though in theory has same worst case
- * space complexity as hashTable or a binary tree, memory needed to store
+ * Trie's retrieval/insertion time in worst case is better than hashTable and binary search tree
+ * both of which take worst case time of O(n) for retrieval/insertion. The trie structure though in
+ * theory has same worst case space complexity as hashTable or a binary tree, memory needed to store
  * pointers causes it to be less space efficient during implementations.
  * 
  * root / \ \ t a b | | | h n y | | \ | e s y e / | | i r w | | | r e e | r
@@ -73,6 +71,17 @@ public class Trie {
 		return searchNode(prefix) != null ? true : false;
 	}
 
+	public String lcpFromTrie() {
+		TrieNode node = root;
+		String prefix = "";
+
+		while (node.getChildren().size() == 1 && !node.isLeaf()) {
+			node = node.getChildren().entrySet().iterator().next().getValue();
+			prefix += node.getChar();
+		}
+		return prefix;
+	}
+
 	private TrieNode searchNode(String str) {
 		Map<Character, TrieNode> children = root.getChildren();
 		TrieNode trieNode = null;
@@ -93,8 +102,8 @@ public class Trie {
 	}
 
 	/**
-	 * Returns if the word is in the data structure. A word could contain the dot
-	 * character '.' to represent any one letter.
+	 * Returns if the word is in the data structure. A word could contain the dot character '.' to
+	 * represent any one letter.
 	 * 
 	 * @param children
 	 * @param word
@@ -157,6 +166,11 @@ public class Trie {
 			return current.getChildren().size() == 0;
 		}
 		return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Trie [root=" + root + "]";
 	}
 
 	public static void main(String[] args) {

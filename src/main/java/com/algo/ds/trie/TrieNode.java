@@ -17,6 +17,10 @@ public class TrieNode {
 		this.c = ch;
 	}
 
+	public char getChar() {
+		return c;
+	}
+
 	public Map<Character, TrieNode> getChildren() {
 		return children;
 	}
