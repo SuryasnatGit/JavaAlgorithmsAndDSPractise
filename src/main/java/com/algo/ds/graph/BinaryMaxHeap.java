@@ -51,6 +51,11 @@ public class BinaryMaxHeap<T> {
 		return allNodes.get(0).data;
 	}
 
+	public void replaceMax(T val) {
+		allNodes.get(0).data = val;
+		add(allNodes.get(0).weight, allNodes.get(0).data);
+	}
+
 	public boolean empty() {
 		return allNodes.size() == 0;
 	}

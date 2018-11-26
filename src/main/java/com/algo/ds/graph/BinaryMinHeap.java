@@ -39,7 +39,7 @@ public class BinaryMinHeap<T> {
 	}
 
 	/**
-	 * Add key and its weight to they heap
+	 * Add key and its weight to they heap. complexity - O(log N)
 	 */
 	public void add(int weight, T key) {
 		Node node = new Node();
@@ -80,7 +80,7 @@ public class BinaryMinHeap<T> {
 	}
 
 	/**
-	 * Decreases the weight of given key to newWeight
+	 * Decreases the weight of given key to newWeight. complexity - O(log N)
 	 */
 	public void decrease(T data, int newWeight) {
 		Integer position = nodePosition.get(data);
@@ -111,7 +111,7 @@ public class BinaryMinHeap<T> {
 	}
 
 	/**
-	 * Returns the min node of the heap
+	 * Returns the min node of the heap. complexity - O(log N)
 	 */
 	public Node extractMinNode() {
 		int size = allNodes.size() - 1;

@@ -1,12 +1,10 @@
-package com.interview.tree;
+package com.algo.ds.tree;
 
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Stack;
 
 /**
- * Date 04/16/2015
- * @author tusroy
  *
  * Video link - https://youtu.be/vjt5Y6-1KsQ
  *
