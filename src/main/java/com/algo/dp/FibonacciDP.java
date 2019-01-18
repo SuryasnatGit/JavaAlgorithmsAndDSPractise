@@ -25,6 +25,8 @@ public class FibonacciDP {
 	 * 
 	 * Following is the memoized version for nth Fibonacci Number.
 	 * 
+	 * Time Complexity: T(n) = T(n-1) + T(n-2) which is exponential.
+	 * 
 	 * @param num
 	 * @return
 	 */
@@ -51,6 +53,10 @@ public class FibonacciDP {
 	 * 
 	 * Following is the tabulated version for nth Fibonacci Number
 	 * 
+	 * Time Complexity: O(n)
+	 * 
+	 * Extra Space: O(n)
+	 * 
 	 * @param num
 	 * @return
 	 */
@@ -67,6 +73,10 @@ public class FibonacciDP {
 	 * if we dont want to use extra space for memo table.. This is basically storing the results from
 	 * the last two Fibonacci values into a and b. At each iteration, we compute the next value (c = a +
 	 * b) and then move(b, c = a + b) into (a, b) .
+	 * 
+	 * Time Complexity: O(n)
+	 * 
+	 * Extra Space: O(1)
 	 * 
 	 * @param num
 	 * @return

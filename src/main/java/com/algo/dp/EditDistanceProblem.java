@@ -1,5 +1,27 @@
 package com.algo.dp;
 
+/**
+ * Given two strings str1 and str2 and below operations that can performed on str1. Find minimum
+ * number of edits (operations) required to convert ‘str1’ into ‘str2’.
+ * 
+ * Insert Remove Replace
+ * 
+ * All of the above operations are of equal cost.
+ * 
+ * Examples:
+ * 
+ * Input: str1 = "geek", str2 = "gesek" Output: 1 We can convert str1 into str2 by inserting a 's'.
+ * 
+ * Input: str1 = "cat", str2 = "cut" Output: 1 We can convert str1 into str2 by replacing 'a' with
+ * 'u'.
+ * 
+ * Input: str1 = "sunday", str2 = "saturday" Output: 3 Last three and first characters are same. We
+ * basically need to convert "un" to "atur". This can be done using below three operations. Replace
+ * 'n' with 'r', insert t, insert a
+ * 
+ * @author surya
+ *
+ */
 public class EditDistanceProblem {
 
 	/**
@@ -34,6 +56,15 @@ public class EditDistanceProblem {
 				Math.min(editDistanceRecursive(s1, s2, m - 1, n), editDistanceRecursive(s1, s2, m - 1, n - 1)));
 	}
 
+	/**
+	 * Time Complexity: O(m x n)
+	 * 
+	 * Auxiliary Space: O(m x n)
+	 * 
+	 * @param s1
+	 * @param s2
+	 * @return
+	 */
 	public int editDistanceDP(String s1, String s2) {
 		// holder to hold the solution so as to prevent recursion
 		int[][] solution = new int[s1.length() + 1][s2.length() + 1];
