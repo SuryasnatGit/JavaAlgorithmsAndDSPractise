@@ -6,7 +6,7 @@ import java.util.Map;
 import com.algo.ds.linkedlist.Link;
 import com.algo.ds.linkedlist.RandomLink;
 
-public class MiscellaneousLLProblems {
+public class MiscellaneousLinkedListProblems {
 
 	/**
 	 * You are given two linked lists representing two non-negative numbers. <br/>
@@ -529,7 +529,7 @@ public class MiscellaneousLLProblems {
 	}
 
 	public static void main(String[] args) {
-		MiscellaneousLLProblems prob = new MiscellaneousLLProblems();
+		MiscellaneousLinkedListProblems prob = new MiscellaneousLinkedListProblems();
 
 		/*
 		 * Link l1 = new Link(2); Link l2 = new Link(4); Link l3 = new Link(3); l1.next = l2; l2.next = l3;
