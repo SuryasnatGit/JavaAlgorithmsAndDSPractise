@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.algo.ds.linkedlist.Link;
 
-public class LeetCodeProblems {
+public class LeetCodeLinkedListProblems {
 
 	/**
 	 * Given a linked list, determine if it has a cycle in it.
@@ -256,7 +256,7 @@ public class LeetCodeProblems {
 		map.put(10, 10);
 		map.put(20, 20);
 		// System.out.println(map.get(5));
-		LeetCodeProblems prob = new LeetCodeProblems();
+		LeetCodeLinkedListProblems prob = new LeetCodeLinkedListProblems();
 		// Link a1 = new Link(10);
 		// // Link a2 = new Link(20);
 		// // a1.next = a2;
