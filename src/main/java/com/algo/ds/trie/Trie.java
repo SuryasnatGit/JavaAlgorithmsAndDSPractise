@@ -12,7 +12,19 @@ import java.util.Map;
  * theory has same worst case space complexity as hashTable or a binary tree, memory needed to store
  * pointers causes it to be less space efficient during implementations.
  * 
- * root / \ \ t a b | | | h n y | | \ | e s y e / | | i r w | | | r e e | r
+ *    				   root
+                    /   \    \
+                    t   a     b
+                    |   |     |
+                    h   n     y
+                    |   |  \  |
+                    e   s  y  e
+                 /  |   |
+                 i  r   w
+                 |  |   |
+                 r  e   e
+                        |
+                        r
  * 
  * 
  * @author Suryasnat

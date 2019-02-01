@@ -3,6 +3,8 @@ package com.ctci.treegraph;
 import com.algo.common.Node;
 
 /**
+ * CTCI - 4.2
+ * 
  * Objective: Given a sorted array with unique elements, Create a binary search tree with minimal
  * height.
  * 
