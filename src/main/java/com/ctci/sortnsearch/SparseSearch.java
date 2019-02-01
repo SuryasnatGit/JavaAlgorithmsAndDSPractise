@@ -4,8 +4,14 @@ package com.ctci.sortnsearch;
 
 
 /**
- * Sparse Search: Given a sorted array of strings that is interspersed with empty strings, write a method to find the
- * location of a given string. EXAMPLE Input: ball,{"at", "", "", "", "ball", "" , "", "car", "", "", "dad"} Output: 4.
+ * CTCI - 10.5
+ * 
+ * Sparse Search: Given a sorted array of strings that is interspersed with
+ * empty strings, write a method to find the location of a given string. EXAMPLE
+ * Input: ball,{"at", "", "", "", "ball", "" , "", "car", "", "", "dad"} Output:
+ * 4.
+ * 
+ * 
  * Complexity - O(n)
  */
 public class SparseSearch {

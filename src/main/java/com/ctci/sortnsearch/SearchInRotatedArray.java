@@ -2,10 +2,19 @@ package com.ctci.sortnsearch;
 
 
 /**
- * Search in Rotated Array: Given a sorted array of n integers that has been rotated an unknown number of times, write
- * code to find an element in the array. You may assume that the array was originally sorted in increasing order.
- * EXAMPLE : Input: find 5 in {15, 16, 19, 20, 25, 1, 3 ,4 ,5 ,7 ,1 0 , 14} Output 8 (the index of 5 in the array).
- * Complexity: O(log n) if all elements are unique. But if many duplicates are there, then its O(n).
+ * CTCI - 10.3
+ * 
+ * Search in Rotated Array: Given a sorted array of n integers that has been
+ * rotated an unknown number of times, write code to find an element in the
+ * array. You may assume that the array was originally sorted in increasing
+ * order.
+ * 
+ * EXAMPLE : Input: find 5 in {15, 16, 19, 20, 25, 1, 3 ,4 ,5 ,7 ,1 0 , 14}
+ * 
+ * Output 8 (the index of 5 in the array).
+ * 
+ * Complexity: O(log n) if all elements are unique. But if many duplicates are
+ * there, then its O(n).
  * 
  * @author ctsuser1
  */

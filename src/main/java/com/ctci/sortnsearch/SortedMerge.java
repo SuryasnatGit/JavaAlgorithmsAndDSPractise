@@ -1,3 +1,5 @@
+
+
 package com.ctci.sortnsearch;
 
 
@@ -5,12 +7,19 @@ import java.util.Arrays;
 
 
 /**
- * Sorted Merge: You are given two sorted arrays, A and B, where A has a large enough buffer at the end to hold B. Write
- * a method to merge B into A in sorted order. Since we know that A has enough buffer at the end, we won't need to
- * allocate additional space. Our logic should involve simply comparing elements of A and B and inserting them in order,
- * until we've exhausted all elements in Aand in B. The only issue with this is that if we insert an element into the
- * front of A, then we'll have to shift the existing elements backwards to make room for it. It's better to insert
- * elements into the back of the array, where there's empty space.
+ * CTCI - 10.1
+ * 
+ * Sorted Merge: You are given two sorted arrays, A and B, where A has a large
+ * enough buffer at the end to hold B. Write a method to merge B into A in
+ * sorted order.
+ * 
+ * Since we know that A has enough buffer at the end, we won't need to allocate
+ * additional space. Our logic should involve simply comparing elements of A and
+ * B and inserting them in order, until we've exhausted all elements in Aand in
+ * B. The only issue with this is that if we insert an element into the front of
+ * A, then we'll have to shift the existing elements backwards to make room for
+ * it. It's better to insert elements into the back of the array, where there's
+ * empty space.
  */
 public class SortedMerge {
 

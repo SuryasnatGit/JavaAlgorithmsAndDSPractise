@@ -9,7 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Group Anagrams: Write a method to sort an array of strings so that all the anagrams are next to each other.
+ * CTCI - 10.2
+ * 
+ * Group Anagrams: Write a method to sort an array of strings so that all the
+ * anagrams are next to each other.
  * 
  * @author ctsuser1
  */
