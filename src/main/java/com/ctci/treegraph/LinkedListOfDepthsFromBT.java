@@ -9,8 +9,10 @@ import com.algo.common.ListNode;
 import com.algo.common.Node;
 
 /**
+ * CTCI - 4.3
+ * 
  * Given a binary tree, design an algorithm which creates a linked list of all the nodes at each
- * depth (e.g., if you have a tree with depth 0, you'll have 0 linked lists). Time Complexity : O(N)
+ * depth (e.g., if you have a tree with depth D, you'll have D linked lists). Time Complexity : O(N)
  * 
  * @author surya
  *

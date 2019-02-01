@@ -6,11 +6,11 @@ import java.util.Map;
 public class TrieNode {
 
 	private char c;
-	private Map<Character, TrieNode> children = new HashMap<>();
+	private Map<Character, TrieNode> children;
 	private boolean isLeaf;
 
 	public TrieNode() {
-		// TODO Auto-generated constructor stub
+		children = new HashMap<>();
 	}
 
 	public TrieNode(char ch) {
@@ -23,6 +23,39 @@ public class TrieNode {
 
 	public Map<Character, TrieNode> getChildren() {
 		return children;
+	}
+	
+	/**
+	 * Find the child node of this node that has the char argument as its data.
+	 * 
+	 * @param ch
+	 * @return
+	 */
+	public TrieNode getChild(char ch) {
+		return children.get(ch);
+	}
+
+	/**
+	 * Add the word to this Trie and recursively create child nodes
+	 * 
+	 * @param word
+	 */
+	public void addWord(String word) {
+		if (word == null || word.isEmpty())
+			return;
+
+		char firstChar = word.charAt(0);
+		TrieNode child = getChild(firstChar);
+		if (child == null) {
+			child = new TrieNode(firstChar);
+			children.put(firstChar, child);
+		}
+
+		if (word.length() > 1) {
+			child.addWord(word.substring(1));
+		} else {
+			child.setLeaf(true);
+		}
 	}
 
 	public boolean isLeaf() {
