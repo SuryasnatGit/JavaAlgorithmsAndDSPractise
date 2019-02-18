@@ -30,7 +30,7 @@ import java.util.Set;
 public class GraphTraversal {
 
 	public void DFS(Graph<Integer> graph) {
-		Set<Long> visited = new HashSet<Long>();
+		Set<Integer> visited = new HashSet<>();
 		for (Vertex<Integer> vertex : graph.getAllVertex()) {
 			if (!visited.contains(vertex.getId())) {
 				DFSUtil(vertex, visited);
@@ -39,7 +39,7 @@ public class GraphTraversal {
 
 	}
 
-	private void DFSUtil(Vertex<Integer> v, Set<Long> visited) {
+	private void DFSUtil(Vertex<Integer> v, Set<Integer> visited) {
 		visited.add(v.getId());
 		System.out.print(v.getId() + " ");
 		for (Vertex<Integer> vertex : v.getAdjacentVertexes()) {
@@ -74,7 +74,7 @@ public class GraphTraversal {
 	}
 
 	public void BFS(Graph<Integer> graph) {
-		Set<Long> visited = new HashSet<Long>();
+		Set<Integer> visited = new HashSet<>();
 		Queue<Vertex<Integer>> q = new LinkedList<Vertex<Integer>>();
 
 		for (Vertex<Integer> vertex : graph.getAllVertex()) {

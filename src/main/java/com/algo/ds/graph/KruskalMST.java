@@ -6,12 +6,16 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Date 09/25/2014
- *
+ * 
  * <p>
  * Find minimum spanning tree usinig Kruskals algorithm
  * <p>
- * Time complexity - O(ElogE + E) Space complexity - O(E + V)
+ * Time Complexity: O(ElogE) or O(ElogV). Sorting of edges takes O(ELogE) time. After sorting, we
+ * iterate through all edges and apply find-union algorithm. The find and union operations can take
+ * atmost O(LogV) time. So overall complexity is O(ELogE + ELogV) time. The value of E can be atmost
+ * O(V2), so O(LogV) are O(LogE) same. Therefore, overall time complexity is O(ElogE) or O(ElogV)
+ * 
+ * Space complexity - O(E + V)
  * <p>
  * References https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
  */

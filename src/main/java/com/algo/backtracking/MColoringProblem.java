@@ -26,11 +26,20 @@ public class MColoringProblem {
 	private int V = 4;// number of vertex in graph
 	private int[] color = new int[V];
 
+	/**
+	 * 
+	 * @param graph
+	 *            adjacency matrix
+	 * @param m
+	 *            number of colors
+	 * @return
+	 */
 	public boolean mColor(int[][] graph, int m) {
 		// initialize color to default value
 		for (int i = 0; i < V; i++)
 			color[i] = 0;
 
+		// start with first vertex
 		if (!mColorUtil(graph, color, m, 0)) {
 			System.out.println("same adjacent color node exist");
 			return false;
@@ -39,6 +48,18 @@ public class MColoringProblem {
 		return true;
 	}
 
+	/**
+	 * 
+	 * @param graph
+	 *            adjacency matrix
+	 * @param color
+	 *            color array of size V
+	 * @param m
+	 *            number of colors
+	 * @param v
+	 *            vertex number
+	 * @return
+	 */
 	private boolean mColorUtil(int[][] graph, int[] color, int m, int v) {
 		// base case. if all vertex have been covered
 		if (v == V)
@@ -49,17 +70,31 @@ public class MColoringProblem {
 			if (isSafe(graph, color, c, v)) {
 				color[v] = c;
 
+				// recur to assign colors to rest of the vertices
 				if (mColorUtil(graph, color, m, v + 1))
 					return true;
 
-				// if condition not satisfied, then backtrack the color which was set earlier.
+				// if assigning color c does not lead to a solution, then backtrack the color which was set earlier.
 				color[v] = 0;
 			}
 		}
+		// if no color can be assigned to this vertex then return false
 		return false;
 	}
 
-	// utility function to check if the current color assignment is safe for v
+	/**
+	 * utility function to check if the current color assignment is safe for v
+	 * 
+	 * @param graph
+	 *            adjacency matrix
+	 * @param color
+	 *            color array
+	 * @param c
+	 *            color id
+	 * @param v
+	 *            vertex id
+	 * @return
+	 */
 	private boolean isSafe(int[][] graph, int[] color, int c, int v) {
 		for (int i = 0; i < V; i++) {
 			if (graph[v][i] == 1 && color[i] == c) // if color already exists

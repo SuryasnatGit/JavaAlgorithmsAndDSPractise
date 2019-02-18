@@ -6,31 +6,85 @@ import java.util.Map;
 /**
  * Video link - https://youtu.be/ID00PMy0-vE
  * 
- * Disjoint sets using path compression and union by rank Supports 3 operations<br/>
- * 1) makeSet - creates a singleton set containing new element x and returns the position <br/>
- * 2) union - merges the sets<br/>
- * 3) findSet - returns an element of the set which is an element that identifies the set.
  * 
- * <br/>
- * union by rank - make the node who has higher rank the parent and the node which has lower rank
- * the child.
- * 
- * For m operations and total n elements time complexity is O(m*f(n)) where f(n) is very slowly
- * growing function. For most cases f(n) <= 4 so effectively total time will be O(m). Proof in
- * Coreman book.
  * 
  * <br/>
  * Usage - Kruskal algorithm for MST, finding cycle in undirected graph
  */
 public class DisjointSet {
 
+	/*
+	 * Union Find Algorithm - Set 1. Note that the implementation of union() and find() is naive and
+	 * takes O(n) time in worst case
+	 * 
+	 */
+	public boolean isCycle(Graph<Integer> graph) {
+		// initialize subsets to -1 making each element as individual subset
+		int numVertex = graph.getAllVertex().size();
+		int numEdge = graph.getAllEdges().size();
+		int[] subsets = new int[numVertex];
+		for (int i = 0; i < numVertex; i++)
+			subsets[i] = -1;
+
+		// scan through all edges of the graph. for each edge check if the source and destination vertex
+		// belong to the same subset. if not then do a union. if yes then cycle is found
+		for (int i = 0; i < numEdge; i++) {
+			int source = find(subsets, graph.getAllEdges().get(i).getVertex1().id);
+			int destination = find(subsets, graph.getAllEdges().get(i).getVertex2().id);
+			if (source == destination)
+				return true;
+			union(subsets, source, destination);
+		}
+		return false;
+	}
+
+	/**
+	 * function to find subset of element v
+	 * 
+	 * @param subsets
+	 * @param v
+	 * @return
+	 */
+	private int find(int[] subsets, int v) {
+		if (subsets[v] == -1)
+			return v;
+		return find(subsets, subsets[v]);
+	}
+
+	/**
+	 * function to do the union of 2 subsets
+	 * 
+	 * @param subsets
+	 * @param source
+	 * @param destination
+	 */
+	private void union(int[] subsets, int source, int destination) {
+		int sx = find(subsets, source);
+		int sy = find(subsets, destination);
+		subsets[sx] = sy;
+	}
+
+	/*
+	 * Union Find algorithm - Set 2.
+	 * 
+	 * Disjoint sets using path compression and union by rank Supports 3 operations<br/> 1) makeSet -
+	 * creates a singleton set containing new element x and returns the position <br/> 2) union - merges
+	 * the sets<br/> 3) findSet - returns an element of the set which is an element that identifies the
+	 * set.
+	 * 
+	 * <br/> union by rank - make the node who has higher rank the parent and the node which has lower
+	 * rank the child.
+	 * 
+	 * For m operations and total n elements time complexity is O(m*f(n)) where f(n) is very slowly
+	 * growing function. For most cases f(n) <= 4 so effectively total time will be O(m). Proof in
+	 * Coreman book.
+	 */
 	private Map<Long, Node> map = new HashMap<>();
 
 	class Node {
 		int rank; // depth of tree
 		long data; // actual data
 		Node parent; // parent node
-
 	}
 
 	/**

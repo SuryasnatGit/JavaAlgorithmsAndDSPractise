@@ -1,4 +1,4 @@
-package com.interview.graph;
+package com.algo.ds.graph;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,9 +8,8 @@ import java.util.Queue;
 import java.util.Set;
 
 /**
- * 150s qs 18.10
- * Given two words of equal length in dictionary convert one word to another one letter at a time
- * in such a way that all intermediate words are int the dictionary
+ * Given two words of equal length in dictionary convert one word to another one letter at a time in
+ * such a way that all intermediate words are in the dictionary
  */
 public class ConvertOneWordToAnother {
 

@@ -9,16 +9,16 @@ import java.util.Map;
 public class Graph<T> {
 
 	private List<Edge<T>> allEdges;
-	private Map<Long, Vertex<T>> allVertex;
+	private Map<Integer, Vertex<T>> allVertex;
 	boolean isDirected = false;
 
 	public Graph(boolean isDirected) {
 		allEdges = new ArrayList<Edge<T>>();
-		allVertex = new HashMap<Long, Vertex<T>>();
+		allVertex = new HashMap<Integer, Vertex<T>>();
 		this.isDirected = isDirected;
 	}
 
-	public void addEdge(long id1, long id2) {
+	public void addEdge(int id1, int id2) {
 		addEdge(id1, id2, 0);
 	}
 
@@ -34,7 +34,7 @@ public class Graph<T> {
 		}
 	}
 
-	public Vertex<T> addSingleVertex(long id) {
+	public Vertex<T> addSingleVertex(int id) {
 		if (allVertex.containsKey(id)) {
 			return allVertex.get(id);
 		}
@@ -47,7 +47,7 @@ public class Graph<T> {
 		return allVertex.get(id);
 	}
 
-	public void addEdge(long id1, long id2, int weight) {
+	public void addEdge(int id1, int id2, int weight) {
 		Vertex<T> vertex1 = null;
 		if (allVertex.containsKey(id1)) {
 			vertex1 = allVertex.get(id1);
@@ -99,16 +99,16 @@ public class Graph<T> {
 }
 
 class Vertex<T> {
-	long id;
+	int id;
 	private T data;
 	private List<Edge<T>> edges = new ArrayList<>();
 	private List<Vertex<T>> adjacentVertex = new ArrayList<>();
 
-	Vertex(long id) {
+	Vertex(int id) {
 		this.id = id;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
