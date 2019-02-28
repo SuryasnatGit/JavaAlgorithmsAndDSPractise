@@ -1,5 +1,27 @@
 package com.algo.ds.array;
 
+/**
+ * There are two sorted arrays nums1 and nums2 of size m and n respectively.
+ * 
+ * Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
+ * 
+ * You may assume nums1 and nums2 cannot be both empty.
+ * 
+ * Example 1:
+ * 
+ * nums1 = [1, 3] nums2 = [2]
+ * 
+ * The median is 2.0 Example 2:
+ * 
+ * nums1 = [1, 2] nums2 = [3, 4]
+ * 
+ * The median is (2 + 3)/2 = 2.5
+ *
+ * https://leetcode.com/problems/median-of-two-sorted-arrays/
+ * 
+ * @author surya
+ *
+ */
 public class MedianOfSortedArrays {
 
 	public static void main(String[] args) {
@@ -7,6 +29,99 @@ public class MedianOfSortedArrays {
 		int ar2[] = { 2, 13, 18, 30, 45 };
 		MedianOfSortedArrays me = new MedianOfSortedArrays();
 		System.out.println(me.findMedian(ar1, ar2));
+	}
+
+	/**
+	 * (By doing binary search for the median):
+	 * 
+	 * 
+	 * It requires constant time to check if ar2[j] <= ar1[i] <= ar2[j + 1]. If ar1[i] is not the
+	 * median, then depending on whether ar1[i] is greater or less than ar2[j] and ar2[j + 1], you know
+	 * that ar1[i] is either greater than or less than the median. Thus you can binary search for median
+	 * in O(lg n) worst-case time. For two arrays ar1 and ar2, first do binary search in ar1[]. If you
+	 * reach at the end (left or right) of the first array and don't find median, start searching in the
+	 * second array ar2[].
+	 * 
+	 * 1) Get the middle element of ar1[] using array indexes left and right. Let index of the middle
+	 * element be i.
+	 * 
+	 * 2) Calculate the corresponding index j of ar2[] j = n – i – 1
+	 * 
+	 * 3) If ar1[i] >= ar2[j] and ar1[i] <= ar2[j+1] then ar1[i] and ar2[j] are the middle elements.
+	 * return average of ar2[j] and ar1[i]
+	 * 
+	 * 4) If ar1[i] is greater than both ar2[j] and ar2[j+1] then do binary search in left half (i.e.,
+	 * arr[left ... i-1]) 5) If ar1[i] is smaller than both ar2[j] and ar2[j+1] then do binary search in
+	 * right half (i.e., arr[i+1....right])
+	 * 
+	 * 6) If you reach at any corner of ar1[] then do binary search in ar2[]
+	 * 
+	 * 
+	 * @param ar1
+	 * @param ar2
+	 * @param n
+	 * @return
+	 */
+	public int getMedian(int ar1[], int ar2[], int n) {
+		return getMedianRec(ar1, ar2, 0, n - 1, n);
+	}
+
+	/*
+	 * A recursive function to get the median of ar1[] and ar2[]
+	 * 
+	 * using binary search
+	 */
+
+	int getMedianRec(int ar1[], int ar2[], int left, int right, int n) {
+
+		int i, j;
+
+		/* We have reached at the end (left or right) of ar1[] */
+
+		if (left > right)
+
+			return getMedianRec(ar2, ar1, 0, n - 1, n);
+
+		i = (left + right) / 2;
+
+		j = n - i - 1; /* Index of ar2[] */
+
+		/* Recursion terminates here. */
+
+		if (ar1[i] > ar2[j] && (j == n - 1 || ar1[i] <= ar2[j + 1]))
+
+		{
+
+			/*
+			 * ar1[i] is decided as median 2, now select the median 1
+			 * 
+			 * (element just before ar1[i] in merged array) to get the
+			 * 
+			 * average of both
+			 */
+
+			if (i == 0 || ar2[j] > ar1[i - 1])
+
+				return (ar1[i] + ar2[j]) / 2;
+
+			else
+
+				return (ar1[i] + ar1[i - 1]) / 2;
+
+		}
+
+		/* Search in left half of ar1[] */
+
+		else if (ar1[i] > ar2[j] && j != n - 1 && ar1[i] > ar2[j + 1])
+
+			return getMedianRec(ar1, ar2, left, i - 1, n);
+
+		/* Search in right half of ar1[] */
+
+		else /* ar1[i] is smaller than both ar2[j] and ar2[j+1] */
+
+			return getMedianRec(ar1, ar2, i + 1, right, n);
+
 	}
 
 	public int findMedian(int[] arrA, int[] arrB) {
