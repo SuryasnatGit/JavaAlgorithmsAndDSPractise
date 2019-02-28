@@ -1,4 +1,4 @@
-package com.interview.tree;
+package com.algo.ds.tree;
 
 /**
  * Date 04/27/2015

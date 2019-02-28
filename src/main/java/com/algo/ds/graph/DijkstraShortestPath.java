@@ -1,12 +1,9 @@
-package com.interview.graph;
+package com.algo.ds.graph;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Date 10/11/2014
- * @author Tushar Roy
- *
  * Find single source shortest path using Dijkstra's algorithm
  *
  * Space complexity - O(E + V)

@@ -13,19 +13,18 @@ import java.util.Set;
 import java.util.StringJoiner;
 
 /**
- * Date 11/16/2015
  * 
- * @author Tushar Roy
  *
- *         Find all cycles in directed graph using Johnson's algorithm
+ * Find all cycles in directed graph using Johnson's algorithm
  *
- *         Time complexity - O(E + V).(c+1) where c is number of cycles found Space complexity - O(E + V + s) where s is
- *         sum of length of all cycles.
+ * Time complexity - O(E + V).(c+1) where c is number of cycles found.
+ * 
+ * Space complexity - O(E + V + s) where s is sum of length of all cycles.
  *
- *         Link to youtube video - https://youtu.be/johyrWospv0
+ * Link to youtube video - https://youtu.be/johyrWospv0
  *
- *         References
- *         https://github.com/jgrapht/jgrapht/blob/master/jgrapht-core/src/main/java/org/jgrapht/alg/cycle/JohnsonSimpleCycles.java
+ * References
+ * https://github.com/jgrapht/jgrapht/blob/master/jgrapht-core/src/main/java/org/jgrapht/alg/cycle/JohnsonSimpleCycles.java
  */
 public class AllCyclesInDirectedGraphJohnson {
 	Set<Vertex<Integer>> blockedSet;
@@ -43,7 +42,7 @@ public class AllCyclesInDirectedGraphJohnson {
 		stack = new LinkedList<>();
 		allCycles = new ArrayList<>();
 		long startIndex = 1;
-		TarjanStronglyConnectedComponent tarjan = new TarjanStronglyConnectedComponent();
+		StronglyConnectedComponentTarjan tarjan = new StronglyConnectedComponentTarjan();
 		while (startIndex <= graph.getAllVertex().size()) {
 			Graph<Integer> subGraph = createSubGraph(startIndex, graph);
 			List<Set<Vertex<Integer>>> sccs = tarjan.scc(subGraph);
@@ -128,14 +127,18 @@ public class AllCyclesInDirectedGraphJohnson {
 				foundCycle = foundCycle || gotCycle;
 			}
 		}
-		// if cycle is found with current vertex then recursively unblock vertex and all vertices which are dependent on
+		// if cycle is found with current vertex then recursively unblock vertex and all vertices which are
+		// dependent on
 		// this vertex.
 		if (foundCycle) {
-			// remove from blockedSet and then remove all the other vertices dependent on this vertex from blockedSet
+			// remove from blockedSet and then remove all the other vertices dependent on this vertex from
+			// blockedSet
 			unblock(currentVertex);
 		} else {
-			// if no cycle is found with current vertex then don't unblock it. But find all its neighbors and add this
-			// vertex to their blockedMap. If any of those neighbors ever get unblocked then unblock current vertex as
+			// if no cycle is found with current vertex then don't unblock it. But find all its neighbors and
+			// add this
+			// vertex to their blockedMap. If any of those neighbors ever get unblocked then unblock current
+			// vertex as
 			// well.
 			for (Edge<Integer> e : currentVertex.getEdges()) {
 				Vertex<Integer> w = e.getVertex2();

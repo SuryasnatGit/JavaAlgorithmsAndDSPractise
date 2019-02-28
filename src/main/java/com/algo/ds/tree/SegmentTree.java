@@ -1,25 +1,38 @@
-package com.interview.tree;
+package com.algo.ds.tree;
 
 /**
- * Date 08/21/2014
- * @author tusroy
  * 
- * Video link - https://youtu.be/ZBHKZF5w4YU
- *
- * A segment tree is a tree data structure for storing intervals, or segments. It allows 
- * for faster querying (e.g sum or min) in these intervals.
- * Write a program to support these operations for sum
- * createSegmentTree(int arr[]) - create segment tree
- * query(int segment[], int startRange, int endRange) - query in this range
+ * Video link - https://youtu.be/ZBHKZF5w4YU.
+ * 
+ * to find the range: A simple solution is to run a loop from l to r and calculate sum of elements
+ * in given range. To update a value, simply do arr[i] = x. The first operation takes O(n) time and
+ * second operation takes O(1) time.
+ * 
+ * Another solution is to create another array and store sum from start to i at the ith index in
+ * this array. Sum of a given range can now be calculated in O(1) time, but update operation takes
+ * O(n) time now. This works well if the number of query operations are large and very few updates.
+ * 
+ * What if the number of query and updates are equal? Can we perform both the operations in O(log n)
+ * time once given the array? We can use a Segment Tree to do both operations in O(Logn) time.
+ * 
+ * A segment tree is a tree data structure for storing intervals, or segments. It allows for faster
+ * querying (e.g sum or min) in these intervals. Write a program to support these operations for sum
+ * createSegmentTree(int arr[]) - create segment tree query(int segment[], int startRange, int
+ * endRange) - query in this range
  * 
  * Similar segment trees can be created for min or max.
  * 
- * Time complexity to create segment tree is O(nlogn)
- * Space complexity to create segment tree is O(nlogn)
- * Time complexity to search in segment tree is O(logn)
- 
- * References
- * http://www.geeksforgeeks.org/segment-tree-set-1-sum-of-given-range/
+ * Representation of Segment trees 1. Leaf Nodes are the elements of the input array. 2. Each
+ * internal node represents some merging of the leaf nodes. The merging may be different for
+ * different problems. For this problem, merging is sum of leaves under a node.
+ * 
+ * An array representation of tree is used to represent Segment Trees. For each node at index i, the
+ * left child is at index 2*i+1, right child at 2*i+2 and the parent is at (i-1)/2
+ * 
+ * Time complexity to create segment tree is O(nlogn) Space complexity to create segment tree is
+ * O(nlogn) Time complexity to search in segment tree is O(logn)
+ * 
+ * References http://www.geeksforgeeks.org/segment-tree-set-1-sum-of-given-range/
  * http://www.geeksforgeeks.org/segment-tree-set-1-range-minimum-query/
  */
 public class SegmentTree {

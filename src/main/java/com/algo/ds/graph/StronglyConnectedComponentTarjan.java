@@ -10,17 +10,13 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Date 08/16/2015
- * 
- * @author Tushar Roy
+ * Find strongly connected components of directed graph.
  *
- *         Find strongly connected components of directed graph.
+ * Time complexity is O(E + V) Space complexity is O(V)
  *
- *         Time complexity is O(E + V) Space complexity is O(V)
- *
- *         Reference - https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm
+ * Reference - https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm
  */
-public class TarjanStronglyConnectedComponent {
+public class StronglyConnectedComponentTarjan {
 
 	private Map<Vertex<Integer>, Integer> visitedTime;
 	private Map<Vertex<Integer>, Integer> lowTime;
@@ -73,14 +69,16 @@ public class TarjanStronglyConnectedComponent {
 		onStack.add(vertex);
 
 		for (Vertex child : vertex.getAdjacentVertexes()) {
-			// if child is not visited then visit it and see if it has link back to vertex's ancestor. In that case
+			// if child is not visited then visit it and see if it has link back to vertex's ancestor. In that
+			// case
 			// update
 			// low time to ancestor's visit time
 			if (!visited.contains(child)) {
 				sccUtil(child);
 				// sets lowTime[vertex] = min(lowTime[vertex], lowTime[child]);
 				lowTime.compute(vertex, (v, low) -> Math.min(low, lowTime.get(child)));
-			} // if child is on stack then see if it was visited before vertex's low time. If yes then update vertex's
+			} // if child is on stack then see if it was visited before vertex's low time. If yes then update
+				// vertex's
 				// low time to that.
 			else if (onStack.contains(child)) {
 				// sets lowTime[vertex] = min(lowTime[vertex], visitedTime[child]);
@@ -88,8 +86,10 @@ public class TarjanStronglyConnectedComponent {
 			}
 		}
 
-		// if vertex low time is same as visited time then this is start vertex for strongly connected component.
-		// keep popping vertices out of stack still you find current vertex. They are all part of one strongly
+		// if vertex low time is same as visited time then this is start vertex for strongly connected
+		// component.
+		// keep popping vertices out of stack still you find current vertex. They are all part of one
+		// strongly
 		// connected component.
 		if (visitedTime.get(vertex) == lowTime.get(vertex)) {
 			Set<Vertex<Integer>> stronglyConnectedComponenet = new HashSet<>();
@@ -116,7 +116,7 @@ public class TarjanStronglyConnectedComponent {
 		graph.addEdge(7, 8);
 		graph.addEdge(8, 7);
 
-		TarjanStronglyConnectedComponent tarjanStronglyConnectedComponent = new TarjanStronglyConnectedComponent();
+		StronglyConnectedComponentTarjan tarjanStronglyConnectedComponent = new StronglyConnectedComponentTarjan();
 		List<Set<Vertex<Integer>>> result = tarjanStronglyConnectedComponent.scc(graph);
 
 		result.forEach(scc -> {

@@ -8,22 +8,19 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Date 10/01/2014
- * 
- * @author Tushar Roy
  *
- *         Given a directed graph, find all strongly connected components in this graph. We are going to use Kosaraju's
- *         algorithm to find strongly connected component.
+ * Given a directed graph, find all strongly connected components in this graph. We are going to use
+ * Kosaraju's algorithm to find strongly connected component.
  *
- *         Algorithm Create a order of vertices by finish time in decreasing order. Reverse the graph Do a DFS on
- *         reverse graph by finish time of vertex and created strongly connected components.
+ * Algorithm Create a order of vertices by finish time in decreasing order. Reverse the graph Do a
+ * DFS on reverse graph by finish time of vertex and created strongly connected components.
  *
- *         Runtime complexity - O(V + E) Space complexity - O(V)
+ * Runtime complexity - O(V + E) Space complexity - O(V)
  *
- *         References https://en.wikipedia.org/wiki/Strongly_connected_component
- *         http://www.geeksforgeeks.org/strongly-connected-components/
+ * References https://en.wikipedia.org/wiki/Strongly_connected_component
+ * http://www.geeksforgeeks.org/strongly-connected-components/
  */
-public class StronglyConnectedComponent {
+public class StronglyConnectedComponentKosaraju {
 
 	public List<Set<Vertex<Integer>>> scc(Graph<Integer> graph) {
 
@@ -100,7 +97,7 @@ public class StronglyConnectedComponent {
 		graph.addEdge(5, 3);
 		graph.addEdge(5, 6);
 
-		StronglyConnectedComponent scc = new StronglyConnectedComponent();
+		StronglyConnectedComponentKosaraju scc = new StronglyConnectedComponentKosaraju();
 		List<Set<Vertex<Integer>>> result = scc.scc(graph);
 
 		// print the result

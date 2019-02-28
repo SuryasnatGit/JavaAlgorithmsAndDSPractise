@@ -1,4 +1,4 @@
-package com.interview.graph;
+package com.algo.ds.graph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +9,8 @@ import java.util.Set;
 
 /**
  * http://www.geeksforgeeks.org/maximum-bipartite-matching/
+ * 
+ * 
  */
 public class MaximumBiparteMatching {
 

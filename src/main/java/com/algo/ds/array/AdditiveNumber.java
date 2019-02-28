@@ -5,28 +5,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Date 04/24/2016
- * 
- * @author Tushar Roy
  *
- *         Additive number is a string whose digits can form additive sequence. A valid additive sequence should contain
- *         at least three numbers. Except for the first two numbers, each subsequent number in the sequence must be the
- *         sum of the preceding two.<br/>
+ * Additive number is a string whose digits can form additive sequence. A valid additive sequence
+ * should contain at least three numbers. Except for the first two numbers, each subsequent number
+ * in the sequence must be the sum of the preceding two.<br/>
  * 
- *         For example: "112358" is an additive number because the digits can form an additive sequence: 1, 1, 2, 3, 5,
- *         8.
+ * For example: "112358" is an additive number because the digits can form an additive sequence: 1,
+ * 1, 2, 3, 5, 8.
  * 
- *         1 + 1 = 2, 1 + 2 = 3, 2 + 3 = 5, 3 + 5 = 8 "199100199" is also an additive number, the additive sequence is:
- *         1, 99, 100, 199.
+ * 1 + 1 = 2, 1 + 2 = 3, 2 + 3 = 5, 3 + 5 = 8 "199100199" is also an additive number, the additive
+ * sequence is: 1, 99, 100, 199.
  * 
- *         Note: Numbers in the additive sequence cannot have leading zeros, so sequence 1, 2, 03 or 1, 02, 3 is
- *         invalid.
+ * Note: Numbers in the additive sequence cannot have leading zeros, so sequence 1, 2, 03 or 1, 02,
+ * 3 is invalid.
  *
- *         https://leetcode.com/problems/additive-number/
+ * https://leetcode.com/problems/additive-number/
  */
 public class AdditiveNumber {
 
-	public boolean isAdditiveNumber(String num) {
+	/**
+	 * The idea is quite straight forward. Generate the first and second of the sequence, check if the
+	 * rest of the string match the sum recursively. i and j are length of the first and second number.
+	 * i should in the range of [0, n/2]. The length of their sum should>= max(i,j)
+	 * 
+	 * @param num
+	 * @return
+	 */
+	public boolean isAdditiveNumberRecursive(String num) {
 		if (num.length() < 3) {
 			return false;
 		}
@@ -36,7 +41,7 @@ public class AdditiveNumber {
 			}
 			BigInteger x1 = new BigInteger(num.substring(0, i + 1));
 			// make sure remaining size is at least size of first and second integer.
-			for (int j = i + 1; Math.max(i, j - (i + 1)) + 1 <= num.length() - j - 1; j++) {
+			for (int j = i + 1; Math.max(i, j - (i + 1)) <= num.length() - j; j++) {
 				if (num.charAt(i + 1) == '0' && j > i + 1) {
 					break;
 				}
@@ -58,11 +63,38 @@ public class AdditiveNumber {
 		return num.startsWith(x3.toString(), start) && isValid(num, start + x3.toString().length(), x2, x3);
 	}
 
+	public boolean isAdditiveNumberIterative(String num) {
+		int n = num.length();
+		for (int i = 1; i <= n / 2; ++i)
+			for (int j = 1; Math.max(j, i) <= n - i - j; ++j)
+				if (isValid(i, j, num))
+					return true;
+		return false;
+	}
+
+	private boolean isValid(int i, int j, String num) {
+		if (num.charAt(0) == '0' && i > 1)
+			return false;
+		if (num.charAt(i) == '0' && j > 1)
+			return false;
+		String sum;
+		BigInteger x1 = new BigInteger(num.substring(0, i));
+		BigInteger x2 = new BigInteger(num.substring(i, i + j));
+		for (int start = i + j; start != num.length(); start += sum.length()) {
+			x2 = x2.add(x1);
+			x1 = x2.subtract(x1);
+			sum = x2.toString();
+			if (!num.startsWith(sum, start))
+				return false;
+		}
+		return true;
+	}
+
 	///// ANOTHER APPROACH //////
 
 	// Method returns additive sequence from string as
 	// a list
-	List<String> additiveSequence(String num) {
+	public List<String> additiveSequence(String num) {
 		List<String> res = new ArrayList<>();
 		int l = num.length();
 
@@ -101,8 +133,8 @@ public class AdditiveNumber {
 		}
 
 		/*
-		 * if sum size is greater than c, then no possible sequence further OR if c is not prefix of sum string, then no
-		 * possible sequence further
+		 * if sum size is greater than c, then no possible sequence further OR if c is not prefix of sum
+		 * string, then no possible sequence further
 		 */
 		if (c.length() <= sum.length() || sum != c.substring(0, sum.length()))
 			return false;
@@ -119,7 +151,7 @@ public class AdditiveNumber {
 
 	// Checks whether num is valid or not, by
 	// checking first character and size
-	boolean isValid(String num) {
+	private boolean isValid(String num) {
 		if (num.length() > 1 && num.charAt(0) == '0')
 			return false;
 		return true;
@@ -127,7 +159,7 @@ public class AdditiveNumber {
 
 	// returns int value at pos string, if pos is
 	// out of bound then returns 0
-	int val(String a, int pos) {
+	private int val(String a, int pos) {
 		if (pos >= a.length())
 			return 0;
 
@@ -137,7 +169,7 @@ public class AdditiveNumber {
 
 	// add two number in string form and return
 	// result as a string
-	String addString(String a, String b) {
+	private String addString(String a, String b) {
 		String sum = "";
 		int i = a.length() - 1;
 		int j = b.length() - 1;
@@ -157,5 +189,11 @@ public class AdditiveNumber {
 		// sum += (carry + '0');
 		// reverse(sum.begin(), sum.end());
 		return sum;
+	}
+
+	public static void main(String[] args) {
+		AdditiveNumber an = new AdditiveNumber();
+		System.out.println(an.isAdditiveNumberRecursive("112358"));
+		System.out.println(an.isAdditiveNumberRecursive("991100102"));
 	}
 }

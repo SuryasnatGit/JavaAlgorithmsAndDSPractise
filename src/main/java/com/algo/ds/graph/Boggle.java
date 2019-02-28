@@ -1,4 +1,4 @@
-package com.interview.graph;
+package com.algo.ds.graph;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -6,14 +6,33 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Date 03/04/2016
- * @author Tushar Roy
- *
  * Search for dictionary words in the board.
  * Idea is to use trie for the dictionary which keeps search
  * very efficient.
  *
  * https://leetcode.com/problems/word-search-ii/
+ * 
+ * Given a 2D board and a list of words from the dictionary, find all words in the board.
+
+Each word must be constructed from letters of sequentially adjacent cell, where "adjacent" 
+cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
+
+Example:
+
+Input: 
+words = ["oath","pea","eat","rain"] and board =
+[
+  ['o','a','a','n'],
+  ['e','t','a','e'],
+  ['i','h','k','r'],
+  ['i','f','l','v']
+]
+
+Output: ["eat","oath"]
+Note:
+You may assume that all inputs are consist of lowercase letters a-z.
+
+
  */
 public class Boggle {
 

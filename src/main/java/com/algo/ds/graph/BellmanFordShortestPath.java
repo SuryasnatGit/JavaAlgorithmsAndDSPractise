@@ -1,11 +1,9 @@
-package com.interview.graph;
+package com.algo.ds.graph;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Date 11/05/2015
- * @author Tushar Roy
  *
  * Write program for Bellman Ford algorithm to find single source shortest path in directed graph.
  * Bellman ford works with negative edges as well unlike Dijksra's algorithm. If there is negative

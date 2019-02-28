@@ -1,22 +1,30 @@
-package com.interview.graph;
+package com.algo.ds.graph;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 
 /**
- * Date 04/14/2014
- * @author Tushar Roy
  *
  * Ford fulkerson method Edmonds Karp algorithm for finding max flow
  *
- * Capacity - Capacity of an edge to carry units from source to destination vertex
- * Flow - Actual flow of units from source to destination vertex of an edge
- * Residual capacity - Remaining capacity on this edge i.e capacity - flow
- * AugmentedPath - Path from source to sink which has residual capacity greater than 0
+ * Capacity - Capacity of an edge to carry units from source to destination vertex Flow - Actual
+ * flow of units from source to destination vertex of an edge Residual capacity - Remaining capacity
+ * on this edge i.e capacity - flow AugmentedPath - Path from source to sink which has residual
+ * capacity greater than 0
  *
  * Time complexity is O(VE^2)
  *
  * References:
+ * 
  * http://www.geeksforgeeks.org/ford-fulkerson-algorithm-for-maximum-flow-problem/
+ * 
  * https://en.wikipedia.org/wiki/Edmonds%E2%80%93Karp_algorithm
  */
 public class FordFulkerson {
