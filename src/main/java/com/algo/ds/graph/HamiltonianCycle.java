@@ -1,10 +1,21 @@
-package com.interview.graph;
+package com.algo.ds.graph;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Hamiltonian Path in an undirected graph is a path that visits each vertex
+ * exactly once. A Hamiltonian cycle (or Hamiltonian circuit) is a Hamiltonian
+ * Path such that there is an edge (in graph) from the last vertex to the first
+ * vertex of the Hamiltonian Path. Determine whether a given graph contains
+ * Hamiltonian Cycle or not. If it contains, then print the path.
+ * 
+ * @author M_402201
+ *
+ * @param <T>
+ */
 public class HamiltonianCycle<T> {
 
     public boolean getHamiltonianCycle(Graph<T> graph,List<Vertex<T>> result){
@@ -32,6 +43,9 @@ public class HamiltonianCycle<T> {
                 }
             }
         }
+
+		// if adding current vertex does not lead to a solution then backtrack by
+		// removing it.
         result.remove(result.size()-1);
         visited.remove(currentVertex);
         return false;
