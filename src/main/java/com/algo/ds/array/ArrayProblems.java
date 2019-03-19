@@ -4,6 +4,7 @@ package com.algo.ds.array;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -15,11 +16,11 @@ import java.util.Scanner;
 import java.util.Set;
 
 
-public class Arrays {
+public class ArrayProblems {
 
     public static void main(String[] args) {
 
-        Arrays arrays = new Arrays();
+        ArrayProblems arrays = new ArrayProblems();
         // String s = "the dog is black";
         // System.out.println(s);
         // System.out.println(arrays.reverseWordsinString1(s.toCharArray()));
@@ -67,10 +68,14 @@ public class Arrays {
         System.out.println("Output ->" + arrays.mergeIntervals(list));
         System.out.println("Merged ->" + arrays.insertInterval(list, arrays.new Interval(4, 16)));
 
-        int[] arr = new int[] { 2, 7, 11, 15 };
-        int[] twoSum = arrays.twoSum_2(arr, 19);
-        for (int i = 0; i < twoSum.length; i++)
-            System.out.println(twoSum[i]);
+//        int[] arr = new int[] { 2, 7, 11, 15 };
+//        int[] twoSum = arrays.twoSum_2(arr, 19);
+//        for (int i = 0; i < twoSum.length; i++)
+//            System.out.println(twoSum[i]);
+//        
+		int[] arr = new int[] { 1, 2, 3, 4, 5 };
+		arrays.leftRotate(arr, 4);
+		System.out.println(Arrays.toString(arr));
     }
 
     public void reverse(int[] a) {
@@ -159,6 +164,18 @@ public class Arrays {
             newArr[i] = total / (i + 1);
         }
     }
+
+	public void leftRotate(int[] arr, int d) {
+		int length = arr.length;
+		if (d > length)
+			d %= length;
+
+		int[] temp = new int[length];
+		for (int i = 0; i < length; i++) {
+			temp[(length - d + i) % length] = arr[i];
+		}
+		System.arraycopy(temp, 0, arr, 0, length);
+	}
 
     /**
      * rotate int arr by k steps. using intermediate array takes O(n) space and O(n) time
