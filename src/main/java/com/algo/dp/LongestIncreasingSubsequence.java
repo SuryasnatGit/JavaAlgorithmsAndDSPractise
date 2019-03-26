@@ -52,8 +52,11 @@ public class LongestIncreasingSubsequence {
 	}
 
 	/**
-	 * for each num in nums if(list.size()==0) add num to list else if(num > last element in list) add
-	 * num to list else replace the element in the list which is the smallest but bigger than num
+	 * for each num in nums if(list.size()==0) add num to list else if(num > last
+	 * element in list) add num to list else replace the element in the list which
+	 * is the smallest but bigger than num.
+	 * 
+	 * time complexity - O(n log n), Space complexity - O(n)
 	 * 
 	 * @param nums
 	 * @return

@@ -13,15 +13,17 @@ public class MoveAllZerosToEnd {
     public void moveZeros(int arr[]){
         int slow =0;
         int fast =0;
+		// accumulates all non 0s in the beginning of the array
         while(fast < arr.length){
             if(arr[fast] == 0){
                 fast++;
-                continue;
+				continue; // moves to the next iteration.
             }
             arr[slow] = arr[fast];
             slow++;
             fast++;
         }
+		// accumulates all 0s at the end of the array
         while(slow < arr.length){
             arr[slow++] = 0;
         }

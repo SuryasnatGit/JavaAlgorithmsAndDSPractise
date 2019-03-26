@@ -2,6 +2,7 @@
 package com.algo.ds.array;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -12,11 +13,11 @@ import java.util.PriorityQueue;
 import java.util.Scanner;
 import java.util.Set;
 
-public class Arrays {
+public class ArrayProblems {
 
 	public static void main(String[] args) {
 
-		Arrays arrays = new Arrays();
+		ArrayProblems arrays = new ArrayProblems();
 		// String s = "the dog is black";
 		// System.out.println(s);
 		// System.out.println(arrays.reverseWordsinString1(s.toCharArray()));
@@ -66,16 +67,14 @@ public class Arrays {
 		System.out.println("Output ->" + arrays.mergeIntervals(list));
 		System.out.println("Merged ->" + arrays.insertInterval(list, arrays.new Interval(4, 16)));
 
-		int[] arr = new int[] { 2, 7, 11, 15 };
-		int[] twoSum = arrays.twoSum_2(arr, 19);
-		for (int i = 0; i < twoSum.length; i++)
-			System.out.println(twoSum[i]);
-
-//		int[] input = { 1, 2, 3, 4, 5 };
-//		arrays.waveArray(input);
-
-		int[] input = { 10, 3, 5, 6, 2 };
-		arrays.productArrayPuzzle(input);
+//        int[] arr = new int[] { 2, 7, 11, 15 };
+//        int[] twoSum = arrays.twoSum_2(arr, 19);
+//        for (int i = 0; i < twoSum.length; i++)
+//            System.out.println(twoSum[i]);
+//        
+		int[] arr = new int[] { 1, 2, 3, 4, 5 };
+		arrays.leftRotate(arr, 4);
+		System.out.println(Arrays.toString(arr));
 	}
 
 	public void reverse(int[] a) {
@@ -163,6 +162,18 @@ public class Arrays {
 			total += arr[i];
 			newArr[i] = total / (i + 1);
 		}
+	}
+
+	public void leftRotate(int[] arr, int d) {
+		int length = arr.length;
+		if (d > length)
+			d %= length;
+
+		int[] temp = new int[length];
+		for (int i = 0; i < length; i++) {
+			temp[(length - d + i) % length] = arr[i];
+		}
+		System.arraycopy(temp, 0, arr, 0, length);
 	}
 
 	/**
@@ -429,12 +440,6 @@ public class Arrays {
 			return getKthElement(arr, k, left + 1, end);
 	}
 
-	/**
-	 * 
-	 * @param arr input array
-	 * @param left left index
-	 * @param right right index
-	 */
 	private void swap(int[] arr, int left, int right) {
 		int temp = arr[left];
 		arr[left] = arr[right];
@@ -837,42 +842,5 @@ public class Arrays {
 		Set<Integer> set = new HashSet<>();
 		set.addAll(values);
 		return new ArrayList<>(set);
-	}
-
-	/**
-	 * Given a sorted array arr[] of non-repeating integers without duplicates. Sort
-	 * the array into a wave-like array and return it. In other words, arrange the
-	 * elements into a sequence such that a1 >= a2 <= a3 >= a4 <= a5.....
-	 * (considering the increasing lexicographical order).
-	 * 
-	 * @param input
-	 */
-	public void waveArray(int[] input) {
-		System.out.println(java.util.Arrays.toString(input));
-		for (int i = 0; i < input.length - 1; i += 2) {
-			swap(input, i, i + 1);
-		}
-		System.out.println(java.util.Arrays.toString(input));
-	}
-
-	/**
-	 * Given an array A of size N, construct a Product Array P (of same size) such
-	 * that P is equal to the product of all the elements of A except A[i].
-	 * 
-	 * 
-	 * @param input
-	 */
-	public void productArrayPuzzle(int[] input) {
-		System.out.println(java.util.Arrays.toString(input));
-		int l = input.length;
-		int[] productArr = new int[l];
-		int product = 1;
-		for (int i = 0; i < l; i++) {
-			product *= input[i];
-		}
-		for (int i = 0; i < l; i++) {
-			productArr[i] = product / input[i];
-		}
-		System.out.println(java.util.Arrays.toString(productArr));
 	}
 }
