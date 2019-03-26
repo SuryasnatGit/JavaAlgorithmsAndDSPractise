@@ -4,8 +4,9 @@ import java.math.BigInteger;
 import java.util.Arrays;
 
 /**
- * A child is running up a staircase with n steps and can hop either 1 step, 2 steps, or 3 steps at
- * a time. Implement a method to count how many possible ways the child can run up the stairs.
+ * A child is running up a staircase with n steps and can hop either 1 step, 2
+ * steps, or 3 steps at a time. Implement a method to count how many possible
+ * ways the child can run up the stairs.
  * 
  * @author surya
  *
@@ -13,7 +14,8 @@ import java.util.Arrays;
 public class TripleStep {
 
 	/**
-	 * since each call branches out to 3 more calls. so time complexity is roughly O(3^n)
+	 * since each call branches out to 3 more calls. so time complexity is roughly
+	 * O(3^n)
 	 * 
 	 * @param n
 	 * @return
@@ -34,12 +36,13 @@ public class TripleStep {
 	}
 
 	/**
-	 * Regardless of whether or not you use memoization, note that the number of ways will quickly
-	 * overflow the bounds of an integer. By the time you get to just n = 37, the result has already
-	 * overflowed. Using a long will delay, but not completely solve, this issue. It is great to
-	 * communicate this issue to your interviewer. He probably won't ask you to work around it (although
-	 * you could, with a BigInteger class), but it's nice to demonstrate that you think about these
-	 * issues.
+	 * Regardless of whether or not you use memoization, note that the number of
+	 * ways will quickly overflow the bounds of an integer. By the time you get to
+	 * just n = 37, the result has already overflowed. Using a long will delay, but
+	 * not completely solve, this issue. It is great to communicate this issue to
+	 * your interviewer. He probably won't ask you to work around it (although you
+	 * could, with a BigInteger class), but it's nice to demonstrate that you think
+	 * about these issues.
 	 * 
 	 * @param n
 	 * @param memo
@@ -58,6 +61,81 @@ public class TripleStep {
 		}
 	}
 
+	/**
+	 * time complexity - O(mn)
+	 * 
+	 * @param n
+	 * @return
+	 */
+	public int ts_dp(int n) {
+		int[] res = new int[n + 1];
+		res[0] = 1;
+		res[1] = 1;
+
+		for (int i = 2; i < n; i++) {
+			res[i] = 0;
+			for (int j = 1; j <= i; j++) {
+				res[i] += res[i - j];
+			}
+		}
+		return res[n - 1];
+	}
+
+	/**
+	 * Number of ways to reach Nth floor by taking at-most K leaps.
+	 * 
+	 * Time Complexity: O(N*K) Auxiliary Space: O(N)
+	 * 
+	 * 
+	 * @param N
+	 * @param K
+	 * @return
+	 */
+	public int solve(int N, int K) {
+
+		// elements of combo[] stores
+		// the no. of possible ways
+		// to reach it by all combinations
+		// of k leaps or less
+		int[] combo;
+		combo = new int[50];
+
+		// assuming leap 0 exist
+		// and assigning its value
+		// to 1 for calculation
+		combo[0] = 1;
+
+		// loop to iterate over all
+		// possible leaps upto k;
+		for (int i = 1; i <= K; i++) {
+
+			// in this loop we count all
+			// possible leaps to reach
+			// the jth stair with the
+			// help of ith leap or less
+			for (int j = 0; j <= N; j++) {
+
+				// if the leap is not
+				// more than the i-j
+				if (j >= i) {
+
+					// calculate the value and
+					// store in combo[j] to
+					// reuse it for next leap
+					// calculation for the
+					// jth stair
+					combo[j] += combo[j - i];
+				}
+			}
+		}
+
+		// returns the no of possible
+		// number of leaps to reach
+		// the top of building of
+		// n stairs
+		return combo[N];
+	}
+
 	public static void main(String[] args) {
 		TripleStep ts = new TripleStep();
 		System.out.println(Integer.MIN_VALUE);
@@ -67,6 +145,7 @@ public class TripleStep {
 		// System.out.println(ts.tripleStep_recursive(37));
 		System.out.println(ts.tripleStep_memoization(36));
 		System.out.println(ts.tripleStep_memoization(37)); // int overflow. but not with BigInteger usage.
+		System.out.println(ts.ts_dp(37));
 	}
 
 }

@@ -38,7 +38,7 @@ public class MaxRepeatingNumber {
 
 	public static void main(String args[]) {
 		MaxRepeatingNumber mrn = new MaxRepeatingNumber();
-		int arr[] = { 2, 2, 1, 3, 1, 2, 0, 3, 0, 0, 0, 4, 5, 4, 4, 4, 4 };
-		System.out.println(mrn.maxRepeatingNumber(arr, 6));
+		int arr[] = { 0, 2, 1, 4, 2, 3 };
+		System.out.println(mrn.maxRepeatingNumber(arr, 5));
 	}
 }

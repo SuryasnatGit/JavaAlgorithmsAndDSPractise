@@ -54,7 +54,7 @@ public class EggDropping {
 		int min = Integer.MAX_VALUE;
 		// consider all droppings from 1st to kth floor and return the minimum trials
 		for (int c = 1; c <= k; c++) {
-			int res = Math.max(eggDropRecursive(n - 1, k - 1), eggDropRecursive(n, k - n));
+			int res = Math.max(eggDropRecursive(n - 1, c - 1), eggDropRecursive(n, k - c));
 			if (res < min)
 				min = res;
 		}
@@ -73,14 +73,14 @@ public class EggDropping {
 	 */
 	public int eggDropDP(int n, int k) {
 		/*
-		 * A 2D table where entery eggFloor[i][j] will represent minimum number of
-		 * trials needed for i eggs and j floors.
+		 * A 2D table where entry eggFloor[i][j] will represent minimum number of trials
+		 * needed for i eggs and j floors.
 		 */
 		int eggFloor[][] = new int[n + 1][k + 1];
 		int res;
 		int i, j, x;
 
-		// We need one trial for one floor and0 trials for 0 floors
+		// We need one trial for one floor and 0 trials for 0 floors
 		for (i = 1; i <= n; i++) {
 			eggFloor[i][1] = 1;
 			eggFloor[i][0] = 0;

@@ -1,5 +1,7 @@
 package com.algo.ds.array;
 
+import java.util.Arrays;
+
 /**
  * http://www.careercup.com/question?id=5179916190482432.
  * 
@@ -31,5 +33,10 @@ public class MultiplyAllFieldsExceptOwnPosition {
 			product *= nums[i];
 		}
 		return output;
+	}
+
+	public static void main(String[] args) {
+		MultiplyAllFieldsExceptOwnPosition m = new MultiplyAllFieldsExceptOwnPosition();
+		System.out.println(Arrays.toString(m.multiply(new int[] { 2, 3, 1, 4 })));
 	}
 }

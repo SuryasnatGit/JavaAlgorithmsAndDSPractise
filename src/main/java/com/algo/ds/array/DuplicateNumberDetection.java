@@ -1,39 +1,56 @@
 package com.algo.ds.array;
 
 /**
- * Date 03/04/2016
  * 
- * @author Tushar Roy
  *
- *         Given an array of size n + 1 with elements from 1 to n. One element is duplicated mulitiple times. Find that
- *         element in O(1) space. Array cannot be changed.
+ * Given an array of size n + 1 with elements from 1 to n. One element is
+ * duplicated multiple times. Find that element in O(1) space. Array cannot be
+ * changed.
+ * 
+ * Note: You must not modify the array (assume the array is read only). You must
+ * use only constant, O(1) extra space. Your runtime complexity should be less
+ * than O(n2). There is only one duplicate number in the array, but it could be
+ * repeated more than once
  *
- *         Reference https://leetcode.com/problems/find-the-duplicate-number/
+ * 
+ * Reference https://leetcode.com/problems/find-the-duplicate-number/
  */
 public class DuplicateNumberDetection {
-	public int findDuplicate(int[] nums) {
+
+	/**
+	 * time - O(n log n)
+	 * 
+	 * @param nums
+	 * @return
+	 */
+	public int duplicateNumber(int[] nums) {
+		// base
 		if (nums.length == 0 || nums.length == 1) {
 			return -1;
 		}
 
-		int slow = nums[0];
-		int fast = nums[nums[0]];
-		while (slow != fast) {
-			slow = nums[slow];
-			fast = nums[nums[fast]];
+		for (int i = 0; i < nums.length; i++) {
+			int num = nums[i];
+			// do binary search for num in rest of array
+			int left = i + 1;
+			int right = nums.length - 1;
+			while (left <= right) {
+				int mid = left + (right - left) / 2;
+				if (nums[mid] == num) {
+					return num;
+				} else if (nums[mid] < num) {
+					left = mid + 1;
+				} else {
+					right = mid - 1;
+				}
+			}
 		}
-		fast = 0;
-		while (slow != fast) {
-			slow = nums[slow];
-			fast = nums[fast];
-		}
-
-		return fast;
+		return -1;
 	}
 
 	public static void main(String args[]) {
-		int[] input = { 2, 9, 5, 4, 3 };
+		int[] input = { 2, 9, 5, 4, 3, 5 };
 		DuplicateNumberDetection dd = new DuplicateNumberDetection();
-		System.out.println(dd.findDuplicate(input));
+		System.out.println(dd.duplicateNumber(input));
 	}
 }
