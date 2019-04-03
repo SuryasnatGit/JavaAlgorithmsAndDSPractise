@@ -1,7 +1,5 @@
 
-
 package com.algo.search;
-
 
 /**
  * The idea of binary search is to use the information that the array is sorted
@@ -20,8 +18,7 @@ package com.algo.search;
  */
 public class BinarySearch {
 
-
-    public int binarySearchRecursive(int[] input, int x, int left, int right) {
+	public int binarySearchRecursive(int[] input, int x, int left, int right) {
 		if (left <= right) {
 			int mid = left + (right - left) / 2;
 			if (input[mid] == x)
@@ -32,7 +29,7 @@ public class BinarySearch {
 				return binarySearchRecursive(input, x, left, mid - 1);
 		}
 		return -1;
-    }
+	}
 
 	public int binarySearchIterative(int[] input, int x, int left, int right) {
 		while (left <= right) {
