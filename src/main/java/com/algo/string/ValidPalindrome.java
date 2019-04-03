@@ -4,14 +4,16 @@ package com.algo.string;
 
 /**
  * Date 04/09/2016
+ * 
  * @author Tushar Roy
  *
- * Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
- * For example,
- * "A man, a plan, a canal: Panama" is a palindrome.
- * "race a car" is not a palindrome.
+ * Given a string, determine if it is a palindrome, considering only
+ * alphanumeric characters and ignoring cases. For example, "A man, a plan, a
+ * canal: Panama" is a palindrome. "race a car" is not a palindrome.
  *
  * https://leetcode.com/problems/valid-palindrome/
+ * 
+ * time complexity - O(n), Space complexity - O(1)
  */
 public class ValidPalindrome {
     public boolean isPalindrome(String s) {

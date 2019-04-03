@@ -52,7 +52,7 @@ public class LadderLength {
 				for (char c = 'a'; c <= 'z'; c++) {
 					char temp = charArray[i];
 					if (charArray[i] != c)
-						charArray[i] = c;
+						charArray[i] = c; // try with this char combination to check if its present in set
 
 					String newWord = new String(charArray);
 					if (dict.contains(newWord)) {
@@ -108,6 +108,7 @@ public class LadderLength {
 			String word = top.getWord();
 			int currNumSteps = top.getCount();
 
+			// result achieved. navigate back to top of the chain.
 			if (endWord.equals(word)) {
 				List<String> l = new ArrayList<>();
 				l.add(word);

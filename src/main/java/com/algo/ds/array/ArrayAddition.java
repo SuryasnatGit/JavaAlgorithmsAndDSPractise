@@ -9,7 +9,7 @@ public class ArrayAddition {
 		int i = arr1.length - 1;
 		int j = arr2.length - 1;
 		int r = 0;
-		l--;
+		l--; // last index of result array
 		while (i >= 0 && j >= 0) {
 			r = arr1[i--] + arr2[j--] + c;
 			c = r / 10;
