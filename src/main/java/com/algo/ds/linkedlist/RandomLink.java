@@ -3,6 +3,8 @@ package com.algo.ds.linkedlist;
 public class RandomLink {
 	public int data;
 	public RandomLink next;
+	public RandomLink left;
+	public RandomLink right;
 	public RandomLink random;
 
 	public RandomLink() {

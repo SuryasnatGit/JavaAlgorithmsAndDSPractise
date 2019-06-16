@@ -1,122 +1,168 @@
 
-
 package com.algo.string;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.algo.ds.trie.Trie;
-
-
 /**
  * https://leetcode.com/problems/anagrams/. <br/>
- * Given an array of words, print all anagrams together. For example, if the given array is {â€œcatâ€?, â€œdogâ€?, â€œtacâ€?, â€œgodâ€?,
- * â€œactâ€?}, then output may be â€œcat tac act dog godâ€?.
+ * Given an array of words, print all anagrams together. For example, given: ["eat", "tea", "tan", "ate", "nat", "bat"],
+ * Return: [ ["ate", "eat","tea"], ["nat","tan"], ["bat"] ]
  */
 public class GroupAnagramsTogether {
 
-    /**
-     * A simple method is to create a Hash Table. Calculate the hash value of each word in such a way that all anagrams
-     * have the same hash value. Populate the Hash Table with these hash values. Finally, print those words together
-     * with same hash values. A simple hashing mechanism can be modulo sum of all characters. With modulo sum, two
-     * non-anagram words may have same hash value. This can be handled by matching individual characters.
-     * 
-     * @param strs
-     * @return
-     */
-    public Collection<List<String>> groupAnagrams_hashing(String[] strs) {
-        Map<Integer, List<String>> map = new HashMap<>();
-        for(String s : strs){
-            int hash = ascii(s);
-            if (map.containsKey(hash)) {
-                map.get(hash).add(s);
-            }
-            else {
-                List<String> l = new ArrayList<>();
-                l.add(s);
-                map.put(hash, l);
-            }
-        }
-        System.out.println(map);
-        System.out.println(map.values());
-        return map.values();
-    }
+	/**
+	 * A simple method is to create a Hash Table. Calculate the hash value of each word in such a way that all anagrams
+	 * have the same hash value. Populate the Hash Table with these hash values. Finally, print those words together
+	 * with same hash values. A simple hashing mechanism can be modulo sum of all characters. With modulo sum, two
+	 * non-anagram words may have same hash value. This can be handled by matching individual characters.
+	 * 
+	 * @param strs
+	 * @return
+	 */
+	public Collection<List<String>> groupAnagrams_hashing(String[] strs) {
+		Map<Integer, List<String>> map = new HashMap<>();
+		for (String s : strs) {
+			int hash = ascii(s);
+			// int hash = s.hashCode();
+			if (map.containsKey(hash)) {
+				map.get(hash).add(s);
+			} else {
+				List<String> l = new ArrayList<>();
+				l.add(s);
+				map.put(hash, l);
+			}
+		}
+		// System.out.println(map);
+		System.out.println(map.values());
+		return map.values();
+	}
 
-    private int ascii(String str) {
-        int m = 10;
-        int i, sum;
-        for (i = 0, sum = 0; i < str.length(); i++) {
-            sum += str.charAt(i);
-        }
-        return sum % m;
-    }
+	private int ascii(String str) {
+		int m = 10;
+		int i, sum;
+		for (i = 0, sum = 0; i < str.length(); i++) {
+			sum += str.charAt(i);
+		}
+		return sum % m;
+	}
 
-    /**
-     * If there are m strings and each string is of n characters, then time complexity is O(m * n log n) in best case.
-     * Space complexity - O(m)
-     * 
-     * @param strs
-     * @return
-     */
-    public List<List<String>> groupAnagrams_usingHashMap(String[] strs) {
-        if (strs == null || strs.length == 0)
-            return new ArrayList<List<String>>();
-        
-        int listIndex = 0;
-        List<List<String>> result = new ArrayList<>();
-        Map<String, Integer> anagramGroup = new HashMap<>();
-        
-        for (String str : strs) {
-            char[] chars = str.toCharArray();
-            Arrays.sort(chars);
-            String sorted = new String(chars);
-            if (anagramGroup.containsKey(sorted)) {
-                int index = anagramGroup.get(sorted);
-                List<String> listResult = result.get(index);    
-                listResult.add(str);
-            } else {
-                List<String> resultList = new ArrayList<>();
-                resultList.add(str);
-                result.add(listIndex, resultList);
-                anagramGroup.put(sorted, listIndex);
-                listIndex++;
-            }
-        }
-        return result;
-    }
+	/**
+	 * If there are m strings and each string is of n characters, then time complexity is O(m * n log n) in best case.
+	 * Space complexity - O(m)
+	 * 
+	 * @param strs
+	 * @return
+	 */
+	public List<List<String>> groupAnagrams_usingHashMap(String[] strs) {
+		if (strs == null || strs.length == 0)
+			return Collections.emptyList();
 
-    private Trie trie = new Trie();
+		List<List<String>> result = new ArrayList<>();
+		Map<String, List<String>> anagramGroup = new HashMap<>();
 
-    /**
-     * Trie data structure can be used for a more efficient solution. Insert the sorted order of each word in the trie.
-     * Since all the anagrams will end at the same leaf node. We can start a linked list at the leaf nodes where each
-     * node represents the index of the original array of words. Finally, traverse the Trie. While traversing the Trie,
-     * traverse each linked list one line at a time. Following are the detailed steps. 1) Create an empty Trie 2) One by
-     * one take all words of input sequence. Do following for each word â€¦a) Copy the word to a buffer. â€¦b) Sort the
-     * buffer â€¦c) Insert the sorted buffer and index of this word to Trie. Each leaf node of Trie is head of a Index
-     * list. The Index list stores index of words in original sequence. If sorted buffe is already present, we insert
-     * index of this word to the index list. 3) Traverse Trie. While traversing, if you reach a leaf node, traverse the
-     * index list. And print all words using the index obtained from Index list.
-     * 
-     * @param args
-     */
-    public void groupAnagrams_trie(String[] args) {
-        for (int i = 0; i < args.length; i++) {
-            char[] buffer = args[i].toCharArray();
-            Arrays.sort(buffer);
-            trie.insert(new String(buffer));
-        }
+		for (String str : strs) {
+			char[] chars = str.toCharArray();
+			Arrays.sort(chars);
+			String sorted = new String(chars);
+			if (anagramGroup.containsKey(sorted)) {
+				anagramGroup.get(sorted).add(str);
+			} else {
+				List<String> list = new ArrayList<>();
+				list.add(str);
+				anagramGroup.put(sorted, list);
+			}
+		}
 
-    }
+		// create and return result
+		for (List<String> list : anagramGroup.values()) {
+			// if we want the anagrams entries sorted
+			Collections.sort(list);
+			result.add(list);
+		}
+		return result;
+	}
 
-    public static void main(String args[]) {
-        String str[] = { "cat", "dog", "tac", "god", "act" };
-        GroupAnagramsTogether pat = new GroupAnagramsTogether();
-        // System.out.println(pat.groupAnagrams_usingHashMap(str));
-        pat.groupAnagrams_hashing(str);
-    }
+	// Approach 3: Using Trie data structure.
+	/**
+	 * The basic idea used is simple. Insert the individual words of the sequence in a trie but before inserting a word
+	 * sort it according to the characters. This way, when anagrams are inserted into a trie, their path from root node
+	 * to leaf node would be exactly the same and if we store the indices of the words in given sequence at leaf node,
+	 * then we would be able to print all anagrams in grouped manner
+	 */
+	final static int ALPHABET_SIZE = 26;
+
+	class TrieNode {
+		// can have max of 26 children
+		TrieNode[] children;
+		// contains list of index for anagram grouping
+		List<Integer> anagramIndex;
+
+		public TrieNode() {
+			children = new TrieNode[ALPHABET_SIZE];
+			anagramIndex = new ArrayList<>();
+		}
+	}
+
+	private TrieNode root = new TrieNode();
+
+	private void insertWord(String word, int index, Map<TrieNode, List<Integer>> anagramGroupMap) throws Exception {
+		int charIndex = 0;
+
+		TrieNode currentNode = root;
+		while (charIndex < word.length()) {
+			int childIndex = getChildIndex(word.charAt(charIndex));
+			// validate that the child is a small case letter only
+			if (childIndex < 0 || childIndex > ALPHABET_SIZE)
+				throw new Exception("invalid key");
+
+			if (currentNode.children[childIndex] == null)
+				currentNode.children[childIndex] = new TrieNode(); // insert
+
+			// else proceed pointer
+			currentNode = currentNode.children[childIndex];
+			charIndex++;
+		}
+
+		// if charIndex equals the key length
+		if (charIndex == word.length()) {
+			currentNode.anagramIndex.add(index);
+			anagramGroupMap.put(currentNode, currentNode.anagramIndex);
+		}
+	}
+
+	private int getChildIndex(char ch) {
+		return ch - 'a';
+	}
+
+	public void printAnagramGroupsUsingTrie(String[] input) throws Exception {
+		Map<TrieNode, List<Integer>> anagramGroupMap = new HashMap<>();
+
+		for (int index = 0; index < input.length; index++) {
+			char[] charArray = input[index].toCharArray();
+			Arrays.sort(charArray);
+			insertWord(new String(charArray), index, anagramGroupMap);
+		}
+
+		anagramGroupMap.values().forEach(list -> list.forEach(i -> System.out.print(input[i] + ",")));
+	}
+
+	public static void main(String args[]) {
+		String str[] = { "cat", "dog", "tac", "god", "act" };
+		GroupAnagramsTogether pat = new GroupAnagramsTogether();
+		System.out.println(pat.groupAnagrams_usingHashMap(str));
+		pat.groupAnagrams_hashing(str);
+		// System.out.println(pat.anagrams(str));
+		try {
+			pat.printAnagramGroupsUsingTrie(str);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
