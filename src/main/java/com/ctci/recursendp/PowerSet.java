@@ -11,6 +11,10 @@ import java.util.Set;
 /**
  * Power Set: Write a method to return all subsets of a set.
  * 
+ * Power Set Power set P(S) of a set S is the set of all subsets of S. For example S = {a, b, c}
+ * then P(s) = {{}, {a}, {b}, {c}, {a,b}, {a, c}, {b, c}, {a, b, c}}. If S has n elements in it then
+ * P(s) will have 2^n elements
+ * 
  * @author ctsuser1
  */
 public class PowerSet {
@@ -18,7 +22,7 @@ public class PowerSet {
 	/**
 	 * Assuming that we're going to be returning a list of subsets, then our best case time is actually
 	 * the total number of elements across all of those subsets. There are 2^n subsets and each of the n
-	 * elements will be contained in half of the subsets (which 2n-1 subsets). Therefore, the total
+	 * elements will be contained in half of the subsets (which 2^(n-1) subsets). Therefore, the total
 	 * number of elements across all of those subsets is n * 2^n-1. We will not be able to beat O (n *
 	 * 2^n) in space or time complexity.
 	 * 
@@ -45,15 +49,19 @@ public class PowerSet {
 	}
 
 	/**
-	 * Recall that when we're generating a set, we have two choices for each element: (1) the element is
-	 * in the set (the "yes" state) or (2) the element is not in the set (the "no" state).This means
-	 * that each subset is a sequence of yess' and nos' -e.g., "yes, yes, no, no, yes, no" This gives us
-	 * 2^n possible subsets. How can we iterate through all possible sequences of"yes" and "no" states
-	 * for all elements? If each "yes" can be treated as a 1 and each "no" can be treated as a 0, then
-	 * each subset can be represented as a binary string. Generating all subsets, then, really just
-	 * comes down to generating all binary numbers (that is, all integers). We iterate through all
-	 * numbers from empty set{} to 2^n(exclusive) and translate the binary representation of the numbers
-	 * into a set. Easy!
+	 * Recall that when we're generating a set, we have two choices for each
+	 * element: (1) the element is in the set (the "yes" state) or (2) the element
+	 * is not in the set (the "no" state).This means that each subset is a sequence
+	 * of yess' and nos' -e.g., "yes, yes, no, no, yes, no" This gives us 2^n
+	 * possible subsets. How can we iterate through all possible sequences of"yes"
+	 * and "no" states for all elements? If each "yes" can be treated as a 1 and
+	 * each "no" can be treated as a 0, then each subset can be represented as a
+	 * binary string. Generating all subsets, then, really just comes down to
+	 * generating all binary numbers (that is, all integers). We iterate through all
+	 * numbers from empty set{} to 2^n(exclusive) and translate the binary
+	 * representation of the numbers into a set. Easy!
+	 * 
+	 * time - O(n * 2^n) Space - O(1)
 	 * 
 	 * @param input
 	 * @return

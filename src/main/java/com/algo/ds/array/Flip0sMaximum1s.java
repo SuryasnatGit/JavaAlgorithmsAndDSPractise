@@ -22,7 +22,7 @@ public class Flip0sMaximum1s {
 
 	public int flip0sToMaximizeConsecutive1s(int input[], int flipsAllowed) {
 
-		int windowStart = 0;
+		int windowStart = 0; // start position of sliding window
 		int countZero = 0;
 		int result = 0;
 		for (int i = 0; i < input.length; i++) {
@@ -34,7 +34,7 @@ public class Flip0sMaximum1s {
 					result = Math.max(result, i - windowStart + 1);
 				} else {
 					while (true) {
-						if (input[windowStart] == 0) {
+						if (input[windowStart] == 0) { // sliding window moves 1 past the 0
 							windowStart++;
 							break;
 						}

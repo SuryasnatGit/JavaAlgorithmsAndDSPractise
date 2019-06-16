@@ -1,16 +1,14 @@
 package com.algo.ds.linkedlist;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * Date 03/24/2016
- * 
- * @author Tushar Roy
+ * A linked list is given such that each node contains an additional random
+ * pointer which could point to any node in the list or null. Return a deep copy
+ * of the list.
  *
- *         A linked list is given such that each node contains an additional random pointer which could point to any
- *         node in the list or null. Return a deep copy of the list.
- *
- *         Time complexity is O(n) Space complexity is O(1)
- *
- *         https://leetcode.com/problems/copy-list-with-random-pointer/
+ * https://leetcode.com/problems/copy-list-with-random-pointer/
  */
 public class CopyLinkListWIthArbitPointer {
 
@@ -23,7 +21,50 @@ public class CopyLinkListWIthArbitPointer {
 		}
 	}
 
+	/**
+	 * Approach 1 - Time O(n) Space O(n)
+	 * 
+	 * @param head
+	 * @return
+	 */
 	public RandomListNode copyRandomList(RandomListNode head) {
+		Map<RandomListNode, RandomListNode> map = new HashMap<>();
+
+		// create 2 pointers. 1 for head and 2 for dummy
+		RandomListNode p = head; // pointer to head
+		RandomListNode dummy = new RandomListNode(0);
+		RandomListNode q = dummy; // pointer to dummy
+
+		// traverse for copying next pointer
+		while (head != null) {
+			q.next = new RandomListNode(p.label);
+			map.put(p, q.next);
+			q = q.next;
+			p = p.next;
+		}
+
+		// reset pointers to head of both LLs
+		p = head;
+		q = dummy;
+
+		// traverse for copying random pointer
+		while (head != null) {
+			q.next.random = map.get(p.random);
+			p = p.next;
+			q = q.next;
+		}
+
+		return dummy.next;
+	}
+
+	/**
+	 * Approach 2 - Optimized. But this will modify original structure. Time
+	 * complexity is O(n) Space complexity is O(1)
+	 * 
+	 * @param head
+	 * @return
+	 */
+	public RandomListNode copyRandomList1(RandomListNode head) {
 		if (head == null) {
 			return null;
 		}

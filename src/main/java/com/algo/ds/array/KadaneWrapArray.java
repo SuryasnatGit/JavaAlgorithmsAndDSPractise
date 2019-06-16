@@ -174,5 +174,12 @@ public class KadaneWrapArray {
         System.out.println(kwa.kadaneWrap(input1));
 		System.out.println(kwa.naiveSoln(A));
 		System.out.println(kwa.kandane(A));
+		System.out.println(kwa.kadane(A));
+
+		// kadane modify
+		int[] ar = { -2, -3, 4, -1, -2, 1, 5, -3 };
+		System.out.println(kwa.KandaneModify(ar));
+		int[] b = { -2, -3, -4, -1, -2, -1, -3, -5 };
+		System.out.println(kwa.KandaneModify(b));
     }
 }

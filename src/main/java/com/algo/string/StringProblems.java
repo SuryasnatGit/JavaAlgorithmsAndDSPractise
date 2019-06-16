@@ -55,19 +55,25 @@ public class StringProblems {
 		// System.out.println(sp.isUniqueString_sort("abc"));
 		// System.out.println(sp.isUniqueString_sort("abcc"));
 		// System.out.println(sp.checkPermutation("dad", "adda"));
-		System.out.println(sp.stringRotation("bat", "abt"));
+//		System.out.println(sp.stringRotation("bat", "abt"));
+//
+//		System.out.println(sp.compressedString("apple"));
+//		System.out.println(sp.compressedString("aabcccccaaa"));
+//		System.out.println(sp.compressedString("ABCDEFFFFFFFF"));
+//		System.out.println(sp.compressedString("ABCDEF"));
+//		System.out.println(sp.leftRotation("surya", 2));
+//		System.out.println(sp.leftRotation("apple", 3));
+//		System.out.println(sp.rightRotation("surya", 2));
+//		System.out.println(sp.palindromeIndex("bobj"));
+//		System.out.println(sp.palindromeIndex("bob"));
+//		System.out.println(sp.palindromeIndex("abob"));
+//		System.out.println(sp.palindromeIndex("blob"));
 
-		System.out.println(sp.compressedString("apple"));
-		System.out.println(sp.compressedString("aabcccccaaa"));
-		System.out.println(sp.compressedString("ABCDEFFFFFFFF"));
-		System.out.println(sp.compressedString("ABCDEF"));
-		System.out.println(sp.leftRotation("surya", 2));
-		System.out.println(sp.leftRotation("apple", 3));
-		System.out.println(sp.rightRotation("surya", 2));
-		System.out.println(sp.palindromeIndex("bobj"));
-		System.out.println(sp.palindromeIndex("bob"));
-		System.out.println(sp.palindromeIndex("abob"));
-		System.out.println(sp.palindromeIndex("blob"));
+		System.out.println(sp.isNumber("+123"));
+		System.out.println(sp.isNumber("123-"));
+		System.out.println(sp.isNumber("+123.0"));
+		System.out.println(sp.isNumber("+123.01"));
+		System.out.println(sp.isNumber("+123.Ea"));
 
 	}
 
@@ -695,10 +701,13 @@ public class StringProblems {
 	public boolean oneEdit(String s1, String s2) {
 		int l1 = s1.length();
 		int l2 = s2.length();
+
 		if (Math.abs(l1 - l2) > 1)
 			return false;
+
 		int count = 0; // count of edits
 		int i = 0, j = 0;
+
 		while (i < l1 && j < l2) {
 			// if current characters do not match
 			if (s1.charAt(i) != s2.charAt(j)) {
