@@ -1,4 +1,4 @@
-package com.interview.tree;
+package com.algo.ds.tree;
 
 import java.util.LinkedList;
 import java.util.Queue;

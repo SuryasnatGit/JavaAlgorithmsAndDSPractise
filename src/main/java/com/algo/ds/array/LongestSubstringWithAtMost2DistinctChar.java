@@ -6,13 +6,14 @@ package com.algo.ds.array;
  * 
  * Similar to http://www.geeksforgeeks.org/find-the-longest-substring-with-k-unique-characters-in-a-given-string/
  */
-public class LongestSubstringWithAtMost2Char {
+public class LongestSubstringWithAtMost2DistinctChar {
 
 	/**
-	 * If the length of string is n, then there can be n*(n+1)/2 possible substrings. A simple way is to generate all
-	 * the substring and check each one whether it has exactly k unique characters or not. If we apply this brute force,
-	 * it would take O(n2) to generate all substrings and O(n) to do a check on each one. Thus overall it would go
-	 * O(n3).
+	 * If the length of string is n, then there can be n*(n+1)/2 possible
+	 * substrings. A simple way is to generate all the substring and check each one
+	 * whether it has exactly k unique characters or not. If we apply this brute
+	 * force, it would take O(n^2) to generate all substrings and O(n) to do a check
+	 * on each one. Thus overall it would go O(n^3).
 	 * 
 	 * @param input
 	 */
@@ -64,7 +65,7 @@ public class LongestSubstringWithAtMost2Char {
 	}
 
 	public static void main(String args[]) {
-		LongestSubstringWithAtMost2Char lc = new LongestSubstringWithAtMost2Char();
+		LongestSubstringWithAtMost2DistinctChar lc = new LongestSubstringWithAtMost2DistinctChar();
 		System.out.print(lc.lengthOfLongestSubstringTwoDistinct("eceba"));
 	}
 }

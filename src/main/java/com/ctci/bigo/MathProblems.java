@@ -132,6 +132,37 @@ public class MathProblems {
 		return value;
 	}
 
+	public int reverseInteger(int input) {
+		int ret = 0;
+		while (input != 0) {
+			ret = ret * 10 + input % 10;
+			if (ret > Integer.MAX_VALUE)
+				return 0;
+			input /= 10;
+		}
+		return ret;
+	}
+
+	public boolean isPalindrome(int num) {
+		if (num < 0)
+			return false;
+
+		int div = 1;
+		while (num / div >= 10)
+			div *= 10;
+
+		while (num != 0) {
+			int left = num / div;
+			int right = num % 10;
+			if (left != right)
+				return false;
+
+			num = (num % div) / 10;
+			div /= 100; // as 2 places are discarded in every loop
+		}
+		return true;
+	}
+
 	public static void main(String[] args) {
 		MathProblems p = new MathProblems();
 		// System.out.println(p.intProduct(4, 5));
@@ -149,6 +180,10 @@ public class MathProblems {
 		// System.out.println(Integer.parseUnsignedInt("310", 8));
 
 		System.out.println(p.compareBinaryToHex("11001000", "c8"));
+		System.out.println(p.reverseInteger(123));
+		System.out.println(p.reverseInteger(-476));
+		System.out.println(p.isPalindrome(12341));
+		System.out.println(p.isPalindrome(12321));
 	}
 
 }

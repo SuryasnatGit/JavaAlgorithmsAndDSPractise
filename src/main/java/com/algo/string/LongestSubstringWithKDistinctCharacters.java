@@ -65,6 +65,7 @@ public class LongestSubstringWithKDistinctCharacters {
 		int start = 0;
 		for (int i = 0; i < s.length(); i++) {
 			char ch = s.charAt(i);
+			// if countmap does not contain ch and size of countmap is greater than k
 			if (!countMap.containsKey(ch) && countMap.size() >= k) {
 				while (start < i) {
 					countMap.compute(s.charAt(start), (key, val) -> {
@@ -74,12 +75,13 @@ public class LongestSubstringWithKDistinctCharacters {
 							return val - 1;
 						}
 					});
-					start++;
+					start++; // increment start
 					if (countMap.size() < k) {
 						break;
 					}
 				}
 			}
+			// updates countmap with incremented count of the char
 			countMap.compute(ch, (key, val) -> {
 				if (val == null) {
 					return 1;
