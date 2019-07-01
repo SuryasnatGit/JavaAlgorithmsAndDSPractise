@@ -26,15 +26,15 @@ public class ArraySubsetOfAnotherArray {
 	 * @return
 	 */
 	public boolean isArraySubSet1(int[] arr1, int[] arr2) {
-		int i = 0;
-		int j = 0;
-		for (i = 0; i < arr2.length; i++) {
-			for (j = 0; j < arr1.length; j++) {
-				if (arr2[i] == arr1[j])
+		int index2 = 0;
+		int index1 = 0;
+		for (index2 = 0; index2 < arr2.length; index2++) {
+			for (index1 = 0; index1 < arr1.length; index1++) {
+				if (arr2[index2] == arr1[index1])
 					break;
 			}
 			// if nothing matches
-			if (j == arr1.length)
+			if (index1 == arr1.length)
 				return false;
 		}
 		return true;
@@ -49,8 +49,8 @@ public class ArraySubsetOfAnotherArray {
 	 */
 	public boolean isArraySubset2(int[] arr1, int[] arr2) {
 		Arrays.sort(arr1); // m log m
-		for (int i : arr2) { // n
-			if (!binarySearch(arr1, i)) // log m
+		for (int num2 : arr2) { // n
+			if (!binarySearch(arr1, num2)) // log m
 				return false;
 		}
 		return true;
@@ -122,12 +122,12 @@ public class ArraySubsetOfAnotherArray {
 			return false;
 
 		Set<Integer> set = new HashSet<>();
-		for (int i : arr1) {
-			set.add(i);
+		for (int num1 : arr1) {
+			set.add(num1);
 		}
 
-		for (int j : arr2) {
-			if (!set.contains(j))
+		for (int num2 : arr2) {
+			if (!set.contains(num2))
 				return false;
 		}
 

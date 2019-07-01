@@ -8,12 +8,12 @@ import com.algo.ds.linkedlist.SortedList;
  * Separate Chaining - this uses a SortedList internally .<br/>
  * m = Number of slots in hash table. n = Number of keys to be inserted in has table. Load factor α = n/m
  */
-public class HashChain {
+public class SeparateChainingHashTable {
 
 	private int bucketSize;
 	private SortedList[] sortedListArr;
 	
-	public HashChain(int size) {
+	public SeparateChainingHashTable(int size) {
 		bucketSize = size;
 		sortedListArr = new SortedList[bucketSize];
 		for (int i = 0; i < bucketSize; i++) {

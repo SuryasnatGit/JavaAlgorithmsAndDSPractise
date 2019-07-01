@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.PriorityQueue;
 
 /**
- * Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...]
- * (si < ei), find the minimum number of conference rooms required.
+ * Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei), find the
+ * minimum number of conference rooms required.
  *
  * Both methods have time complexity of nlogn Method 1 has space complexity of O(1)
  * 
@@ -71,5 +71,15 @@ public class MeetingRooms {
 			pq.offer(it);
 		}
 		return rooms;
+	}
+
+	public static void main(String[] args) {
+		MeetingRooms mr = new MeetingRooms();
+		Interval[] intervals = new Interval[3];
+		intervals[0] = new Interval(0, 30);
+		intervals[1] = new Interval(5, 10);
+		intervals[2] = new Interval(15, 20);
+		System.out.println(mr.minMeetingRooms1(intervals));
+		System.out.println(mr.minMeetingRooms(intervals));
 	}
 }

@@ -1,9 +1,8 @@
 package com.algo.ds.array;
 
 /**
- * Find the contiguous subarray within an array (containing at least one number)
- * that has the largest sum. For example, given the array [2, 1, –3, 4, –1, 2,
- * 1, –5, 4], The contiguous array [4, –1, 2, 1] has the largest sum = 6.
+ * Find the contiguous subarray within an array (containing at least one number) that has the largest sum. For example,
+ * given the array [2, 1, -3, 4, -1, 2, 1, -5, 4], The contiguous array [4, -1, 2, 1] has the largest sum = 6.
  * 
  * @author M_402201
  *
@@ -13,17 +12,16 @@ public class MaxSumSubarray {
 	/**
 	 * Approach 1 - divide and conquor.
 	 * 
-	 * Assume we partition the array A into two smaller arrays S and T at the middle
-	 * index, M. Then, S = A1 ... AM-1, and T = AM+1 ... AN.
+	 * Assume we partition the array A into two smaller arrays S and T at the middle index, M. Then, S = A1 ... AM-1,
+	 * and T = AM+1 ... AN.
 	 * 
 	 * The contiguous subarray that has the largest sum could either:
 	 * 
-	 * i. Contain the middle element: a. The largest sum is the maximum suffix sum
-	 * of S + A[M] + the maximum prefix sum of T.
+	 * i. Contain the middle element: a. The largest sum is the maximum suffix sum of S + A[M] + the maximum prefix sum
+	 * of T.
 	 * 
-	 * ii. Does not contain the middle element: a. The largest sum is in S, which we
-	 * could apply the same algorithm to S. b. The largest sum is in T, which we
-	 * could apply the same algorithm to T.
+	 * ii. Does not contain the middle element: a. The largest sum is in S, which we could apply the same algorithm to
+	 * S. b. The largest sum is in T, which we could apply the same algorithm to T.
 	 * 
 	 * time complexity - O(n log n), Space - O(log n) stack space.
 	 * 
