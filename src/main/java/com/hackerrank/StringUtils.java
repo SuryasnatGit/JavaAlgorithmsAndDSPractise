@@ -1,4 +1,4 @@
-package com.hackerrank.algo.strings;
+package com.hackerrank;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -9,10 +9,12 @@ import java.util.Set;
 public class StringUtils {
 
 	/**
-	 * Steve has a string, , consisting of lowercase English alphabetic letters. In one operation, he can delete any
-	 * pair of adjacent letters with same value. For example, string "aabcc" would become either "aab" or "bcc" after
-	 * operation. Steve wants to reduce as much as possible. To do this, he will repeat the above operation as many
-	 * times as it can be performed. Help Steve out by finding and printing 's non-reducible form!
+	 * Steve has a string, , consisting of lowercase English alphabetic letters. In
+	 * one operation, he can delete any pair of adjacent letters with same value.
+	 * For example, string "aabcc" would become either "aab" or "bcc" after
+	 * operation. Steve wants to reduce as much as possible. To do this, he will
+	 * repeat the above operation as many times as it can be performed. Help Steve
+	 * out by finding and printing 's non-reducible form!
 	 * 
 	 * @param s
 	 */
@@ -58,10 +60,12 @@ public class StringUtils {
 	}
 
 	/**
-	 * Alice wrote a sequence of words in CamelCase as a string of letters, , having the following properties: It is a
-	 * concatenation of one or more words consisting of English letters. All letters in the first word are lowercase.
-	 * For each of the subsequent words, the first letter is uppercase and rest of the letters are lowercase. Given ,
-	 * print the number of words in on a new line.
+	 * Alice wrote a sequence of words in CamelCase as a string of letters, , having
+	 * the following properties: It is a concatenation of one or more words
+	 * consisting of English letters. All letters in the first word are lowercase.
+	 * For each of the subsequent words, the first letter is uppercase and rest of
+	 * the letters are lowercase. Given , print the number of words in on a new
+	 * line.
 	 * 
 	 * @param input
 	 */
@@ -129,9 +133,10 @@ public class StringUtils {
 	}
 
 	/**
-	 * Since we are limited to the alphabet which we know to be constant we can come up with a better solution We can
-	 * iterate through every character pair which is (26 * 25) / 2 = 325 pairs for each of those iterations we will run
-	 * through the string checking if it fits the pattern and return the largest.<br/>
+	 * Since we are limited to the alphabet which we know to be constant we can come
+	 * up with a better solution We can iterate through every character pair which
+	 * is (26 * 25) / 2 = 325 pairs for each of those iterations we will run through
+	 * the string checking if it fits the pattern and return the largest.<br/>
 	 * Time Complexity: O(n) <br/>
 	 * Space Complexity: O(1)
 	 * 
@@ -144,9 +149,12 @@ public class StringUtils {
 			System.exit(0);
 		}
 
-		// An unlabeled break statement terminates the innermost switch, for, while, or do-while statement, but a
-		// labeled break terminates an outer statement. The following program, BreakWithLabelDemo, is similar to the
-		// previous program, but uses nested for loops to search for a value in a two-dimensional array. When the value
+		// An unlabeled break statement terminates the innermost switch, for, while, or
+		// do-while statement, but a
+		// labeled break terminates an outer statement. The following program,
+		// BreakWithLabelDemo, is similar to the
+		// previous program, but uses nested for loops to search for a value in a
+		// two-dimensional array. When the value
 		// is found, a labeled break terminates the outer for loop (labeled "search"):
 
 		for (int i = 0; i < 26; i++) {
@@ -175,10 +183,12 @@ public class StringUtils {
 	/**
 	 * You have two strings, and . Find a string, , such that:
 	 * 
-	 * can be expressed as where is a non-empty substring of and is a non-empty substring of . is a palindromic string.
-	 * The length of is as long as possible. For each of the pairs of strings ( and ) received as input, find and print
-	 * string on a new line. If you're able to form more than one valid string , print whichever one comes first
-	 * alphabetically. If there is no valid answer, print instead.<br/>
+	 * can be expressed as where is a non-empty substring of and is a non-empty
+	 * substring of . is a palindromic string. The length of is as long as possible.
+	 * For each of the pairs of strings ( and ) received as input, find and print
+	 * string on a new line. If you're able to form more than one valid string ,
+	 * print whichever one comes first alphabetically. If there is no valid answer,
+	 * print instead.<br/>
 	 * https://www.hackerrank.com/challenges/challenging-palindromes/problem
 	 * 
 	 * <br/>
@@ -223,7 +233,8 @@ public class StringUtils {
 		}
 		// System.out.println(res);
 		res.sort(new Comparator<String>() {
-			// reverse comparison to keep the longest palindrome string in the first element in the list
+			// reverse comparison to keep the longest palindrome string in the first element
+			// in the list
 			@Override
 			public int compare(String o1, String o2) {
 				if (o1.length() > o2.length())
@@ -256,7 +267,8 @@ public class StringUtils {
 		if (s.charAt(start) != s.charAt(end))
 			return false;
 
-		// if there are more then 2 characters check if middle substring is also palindrome or not.
+		// if there are more then 2 characters check if middle substring is also
+		// palindrome or not.
 		if (start < end + 1)
 			return isPalindromeRec(s, start + 1, end - 1);
 
@@ -264,18 +276,22 @@ public class StringUtils {
 	}
 
 	/**
-	 * The IsNumber function takes a String and returns true if that string is a number, and false otherwise. This
-	 * implementation, however, has several bugs in it. Your task is to find and fix those bugs. Please note that you
-	 * should be fixing bugs in this implementation, not implementing your own version.
+	 * The IsNumber function takes a String and returns true if that string is a
+	 * number, and false otherwise. This implementation, however, has several bugs
+	 * in it. Your task is to find and fix those bugs. Please note that you should
+	 * be fixing bugs in this implementation, not implementing your own version.
 	 * 
-	 * Parameters: - Numbers should be base-10 only. They may be negative, and may have decimal portions</br/>
-	 * - Numbers should not have any size restrictions (as might be imposed by the sizes of doubles or longs)</br/>
-	 * - Numbers should not have any extra characters, such as whitespace or letters</br/>
-	 * - Numbers should not have leading zeros (007 is a secret agent, not a number) - 0.5, .01, 9., and 1.000 are all
-	 * numbers, however. 00.5 is not.
+	 * Parameters: - Numbers should be base-10 only. They may be negative, and may
+	 * have decimal portions</br/>
+	 * - Numbers should not have any size restrictions (as might be imposed by the
+	 * sizes of doubles or longs)</br/>
+	 * - Numbers should not have any extra characters, such as whitespace or
+	 * letters</br/>
+	 * - Numbers should not have leading zeros (007 is a secret agent, not a number)
+	 * - 0.5, .01, 9., and 1.000 are all numbers, however. 00.5 is not.
 	 * 
-	 * Keep in mind that an engineer will be reviewing your code, and write it in a way that would pass a peer code
-	 * review
+	 * Keep in mind that an engineer will be reviewing your code, and write it in a
+	 * way that would pass a peer code review
 	 * 
 	 * INCOMPLETE!!!! some test cases don't pass
 	 */
@@ -321,6 +337,27 @@ public class StringUtils {
 
 	}
 
+	/**
+	 * Given a string S, Check if characters of the given string can be rearranged
+	 * to form a palindrome. For example characters of “geeksogeeks” can be
+	 * rearranged to form a palindrome “geeksoskeeg”, but characters of
+	 * “geeksforgeeks” cannot be rearranged to form a palindrome.
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public boolean isAnagramPalindrome(String s) {
+		Set<Character> set = new HashSet<>();
+		for (char c : s.toCharArray()) {
+			if (set.contains(c))
+				set.remove(c);
+			else
+				set.add(c);
+		}
+
+		return set.size() > 1 ? false : true;
+	}
+
 	// public void numberSeparator(String input){
 	// for(char c : input.toCharArray()){
 	// Integer.parseInt(c);
@@ -345,6 +382,9 @@ public class StringUtils {
 		System.out.println("Expected : false . Actual : " + su.isNumber("9.3e")); // pass
 		System.out.println("Expected : false . Actual : " + su.isNumber("0.5.5")); // pass F
 		System.out.println("Expected : true . Actual : " + su.isNumber("0.0002")); // fail F
+
+		System.out.println(su.isAnagramPalindrome("geeksogeeks"));
+		System.out.println(su.isAnagramPalindrome("geeksforgeeks"));
 		// su.starcase(8);
 		// su.reducedString("aaabccc");
 		// su.reducedString("aaabcc");

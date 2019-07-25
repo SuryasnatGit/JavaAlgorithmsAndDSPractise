@@ -1,83 +1,90 @@
 
-
 package com.algo.ds.array;
 
 /**
  * http://www.geeksforgeeks.org/find-subarray-with-given-sum/
+ * 
+ * Given an unsorted array of nonnegative integers, find a continous subarray which adds to a given number. Examples :
+ * 
+ * Input: arr[] = {1, 4, 20, 3, 10, 5}, sum = 33 Ouptut: Sum found between indexes 2 and 4
+ * 
+ * Input: arr[] = {1, 4, 0, 0, 3, 10, 5}, sum = 7 Ouptut: Sum found between indexes 1 and 4
+ * 
+ * Input: arr[] = {1, 4}, sum = 0 Output: No subarray found
  */
 public class SubarrayWithGivenSum {
 
-    class Pair{
-        int start;
-        int end;
-        
-        public String toString(){
-            return start + " " + end;
-        }
-    }
+	class Pair {
+		int start;
+		int end;
 
-    /**
-     * complexity - O(n^2) in worst case.
-     * 
-     * @param input
-     * @param sum
-     * @return
-     */
-    public Pair findSubArray_easy(int[] input, int sum) {
-        Pair p = new Pair();
-        int len = input.length;
-        for (int i = 0; i < len; i++) {
-            int arr_sum = input[i];
-            for (int j = i + 1; j <= len; j++) {
-                if (arr_sum == sum) {
-                    int y = j - 1;
-                    p.start = i;
-                    p.end = y;
-                    break;
-                }
-                if (arr_sum > sum || j == len)
-                    break;
-                arr_sum += input[j];
-            }
-        }
-        return p;
-    }
+		public String toString() {
+			return start + " " + end;
+		}
+	}
 
-    /**
-     * complexity - O(n)
-     * 
-     * @param input
-     * @param sum
-     * @return
-     */
-    public Pair findSubArray(int input[],int sum){
-        int currentSum = 0;
-        Pair p = new Pair();
-        p.start = 0;
-        for(int i=0; i < input.length; i++){
-            currentSum += input[i];
-            p.end = i;
-            if(currentSum == sum){
-                return p;
-            }else if(currentSum > sum){
-                int s = p.start;
-                while(currentSum  > sum){
-                    currentSum -= input[s];
-                    s++;
-                }
-                p.start = s;
-                if(currentSum == sum){
-                    return p;
-                }
-            }
-        }
-        return null;
-    }
-    
-    public static void main(String args[]){
-        SubarrayWithGivenSum sgs = new SubarrayWithGivenSum();
-        int input[] = {6,3,9,11,1,3,5};
-        System.out.println(sgs.findSubArray(input,15));
-        System.out.println(sgs.findSubArray_easy(input, 24));
-    }
+	/**
+	 * complexity - O(n^2) in worst case.
+	 * 
+	 * @param input
+	 * @param sum
+	 * @return
+	 */
+	public Pair findSubArray_easy(int[] input, int sum) {
+		Pair p = new Pair();
+		int len = input.length;
+		for (int i = 0; i < len; i++) {
+			int arr_sum = input[i];
+			for (int j = i + 1; j <= len; j++) {
+				if (arr_sum == sum) {
+					int y = j - 1;
+					p.start = i;
+					p.end = y;
+					break;
+				}
+				if (arr_sum > sum || j == len)
+					break;
+				arr_sum += input[j];
+			}
+		}
+		return p;
+	}
+
+	/**
+	 * complexity - O(n)
+	 * 
+	 * @param input
+	 * @param sum
+	 * @return
+	 */
+	public Pair findSubArray(int input[], int sum) {
+		int currentSum = 0;
+		Pair p = new Pair();
+		p.start = 0;
+		for (int i = 0; i < input.length; i++) {
+			currentSum += input[i];
+			p.end = i;
+			if (currentSum == sum) {
+				return p;
+			} else if (currentSum > sum) {
+				int s = p.start;
+				while (currentSum > sum) {
+					currentSum -= input[s];
+					s++;
+				}
+				p.start = s;
+				if (currentSum == sum) {
+					return p;
+				}
+			}
+		}
+		return null;
+	}
+
+	public static void main(String args[]) {
+		SubarrayWithGivenSum sgs = new SubarrayWithGivenSum();
+		int input[] = { 6, 3, 9, 11, 1, 3, 5 };
+		System.out.println(sgs.findSubArray(input, 15));
+		System.out.println(sgs.findSubArray_easy(input, 24));
+	}
 }

@@ -1,4 +1,4 @@
-package com.hackerrank.algo.graph;
+package com.hackerrank;
 
 import java.io.File;
 import java.io.FileNotFoundException;

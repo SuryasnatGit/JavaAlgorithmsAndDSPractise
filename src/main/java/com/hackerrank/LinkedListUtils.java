@@ -1,4 +1,4 @@
-package com.hackerrank.ds.linkedlist;
+package com.hackerrank;
 
 import com.algo.ds.linkedlist.Link;
 

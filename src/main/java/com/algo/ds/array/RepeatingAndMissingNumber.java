@@ -5,8 +5,8 @@ import java.util.Arrays;
 /**
  * http://www.geeksforgeeks.org/find-a-repeating-and-a-missing-number/
  * 
- * Given an unsorted array of size n. Array elements are in range from 1 to n. One number from set
- * {1, 2, …n} is missing and one number occurs twice in array. Find these two numbers. Examples:
+ * Given an unsorted array of size n. Array elements are in range from 1 to n. One number from set {1, 2, …n} is missing
+ * and one number occurs twice in array. Find these two numbers. Examples:
  * 
  * arr[] = {3, 1, 3} Output: 2, 3 // 2 is missing and 3 occurs twice
  * 
@@ -44,7 +44,7 @@ public class RepeatingAndMissingNumber {
 	 */
 	public Pair findNumbers_usingCountArray(int[] input) {
 		Pair p = new Pair();
-		int[] temp = new int[input.length];
+		int[] temp = new int[input.length + 1]; // temp has 1 more element to accommodate elements from 1 - n
 		Arrays.fill(temp, 0);
 		for (int i = 0; i < input.length; i++) {
 			if (temp[input[i]] == 0)
@@ -52,7 +52,7 @@ public class RepeatingAndMissingNumber {
 			else if (temp[input[i]] == 1)
 				p.repeating = i;
 		}
-		for (int i = 0; i < temp.length; i++) {
+		for (int i = 1; i < temp.length; i++) {
 			if (temp[i] == 0)
 				p.missing = i;
 		}
@@ -64,15 +64,14 @@ public class RepeatingAndMissingNumber {
 		int missing;
 
 		public String toString() {
-			return repeating + " " + missing;
+			return "repeating :" + repeating + " missing :" + missing;
 		}
 	}
 
 	/**
-	 * Traverse the array. While traversing, use absolute value of every element as index and make the
-	 * value at this index as negative to mark it visited. If something is already marked negative then
-	 * this is the repeating element. To find missing, traverse the array again and look for a positive
-	 * value.
+	 * Traverse the array. While traversing, use absolute value of every element as index and make the value at this
+	 * index as negative to mark it visited. If something is already marked negative then this is the repeating element.
+	 * To find missing, traverse the array again and look for a positive value.
 	 * 
 	 * O(n)
 	 * 
@@ -100,17 +99,15 @@ public class RepeatingAndMissingNumber {
 	}
 
 	/**
-	 * Method 5 (Use XOR) Let x and y be the desired output elements. Calculate XOR of all the array
-	 * elements.
+	 * Method 5 (Use XOR) Let x and y be the desired output elements. Calculate XOR of all the array elements.
 	 * 
 	 * xor1 = arr[0]^arr[1]^arr[2].....arr[n-1] XOR the result with all numbers from 1 to n
 	 * 
-	 * xor1 = xor1^1^2^.....^n In the result xor1, all elements would nullify each other except x and y.
-	 * All the bits that are set in xor1 will be set in either x or y. So if we take any set bit (We
-	 * have chosen the rightmost set bit in code) of xor1 and divide the elements of the array in two
-	 * sets – one set of elements with same bit set and other set with same bit not set. By doing so, we
-	 * will get x in one set and y in another set. Now if we do XOR of all the elements in first set, we
-	 * will get x, and by doing same in other set we will get y.
+	 * xor1 = xor1^1^2^.....^n In the result xor1, all elements would nullify each other except x and y. All the bits
+	 * that are set in xor1 will be set in either x or y. So if we take any set bit (We have chosen the rightmost set
+	 * bit in code) of xor1 and divide the elements of the array in two sets – one set of elements with same bit set and
+	 * other set with same bit not set. By doing so, we will get x in one set and y in another set. Now if we do XOR of
+	 * all the elements in first set, we will get x, and by doing same in other set we will get y.
 	 * 
 	 * @param arr
 	 * @param n
@@ -142,9 +139,9 @@ public class RepeatingAndMissingNumber {
 		set_bit_no = xor1 & ~(xor1 - 1);
 
 		/*
-		 * Now divide elements in two sets by comparing rightmost set bit of xor1 with bit at same position
-		 * in each element. Also, get XORs of two sets. The two XORs are the output elements.The following
-		 * two for loops serve the purpose
+		 * Now divide elements in two sets by comparing rightmost set bit of xor1 with bit at same position in each
+		 * element. Also, get XORs of two sets. The two XORs are the output elements.The following two for loops serve
+		 * the purpose
 		 */
 		for (i = 0; i < n; i++) {
 			if ((arr[i] & set_bit_no) != 0)
