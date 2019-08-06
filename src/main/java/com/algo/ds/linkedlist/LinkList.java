@@ -25,6 +25,12 @@ class Node {
 		}
 		return n;
 	}
+
+	@Override
+	public String toString() {
+		return "Node [data=" + data + "]";
+	}
+
 }
 
 public class LinkList {

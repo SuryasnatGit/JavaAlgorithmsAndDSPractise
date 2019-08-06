@@ -5,23 +5,22 @@ package com.algo.ds.linkedlist;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * http://www.geeksforgeeks.org/remove-duplicates-from-a-sorted-linked-list/ <br/>
- * 
- * 
- * Test cases : <br/>
- * All duplicates <br/>
- * No duplicates <br/>
- * Duplicates only in starting <br/>
- * Duplicates only at the end <br/>
- * 0 1 or more nodes in the list
- * 
- * Time Complexity: O(n) where n is number of nodes in the given linked list.
- *
- */
 public class RemoveDuplicatesFromList {
 
 	/**
+	 * 
+	 * http://www.geeksforgeeks.org/remove-duplicates-from-a-sorted-linked-list/ <br/>
+	 * 
+	 * For example if the linked list is 11->11->11->21->43->43->60 then removeDuplicates() should
+	 * convert the list to 11->21->43->60.
+	 * 
+	 * Test cases : <br/>
+	 * All duplicates <br/>
+	 * No duplicates <br/>
+	 * Duplicates only in starting <br/>
+	 * Duplicates only at the end <br/>
+	 * 0 1 or more nodes in the list
+	 * 
 	 * time complexity - O(n), where n is the number of nodes in the list
 	 * 
 	 * @param head
@@ -70,20 +69,6 @@ public class RemoveDuplicatesFromList {
 			// move ptr1
 			pointer1 = pointer1.next;
 		}
-
-	}
-
-	/**
-	 * In general, Merge Sort is the best suited sorting algorithm for sorting linked lists efficiently.
-	 * 1) Sort the elements using Merge Sort. O(nLogn).<br/>
-	 * 2) Remove duplicates in linear time using the algorithm for removing duplicates in sorted Linked
-	 * List. O(n)
-	 * 
-	 * Please note that this method doesn’t preserve the original order of elements.
-	 * 
-	 * Time Complexity: O(nLogn)
-	 */
-	public void removeDuplicatesFromUnsortedList_usingSorting() {
 
 	}
 
@@ -191,9 +176,19 @@ public class RemoveDuplicatesFromList {
 		head1 = ll.addNode(2, head1);
 		head1 = ll.addNode(3, head1);
 		head1 = ll.addNode(4, head1);
-		// rds.removeDuplicatesFromUnsortedList_usingHashing(head1);
-		// head1 = rds.removeAllDuplicates_recursive(head1);
-		head1 = rds.removeAllDuplicates_2pointer(head1);
+//		head1 = rds.removeAllDuplicates_2pointer(head1); // sol 1
+//		rds.removeAllDuplicates(head1); // sol 2
+		head1 = rds.removeAllDuplicates_recursive(head1); // sol 3
 		ll.printList(head1);
+
+		Node head2 = null;
+		head2 = ll.addNode(1, head2);
+		head2 = ll.addNode(4, head2);
+		head2 = ll.addNode(2, head2);
+		head2 = ll.addNode(4, head2);
+		head2 = ll.addNode(3, head2);
+		rds.removeDuplicatesFromUnsortedList_using2Loops(head2); // sol 1
+//		rds.removeDuplicatesFromUnsortedList_usingHashing(head2); // sol 2
+		ll.printList(head2);
     }
 }
