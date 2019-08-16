@@ -4,19 +4,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Date 10/11/2014
- * 
- * @author Tushar Roy
  *
- *         Given an undirected graph find cycle in this graph.
+ * Given an undirected graph find cycle in this graph.
  *
- *         Solution This can be solved in many ways. Below is the code to solve it using disjoint sets and DFS.
+ * Solution This can be solved in many ways. Below is the code to solve it using disjoint sets and DFS.
  *
- *         Runtime and space complexity for both the techniques is O(v) where v is total number of vertices in the
- *         graph.
+ * Runtime and space complexity for both the techniques is O(v) where v is total number of vertices in the graph.
  */
 public class CycleUndirectedGraph<T> {
 
+	/**
+	 * Find cycle in undirected graph using Disjoint Sets
+	 * 
+	 * @param graph
+	 * @return
+	 */
 	public boolean hasCycleUsingDisjointSets(Graph<T> graph) {
 		DisjointSet disjointSet = new DisjointSet();
 
@@ -35,6 +37,12 @@ public class CycleUndirectedGraph<T> {
 		return false;
 	}
 
+	/**
+	 * Find cycle in undirected graph using DFS
+	 * 
+	 * @param graph
+	 * @return
+	 */
 	public boolean hasCycleDFS(Graph<T> graph) {
 		Set<Vertex<T>> visited = new HashSet<Vertex<T>>();
 		for (Vertex<T> vertex : graph.getAllVertex()) {

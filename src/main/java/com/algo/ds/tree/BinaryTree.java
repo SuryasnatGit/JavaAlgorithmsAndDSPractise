@@ -1,12 +1,6 @@
 package com.algo.ds.tree;
 
 /**
- * Date 07/07/2014
- * 
- * @author tusroy
- * 
- *         Youtube link - https://youtu.be/bmaeYtlO2OE Youtube link - https://youtu.be/_SiwrPXG9-g Youtube link -
- *         https://youtu.be/NA8B84DZYSA
  *
  */
 class NodeRef {
@@ -37,6 +31,11 @@ class Node {
 		n.size = 1;
 		n.color = Color.RED;
 		return n;
+	}
+
+	@Override
+	public String toString() {
+		return "Node [data=" + data + "]";
 	}
 }
 
