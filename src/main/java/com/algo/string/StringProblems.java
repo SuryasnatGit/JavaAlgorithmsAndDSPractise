@@ -75,6 +75,8 @@ public class StringProblems {
 		System.out.println(sp.isNumber("+123.01"));
 		System.out.println(sp.isNumber("+123.Ea"));
 
+		System.out.println(sp.missingCharsToMakeStringPanagram("suryasnat"));
+
 	}
 
 	private int count = 0;
@@ -685,6 +687,27 @@ public class StringProblems {
 			}
 		}
 		System.out.println(result);
+	}
+
+	// time - O(n) SPace - O(1)
+	public List<Character> missingCharsToMakeStringPanagram(String input) {
+		boolean[] bool = new boolean[26];
+
+		char[] chArr = input.toCharArray();
+		for (char ch : chArr) {
+			int index = ch - 'a';
+			bool[index] = true;
+		}
+
+		List<Character> result = new ArrayList<Character>();
+		for (int i = 0; i < bool.length; i++) {
+			if (!bool[i]) {
+				int ch = 'a' + i;
+				result.add((char) ch);
+			}
+		}
+
+		return result;
 	}
 
 	/**

@@ -53,7 +53,7 @@ public class MaximumNumericValue {
 	}
 
 	/**
-	 * But in the case of large numbers above program wouldn’t work because of integer range in C and C++. So, to handle
+	 * But in the case of large numbers above program wouldnï¿½t work because of integer range in C and C++. So, to handle
 	 * the case of large numbers we have to take each numeric value as separate string and then find maximum value.
 	 * 
 	 * @return
@@ -126,7 +126,7 @@ public class MaximumNumericValue {
 
 	public static void main(String[] args) {
 		MaximumNumericValue v = new MaximumNumericValue();
-		String s = "abc100def200gh";
+		String s = "000500abc100def200gh";
 		System.out.println(v.extractMaximum(s));
 		System.out.println(v.extractMaximumBetter(s));
 	}
