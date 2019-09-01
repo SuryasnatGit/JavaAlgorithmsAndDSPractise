@@ -1,8 +1,8 @@
 package com.hackerrank;
 
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
@@ -20,11 +20,16 @@ public class Algorithms {
 		// algo.precisionProblem(6, arr);
 		// int[] ar = new int[] { 10, 20, 20, 10, 10, 30, 50, 10, 20 };
 		// System.out.println(algo.sockMerchant(9, ar));
-		System.out.println(algo.birthdayBar(Arrays.asList(1, 2, 1, 3, 2), 3, 2));
-		System.out.println(algo.birthdayBar(Arrays.asList(1, 1, 1, 1, 1, 1), 3, 2));
-		System.out.println(algo.birthdayBar(Arrays.asList(4), 4, 1));
-		int[] input = new int[] { 7, -5, -3, -3, 0, 4, -5, -5, 0, 7, 7 };
-		System.out.println(algo.rearrangeDuplicates(input));
+		// System.out.println(algo.birthdayBar(Arrays.asList(1, 2, 1, 3, 2), 3, 2));
+		// System.out.println(algo.birthdayBar(Arrays.asList(1, 1, 1, 1, 1, 1), 3, 2));
+		// System.out.println(algo.birthdayBar(Arrays.asList(4), 4, 1));
+		// int[] input = new int[] { 7, -5, -3, -3, 0, 4, -5, -5, 0, 7, 7 };
+		// System.out.println(algo.rearrangeDuplicates(input));
+		// algo.extraLongFactorials(50);
+		// algo.extraLongFactorials(100);
+		System.out.println(algo.appendAndDelete("hackerhappy", "hackerrank", 9));
+		System.out.println(algo.appendAndDelete("aba", "aba", 7));
+		System.out.println(algo.appendAndDelete("ashley", "ash", 200));
 	}
 
 	/**
@@ -117,17 +122,17 @@ public class Algorithms {
 	}
 
 	/**
-	 * John works at a clothing store. He has a large pile of socks that he must pair by color for sale.
-	 * Given an array of integers representing the color of each sock, determine how many pairs of socks
-	 * with matching colors there are.
+	 * John works at a clothing store. He has a large pile of socks that he must pair by color for sale. Given an array
+	 * of integers representing the color of each sock, determine how many pairs of socks with matching colors there
+	 * are.
 	 * 
-	 * For example, there are socks with colors . There is one pair of color and one of color . There
-	 * are three odd socks left, one of each color. The number of pairs is .
+	 * For example, there are socks with colors . There is one pair of color and one of color . There are three odd
+	 * socks left, one of each color. The number of pairs is .
 	 * 
 	 * Function Description
 	 * 
-	 * Complete the sockMerchant function in the editor below. It must return an integer representing
-	 * the number of matching pairs of socks that are available.
+	 * Complete the sockMerchant function in the editor below. It must return an integer representing the number of
+	 * matching pairs of socks that are available.
 	 * 
 	 * sockMerchant has the following parameter(s):
 	 * 
@@ -135,8 +140,8 @@ public class Algorithms {
 	 * 
 	 * Input Format
 	 * 
-	 * The first line contains an integer , the number of socks represented in . The second line
-	 * contains space-separated integers describing the colors of the socks in the pile.
+	 * The first line contains an integer , the number of socks represented in . The second line contains
+	 * space-separated integers describing the colors of the socks in the pile.
 	 * 
 	 * Constraints
 	 * 
@@ -173,28 +178,27 @@ public class Algorithms {
 	}
 
 	/**
-	 * Lily has a chocolate bar that she wants to share it with Ron for his birthday. Each of the
-	 * squares has an integer on it. She decides to share a contiguous segment of the bar selected such
-	 * that the length of the segment matches Ron's birth month and the sum of the integers on the
-	 * squares is equal to his birth day. You must determine how many ways she can divide the chocolate.
+	 * Lily has a chocolate bar that she wants to share it with Ron for his birthday. Each of the squares has an integer
+	 * on it. She decides to share a contiguous segment of the bar selected such that the length of the segment matches
+	 * Ron's birth month and the sum of the integers on the squares is equal to his birth day. You must determine how
+	 * many ways she can divide the chocolate.
 	 * 
-	 * Consider the chocolate bar as an array of squares, . She wants to find segments summing to Ron's
-	 * birth day, with a length equaling his birth month, . In this case, there are two segments meeting
-	 * her criteria: and .
+	 * Consider the chocolate bar as an array of squares, . She wants to find segments summing to Ron's birth day, with
+	 * a length equaling his birth month, . In this case, there are two segments meeting her criteria: and .
 	 * 
 	 * Function Description
 	 * 
-	 * Complete the birthday function in the editor below. It should return an integer denoting the
-	 * number of ways Lily can divide the chocolate bar.
+	 * Complete the birthday function in the editor below. It should return an integer denoting the number of ways Lily
+	 * can divide the chocolate bar.
 	 * 
 	 * birthday has the following parameter(s):
 	 * 
-	 * s: an array of integers, the numbers on each of the squares of chocolate d: an integer, Ron's
-	 * birth day m: an integer, Ron's birth month Input Format
+	 * s: an array of integers, the numbers on each of the squares of chocolate d: an integer, Ron's birth day m: an
+	 * integer, Ron's birth month Input Format
 	 * 
-	 * The first line contains an integer , the number of squares in the chocolate bar. The second line
-	 * contains space-separated integers , the numbers on the chocolate squares where . The third line
-	 * contains two space-separated integers, and , Ron's birth day and his birth month.
+	 * The first line contains an integer , the number of squares in the chocolate bar. The second line contains
+	 * space-separated integers , the numbers on the chocolate squares where . The third line contains two
+	 * space-separated integers, and , Ron's birth day and his birth month.
 	 * 
 	 * Sample Input 0
 	 * 
@@ -231,4 +235,80 @@ public class Algorithms {
 		return count;
 	}
 
+	/**
+	 * Consider two sets of positive integers, and . We say that a positive integer,A={a0,a1,a2..,an} and
+	 * B={b0,b1,b2...,bm} , is between sets and if the following conditions are satisfied:
+	 * 
+	 * All elements in are factors of . is a factor of all elements in . Given and , find and print the number of
+	 * integers (i.e., possible 's) that are between the two sets.
+	 */
+	public void between2sets() {
+		Scanner in = new Scanner(System.in);
+		int n = in.nextInt();
+		int m = in.nextInt();
+		int[] a = new int[n];
+		// find max of a[] and min of b[]
+		int max_a = 0;
+		for (int a_i = 0; a_i < n; a_i++) {
+			a[a_i] = in.nextInt();
+			max_a = Integer.max(a[a_i], max_a);
+		}
+		int min_b = Integer.MAX_VALUE;
+		int[] b = new int[m];
+		for (int b_i = 0; b_i < m; b_i++) {
+			b[b_i] = in.nextInt();
+			min_b = Integer.min(b[b_i], min_b);
+		}
+		int count = 0;
+		for (int i = max_a; i <= min_b; i++) {
+			if (min_b % i == 0)
+				count++;
+		}
+		System.out.println(count);
+
+	}
+
+	/**
+	 * We recommend solving this challenge using BigIntegers.
+	 * 
+	 * @param num
+	 */
+	public void extraLongFactorials(int num) {
+		BigInteger bi = new BigInteger("1");
+		for (int i = 2; i <= num; i++) {
+			bi = bi.multiply(new BigInteger(String.valueOf(i)));
+		}
+		System.out.println(bi);
+	}
+
+	/**
+	 * https://www.hackerrank.com/challenges/append-and-delete/problem
+	 * 
+	 * @param s
+	 * @param t
+	 * @param k
+	 * @return
+	 */
+	public boolean appendAndDelete(String s, String t, int k) {
+		if (k >= s.length() + t.length())
+			return true;
+
+		for (int i = s.length(); i >= 0; i--) {
+			String prefix = s.substring(0, i);
+			if (t.startsWith(prefix)) {
+				int diff = s.length() - i + t.length() - i;
+				return diff <= k && (k - diff) % 2 == 0;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * https://www.hackerrank.com/challenges/almost-sorted/problem
+	 * 
+	 * @return
+	 */
+	public String almostSorted(int[] arr) {
+
+	}
 }

@@ -1,9 +1,8 @@
-package com.algo.ds.tree.application;
+package com.algo.ds.tree;
 
 import java.util.LinkedList;
 
 import com.algo.ds.linkedlist.StackAsSingleLinkedList;
-import com.algo.ds.tree.TreeNode;
 
 public class BinaryTreeUtil<K, V> {
 

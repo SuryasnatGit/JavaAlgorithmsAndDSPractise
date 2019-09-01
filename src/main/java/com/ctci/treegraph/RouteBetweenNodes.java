@@ -3,6 +3,8 @@ package com.ctci.treegraph;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+import com.algo.ds.graph.Graph;
+
 /**
  * CTCI - 4.1
  * 
@@ -69,12 +71,11 @@ public class RouteBetweenNodes {
 	private enum State {
 		unvisited, visited, visiting;
 	}
-	/*
-	 * public boolean isRouteExists_DFS(Graph<Integer> g, int source, int dest) { LinkedList<Node> stack
-	 * = new LinkedList<Node>(); // operates as Stack for (Node u : g.getNodes()) { u.state =
-	 * State.Unvisited; } start.state = State.Visiting; stack.add(start); Node u; while
-	 * (!stack.isEmpty()) { u = stack.removeFirst(); // i.e., pop() if (u != null) { for (Node v :
-	 * u.getAdjacent()) { if (v.state == State.Unvisited) { if (v == end) { return true; } else {
-	 * v.state = State.Visiting; stack.add(v); } } } u.state = State.Visited; } } return false; }
-	 */
+
+	public boolean isRouteExists_DFS(Graph<Integer> g, int source, int dest) {
+
+		// TODO : implement
+		return false;
+	}
+
 }

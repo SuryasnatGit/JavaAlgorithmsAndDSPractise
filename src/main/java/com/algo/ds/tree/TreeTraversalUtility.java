@@ -1,4 +1,4 @@
-package com.algo.ds.tree.application;
+package com.algo.ds.tree;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +9,6 @@ import java.util.Map;
 
 import com.algo.ds.stack.LinkedListStack;
 import com.algo.ds.stack.Stack;
-import com.algo.ds.tree.TreeNode;
 
 public class TreeTraversalUtility<K, V> {
 
