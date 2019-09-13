@@ -2,6 +2,7 @@ package com.algo.ds.array;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -50,14 +51,16 @@ public class UnionIntersectionOfUnsortedArray {
 	}
 
 	public static void main(String[] args) {
-		int[] b = { 1, 3, 5, 2, 4, 9 };
-		int[] a = { 3, 2, 10 };
+
 		UnionIntersectionOfUnsortedArray unsorted = new UnionIntersectionOfUnsortedArray();
-		unsorted.union_bruteForce(a, b);
-		unsorted.intersection_bruteForce(a, b);
-		unsorted.union_1(a, b);
-		unsorted.union_hashing(a, b);
-		unsorted.intersection_hashing(a, b);
+//		unsorted.union_bruteForce(a, b);
+//		unsorted.intersection_bruteForce(a, b);
+//		unsorted.union_1(a, b);
+//		unsorted.union_hashing(a, b);
+//		unsorted.intersection_hashing(a, b);
+		List<Integer> a = Arrays.asList(2, 1, 1, 4, 3, 2);
+		List<Integer> b = Arrays.asList(1, 2, 1, 2);
+		System.out.println(unsorted.intersection(a, b));
 	}
 
 	/**
@@ -132,6 +135,21 @@ public class UnionIntersectionOfUnsortedArray {
 			if (res.contains(arr2[i]))
 				System.out.print(arr2[i] + " ");
 		}
+	}
+
+	public List<Integer> intersection(List<Integer> a, List<Integer> b) {
+
+		// sort both lists
+		Collections.sort(a);
+		Collections.sort(b);
+
+		List<Integer> res = new ArrayList<>();
+		for (int i = 0, j = 0; i < a.size() && j < b.size(); i++, j++) {
+			if (a.get(i) == b.get(j))
+				res.add(a.get(i));
+		}
+
+		return res;
 	}
 
 }

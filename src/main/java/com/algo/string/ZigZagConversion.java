@@ -37,7 +37,9 @@ import java.util.List;
 public class ZigZagConversion {
 
 	/**
-	 * Approach 1: Sort by Row Intuition:
+	 * Approach 1: Sort by Row:
+	 * 
+	 * Intuition:
 	 * 
 	 * By iterating through the string from left to right, we can easily determine which row in the
 	 * Zig-Zag pattern that a character belongs to.
@@ -54,10 +56,9 @@ public class ZigZagConversion {
 	 * bottommost row.
 	 * 
 	 * Complexity Analysis
-
-Time Complexity: O(n)O(n), where n == \text{len}(s)n==len(s)
-Space Complexity: O(n)O(n)
-
+	 * 
+	 * Time Complexity: O(n)O(n), where n == \text{len}(s)n==len(s) Space Complexity: O(n)O(n)
+	 * 
 	 * 
 	 * @param s
 	 * @param numRows
@@ -86,11 +87,13 @@ Space Complexity: O(n)O(n)
 	}
 	
 	/**
-	 * Approach 2: Visit by Row Intuition
+	 * Approach 2: Visit by Row
+	 * 
+	 * Intuition:
 	 * 
 	 * Visit the characters in the same order as reading the Zig-Zag pattern line by line.
 	 * 
-	 * Algorithm
+	 * Algorithm:
 	 * 
 	 * Visit all characters in row 0 first, then row 1, then row 2, and so on...
 	 * 
@@ -103,10 +106,11 @@ Space Complexity: O(n)O(n)
 	 * i(k+1)(2⋅numRows−2)−i.
 	 * 
 	 * Complexity Analysis
-
-Time Complexity: O(n)O(n), where n == \text{len}(s)n==len(s). Each index is visited once.
-Space Complexity: O(n)O(n). For the cpp implementation, O(1)O(1) if return string is not considered extra space.
-
+	 * 
+	 * Time Complexity: O(n)O(n), where n == \text{len}(s)n==len(s). Each index is visited once. Space
+	 * Complexity: O(n)O(n). For the cpp implementation, O(1)O(1) if return string is not considered
+	 * extra space.
+	 * 
 	 * @param s
 	 * @param numRows
 	 * @return

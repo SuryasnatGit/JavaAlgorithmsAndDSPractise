@@ -6,14 +6,14 @@ import java.util.Map;
 /**
  * Video link - https://youtu.be/ID00PMy0-vE
  * 
- * 
+ * Category - Hard
  * 
  * <br/>
  * Usage - Kruskal algorithm for MST, finding cycle in undirected graph
  */
 public class DisjointSet {
 
-	/*
+	/**
 	 * Union Find Algorithm - Set 1. Note that the implementation of union() and find() is naive and
 	 * takes O(n) time in worst case
 	 * 
@@ -64,16 +64,17 @@ public class DisjointSet {
 		subsets[sx] = sy;
 	}
 
-	/*
+	/**
 	 * Union Find algorithm - Set 2.
 	 * 
-	 * Disjoint sets using path compression and union by rank Supports 3 operations<br/> 1) makeSet -
-	 * creates a singleton set containing new element x and returns the position <br/> 2) union - merges
-	 * the sets<br/> 3) findSet - returns an element of the set which is an element that identifies the
-	 * set.
+	 * Disjoint sets using path compression and union by rank Supports 3 operations<br/>
+	 * 1) makeSet - creates a singleton set containing new element x and returns the position <br/>
+	 * 2) union - merges the sets<br/>
+	 * 3) findSet - returns an element of the set which is an element that identifies the set.
 	 * 
-	 * <br/> union by rank - make the node who has higher rank the parent and the node which has lower
-	 * rank the child.
+	 * <br/>
+	 * union by rank - make the node who has higher rank the parent and the node which has lower rank
+	 * the child.
 	 * 
 	 * For m operations and total n elements time complexity is O(m*f(n)) where f(n) is very slowly
 	 * growing function. For most cases f(n) <= 4 so effectively total time will be O(m). Proof in

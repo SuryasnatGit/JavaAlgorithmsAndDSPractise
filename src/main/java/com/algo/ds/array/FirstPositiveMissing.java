@@ -4,6 +4,8 @@ package com.algo.ds.array;
  * https://leetcode.com/problems/first-missing-positive/.
  * 
  * Given an unsorted integer array, find the smallest missing positive integer.
+ * Your algorithm should run in O(n) time and uses constant space.
+ * 
  * 
  * Example 1: Input: [1,2,0] Output: 3 <br/>
  * Example 2:

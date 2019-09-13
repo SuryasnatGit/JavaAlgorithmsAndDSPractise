@@ -18,6 +18,8 @@ import java.util.List;
  * Space complexity - O(E + V)
  * <p>
  * References https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
+ * 
+ * Category - Hard
  */
 
 public class KruskalMST {

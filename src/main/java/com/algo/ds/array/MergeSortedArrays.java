@@ -12,7 +12,40 @@ import java.util.PriorityQueue;
  * One or more lists are empty
  * All elements in one list are smaller than all elements in another list
  */
-public class ChunkMerge {
+public class MergeSortedArrays {
+
+	/**
+	 * Time complexity - O(n1 + n2) Time
+	 * 
+	 * Space complexity - O(n1 + n2). The idea is to use Merge function of Merge sort.
+	 * 
+	 * Create an array arr3[] of size n1 + n2. Simultaneously traverse arr1[] and arr2[]. Pick smaller
+	 * of current elements in arr1[] and arr2[], copy this smaller element to next position in arr3[]
+	 * and move ahead in arr3[] and the array whose element is picked. If there are are remaining
+	 * elements in arr1[] or arr2[], copy them also in arr3[].
+	 * 
+	 */
+	public void merge2SortedArrays(int[] arr1, int[] arr2) {
+		int l = arr1.length + arr2.length;
+		int[] result = new int[l];
+
+		int i = 0, j = 0, k = 0;
+		while (i < arr1.length && j < arr2.length) {
+			if (arr1[i] < arr2[j]) {
+				result[k++] = arr1[i++];
+			} else {
+				result[k++] = arr2[j++];
+			}
+		}
+
+		while (i < arr1.length)
+			result[k++] = arr1[i++];
+
+		while (j < arr2.length)
+			result[k++] = arr1[j++];
+
+		System.out.println(Arrays.toString(result));
+	}
     
     class Triplet implements Comparable<Triplet>{
         int val;
@@ -137,17 +170,21 @@ public class ChunkMerge {
         chunks.add(list6);
         chunks.add(list7);
         
-        ChunkMerge cm = new ChunkMerge();
-        List<Integer> result = cm.mergeChunksOfDifferentSize(chunks);
-        System.out.println(result.size());
-        for(Integer r : result){
-            System.out.print(r + " ");
-        }
-        
-        result = cm.mergeUsingHeap(chunks);
-        System.out.println();
-        for(Integer r : result){
-            System.out.print(r + " ");
-        }
+        MergeSortedArrays cm = new MergeSortedArrays();
+//        List<Integer> result = cm.mergeChunksOfDifferentSize(chunks);
+//        System.out.println(result.size());
+//        for(Integer r : result){
+//            System.out.print(r + " ");
+//        }
+//        
+//        result = cm.mergeUsingHeap(chunks);
+//        System.out.println();
+//        for(Integer r : result){
+//            System.out.print(r + " ");
+//        }
+
+		int ar1[] = { 1, 5, 6, 9, 21 };
+		int ar2[] = { 4, 6, 11, 14 };
+		cm.merge2SortedArrays(ar1, ar2);
     }
 }

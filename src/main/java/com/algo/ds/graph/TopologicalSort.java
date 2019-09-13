@@ -5,13 +5,16 @@ import java.util.Map;
 import java.util.Stack;
 
 /**
- * Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that for every directed
- * edge uv, vertex u comes before v in the ordering. Topological Sorting for a graph is not possible if the graph is not
- * a DAG.. Given a directed acyclic graph, do a topological sort on this graph. A topological ordering is possible if
- * and only if the graph has no directed cycles, that is, if it is a directed acyclic graph (DAG).
+ * Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that
+ * for every directed edge uv, vertex u comes before v in the ordering. Topological Sorting for a
+ * graph is not possible if the graph is not a DAG.. Given a directed acyclic graph, do a
+ * topological sort on this graph. A topological ordering is possible if and only if the graph has
+ * no directed cycles, that is, if it is a directed acyclic graph (DAG).
  *
- * Do DFS by keeping visited. Put the vertex which are completely explored into a stack. Pop from stack to get sorted
- * order.
+ * Do DFS by keeping visited. Put the vertex which are completely explored into a stack. Pop from
+ * stack to get sorted order.
+ *
+ * Category - Hard
  *
  * Space and time complexity is O(n).
  */

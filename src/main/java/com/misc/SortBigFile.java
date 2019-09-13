@@ -1,40 +1,38 @@
-package com.ctci.sortnsearch;
+package com.misc;
 
 /**
  * 
  * CTCI - 10.6
  * 
- * Sort Big File: Imagine you have a 20 GB file with one string per line.
- * Explain how you would sort the file.
+ * Sort Big File: Imagine you have a 20 GB file with one string per line. Explain how you would sort
+ * the file.
  * 
- * External sorting is a term for a class of sorting algorithms that can handle
- * massive amounts of data. External sorting is required when the data being
- * sorted do not fit into the main memory of a computing device (usually RAM)
- * and instead they must reside in the slower external memory (usually a hard
- * drive). External sorting typically uses a hybrid sort-merge strategy. In the
- * sorting phase, chunks of data small enough to fit in main memory are read,
- * sorted, and written out to a temporary file. In the merge phase, the sorted
- * sub-files are combined into a single larger file.
+ * External sorting is a term for a class of sorting algorithms that can handle massive amounts of
+ * data. External sorting is required when the data being sorted do not fit into the main memory of
+ * a computing device (usually RAM) and instead they must reside in the slower external memory
+ * (usually a hard drive). External sorting typically uses a hybrid sort-merge strategy. In the
+ * sorting phase, chunks of data small enough to fit in main memory are read, sorted, and written
+ * out to a temporary file. In the merge phase, the sorted sub-files are combined into a single
+ * larger file.
  * 
- * One example of external sorting is the external merge sort algorithm, which
- * sorts chunks that each fit in RAM, then merges the sorted chunks together. We
- * first divide the file into runs such that the size of a run is small enough
- * to fit into main memory. Then sort each run in main memory using merge sort
- * sorting algorithm. Finally merge the resulting runs together into
- * successively bigger runs, until the file is sorted.
+ * One example of external sorting is the external merge sort algorithm, which sorts chunks that
+ * each fit in RAM, then merges the sorted chunks together. We first divide the file into runs such
+ * that the size of a run is small enough to fit into main memory. Then sort each run in main memory
+ * using merge sort sorting algorithm. Finally merge the resulting runs together into successively
+ * bigger runs, until the file is sorted.
  * 
- * Prerequisite for the algorithm/code: MergeSort : Used for sort individual
- * runs (a run is part of file that is small enough to fit in main memory) Merge
- * K Sorted Arrays : Used to merge sorted runs.
+ * Prerequisite for the algorithm/code: MergeSort :
  * 
- * Inputs: input_file : Name of input file. input.txt output_file : Name of
- * output file, output.txt run_size : Size of a run (can fit in RAM) num_ways :
- * Number of runs to be merged
+ * Used for sort individual runs (a run is part of file that is small enough to fit in main memory)
  * 
- * Output: 1) Read input_file such that at most 'run_size' elements are read at
- * a time. Do following for the every run read in an array. a) Sort the run
- * using MergeSort. b) Store the sorted run in a temporary file, say 'i' for
- * i'th run. 2) Merge the sorted files using the approach discussed
+ * Merge K Sorted Arrays : Used to merge sorted runs.
+ * 
+ * Inputs: input_file : Name of input file. input.txt output_file : Name of output file, output.txt
+ * run_size : Size of a run (can fit in RAM) num_ways : Number of runs to be merged
+ * 
+ * Output: 1) Read input_file such that at most 'run_size' elements are read at a time. Do following
+ * for the every run read in an array. a) Sort the run using MergeSort. b) Store the sorted run in a
+ * temporary file, say 'i' for i'th run. 2) Merge the sorted files using the approach discussed
  * 
  * 
  * @author ctsuser1
@@ -49,10 +47,9 @@ public class SortBigFile {
 		// index of the array from which the element is taken
 		int i;
 	}
-	  
-	// A class for Min Heap 
-	class MinHeap 
-	{ 
+
+	// A class for Min Heap
+	class MinHeap {
 		MinHeapNode harr; // pointer to array of elements in heap
 		int heap_size; // size of min heap
 
@@ -60,7 +57,7 @@ public class SortBigFile {
 			// TODO Auto-generated constructor stub
 		}
 
-	    // Constructor: creates a min heap of given size 
+		// Constructor: creates a min heap of given size
 		public MinHeap(MinHeapNode a[], int size) {
 			heap_size = size;
 			int i = (heap_size - 1) / 2;
@@ -69,47 +66,49 @@ public class SortBigFile {
 				i--;
 			}
 		}
-	  
-	    // to get index of left child of node at index i 
-	    int left(int i) { return (2 * i + 1); } 
-	  
-	    // to get index of right child of node at index i 
-	    int right(int i) { return (2 * i + 2); } 
-	  
-	    // to get the root 
-	    MinHeapNode getMin() {  return harr[0]; } 
-	  
-	    // to replace root with new node x and heapify() 
-	    // new root 
-	    void replaceMin(MinHeapNode x) 
-	    { 
-	        harr[0] = x; 
-	        MinHeapify(0); 
-	    } 
+
+		// to get index of left child of node at index i
+		int left(int i) {
+			return (2 * i + 1);
+		}
+
+		// to get index of right child of node at index i
+		int right(int i) {
+			return (2 * i + 2);
+		}
+
+		// to get the root
+		MinHeapNode getMin() {
+			return harr[0];
+		}
+
+		// to replace root with new node x and heapify()
+		// new root
+		void replaceMin(MinHeapNode x) {
+			harr[0] = x;
+			MinHeapify(0);
+		}
 	}
 
 	// A recursive method to heapify a subtree with root
 	// at given index. This method assumes that the
 	// subtrees are already heapified
-	public void MinHeapify(int i) 
-	{ 
-	    int l = left(i); 
-	    int r = right(i); 
-	    int smallest = i; 
-	    if (l < heap_size && harr[l].element < harr[i].element) 
-	        smallest = l; 
-	    if (r < heap_size && harr[r].element < harr[smallest].element) 
-	        smallest = r; 
-	    if (smallest != i) 
-	    { 
+	public void MinHeapify(int i) {
+		int l = left(i);
+		int r = right(i);
+		int smallest = i;
+		if (l < heap_size && harr[l].element < harr[i].element)
+			smallest = l;
+		if (r < heap_size && harr[r].element < harr[smallest].element)
+			smallest = r;
+		if (smallest != i) {
 			swap(harr[i], harr[smallest]);
-	        MinHeapify(smallest); 
-	    } 
+			MinHeapify(smallest);
+		}
 	}
 
 	// A utility function to swap two elements
-	void swap(MinHeapNode x, MinHeapNode y) 
-	{ 
+	void swap(MinHeapNode x, MinHeapNode y) {
 		MinHeapNode temp = x;
 		x = y;
 		y = temp;
@@ -118,43 +117,43 @@ public class SortBigFile {
 	// Merges two subarrays of arr[].
 	// First subarray is arr[l..m]
 	// Second subarray is arr[m+1..r]
-	void merge(int arr[], int l, int m, int r) 
-	{ 
-	    int i, j, k; 
-	    int n1 = m - l + 1; 
-	    int n2 = r - m; 
-	  
-	    /* create temp arrays */
+	void merge(int arr[], int l, int m, int r) {
+		int i, j, k;
+		int n1 = m - l + 1;
+		int n2 = r - m;
+
+		/* create temp arrays */
 		int L[] = new int[n1];
 		int R[] = new int[n2];
-	  
-	    /* Copy data to temp arrays L[] and R[] */
-	    for(i = 0; i < n1; i++) 
-	        L[i] = arr[l + i]; 
-	    for(j = 0; j < n2; j++) 
-	        R[j] = arr[m + 1 + j]; 
-	  
-	    /* Merge the temp arrays back into arr[l..r]*/
-	    i = 0; // Initial index of first subarray 
-	    j = 0; // Initial index of second subarray 
-	    k = l; // Initial index of merged subarray 
-	    while (i < n1 && j < n2) 
-	    { 
-	        if (L[i] <= R[j]) 
-	            arr[k++] = L[i++]; 
-	        else
-	            arr[k++] = R[j++]; 
-	    } 
-	  
-	    /* Copy the remaining elements of L[], if there 
-	       are any */
-	    while (i < n1) 
-	        arr[k++] = L[i++]; 
-	  
-	    /* Copy the remaining elements of R[], if there 
-	       are any */
-	    while(j < n2) 
-	        arr[k++] = R[j++]; 
+
+		/* Copy data to temp arrays L[] and R[] */
+		for (i = 0; i < n1; i++)
+			L[i] = arr[l + i];
+		for (j = 0; j < n2; j++)
+			R[j] = arr[m + 1 + j];
+
+		/* Merge the temp arrays back into arr[l..r] */
+		i = 0; // Initial index of first subarray
+		j = 0; // Initial index of second subarray
+		k = l; // Initial index of merged subarray
+		while (i < n1 && j < n2) {
+			if (L[i] <= R[j])
+				arr[k++] = L[i++];
+			else
+				arr[k++] = R[j++];
+		}
+
+		/*
+		 * Copy the remaining elements of L[], if there are any
+		 */
+		while (i < n1)
+			arr[k++] = L[i++];
+
+		/*
+		 * Copy the remaining elements of R[], if there are any
+		 */
+		while (j < n2)
+			arr[k++] = R[j++];
 	}
 
 	/*
@@ -174,8 +173,7 @@ public class SortBigFile {
 		}
 	}
 
-	public void openFile(char fileName, char mode) 
-	{ 
+	public void openFile(char fileName, char mode) {
 //	    FILE* fp = fopen(fileName, mode); 
 //	    if (fp == NULL) 
 //	    { 
@@ -309,13 +307,12 @@ public class SortBigFile {
 	}
 
 	// For sorting data stored on disk
-	void externalSort(String inputFile, String outputFile, int num_ways, int run_size)
-	{ 
-	    // read the input file, create the initial runs, 
-	    // and assign the runs to the scratch output files 
+	void externalSort(String inputFile, String outputFile, int num_ways, int run_size) {
+		// read the input file, create the initial runs,
+		// and assign the runs to the scratch output files
 		createInitialRuns(inputFile, run_size, num_ways);
-	  
-	    // Merge the runs using the K-way merging 
+
+		// Merge the runs using the K-way merging
 		mergeFiles(outputFile, run_size, num_ways);
 	}
 
