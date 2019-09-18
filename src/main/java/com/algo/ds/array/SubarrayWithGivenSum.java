@@ -80,11 +80,28 @@ public class SubarrayWithGivenSum {
 		}
 		return null;
 	}
+	
+	/**
+	 * time - O(n^2)
+	 * @param arr
+	 */
+	public void findSubarraysWith0Sum(int[] arr) {
+		for (int i = 0; i < arr.length; i++) {
+			int sum = arr[i];
+			for (int j = i + 1; j < arr.length; j++) {
+				sum += arr[j];
+				if (sum == 0) {
+					System.out.println("array with 0 sum exists from " + i + " to " + j);
+				}
+			}
+		}
+	}
 
 	public static void main(String args[]) {
 		SubarrayWithGivenSum sgs = new SubarrayWithGivenSum();
 		int input[] = { 6, 3, 9, 11, 1, 3, 5 };
 		System.out.println(sgs.findSubArray(input, 15));
 		System.out.println(sgs.findSubArray_easy(input, 24));
+		sgs.findSubarraysWith0Sum(new int[] { 3, 4, -7, 3, 1, 3, 1, -4, -2, -2 });
 	}
 }

@@ -3,54 +3,93 @@ package com.algo.ds.tree;
 /**
  * http://www.geeksforgeeks.org/print-nodes-distance-k-given-node-binary-tree/
  * 
- * Given a binary tree, a target node in the binary tree, and an integer value k, print all the
- * nodes that are at distance k from the given target node. No parent pointers are available.
+ * Given a binary tree, a target node in the binary tree, and an integer value k, print all the nodes that are at
+ * distance k from the given target node. No parent pointers are available.
  * 
- * Test case. k should not be negative, k could be very big number which means nothing was found,
- * dest might/might not exists in the tree, root could be null
+ * Test case. k should not be negative, k could be very big number which means nothing was found, dest might/might not
+ * exists in the tree, root could be null
+ * 
+ * Category : Hard
+ * 
  */
 public class NodesAtDistanceK {
 
-	private void findInChild(Node root, int k) {
-		if (root == null) {
+	Node root;
+	/*
+	 * Recursive function to print all the nodes at distance k in tree (or subtree) rooted with given root.
+	 */
+
+	void printkdistanceNodeDown(Node node, int k) {
+		// Base Case
+		if (node == null || k < 0)
+			return;
+
+		// If we reach a k distant node, print it
+		if (k == 0) {
+			System.out.print(node.data);
+			System.out.println("");
 			return;
 		}
-		if (k == 0) {
-			System.out.println(root.data);
-		}
-		findInChild(root.left, k - 1);
-		findInChild(root.right, k - 1);
+
+		// Recur for left and right subtrees
+		printkdistanceNodeDown(node.left, k - 1);
+		printkdistanceNodeDown(node.right, k - 1);
 	}
 
-	public int printNodes(Node root, int dest, int k) {
-		if (root == null) {
+	// Prints all nodes at distance k from a given target node.
+	// The k distant nodes may be upward or downward.This function
+	// Returns distance of root from target node, it returns -1
+	// if target node is not present in tree rooted with root.
+	int printkdistanceNode(Node node, Node target, int k) {
+		// Base Case 1: If tree is empty, return -1
+		if (node == null)
 			return -1;
+
+		// If target is same as root. Use the downward function
+		// to print all nodes at distance k in subtree rooted with
+		// target or root
+		if (node == target) {
+			printkdistanceNodeDown(node, k);
+			return 0;
 		}
 
-		if (root.data == dest) {
-			findInChild(root, k);
-			return k - 1;
-		}
+		// Recur for left subtree
+		int dl = printkdistanceNode(node.left, target, k);
 
-		int found = printNodes(root.left, dest, k);
-		if (found != -1) {
-			if (found == 0) {
-				System.out.println(root.data);
-			} else {
-				findInChild(root.right, found - 1);
+		// Check if target node was found in left subtree
+		if (dl != -1) {
+
+			// If root is at distance k from target, print root
+			// Note that dl is Distance of root's left child from
+			// target
+			if (dl + 1 == k) {
+				System.out.print(node.data);
+				System.out.println("");
 			}
-			return found - 1;
+
+			// Else go to right subtree and print all k-dl-2 distant nodes
+			// Note that the right child is 2 edges away from left child
+			else
+				printkdistanceNodeDown(node.right, k - dl - 2);
+
+			// Add 1 to the distance and return value for parent calls
+			return 1 + dl;
 		}
 
-		found = printNodes(root.right, dest, k);
-		if (found != -1) {
-			if (found == 0) {
-				System.out.println(root.data);
-			} else {
-				findInChild(root.left, found - 1);
-			}
-			return found - 1;
+		// MIRROR OF ABOVE CODE FOR RIGHT SUBTREE
+		// Note that we reach here only when node was not found in left
+		// subtree
+		int dr = printkdistanceNode(node.right, target, k);
+		if (dr != -1) {
+			if (dr + 1 == k) {
+				System.out.print(node.data);
+				System.out.println("");
+			} else
+				printkdistanceNodeDown(node.left, k - dr - 2);
+			return 1 + dr;
 		}
+
+		// If target was neither present in left nor in right subtree
 		return -1;
 	}
 
@@ -69,6 +108,6 @@ public class NodesAtDistanceK {
 		root = bt.addNode(13, root);
 		root = bt.addNode(26, root);
 		root = bt.addNode(27, root);
-		nad.printNodes(root, 11, 2);
+		nad.printkdistanceNode(root, root.left.right, 2);
 	}
 }

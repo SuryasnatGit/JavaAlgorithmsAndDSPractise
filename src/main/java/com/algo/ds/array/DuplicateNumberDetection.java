@@ -1,24 +1,25 @@
 package com.algo.ds.array;
 
+import java.util.Arrays;
+
 /**
  * 
  *
- * Given an array of size n + 1 with elements from 1 to n. One element is
- * duplicated multiple times. Find that element in O(1) space. Array cannot be
- * changed.
+ * Given an array of size n + 1 with elements from 1 to n. One element is duplicated multiple times. Find that element
+ * in O(1) space. Array cannot be changed.
  * 
- * Note: You must not modify the array (assume the array is read only). You must
- * use only constant, O(1) extra space. Your runtime complexity should be less
- * than O(n2). There is only one duplicate number in the array, but it could be
- * repeated more than once
+ * Note: You must not modify the array (assume the array is read only). You must use only constant, O(1) extra space.
+ * Your runtime complexity should be less than O(n2). There is only one duplicate number in the array, but it could be
+ * repeated more than once.
  *
+ * CTCI - Find duplicates
  * 
  * Reference https://leetcode.com/problems/find-the-duplicate-number/
  */
 public class DuplicateNumberDetection {
 
 	/**
-	 * time - O(n log n)
+	 * time - O(n log n). using binary search after sorting the array
 	 * 
 	 * @param nums
 	 * @return
@@ -28,6 +29,8 @@ public class DuplicateNumberDetection {
 		if (nums.length == 0 || nums.length == 1) {
 			return -1;
 		}
+
+		Arrays.sort(nums);
 
 		for (int i = 0; i < nums.length; i++) {
 			int num = nums[i];
@@ -48,9 +51,81 @@ public class DuplicateNumberDetection {
 		return -1;
 	}
 
+	/**
+	 * Using auxillary boolean array. time - O(n) space - O(n)
+	 * 
+	 * @param A
+	 * @return
+	 */
+	public int findDuplicate(int[] A) {
+		// create an visited array of size n+1
+		// we can also use map instead of visited array
+		boolean visited[] = new boolean[A.length + 1];
+
+		// for each element of the array mark it as visited and
+		// return the element if it is seen before
+		for (int i = 0; i < A.length; i++) {
+			// if element is seen before
+			if (visited[A[i]]) {
+				return A[i];
+			}
+
+			// mark element as visited
+			visited[A[i]] = true;
+		}
+
+		// no duplicate found
+		return -1;
+	}
+
+	/**
+	 * time - O(n) Space - O(1)
+	 * 
+	 * @param arr
+	 * @return
+	 */
+	public int findDuplicateUsingSum(int[] arr) {
+		int length = arr.length;
+		int expectedSum = length * (length - 1) / 2;
+		int actualSum = 0;
+		for (int num : arr) {
+			actualSum += num;
+		}
+		return actualSum - expectedSum;
+	}
+
+	/**
+	 * time - O(n) Space - O(1)
+	 * 
+	 * @param A
+	 * @return
+	 */
+	public int findDuplicateUsingXOR(int[] A) {
+		int xor = 0;
+
+		// take xor of all array elements
+		for (int i = 0; i < A.length; i++) {
+			xor ^= A[i];
+		}
+
+		// take xor of numbers from 1 to n-1
+		for (int i = 1; i < A.length; i++) {
+			xor ^= i;
+		}
+
+		// same elements will cancel out each other as a ^ a = 0,
+		// 0 ^ 0 = 0 and a ^ 0 = a
+
+		// xor will contain the missing number
+		return xor;
+	}
+
 	public static void main(String args[]) {
-		int[] input = { 2, 9, 5, 4, 3, 5 };
+		int[] input = { 1, 2, 3, 4, 5, 2 };
 		DuplicateNumberDetection dd = new DuplicateNumberDetection();
 		System.out.println(dd.duplicateNumber(input));
+		System.out.println(dd.findDuplicate(input));
+		System.out.println(dd.findDuplicateUsingSum(input));
+		System.out.println(dd.findDuplicateUsingXOR(input));
 	}
 }

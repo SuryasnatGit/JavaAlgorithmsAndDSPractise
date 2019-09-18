@@ -1,5 +1,11 @@
 package com.algo.string;
 
+/**
+ * Category : Hard
+ * 
+ * @author surya
+ *
+ */
 public class MyStringBuilder {
 
 	// buffer to hold the string

@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Date 04/03/2016
- * 
  * Given a string, find the length of the longest substring T that contains at most k distinct characters. For example,
  * Given s = â€œecebaâ€� and k = 2, T is "ece" which its length is 3.
  * 
@@ -24,7 +22,8 @@ import java.util.Map;
  *
  * https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/
  * 
- * @author Tushar Roy
+ * Category : Hard
+ * 
  */
 public class LongestSubstringWithKDistinctCharacters {
 	public int lengthOfLongestSubstringKDistinct(String s, int k) {
@@ -97,6 +96,7 @@ public class LongestSubstringWithKDistinctCharacters {
 	public static void main(String[] args) {
 		LongestSubstringWithKDistinctCharacters lo = new LongestSubstringWithKDistinctCharacters();
 		System.out.println(lo.lengthOfLongestSubstringKDistinct("aabbcc", 2));
+		System.out.println(lo.lengthOfLongestSubstringKDistinctUsingMap("aabbcc", 2));
 
 	}
 }
