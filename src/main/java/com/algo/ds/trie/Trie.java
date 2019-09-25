@@ -3,28 +3,16 @@ package com.algo.ds.trie;
 import java.util.Map;
 
 /**
- * A trie is a data structure used for efficient retrieval of data associated with keys. If key is
- * of length n, then using trie worst case time complexity for searching the record associated with
- * this key is O(n). Insertion of (key, record) pair also takes O(n) time in worst case.
+ * A trie is a data structure used for efficient retrieval of data associated with keys. If key is of length n, then
+ * using trie worst case time complexity for searching the record associated with this key is O(n). Insertion of (key,
+ * record) pair also takes O(n) time in worst case.
  * 
- * Trie's retrieval/insertion time in worst case is better than hashTable and binary search tree
- * both of which take worst case time of O(n) for retrieval/insertion. The trie structure though in
- * theory has same worst case space complexity as hashTable or a binary tree, memory needed to store
- * pointers causes it to be less space efficient during implementations.
+ * Trie's retrieval/insertion time in worst case is better than hashTable and binary search tree both of which take
+ * worst case time of O(n) for retrieval/insertion. The trie structure though in theory has same worst case space
+ * complexity as hashTable or a binary tree, memory needed to store pointers causes it to be less space efficient during
+ * implementations.
  * 
- *    				   root
-                    /   \    \
-                    t   a     b
-                    |   |     |
-                    h   n     y
-                    |   |  \  |
-                    e   s  y  e
-                 /  |   |
-                 i  r   w
-                 |  |   |
-                 r  e   e
-                        |
-                        r
+ * root / \ \ t a b | | | h n y | | \ | e s y e / | | i r w | | | r e e | r
  * 
  * 
  * @author Suryasnat
@@ -36,6 +24,11 @@ public class Trie {
 
 	public Trie() {
 		root = new TrieNode();
+
+	}
+
+	public TrieNode getRoot() {
+		return root;
 	}
 
 	/**
@@ -45,20 +38,27 @@ public class Trie {
 	 * @param word
 	 */
 	public void insert(String word) {
-		Map<Character, TrieNode> children = root.getChildren();
-		for (int i = 0; i < word.length(); i++) {
-			char ch = word.charAt(i);
-			TrieNode trieNode;
-			if (children.containsKey(ch)) {
-				trieNode = children.get(ch);
-			} else {
-				trieNode = new TrieNode(ch);
-				children.put(ch, trieNode);
-			}
-			children = trieNode.getChildren(); // progress children
-			if (i == word.length() - 1)
-				trieNode.setLeaf(true);
+
+		if (root == null) {
+			root = new TrieNode();
 		}
+
+		// start from current node
+		TrieNode current = root;
+		for (char ch : word.toCharArray()) {
+			if (!current.getChildren().containsKey(ch)) {
+				current.getChildren().put(ch, new TrieNode());
+			}
+
+			// go to next node
+			current = current.getChildren().get(ch);
+		}
+
+		// mark current node as leaf
+		current.setLeaf(true);
+
+		// push current word into set associated with leaf node
+		current.getWords().add(word);
 	}
 
 	/**
@@ -114,8 +114,8 @@ public class Trie {
 	}
 
 	/**
-	 * Returns if the word is in the data structure. A word could contain the dot character '.' to
-	 * represent any one letter.
+	 * Returns if the word is in the data structure. A word could contain the dot character '.' to represent any one
+	 * letter.
 	 * 
 	 * @param children
 	 * @param word

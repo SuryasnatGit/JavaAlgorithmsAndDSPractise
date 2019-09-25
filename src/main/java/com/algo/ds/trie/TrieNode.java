@@ -1,13 +1,19 @@
 package com.algo.ds.trie;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class TrieNode {
 
 	private char c;
+	// each node stores a map of its child nodes
 	private Map<Character, TrieNode> children;
+	// true when node is a leaf node
 	private boolean isLeaf;
+	// collection to store complete list of words in leaf node
+	Set<String> words = new HashSet<>();
 
 	public TrieNode() {
 		children = new HashMap<>();
@@ -24,7 +30,11 @@ public class TrieNode {
 	public Map<Character, TrieNode> getChildren() {
 		return children;
 	}
-	
+
+	public Set<String> getWords() {
+		return words;
+	}
+
 	/**
 	 * Find the child node of this node that has the char argument as its data.
 	 * 
@@ -68,6 +78,6 @@ public class TrieNode {
 
 	@Override
 	public String toString() {
-		return "TrieNode [c=" + c + ", children=" + children + ", isLeaf=" + isLeaf + "]";
+		return "TrieNode [char=" + c + ", children=" + children + ", isLeaf=" + isLeaf + ", words=" + words + "]";
 	}
 }
