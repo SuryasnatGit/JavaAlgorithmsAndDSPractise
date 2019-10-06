@@ -1,4 +1,4 @@
-package com.algo.ds.linkedlist;
+package com.algo.ds.queue;
 
 public class QueueAsSingleLinkedList {
 

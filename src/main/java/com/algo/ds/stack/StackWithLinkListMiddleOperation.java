@@ -1,4 +1,6 @@
-package com.algo.ds.linkedlist;
+package com.algo.ds.stack;
+
+import com.algo.ds.linkedlist.Node;
 
 /**
  * http://www.geeksforgeeks.org/design-a-stack-with-find-middle-operation/

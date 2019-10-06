@@ -2,9 +2,9 @@ package com.algo.matrix;
 
 /**
  * Given an image represented by an NxN matrix, where each pixel in the image is 4 bytes, write a
- * method to rotate the image by 90 degrees. (an you do this in place?
+ * method to rotate the image by 90 degrees. Can you do this in place?
  * 
- * @author surya
+ * CTCI - 1.7
  *
  */
 public class MatrixRotation {

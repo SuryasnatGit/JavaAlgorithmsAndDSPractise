@@ -1,24 +1,21 @@
-package com.algo.ds.linkedlist;
+package com.leetcode;
 
 import java.util.Iterator;
 import java.util.List;
 
 /**
- * Date 10/10/2016
  * 
- * @author Tushar Roy
+ * Implement an iterator to flatten a 2d vector.
  *
- *         Implement an iterator to flatten a 2d vector.
- *
- *         https://leetcode.com/problems/flatten-2d-vector/
+ * https://leetcode.com/problems/flatten-2d-vector/
  *
  */
-public class Flatten2DList implements Iterator<Integer> {
+public class Flatten2DListIterator implements Iterator<Integer> {
 	private List<List<Integer>> vector;
 	private int currentList = 0;
 	private int currentPos = 0;
 
-	public Flatten2DList(List<List<Integer>> vec2d) {
+	public Flatten2DListIterator(List<List<Integer>> vec2d) {
 		vector = vec2d;
 	}
 

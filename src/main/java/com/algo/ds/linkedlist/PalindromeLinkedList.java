@@ -1,6 +1,4 @@
-package com.algo.ds.linkedlist.problems;
-
-import com.algo.ds.linkedlist.Link;
+package com.algo.ds.linkedlist;
 
 /**
  * checks if a linked list is a palindrome

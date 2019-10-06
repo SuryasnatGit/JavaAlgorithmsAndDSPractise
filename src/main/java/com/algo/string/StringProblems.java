@@ -54,7 +54,7 @@ public class StringProblems {
 		// System.out.println(sp.isUniqueString_usingBits("abcdzz"));
 		// System.out.println(sp.isUniqueString_sort("abc"));
 		// System.out.println(sp.isUniqueString_sort("abcc"));
-		// System.out.println(sp.checkPermutation("dad", "adda"));
+		System.out.println(sp.checkPermutation("apple", "apepl"));
 //		System.out.println(sp.stringRotation("bat", "abt"));
 //
 //		System.out.println(sp.compressedString("apple"));
@@ -69,13 +69,13 @@ public class StringProblems {
 //		System.out.println(sp.palindromeIndex("abob"));
 //		System.out.println(sp.palindromeIndex("blob"));
 
-		System.out.println(sp.isNumber("+123"));
-		System.out.println(sp.isNumber("123-"));
-		System.out.println(sp.isNumber("+123.0"));
-		System.out.println(sp.isNumber("+123.01"));
-		System.out.println(sp.isNumber("+123.Ea"));
-
-		System.out.println(sp.missingCharsToMakeStringPanagram("suryasnat"));
+//		System.out.println(sp.isNumber("+123"));
+//		System.out.println(sp.isNumber("123-"));
+//		System.out.println(sp.isNumber("+123.0"));
+//		System.out.println(sp.isNumber("+123.01"));
+//		System.out.println(sp.isNumber("+123.Ea"));
+//
+//		System.out.println(sp.missingCharsToMakeStringPanagram("suryasnat"));
 
 	}
 
@@ -244,7 +244,9 @@ public class StringProblems {
 	}
 
 	/**
-	 * sort the strings and compare it. complexity - O(NlogN)
+	 * two strings, write a method to decide if one is a permutation of the other.
+	 * 
+	 * CTCI - 1.2 sort the strings and compare it. complexity - O(NlogN)
 	 * 
 	 * @param input1
 	 * @param input2
@@ -356,15 +358,16 @@ public class StringProblems {
 	}
 
 	/**
-	 * Write a method to replace all the spaces in a string with ï¿½%20ï¿½. You may assume that the
-	 * string has sufficient space at the end to hold the additional characters, and that you are given
-	 * the ï¿½trueï¿½ length of the string.
+	 * CTCI - 1.3
+	 * 
+	 * Write a method to replace all spaces in a string with '%20': You may assume that the string has
+	 * sufficient space at the end to hold the additional characters, and that you are given the "true"
+	 * length of the string. (Note: if implementing in Java, please use a character array so that you
+	 * can perform this operation in place.)
 	 * 
 	 * Examples:
 	 * 
 	 * Input : "Mr John Smith", 13 Output : Mr%20John%20Smith
-	 * 
-	 * Input : "Mr John Smith ", 13 Output : Mr%20John%20Smith
 	 * 
 	 * @param input
 	 * @param trueLength
@@ -717,6 +720,8 @@ public class StringProblems {
 	 * 
 	 * EXAMPLE pale, ple -) true . pales, pale -) true . pale, bale -) true pale, bae -) false.
 	 * 
+	 * CTCI - 1.5
+	 * 
 	 * @param s1
 	 * @param s2
 	 * @return
@@ -801,17 +806,17 @@ public class StringProblems {
 
 	/**
 	 * 
-	 * @param s1
+	 * @param shortStr
 	 *            is the shorter string
-	 * @param s2
+	 * @param longStr
 	 *            is the longer string
 	 * @return
 	 */
-	private boolean oneEditInsert(String s1, String s2) {
+	private boolean oneEditInsert(String shortStr, String longStr) {
 		int index1 = 0;
 		int index2 = 0;
-		while (index1 < s1.length() && index2 < s2.length()) {
-			if (s1.charAt(index1) != s2.charAt(index2)) {
+		while (index1 < shortStr.length() && index2 < longStr.length()) {
+			if (shortStr.charAt(index1) != longStr.charAt(index2)) {
 				if (index1 != index2)
 					return false;
 				index2++;
@@ -828,6 +833,8 @@ public class StringProblems {
 	 * character sequences. For example, if the string is aabccdeeaa, then there are six character
 	 * sequences. It 's slow because string concatenation operates in O(n^2). Instead of this
 	 * concatenation we can use StringBuilder
+	 * 
+	 * CTCI - 1.6
 	 * 
 	 * @param input
 	 * @return
@@ -923,7 +930,7 @@ public class StringProblems {
 	 * isSubstring runs in O(A+B) time (on strings of length A and B), then the runtime of isRotation is
 	 * O( N) .
 	 * 
-	 * @return
+	 * CTCI - 1.9
 	 */
 	public boolean stringRotation(String s1, String s2) {
 		int len1 = s1.length();

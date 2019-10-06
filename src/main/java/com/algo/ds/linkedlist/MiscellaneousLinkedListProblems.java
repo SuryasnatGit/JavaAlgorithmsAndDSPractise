@@ -1,10 +1,7 @@
-package com.algo.ds.linkedlist.problems;
+package com.algo.ds.linkedlist;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import com.algo.ds.linkedlist.Link;
-import com.algo.ds.linkedlist.RandomLink;
 
 public class MiscellaneousLinkedListProblems {
 

@@ -1,4 +1,4 @@
-package com.algo.ds.linkedlist;
+package com.algo.ds.stack;
 
 public class StackAsSingleLinkedList {
 

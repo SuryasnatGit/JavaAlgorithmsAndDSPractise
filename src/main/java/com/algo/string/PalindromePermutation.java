@@ -11,7 +11,7 @@ import java.util.Set;
  * 
  * For example, "code" -> False, "aab" -> True, "carerac" -> True.
  * 
- * @author Suryasnat
+ * CTCI - 1.4
  *
  */
 public class PalindromePermutation {

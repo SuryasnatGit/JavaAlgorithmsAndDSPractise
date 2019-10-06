@@ -1,10 +1,6 @@
-package com.algo.ds.linkedlist.problems;
+package com.algo.ds.linkedlist;
 
 import java.util.Iterator;
-
-import com.algo.ds.linkedlist.LinkedPositionalList;
-import com.algo.ds.linkedlist.Position;
-import com.algo.ds.linkedlist.PositionalList;
 
 public class FavoriteList<E> {
 

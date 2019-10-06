@@ -1,9 +1,7 @@
-package com.algo.ds.linkedlist.problems;
+package com.algo.ds.linkedlist;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import com.algo.ds.linkedlist.Link;
 
 public class LeetCodeLinkedListProblems {
 
