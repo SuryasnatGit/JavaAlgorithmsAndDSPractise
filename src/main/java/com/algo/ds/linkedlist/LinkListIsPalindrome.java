@@ -1,15 +1,22 @@
 package com.algo.ds.linkedlist;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.algo.ds.stack.LinkedListStack;
 import com.algo.ds.stack.Stack;
 
 /**
- * http://www.geeksforgeeks.org/function-to-check-if-a-singly-linked-list-is-palindrome/ Test cases: <br/>
+ * http://www.geeksforgeeks.org/function-to-check-if-a-singly-linked-list-is-palindrome/
+ * 
+ * Test cases: <br/>
  * odd number of nodes <br/>
  * even number of nodes <br/>
  * 0 1 or more nodes <br/>
  * palindrome list <br/>
  * non palindrom list
+ * 
+ * Category : Hard
  */
 public class LinkListIsPalindrome {
 
@@ -159,6 +166,23 @@ public class LinkListIsPalindrome {
 		return r;
 	}
 
+	// T - O(n) S - (O(n) in worst case
+	public boolean isPalindrome_hashset(Node head) {
+		Set<Integer> set = new HashSet<>();
+
+		Node curr = head;
+		while (curr != null) {
+			if (set.contains(curr.data)) {
+				set.remove(curr.data);
+			} else {
+				set.add(curr.data);
+			}
+			curr = curr.next;
+		}
+
+		return set.size() == 0 || set.size() == 1;
+	}
+
 	public static void main(String args[]) {
 		LinkList ll = new LinkList();
 		Node head = null;
@@ -175,5 +199,6 @@ public class LinkListIsPalindrome {
 		System.out.println(llp.isPalindrome_recursive(nodeRef, head));
 		System.out.println(llp.isPalindrome_usingStack(nodeRef, head));
 		System.out.println(llp.isPalindrome_usingReverseMethod(head));
+		System.out.println(llp.isPalindrome_hashset(head));
 	}
 }
