@@ -7,7 +7,7 @@ import java.util.Map;
  * Design a method to find the frequency of occurrences of any given word in a book. What if we were running this
  * algorithm mUltiple times?
  * 
- * @author surya
+ * CTCI : 16.2
  *
  */
 public class WordFrequencies {

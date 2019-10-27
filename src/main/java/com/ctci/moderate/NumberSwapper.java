@@ -3,7 +3,7 @@ package com.ctci.moderate;
 /**
  * Write a function to swap a number in place (that is, without temporary variables).
  * 
- * @author surya
+ * CTCI : 16.1
  *
  */
 public class NumberSwapper {

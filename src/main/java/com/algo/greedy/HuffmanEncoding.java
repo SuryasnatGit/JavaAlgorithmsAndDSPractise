@@ -1,4 +1,4 @@
-package com.algo.ds.tree;
+package com.algo.greedy;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -8,6 +8,15 @@ import java.util.PriorityQueue;
 /**
  * http://www.geeksforgeeks.org/greedy-algorithms-set-3-huffman-coding/
  * http://www.geeksforgeeks.org/greedy-algorithms-set-3-huffman-coding-set-2/
+ * 
+ * https://www.techiedelight.com/huffman-coding/
+ * 
+ * 
+ * Huffman Coding (also known as Huffman Encoding) is a algorithm for doing data compression and it forms the basic idea
+ * behind file compression. This post talks about fixed length and variable length encoding, uniquely decodable codes,
+ * prefix rules and construction of Huffman Tree.
+ * 
+ * Category : Hard
  */
 class HuffmanNode {
 	int freq;

@@ -4,14 +4,14 @@ public class StackUtility {
 
 	public String reverseString(String sourceStr) {
 		int n = sourceStr.length();
-		StackAsArray stackAsArray = new StackAsArray(n);
+		ArrayStack stackAsArray = new ArrayStack(n);
 		for (int i = 0; i < n; i++) {
 			char c = sourceStr.charAt(i);
 			stackAsArray.push(c);
 		}
 		String finalStr = "";
 		while (!stackAsArray.isEmpty()) {
-			char c = stackAsArray.pop();
+			char c = (char) stackAsArray.pop();
 			finalStr += c;
 		}
 		return finalStr;
@@ -19,7 +19,7 @@ public class StackUtility {
 
 	public void bracketChecker(String sourceStr) {
 		int n = sourceStr.length();
-		StackAsArray array = new StackAsArray(n);
+		ArrayStack array = new ArrayStack(n);
 		for (int i = 0; i < n; i++) {
 			char c = sourceStr.charAt(i);
 			switch (c) {
@@ -32,7 +32,7 @@ public class StackUtility {
 			case ']':
 			case ')':
 				if (!array.isEmpty()) {
-					char ch = array.pop();
+					char ch = (char) array.pop();
 					if ((c == '}' && ch != '{') || (c == ']' && ch != '[') && (c == ')' && ch != '(')) {
 						System.out.println("Error " + c + "at " + i);
 					}
@@ -55,7 +55,7 @@ public class StackUtility {
 	 * @param expression
 	 * @return
 	 */
-	public boolean isMatched(String expression) {
+	public boolean isBalanced(String expression) {
 		String opening = "({[";
 		String closing = ")}]";
 		Stack<Character> stack = new LinkedListStack<>();
@@ -120,5 +120,18 @@ public class StackUtility {
 		}
 		int a = Integer.parseInt((String) stack.pop());
 		return a;
+	}
+
+	public static void main(String[] args) {
+		StackUtility test = new StackUtility();
+		System.out.println(test.reverseString("mithun das"));
+		test.bracketChecker("{a[b(c]d}e");
+		String[] s = { "2", "1", "+", "3", "*" };
+		System.out.println(test.reversePolishNotation(s));
+		String[] s1 = { "4", "13", "5", "/", "+" };
+		System.out.println(test.reversePolishNotation(s1));
+		System.out.println(test.isBalanced("[]{}()"));
+		System.out.println(test.isBalanced("[]{}(]"));
+
 	}
 }

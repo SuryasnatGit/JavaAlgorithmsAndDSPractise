@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Given a string, find the length of the longest substring T that contains at most k distinct characters. For example,
- * Given s = â€œecebaâ€� and k = 2, T is "ece" which its length is 3.
+ * Given a string, find the length of the longest substring T that contains at most k distinct characters.
  * 
  * Example:
  * 
@@ -26,14 +25,16 @@ import java.util.Map;
  * 
  */
 public class LongestSubstringWithKDistinctCharacters {
+
+	// T - O(n) S - O(1) constant
 	public int lengthOfLongestSubstringKDistinct(String s, int k) {
 		if (k == 0 || s.length() == 0) {
 			return 0;
 		}
 		int[] ascii = new int[256];// for ascii 256 characters which includes standard(0-127) and extended(128-255)
-		int count = 0;
-		int start = 0;
-		int max = 0;
+		int count = 0; // count of unique chars
+		int start = 0; // start of sliding window
+		int max = 0; // max length
 		for (int i = 0; i < s.length(); i++) {
 			int ch = s.charAt(i);
 			if (count < k) {
@@ -41,7 +42,7 @@ public class LongestSubstringWithKDistinctCharacters {
 					count++;
 				}
 			} else if (ascii[ch] == 0) {
-				while (start < i) {
+				while (start < i) { // backtrack
 					char ch1 = s.charAt(start++);
 					ascii[ch1]--;
 					if (ascii[ch1] == 0) {

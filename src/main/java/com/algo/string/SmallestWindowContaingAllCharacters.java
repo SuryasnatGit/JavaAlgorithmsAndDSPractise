@@ -21,6 +21,8 @@ If there is no such window in S that covers all characters in T, return the empt
 
 If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
 
+Category : Hard
+
  */
 import java.util.HashMap;
 import java.util.Map;
@@ -93,8 +95,8 @@ public class SmallestWindowContaingAllCharacters {
 
 	public static void main(String args[]) {
 
-		String str = "Tsuaosyogrlmnsluuorjkoruost";
-		String subString = "soor";
+		String str = "appleal";
+		String subString = "al";
 		SmallestWindowContaingAllCharacters swcac = new SmallestWindowContaingAllCharacters();
 		String result = swcac.minWindow(str, subString);
 		System.out.println(result);
