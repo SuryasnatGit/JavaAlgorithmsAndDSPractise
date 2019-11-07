@@ -3,13 +3,16 @@ package com.algo.ds.sorting;
 import java.util.Arrays;
 
 /**
- * The selection sort algorithm sorts an array by repeatedly finding the minimum element (considering ascending order)
- * from unsorted part and putting it at the beginning. The algorithm maintains two subarrays in a given array.
+ * Selection sort is a unstable, in-place sorting algorithm known for its simplicity, and it has performance advantages
+ * over more complicated algorithms in certain situations, particularly where auxiliary memory is limited. It can be
+ * implemented as a stable sort. It has O(n^2) time complexity, making it inefficient to use on large lists. Among
+ * simple average-case O(n^2) algorithms, selection sort almost always outperforms bubble sort and generally performs
+ * worse than the similar insertion sort.
  * 
- * 1) The subarray which is already sorted. 2) Remaining subarray which is unsorted.
- * 
- * In every iteration of selection sort, the minimum element (considering ascending order) from the unsorted subarray is
- * picked and moved to the sorted subarray.
+ * The biggest advantage of using selection sort is that we only requires maximum n swaps (memory write) where n is the
+ * length of the input. insertion sort, on the other hand, takes O(n^2) number of writes. This can be very important if
+ * memory write operation is significantly more expensive than memory read operation, such as with Flash memory, where
+ * every write lessens the lifespan of the memory.
  * 
  * Time Complexity: O(n2) as there are two nested loops.
  * 
@@ -26,11 +29,12 @@ public class SelectionSort {
 	public static void main(String[] args) {
 		SelectionSort s = new SelectionSort();
 		int[] arr = { 6, 3, 2, 4, 5, 9 };
-		s.sort(arr);
+		// s.sort_iterative(arr);
+		s.sort_recursive(arr, 0, arr.length);
 		System.out.println(Arrays.toString(arr));
 	}
 
-	public void sort(int[] arr) {
+	public void sort_iterative(int[] arr) {
 		int l = arr.length;
 
 		for (int i = 0; i < l - 1; i++) {
@@ -45,6 +49,25 @@ public class SelectionSort {
 			arr[min_index] = arr[i];
 			arr[i] = temp;
 		}
+	}
+
+	public void sort_recursive(int[] arr, int i, int n) {
+		int min = i;
+		for (int j = i + 1; j < n; j++) {
+			if (arr[j] < arr[min])
+				min = j;
+		}
+
+		swap(arr, min, i);
+
+		if (i + 1 < n)
+			sort_recursive(arr, i + 1, n);
+	}
+
+	private void swap(int[] arr, int i, int j) {
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
 	}
 
 }
