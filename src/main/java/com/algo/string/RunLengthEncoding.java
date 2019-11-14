@@ -3,7 +3,7 @@ package com.algo.string;
 /**
  * Given an input string, write a function that returns the Run Length Encoded string for the input string.
  * 
- * For example, if the input string is “wwwwaaadexxxxxx”, then the function should return “w4a3d1e1x6”.
+ * For example, if the input string is ï¿½wwwwaaadexxxxxxï¿½, then the function should return ï¿½w4a3d1e1x6ï¿½.
  * 
  * Time Complexity: O(n)
  * 
@@ -13,52 +13,38 @@ package com.algo.string;
  */
 public class RunLengthEncoding {
 
-	private int updateCounter(char[] result, int current, int counter) {
+	public String encoding1(String in) {
+		String res = "";
+		int sum = 1;
 
-		int tempCounter = counter;
-		int len = 1;
-		while (tempCounter > 0) {
-			len = len * 10;
-			tempCounter /= 10;
-		}
-		len = len / 10;
-
-		while (counter > 0) {
-			result[current++] = (char) ((counter / len) + '0');
-			counter = counter % len;
-			len /= 10;
-		}
-		return current;
-	}
-
-	public int encoding(char[] str, char[] result) {
-
-		char pickedChar = str[0];
-		int current = 0;
-		int counter = 1;
-		for (int i = 1; i < str.length; i++) {
-			if (str[i] == pickedChar) {
-				counter++;
+		for (int i = 0; i < in.length() - 1; i++) {
+			if (in.charAt(i) == in.charAt(i + 1)) {
+				sum++;
 			} else {
-				result[current++] = pickedChar;
-				current = updateCounter(result, current, counter);
-				pickedChar = str[i];
-				counter = 1;
+				res = res + in.charAt(i) + sum;
+				sum = 1; // reset
 			}
 		}
-		result[current++] = pickedChar;
-		current = updateCounter(result, current, counter);
-		return current;
+
+		res = res + in.charAt(in.length() - 1) + sum;
+		// System.out.println(res);
+		return res.length() > in.length() ? in : res;
 	}
 
 	public static void main(String args[]) {
 
-		String str = "AAAAAAAAAAAAABBCDDEEEEE";
-		char result[] = new char[str.length() * 2];
+		// String str = "A";
+		// char result[] = new char[str.length() * 2];
 		RunLengthEncoding rle = new RunLengthEncoding();
-		int current = rle.encoding(str.toCharArray(), result);
-		for (int i = 0; i < current; i++) {
-			System.out.print(result[i]);
-		}
+		// int current = rle.encoding(str.toCharArray(), result);
+		// for (int i = 0; i < current; i++) {
+		// System.out.print(result[i]);
+		// }
+
+		System.out.println(rle.encoding1("a"));
+		System.out.println(rle.encoding1("aaa"));
+		System.out.println(rle.encoding1("aaabbb"));
+		System.out.println(rle.encoding1("aaabccc"));
+		System.out.println(rle.encoding1("wwwwaaadexxxxxx"));
 	}
 }

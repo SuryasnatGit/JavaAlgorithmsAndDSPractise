@@ -4,16 +4,15 @@ import java.util.Arrays;
 import java.util.TreeSet;
 
 /**
- * 
+ * Category : Hard
  */
 public class LexicographicStringProblems {
 
 	/**
 	 * Solution 1 :
 	 * 
-	 * Given a string, find its rank among all its permutations sorted lexicographically. For example,
-	 * rank of “abc” is 1, rank of “acb” is 2, and rank of “cba” is 6. Assume that string does not
-	 * contain duplicate characters.
+	 * Given a string, find its rank among all its permutations sorted lexicographically. For example, rank of “abc” is
+	 * 1, rank of “acb” is 2, and rank of “cba” is 6. Assume that string does not contain duplicate characters.
 	 * 
 	 * Examples:
 	 * 
@@ -97,8 +96,7 @@ public class LexicographicStringProblems {
 	}
 
 	/**
-	 * Construct a count array where value at every index contains count of smaller characters in whole
-	 * string
+	 * Construct a count array where value at every index contains count of smaller characters in whole string
 	 */
 	private void populateAndIncreaseCount(int[] count, char[] str) {
 		int i;
@@ -130,9 +128,9 @@ public class LexicographicStringProblems {
 	 * 
 	 * Output : a ab abc ac b bc c
 	 * 
-	 * The idea is to sort array first. After sorting, one by one fix characters and recursively
-	 * generates all subsets starting from them. After every recursive call, we remove last character so
-	 * that next permutation can be generated
+	 * The idea is to sort array first. After sorting, one by one fix characters and recursively generates all subsets
+	 * starting from them. After every recursive call, we remove last character so that next permutation can be
+	 * generated
 	 * 
 	 * @param input
 	 */
@@ -144,10 +142,14 @@ public class LexicographicStringProblems {
 
 	/**
 	 * 
-	 * @param arr   stores input string
-	 * @param size  length of string
-	 * @param index index in current permutation
-	 * @param curr  stores current permutation
+	 * @param arr
+	 *            stores input string
+	 * @param size
+	 *            length of string
+	 * @param index
+	 *            index in current permutation
+	 * @param curr
+	 *            stores current permutation
 	 */
 	private void powerSet(char[] arr, int size, int index, String curr) {
 		if (index == size)
@@ -193,14 +195,14 @@ public class LexicographicStringProblems {
 	public static void main(String args[]) {
 		LexicographicStringProblems lrp = new LexicographicStringProblems();
 		int rank = lrp.rank("STRING".toCharArray());
-//		System.out.println(rank);
-//		System.out.println(lrp.rank("ABC".toCharArray()));
-//		System.out.println(lrp.rank("CBA".toCharArray()));
+		// System.out.println(rank);
+		// System.out.println(lrp.rank("ABC".toCharArray()));
+		// System.out.println(lrp.rank("CBA".toCharArray()));
 
 		System.out.println(lrp.findRank("cab".toCharArray()));
 
-//		lrp.printStringPowerSetInLexicographicOrder("cab");
-//		lrp.generateAllPermutationsInLexicographicOrder("abcd");
-//		lrp.printAllCombination();
+		// lrp.printStringPowerSetInLexicographicOrder("cab");
+		// lrp.generateAllPermutationsInLexicographicOrder("abcd");
+		// lrp.printAllCombination();
 	}
 }

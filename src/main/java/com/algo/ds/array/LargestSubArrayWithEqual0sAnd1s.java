@@ -12,6 +12,8 @@ import java.util.Map;
  * <br/>
  * Time Complexity: O(n) Auxiliary Space: O(n)
  * 
+ * Category : Hard
+ * 
  */
 public class LargestSubArrayWithEqual0sAnd1s {
 

@@ -7,7 +7,7 @@ package com.algo.ds.array;
  * @author M_402201
  *
  */
-public class MaxSumSubarray {
+public class MaxSubarrayHavingLargestSum {
 
 	/**
 	 * Approach 1 - divide and conquor.
@@ -70,10 +70,34 @@ public class MaxSumSubarray {
 		return maxSoFar;
 	}
 
+	// T - O(n^2)
+	public void maxLengthSubArrayHavingGivenSum(int[] arr, int s) {
+
+		int max = 0;
+		int start = 0;
+		int end = 0;
+		for (int i = 0; i < arr.length; i++) {
+			int sum = 0;
+			for (int j = i; j < arr.length; j++) {
+				sum += arr[j];
+
+				if (sum == s) {
+					if (max < j - i + 1) {
+						max = j - i + 1;
+						start = i;
+						end = j;
+					}
+				}
+			}
+		}
+		System.out.println("From " + start + " to " + end);
+	}
+
 	public static void main(String[] args) {
-		MaxSumSubarray max = new MaxSumSubarray();
+		MaxSubarrayHavingLargestSum max = new MaxSubarrayHavingLargestSum();
 		System.out.println(max.maxSumSubArray1(new int[] { 2, 1, -3, 4, -1, 2, 1, -5, 4 }));
 		System.out.println(max.maxSumSubArray2(new int[] { 2, 1, -3, 4, -1, 2, 1, -5, 4 }));
+		max.maxLengthSubArrayHavingGivenSum(new int[] { 5, 6, -5, 5, 3, 5, 3, -2, 0 }, 8);
 	}
 
 }
