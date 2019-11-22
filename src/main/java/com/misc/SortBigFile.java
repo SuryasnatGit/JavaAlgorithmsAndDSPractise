@@ -1,5 +1,11 @@
 package com.misc;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.util.PriorityQueue;
+import java.util.Scanner;
+
 /**
  * 
  * CTCI - 10.6
@@ -34,302 +40,194 @@ package com.misc;
  * for the every run read in an array. a) Sort the run using MergeSort. b) Store the sorted run in a
  * temporary file, say 'i' for i'th run. 2) Merge the sorted files using the approach discussed
  * 
- * 
- * @author ctsuser1
- *
+ * Category : Hard
  */
 public class SortBigFile {
 
-	class MinHeapNode {
-		// The element to be stored
+	public class MinHeapNode implements Comparable<MinHeapNode> {
 		int element;
+		int i; // index of array from which it is picked
 
-		// index of the array from which the element is taken
-		int i;
-	}
-
-	// A class for Min Heap
-	class MinHeap {
-		MinHeapNode harr; // pointer to array of elements in heap
-		int heap_size; // size of min heap
-
-		public MinHeap() {
-			// TODO Auto-generated constructor stub
+		public MinHeapNode(int el, int i1) {
+			element = el;
+			i = i1;
 		}
 
-		// Constructor: creates a min heap of given size
-		public MinHeap(MinHeapNode a[], int size) {
-			heap_size = size;
-			int i = (heap_size - 1) / 2;
-			while (i >= 0) {
-				MinHeapify(i);
-				i--;
+		public int compareTo(MinHeapNode n) {
+			if (element < n.element) {
+				return -1;
+			} else if (element > n.element) {
+				return 1;
+			} else {
+				return 0;
 			}
 		}
-
-		// to get index of left child of node at index i
-		int left(int i) {
-			return (2 * i + 1);
-		}
-
-		// to get index of right child of node at index i
-		int right(int i) {
-			return (2 * i + 2);
-		}
-
-		// to get the root
-		MinHeapNode getMin() {
-			return harr[0];
-		}
-
-		// to replace root with new node x and heapify()
-		// new root
-		void replaceMin(MinHeapNode x) {
-			harr[0] = x;
-			MinHeapify(0);
-		}
 	}
 
-	// A recursive method to heapify a subtree with root
-	// at given index. This method assumes that the
-	// subtrees are already heapified
-	public void MinHeapify(int i) {
-		int l = left(i);
-		int r = right(i);
-		int smallest = i;
-		if (l < heap_size && harr[l].element < harr[i].element)
-			smallest = l;
-		if (r < heap_size && harr[r].element < harr[smallest].element)
-			smallest = r;
-		if (smallest != i) {
-			swap(harr[i], harr[smallest]);
-			MinHeapify(smallest);
-		}
-	}
-
-	// A utility function to swap two elements
-	void swap(MinHeapNode x, MinHeapNode y) {
-		MinHeapNode temp = x;
-		x = y;
-		y = temp;
-	}
-
-	// Merges two subarrays of arr[].
-	// First subarray is arr[l..m]
-	// Second subarray is arr[m+1..r]
-	void merge(int arr[], int l, int m, int r) {
-		int i, j, k;
-		int n1 = m - l + 1;
-		int n2 = r - m;
-
-		/* create temp arrays */
-		int L[] = new int[n1];
-		int R[] = new int[n2];
-
-		/* Copy data to temp arrays L[] and R[] */
-		for (i = 0; i < n1; i++)
-			L[i] = arr[l + i];
-		for (j = 0; j < n2; j++)
-			R[j] = arr[m + 1 + j];
-
-		/* Merge the temp arrays back into arr[l..r] */
-		i = 0; // Initial index of first subarray
-		j = 0; // Initial index of second subarray
-		k = l; // Initial index of merged subarray
-		while (i < n1 && j < n2) {
-			if (L[i] <= R[j])
-				arr[k++] = L[i++];
-			else
-				arr[k++] = R[j++];
+	private void mergeKSortedFiles(String outputFileName, int k) throws Exception {
+		Scanner[] sc = new Scanner[k];
+		for (int i = 0; i < k; i++) {
+			String fileName = String.format("%d", i);
+			sc[i] = new Scanner(new File(fileName));
 		}
 
-		/*
-		 * Copy the remaining elements of L[], if there are any
-		 */
-		while (i < n1)
-			arr[k++] = L[i++];
+		MinHeapNode[] minHeapNodeArr = new MinHeapNode[k];
+		PriorityQueue<MinHeapNode> minHeap = new PriorityQueue<>();
 
-		/*
-		 * Copy the remaining elements of R[], if there are any
-		 */
-		while (j < n2)
-			arr[k++] = R[j++];
+		int i; // need i for max count, so can break from next while loop
+		for (i = 0; i < k; i++) {
+			if (!sc[i].hasNext()) {
+				break;
+			}
+			String nextData = sc[i].next();
+			minHeapNodeArr[i] = new MinHeapNode(Integer.parseInt(nextData), i);
+			minHeap.add(minHeapNodeArr[i]);
+		}
+
+
+		int count = 0;
+
+		// Now one by one get the minimum element from min heap and replace it with the next element
+		// run this all filled input files reach EOF
+		BufferedWriter writer = new BufferedWriter(new FileWriter(outputFileName));
+		while (count != i) {
+			MinHeapNode root = minHeap.poll();
+			writer.write(root.element + " ");
+
+			if (!sc[root.i].hasNext()) {
+				root.element = Integer.MAX_VALUE;
+				count++;
+			} else {
+				root.element = sc[root.i].nextInt();
+			}
+
+			minHeap.add(root);
+		}
+
+		// close input output files
+		for (int j = 0; j < k; j++) {
+			sc[j].close();
+		}
+		writer.close();
+
 	}
 
-	/*
-	 * l is for left index and r is right index of the sub-array of arr to be sorted
-	 */
-	void mergeSort(int arr[], int l, int r) {
+	// Using a merge-sort algorithm, create the initial run
+	// and divide them evenly among the output files
+	private void createIntialRuns(String inputFileName, int run_size, int num_ways) throws Exception {
+		Scanner sc = new Scanner(new File(inputFileName));
+		BufferedWriter[] writers = new BufferedWriter[num_ways];
+
+		for (int i = 0; i < num_ways; i++) {
+			String outputFileName = String.format("%d", i);
+			writers[i] = new BufferedWriter(new FileWriter(outputFileName));
+		}
+
+		int[] arr = new int[run_size];
+		boolean more_input = true;
+		int next_output_file = 0;
+
+		int i;
+
+		while (more_input) {
+			// write run_size elements into arr from input
+			for (i = 0; i < run_size; i++) {
+				if (!sc.hasNext()) {
+					more_input = false;
+					break;
+				}
+
+				arr[i] = sc.nextInt();
+			}
+
+			mergeSort(arr, 0, i - 1);
+
+			// write the records to the appropriate scratch output file
+			// can't assume that the loop runs to run_size
+			// since the last run's length may be less than run_size
+			for (int j = 0; j < i; j++) {
+				writers[next_output_file].write(arr[j] + " ");
+			}
+
+			next_output_file++;
+		}
+
+		// close input and output files
+		for (int j = 0; j < num_ways; j++) {
+			writers[j].close();
+		}
+		sc.close();
+	}
+
+	private void mergeSort(int[] arr, int l, int r) {
 		if (l < r) {
-			// Same as (l+r)/2, but avoids overflow for
-			// large l and h
-			int m = l + (r - l) / 2;
-
-			// Sort first and second halves
+			int m = (l + r) / 2;
 			mergeSort(arr, l, m);
 			mergeSort(arr, m + 1, r);
 
 			merge(arr, l, m, r);
 		}
-	}
-
-	public void openFile(char fileName, char mode) {
-//	    FILE* fp = fopen(fileName, mode); 
-//	    if (fp == NULL) 
-//	    { 
-//	        perror("Error while opening the file.\n"); 
-//	        exit(EXIT_FAILURE); 
-//	    } 
-	}
-
-	// Using a merge-sort algorithm, create the initial runs
-	// and divide them evenly among the output files
-	void createInitialRuns(String inputFile, int run_size, int num_ways) 
-	{ 
-	    // For big input file 
-	    FILE *in = openFile(input_file, "r"); 
-	  
-	    // output scratch files 
-	    FILE* out[num_ways]; 
-	    char fileName[2]; 
-	    for (int i = 0; i < num_ways; i++) 
-	    { 
-	        // convert i to string 
-	        snprintf(fileName, sizeof(fileName), "%d", i); 
-	  
-	        // Open output files in write mode. 
-	        out[i] = openFile(fileName, "w"); 
-	    } 
-	  
-	    // allocate a dynamic array large enough 
-	    // to accommodate runs of size run_size 
-	    int* arr = (int*)malloc(run_size * sizeof(int)); 
-	  
-	    boolean more_input = true; 
-	    int next_output_file = 0; 
-	  
-	    int i; 
-	    while (more_input) 
-	    { 
-	        // write run_size elements into arr from input file 
-	        for (i = 0; i < run_size; i++) 
-	        { 
-	            if (fscanf(in, "%d ", &arr[i]) != 1) 
-	            { 
-	                more_input = false; 
-	                break; 
-	            } 
-	        } 
-	  
-	        // sort array using merge sort 
-	        mergeSort(arr, 0, i - 1); 
-	  
-	        // write the records to the appropriate scratch output file 
-	        // can't assume that the loop runs to run_size 
-	        // since the last run's length may be less than run_size 
-	        for (int j = 0; j < i; j++) 
-	            fprintf(out[next_output_file], "%d ", arr[j]); 
-	  
-	        next_output_file++; 
-	    } 
-	  
-	    // close input and output files 
-	    for (int i = 0; i < num_ways; i++) 
-	        fclose(out[i]); 
-	  
-	    fclose(in); 
-	}
-
-	// Merges k sorted files. Names of files are assumed
-	// to be 1, 2, 3, ... k
-	void mergeFiles(String output_file, int n, int k) 
-	{ 
-	    FILE* in[k]; 
-	    for (int i = 0; i < k; i++) 
-	    { 
-	        char fileName[2]; 
-	  
-	        // convert i to string 
-	        snprintf(fileName, sizeof(fileName), "%d", i); 
-	  
-	        // Open output files in read mode. 
-	        in[i] = openFile(fileName, "r"); 
-	    } 
-	  
-	    // FINAL OUTPUT FILE 
-	    FILE *out = openFile(output_file, "w"); 
-	  
-	    // Create a min heap with k heap nodes.  Every heap node 
-	    // has first element of scratch output file 
-	    MinHeapNode harr = new MinHeapNode[k]; 
-	    int i; 
-	    for (i = 0; i < k; i++) 
-	    { 
-	        // break if no output file is empty and 
-	        // index i will be no. of input files 
-	        if (fscanf(in[i], "%d ", &harr[i].element) != 1) 
-	            break; 
-	  
-	        harr[i].i = i; // Index of scratch output file 
 	    }
 
-	MinHeap hp(harr, i); // Create the heap 
-	  
-	    int count = 0; 
-	  
-	    // Now one by one get the minimum element from min 
-	    // heap and replace it with next element. 
-	    // run till all filled input files reach EOF 
-	    while (count != i) 
-	    { 
-	        // Get the minimum element and store it in output file 
-	        MinHeapNode root = hp.getMin(); 
-	        fprintf(out, "%d ", root.element); 
-	  
-	        // Find the next element that will replace current 
-	        // root of heap. The next element belongs to same 
-	        // input file as the current min element. 
-	        if (fscanf(in[root.i], "%d ", &root.element) != 1 ) 
-	        { 
-	            root.element = INT_MAX; 
-	            count++; 
-	        } 
-	  
-	        // Replace root with next element of input file 
-	        hp.replaceMin(root); 
-	    } 
-	  
-	    // close input and output files 
-	    for (int i = 0; i < k; i++) 
-	        fclose(in[i]); 
-	  
-	    fclose(out); 
+	private void merge(int[] arr, int l, int m, int r) {
+		// Find sizes of two subarrays to be merged
+		int n1 = m - l + 1;
+		int n2 = r - m;
+
+		// create temp arrays
+		int[] L = new int[n1];
+		int[] R = new int[n2];
+
+		// Copy data into temp arrays
+		for (int i = 0; i < n1; i++) {
+			L[i] = arr[l + i];
+		}
+
+		for (int j = 0; j < n2; j++) {
+			R[j] = arr[m + 1 + j];
+		}
+
+		// merge temp arrays, initialize indices of first and second subarrays
+		int i = 0, j = 0;
+		int k = l; // initial index of merged subarray
+
+		while (i < n1 && j < n2) {
+			if (L[i] <= R[j]) {
+				arr[k] = L[i];
+				i++;
+			} else {
+				arr[k] = R[j];
+				j++;
+			}
+			k++;
+		}
+
+		// Copy remaining elements of L[] and R[] if any
+		while (i < n1) {
+			arr[k] = L[i];
+			i++;
+			k++;
+		}
+
+		while (j < n2) {
+			arr[k] = R[j];
+			j++;
+			k++;
+		}
+
 	}
 
-	// For sorting data stored on disk
-	void externalSort(String inputFile, String outputFile, int num_ways, int run_size) {
-		// read the input file, create the initial runs,
-		// and assign the runs to the scratch output files
-		createInitialRuns(inputFile, run_size, num_ways);
-
-		// Merge the runs using the K-way merging
-		mergeFiles(outputFile, run_size, num_ways);
+	public void externalSort(String inputFile, String outputFile, int num_ways, int run_size) throws Exception {
+		createIntialRuns(inputFile, run_size, num_ways);
+		mergeKSortedFiles(outputFile, num_ways);
 	}
 
-	// Driver program to test above
-	public static void main(String[] args) {
-		// No. of Partitions of input file.
-		int num_ways = 10;
+	public static void main(String args[]) throws Exception {
 
-		// The size of each partition
-		int run_size = 1000;
-
-		String inputFile = "input.txt";
-		String outputFile = "output.txt";
-
-//		openFile(input_file, "w");
-
-		externalSort(inputFile, outputFile, num_ways, run_size);
+		SortBigFile sort = new SortBigFile();
+		sort.externalSort(
+				"/Users/M_402201/Developer/Code/personal/JavaAlgorithmsAndDSPractise/src/main/java/com/misc/input.txt",
+				"/Users/M_402201/Developer/Code/personal/JavaAlgorithmsAndDSPractise/src/main/java/com/misc/output.txt",
+				3, 5);
 	}
-
 }

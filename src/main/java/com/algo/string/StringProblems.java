@@ -55,7 +55,6 @@ public class StringProblems {
 		// System.out.println(sp.isUniqueString_usingBits("abcdzz"));
 		// System.out.println(sp.isUniqueString_sort("abc"));
 		// System.out.println(sp.isUniqueString_sort("abcc"));
-		// System.out.println(sp.checkPermutation("apple", "apepl"));
 		// System.out.println(sp.stringRotation("bat", "abt"));
 		//
 		// System.out.println(sp.compressedString("apple"));
@@ -166,7 +165,6 @@ public class StringProblems {
 			}
 		}
 		System.out.println(c);
-
 	}
 
 	private Set<Integer> weightedUniformString(String input) {
@@ -415,7 +413,7 @@ public class StringProblems {
 	}
 
 	/**
-	 * String permutation using back tracking
+	 * <<<<<<< HEAD String permutation using back tracking
 	 * 
 	 * @param s
 	 *            input string
@@ -446,8 +444,8 @@ public class StringProblems {
 	}
 
 	/**
-	 * Algorithm to find if a string has unique characters. Time complexity - O(N) as hashset operations is constant
-	 * time O(1). space complexity - O(N)
+	 * ======= >>>>>>> 2c6c487b34697f264b17a923751408a3627d9918 Algorithm to find if a string has unique characters.
+	 * Time complexity - O(N) as hashset operations is constant time O(1). space complexity - O(N)
 	 * 
 	 * @param s
 	 * @return
@@ -1284,4 +1282,23 @@ public class StringProblems {
 		}
 		return true;
 	}
+
+	public void convertNumToExcelColName(int num) {
+		StringBuilder sb = new StringBuilder();
+
+		while (num > 0) {
+			int rem = num % 26;
+
+			if (rem == 0) {
+				sb.append("Z");
+				num = (num / 26) - 1;
+			} else {
+				sb.append((char) ((rem - 1) + 'A'));
+				num = num / 26;
+			}
+		}
+
+		System.out.println(sb.reverse());
+	}
+
 }
