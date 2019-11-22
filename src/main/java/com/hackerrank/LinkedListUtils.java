@@ -67,6 +67,7 @@ public class LinkedListUtils {
 			System.out.print(head.getKey() + "->");
 			head = head.next;
 		}
+		System.out.println();
 	}
 
 	/**
@@ -158,6 +159,29 @@ public class LinkedListUtils {
 		return dummy.next;
 	}
 
+	public Link cloneList(Link head) {
+		if (head == null)
+			return null;
+
+		Link newHead = null;
+		Link tail = null;
+		Link current = head;
+
+		while (current != null) {
+			if (newHead == null) {
+				newHead = new Link(current.data);
+				tail = newHead;
+			} else {
+				Link temp = new Link(current.data);
+				tail.next = temp;
+				tail = tail.next;
+				tail.next = null;
+			}
+			current = current.next;
+		}
+		return newHead;
+	}
+
 	public static void main(String[] args) {
 		LinkedListUtils utils = new LinkedListUtils();
 		Link a = null;
@@ -176,12 +200,16 @@ public class LinkedListUtils {
 		a1.next = a2;
 		a2.next = a3;
 		utils.displayList(a1);
+
+		Link t = utils.cloneList(a1);
+		utils.displayList(t);
+
 		Link b1 = new Link(3);
 		Link b2 = new Link(4);
 		b1.next = b2;
 		// utils.displayList(b1);
-		Link l = utils.deleteNodeInMiddle(a1, 3);
-		utils.displayList(l);
+//		Link l = utils.deleteNodeInMiddle(a1, 3);
+//		utils.displayList(l);
 		// utils.displayList(head);
 		// System.out.println(utils.getNthNodeFromEnd(a1, 3));
 		// a.next = new Link(5);

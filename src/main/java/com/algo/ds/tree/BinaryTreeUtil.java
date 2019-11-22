@@ -2,7 +2,7 @@ package com.algo.ds.tree;
 
 import java.util.LinkedList;
 
-import com.algo.ds.linkedlist.StackAsSingleLinkedList;
+import com.algo.ds.stack.StackAsSingleLinkedList;
 
 public class BinaryTreeUtil<K, V> {
 

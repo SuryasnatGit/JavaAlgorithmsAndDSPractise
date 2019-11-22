@@ -11,46 +11,26 @@ package com.algo.ds.linkedlist;
  * <br/>
  * Steps: Following are the steps. <br/>
  * 1) Calculate sizes of given two linked lists. <br/>
+ * 
  * 2) If sizes are same, then calculate sum using recursion. Hold all nodes in recursion call stack
  * till the rightmost node, calculate sum of rightmost nodes and forward carry to left side.<br/>
- * 3) If size is not same, then follow below steps: ….<br/>
- * a) Calculate difference of sizes of two linked lists. Let the difference be diff ….<br/>
+ * 
+ * 3) If size is not same, then follow below steps: ï¿½.<br/>
+ * a) Calculate difference of sizes of two linked lists. Let the difference be diff ï¿½.<br/>
+ * 
  * b) Move diff nodes ahead in the bigger linked list. Now use step 2 to calculate sum of smaller
- * list and right sub-list (of same size) of larger list. Also, store the carry of this sum. ….<br/>
+ * list and right sub-list (of same size) of larger list. Also, store the carry of this sum. ï¿½.<br/>
+ * 
  * c) Calculate sum of the carry (calculated in previous step) with the remaining left sub-list of
  * larger list. Nodes of this sum are added at the beginning of sum list obtained previous step.
  * 
  * <n/> Time Complexity: O(m+n) where m and n are the sizes of given two linked lists.
  * 
- * 
+ * Category : Hard
  */
 public class AddNumberRepresentedByLinkList {
 
 	private int carry = 0;
-
-	private Node addWithCarry(Node head1, Node head2) {
-		if (head1 == null) {
-			return null;
-		}
-		Node result = Node.newNode(0);
-		result.next = addWithCarry(head1.next, head2.next);
-		int r = head1.data + head2.data + carry;
-		result.data = r % 10;
-		carry = r / 10;
-		return result;
-	}
-
-	private Node addRemaining(Node start, Node stop) {
-		if (start != stop) {
-			Node result = Node.newNode(0);
-			result.next = addRemaining(start.next, stop);
-			result.data = (start.data + carry) % 10;
-			carry = (start.data + carry) / 10;
-			return result;
-		} else {
-			return null;
-		}
-	}
 
 	/**
 	 * Input: First List: 5->6->3 // represents number 563 Second List: 8->4->2 // represents number 842
@@ -97,6 +77,30 @@ public class AddNumberRepresentedByLinkList {
 			return result1;
 		}
 		return result;
+	}
+
+	private Node addWithCarry(Node head1, Node head2) {
+		if (head1 == null) {
+			return null;
+		}
+		Node result = Node.newNode(0);
+		result.next = addWithCarry(head1.next, head2.next);
+		int r = head1.data + head2.data + carry;
+		result.data = r % 10;
+		carry = r / 10;
+		return result;
+	}
+
+	private Node addRemaining(Node start, Node stop) {
+		if (start != stop) {
+			Node result = Node.newNode(0);
+			result.next = addRemaining(start.next, stop);
+			result.data = (start.data + carry) % 10;
+			carry = (start.data + carry) / 10;
+			return result;
+		} else {
+			return null;
+		}
 	}
 
 	/**
