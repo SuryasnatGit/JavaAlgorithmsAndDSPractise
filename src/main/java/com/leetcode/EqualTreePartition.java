@@ -8,9 +8,8 @@ import java.util.Stack;
 import com.algo.ds.tree.TreeNode;
 
 /**
- * Given a binary tree with n nodes, your task is to check if it's possible to
- * partition the tree to two trees which have the equal sum of values after
- * removing exactly one edge on the original tree.
+ * Given a binary tree with n nodes, your task is to check if it's possible to partition the tree to two trees which
+ * have the equal sum of values after removing exactly one edge on the original tree.
  * 
  * Example 1: Input: 5 / \ 10 10 / \ 2 3
  * 
@@ -22,38 +21,34 @@ import com.algo.ds.tree.TreeNode;
  * 
  * Sum: 15 Example 2: Input: 1 / \ 2 10 / \ 2 20
  * 
- * Output: False Explanation: You can't split the tree into two trees with equal
- * sum after removing exactly one edge on the tree.
+ * Output: False Explanation: You can't split the tree into two trees with equal sum after removing exactly one edge on
+ * the tree.
  * 
- * Note: The range of tree node value is in the range of [-100000, 100000]. 1 <=
- * n <= 10000
+ * Note: The range of tree node value is in the range of [-100000, 100000]. 1 <= n <= 10000
  * 
+ * https://leetcode.com/articles/equal-tree-partition/
  * 
- * @author ctsuser1
+ * Category : Medium
  */
 public class EqualTreePartition {
 
 	/**
-	 * Method 1 - Using DFS. After removing some edge from parent to child, (where
-	 * the child cannot be the original root) the subtree rooted at child must be
-	 * half the sum of the entire tree. Let's record the sum of every subtree. We
-	 * can do this recursively using depth-first search. After, we should check that
-	 * half the sum of the entire tree occurs somewhere in our recording (and not
-	 * from the total of the entire tree.)
+	 * Method 1 - Using DFS. After removing some edge from parent to child, (where the child cannot be the original
+	 * root) the subtree rooted at child must be half the sum of the entire tree. Let's record the sum of every subtree.
+	 * We can do this recursively using depth-first search. After, we should check that half the sum of the entire tree
+	 * occurs somewhere in our recording (and not from the total of the entire tree.)
 	 * 
 	 * Complexity Analysis
 	 * 
-	 * Time Complexity: O(N) where N is the number of nodes in the input tree. We
-	 * traverse every node.
+	 * Time Complexity: O(N) where N is the number of nodes in the input tree. We traverse every node.
 	 * 
-	 * Space Complexity: O(N), the size of seen and the implicit call stack in our
-	 * DFS
+	 * Space Complexity: O(N), the size of seen and the implicit call stack in our DFS
 	 */
 	private Stack<Integer> stack = new Stack<>();
 
 	public boolean hasEqualPartition(TreeNode<Integer, Integer> root) {
 		int total = sum(root);
-		stack.pop();
+		stack.pop(); // to remove the sum value at root node.
 		if (total % 2 == 0) {
 			for (int s : stack) {
 				if (s == total / 2)
@@ -73,9 +68,8 @@ public class EqualTreePartition {
 	}
 
 	/**
-	 * Method 2 - The idea is to use a hash table to record all the different sums
-	 * of each subtree in the tree. If the total sum of the tree is sum, we just
-	 * need to check if the hash table constains sum/2.
+	 * Method 2 - The idea is to use a hash table to record all the different sums of each subtree in the tree. If the
+	 * total sum of the tree is sum, we just need to check if the hash table contains sum/2.
 	 * 
 	 * @param root
 	 * @return

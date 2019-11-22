@@ -1,8 +1,8 @@
 package com.algo.ds.hashtable;
 
 /**
- * Open addressing
- * 1. Linear probing method
+ * Open addressing 1. Linear probing method
+ * 
  * @author Suryasnat
  *
  */
@@ -11,31 +11,31 @@ public class OpenAddressLinearProbingHashTable {
 	private DataItem[] array;
 	private int arrSize;
 	private DataItem noItem; // for deleted items
-	
+
 	public OpenAddressLinearProbingHashTable(int size) {
-		arrSize= size;
+		arrSize = size;
 		array = new DataItem[arrSize];
 		noItem = new DataItem(-1);
 	}
-	
-	public int hashFunc(int key){
+
+	public int hashFunc(int key) {
 		return key % arrSize;
 	}
-	
-	public void insert(DataItem item){
+
+	public void insert(DataItem item) {
 		int key = item.getKey();
 		int hashVal = hashFunc(key);
-		while(array[hashVal] != null && array[hashVal].getKey() != -1){
+		while (array[hashVal] != null && array[hashVal].getKey() != -1) {
 			++hashVal; // increment the hash value
 			hashVal %= arrSize;
 		}
 		array[hashVal] = item;
 	}
-	
-	public DataItem find(int key){
+
+	public DataItem find(int key) {
 		int hashVal = hashFunc(key);
-		while(array[hashVal] != null){
-			if(array[hashVal].getKey() == key){
+		while (array[hashVal] != null) {
+			if (array[hashVal].getKey() == key) {
 				return array[hashVal];
 			}
 			++hashVal;
@@ -43,11 +43,11 @@ public class OpenAddressLinearProbingHashTable {
 		}
 		return null;
 	}
-	
-	public DataItem delete(int key){
+
+	public DataItem delete(int key) {
 		int hashVal = hashFunc(key);
-		while(array[hashVal] != null){
-			if(array[hashVal].getKey() == key){
+		while (array[hashVal] != null) {
+			if (array[hashVal].getKey() == key) {
 				DataItem item = array[hashVal];
 				array[hashVal] = noItem;
 				return item;

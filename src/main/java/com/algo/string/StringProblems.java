@@ -2,6 +2,7 @@ package com.algo.string;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -54,55 +55,346 @@ public class StringProblems {
 		// System.out.println(sp.isUniqueString_usingBits("abcdzz"));
 		// System.out.println(sp.isUniqueString_sort("abc"));
 		// System.out.println(sp.isUniqueString_sort("abcc"));
-		System.out.println(sp.checkPermutation("apple", "apepl"));
-//		System.out.println(sp.stringRotation("bat", "abt"));
-//
-//		System.out.println(sp.compressedString("apple"));
-//		System.out.println(sp.compressedString("aabcccccaaa"));
-//		System.out.println(sp.compressedString("ABCDEFFFFFFFF"));
-//		System.out.println(sp.compressedString("ABCDEF"));
-//		System.out.println(sp.leftRotation("surya", 2));
-//		System.out.println(sp.leftRotation("apple", 3));
-//		System.out.println(sp.rightRotation("surya", 2));
-//		System.out.println(sp.palindromeIndex("bobj"));
-//		System.out.println(sp.palindromeIndex("bob"));
-//		System.out.println(sp.palindromeIndex("abob"));
-//		System.out.println(sp.palindromeIndex("blob"));
+		// System.out.println(sp.checkPermutation("apple", "apepl"));
+		// System.out.println(sp.stringRotation("bat", "abt"));
+		//
+		// System.out.println(sp.compressedString("apple"));
+		// System.out.println(sp.compressedString("aabcccccaaa"));
+		// System.out.println(sp.compressedString("ABCDEFFFFFFFF"));
+		// System.out.println(sp.compressedString("ABCDEF"));
+		// System.out.println(sp.leftRotation("surya", 2));
+		// System.out.println(sp.leftRotation("apple", 3));
+		// System.out.println(sp.rightRotation("surya", 2));
+		// System.out.println(sp.palindromeIndex("bobj"));
+		// System.out.println(sp.palindromeIndex("bob"));
+		// System.out.println(sp.palindromeIndex("abob"));
+		// System.out.println(sp.palindromeIndex("blob"));
 
-//		System.out.println(sp.isNumber("+123"));
-//		System.out.println(sp.isNumber("123-"));
-//		System.out.println(sp.isNumber("+123.0"));
-//		System.out.println(sp.isNumber("+123.01"));
-//		System.out.println(sp.isNumber("+123.Ea"));
-//
-//		System.out.println(sp.missingCharsToMakeStringPanagram("suryasnat"));
+		// System.out.println(sp.isNumber("+123"));
+		// System.out.println(sp.isNumber("123-"));
+		// System.out.println(sp.isNumber("+123.0"));
+		// System.out.println(sp.isNumber("+123.01"));
+		// System.out.println(sp.isNumber("+123.Ea"));
+		//
+		// System.out.println(sp.missingCharsToMakeStringPanagram("suryasnat"));
+		String s = "stop";
+		sp.stringPermutationsBT(s.toCharArray(), 0, s.length());
 
 	}
+
+	/**
+	 * Steve has a string, , consisting of lowercase English alphabetic letters. In one operation, he can delete any
+	 * pair of adjacent letters with same value. For example, string "aabcc" would become either "aab" or "bcc" after
+	 * operation. Steve wants to reduce as much as possible. To do this, he will repeat the above operation as many
+	 * times as it can be performed. Help Steve out by finding and printing 's non-reducible form!
+	 * 
+	 * @param s
+	 */
+	public void reducedString(String s) {
+		System.out.println("input string -->" + s);
+		StringBuilder sb = new StringBuilder(s);
+		int i = 1; // initial counter
+		while (i < sb.length()) {
+			if (sb.charAt(i - 1) == sb.charAt(i)) {
+				sb.delete(i - 1, i + 1); // alternate would be s = s.substring(0, i - 1) + s.substring(i + 1);
+				if (i > 1) {
+					i--;
+				}
+			} else {
+				i++;
+			}
+		}
+		if (sb.length() == 0) {
+			System.out.println("empty string");
+		} else {
+			System.out.println("output string -->" + sb.toString());
+		}
+	}
+
+	public void starcase(int n) {
+
+		StringBuilder sb = new StringBuilder();
+		String s = "";
+		String sp = "";
+		for (int i = 1; i <= n; i++) {
+			for (int j = 0; j < n - i; j++) {
+				sp += " ";
+			}
+			for (int j = 0; j < i; j++) {
+				s = s + "#";
+
+			}
+			sb.append(sp).append(s).append("\n");
+			s = "";
+			sp = "";
+		}
+		System.out.println(sb.toString());
+	}
+
+	/**
+	 * Alice wrote a sequence of words in CamelCase as a string of letters, , having the following properties: It is a
+	 * concatenation of one or more words consisting of English letters. All letters in the first word are lowercase.
+	 * For each of the subsequent words, the first letter is uppercase and rest of the letters are lowercase. Given ,
+	 * print the number of words in on a new line.
+	 * 
+	 * @param input
+	 */
+	public void camelCase(String input) {
+		int wsi = 0;// word start index
+		int wei = 0;// word end index
+		int count = 0; // count number of words in string
+		for (int i = 0; i < input.length(); i++) {
+			if (Character.isUpperCase(input.charAt(i))) {
+				wei = i - 1;
+				System.out.println("word :" + input.substring(wsi, wei + 1));
+				count++;
+				wsi = i;
+			}
+		}
+		System.out.println("word :" + input.substring(wsi));
+		if (!input.isEmpty())
+			System.out.println(++count);
+	}
+
+	public void marsExploration(String input) {
+		String sos = "SOS";
+		int c = 0;
+		for (int j = 0; j < input.length(); j++) {
+			for (int i = 0; i < sos.length(); i++) {
+				if (sos.charAt(i) != input.charAt(j))
+					c++;
+			}
+		}
+		System.out.println(c);
+
+	}
+
+	private Set<Integer> weightedUniformString(String input) {
+		Set<Integer> set = new HashSet<>();
+		int weight = 0;
+		char prev = ' ';
+		for (int i = 0; i < input.length(); i++) {
+			char curr = input.charAt(i);
+			if (curr != prev)
+				weight = 0;
+			weight += curr - 'a' + 1;
+			set.add(weight);
+			prev = curr;
+		}
+		return set;
+	}
+
+	private int separateTheNumbers(String input) {
+		if (input.charAt(0) == '0')
+			return -1;
+
+		for (int length = 1; length * 2 <= input.length(); length++) {
+			int firstNumber = Integer.parseInt(input.substring(0, length));
+			StringBuilder sb = new StringBuilder();
+			int number = firstNumber;
+			while (sb.length() < input.length()) {
+				sb.append(number);
+				number++;
+			}
+			if (sb.toString().equals(input))
+				return firstNumber;
+		}
+		return -1;
+	}
+
+	/**
+	 * Since we are limited to the alphabet which we know to be constant we can come up with a better solution We can
+	 * iterate through every character pair which is (26 * 25) / 2 = 325 pairs for each of those iterations we will run
+	 * through the string checking if it fits the pattern and return the largest.<br/>
+	 * Time Complexity: O(n) <br/>
+	 * Space Complexity: O(1)
+	 * 
+	 * @param input
+	 */
+	private void twoCharacters(String input) {
+		int maxPattern = 0; // keep a running max
+		if (input.length() == 0) {
+			System.out.println(maxPattern);
+			System.exit(0);
+		}
+
+		// An unlabeled break statement terminates the innermost switch, for, while, or
+		// do-while statement, but a
+		// labeled break terminates an outer statement. The following program,
+		// BreakWithLabelDemo, is similar to the
+		// previous program, but uses nested for loops to search for a value in a
+		// two-dimensional array. When the value
+		// is found, a labeled break terminates the outer for loop (labeled "search"):
+
+		for (int i = 0; i < 26; i++) {
+			nextLetter: // hmm interesting. java label :-)
+			for (int j = i + 1; j < 26; j++) {
+				char one = (char) ('a' + i);
+				char two = (char) ('a' + j);
+				char lastSeen = '\u0000'; // null character
+				int patternSize = 0;
+				for (char letter : input.toCharArray()) {
+					if (letter == one || letter == two) {
+						if (letter == lastSeen) { // if duplicate found
+							continue nextLetter;
+						}
+						// if not a duplicate
+						patternSize++;
+						lastSeen = letter;
+					}
+				} // end of loop for string input
+				maxPattern = (patternSize > maxPattern) ? patternSize : maxPattern;
+			}
+		}
+		System.out.println("maxPattern :" + maxPattern);
+	}
+
+	/**
+	 * You have two strings, and . Find a string, , such that:
+	 * 
+	 * can be expressed as where is a non-empty substring of and is a non-empty substring of . is a palindromic string.
+	 * The length of is as long as possible. For each of the pairs of strings ( and ) received as input, find and print
+	 * string on a new line. If you're able to form more than one valid string , print whichever one comes first
+	 * alphabetically. If there is no valid answer, print instead.<br/>
+	 * https://www.hackerrank.com/challenges/challenging-palindromes/problem
+	 * 
+	 * <br/>
+	 * brute force solution. but this fails for very long strings.. WIP
+	 * 
+	 * @param a
+	 * @param b
+	 */
+	private void challengingPalindromes(String a, String b) {
+		int la = a.length();
+		List<String> ssa = new ArrayList<>(); // to contain all substrings of a
+		int lb = b.length();
+		List<String> ssb = new ArrayList<>(); // to contain all substrings of b
+		// find each substring of a. O(A^2)
+		int index = 0;
+		for (int i = 0; i < la; i++) {
+			for (int j = i + 1; j <= la; j++) {
+				ssa.add(index++, a.substring(i, j));
+			}
+		}
+		index = 0;
+		// System.out.println(ssa);
+		// find each substring of b. O(B^2)
+		for (int i = 0; i < lb; i++) {
+			for (int j = i + 1; j <= lb; j++) {
+				ssb.add(index++, b.substring(i, j));
+			}
+		}
+		// System.out.println(ssb);
+		// combine both lists to find the largest palindrome string
+		int maxLength = 0;
+		List<String> res = new ArrayList<>();
+		for (String sa : ssa) {
+			for (String sb : ssb) {
+				String s = sa + sb;
+				// System.out.println(s);
+				if (isPalindrome(s) && s.length() >= maxLength) {
+					maxLength = s.length();
+					res.add(s);
+				}
+			}
+		}
+		// System.out.println(res);
+		res.sort(new Comparator<String>() {
+			// reverse comparison to keep the longest palindrome string in the first element
+			// in the list
+			@Override
+			public int compare(String o1, String o2) {
+				if (o1.length() > o2.length())
+					return -1;
+				else if (o1.length() < o2.length())
+					return 1;
+				else
+					return o1.compareTo(o2);
+			}
+		});
+		// System.out.println(res);
+		System.out.println((!res.isEmpty() && res.get(0) != null) ? res.get(0) : -1);
+	}
+
+	private boolean isPalindrome(String s) {
+		int l = s.length();
+		// empty string considered as palindrome
+		if (l == 0)
+			return true;
+
+		return isPalindromeRec(s, 0, l - 1);
+	}
+
+	private boolean isPalindromeRec(String s, int start, int end) {
+		// if there is only 1 char
+		if (start == end)
+			return true;
+
+		// if first and last char do not match
+		if (s.charAt(start) != s.charAt(end))
+			return false;
+
+		// if there are more then 2 characters check if middle substring is also
+		// palindrome or not.
+		if (start < end + 1)
+			return isPalindromeRec(s, start + 1, end - 1);
+
+		return true;
+	}
+
+	/**
+	 * Given a string S, Check if characters of the given string can be rearranged to form a palindrome. For example
+	 * characters of �geeksogeeks� can be rearranged to form a palindrome �geeksoskeeg�, but characters of
+	 * �geeksforgeeks� cannot be rearranged to form a palindrome.
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public boolean isAnagramPalindrome(String s) {
+		Set<Character> set = new HashSet<>();
+		for (char c : s.toCharArray()) {
+			if (set.contains(c))
+				set.remove(c);
+			else
+				set.add(c);
+		}
+
+		return set.size() > 1 ? false : true;
+	}
+
+	// public void numberSeparator(String input){
+	// for(char c : input.toCharArray()){
+	// Integer.parseInt(c);
+	// }
+	// int length = input.length();
+	// for(int i=0;i<length;i++){
+	// input.substring(i, endIndex)
+	// }
+	// }
+	//
 
 	private int count = 0;
 
 	/**
 	 * Analyzing the Time Complexity :
 	 * 
-	 * 1. How many times does function perm get called in its base case? As we can understand from the
-	 * recursion explained above that for a string of length 3 it is printing 6 permutations which is
-	 * actually 3!. This is because if it needs to generate permutation, it is needed to pick characters
-	 * for each slot. If there are 3 characters in our string, in the first slot, there are 3 choices, 2
-	 * choices for the next slot (for each of 3 choices earlier, i.e multiplication and not addition)
-	 * and so on. This tells that there are n! permutations being printed in the base case which is what
-	 * is shown in the image.
+	 * 1. How many times does function perm get called in its base case? As we can understand from the recursion
+	 * explained above that for a string of length 3 it is printing 6 permutations which is actually 3!. This is because
+	 * if it needs to generate permutation, it is needed to pick characters for each slot. If there are 3 characters in
+	 * our string, in the first slot, there are 3 choices, 2 choices for the next slot (for each of 3 choices earlier,
+	 * i.e multiplication and not addition) and so on. This tells that there are n! permutations being printed in the
+	 * base case which is what is shown in the image.
 	 * 
-	 * 2. How many times does function perm get called before its base case? Consider that lines 9
-	 * through 12 are hit n number of times. Therefore, there will be no more than (n * n!) function
-	 * calls.
+	 * 2. How many times does function perm get called before its base case? Consider that lines 9 through 12 are hit n
+	 * number of times. Therefore, there will be no more than (n * n!) function calls.
 	 * 
-	 * 3. How long does each function call take? Since, each character of string prefix needs to be
-	 * printed, thus executing line 7 will take O(n) time. Line 10 and line 11 will also take O(n) time
-	 * combined due to string concatenation, as sum of rem, prefix and str.charAt(i) will always be n.
-	 * Each function call therefore corresponds to O(n) work.
+	 * 3. How long does each function call take? Since, each character of string prefix needs to be printed, thus
+	 * executing line 7 will take O(n) time. Line 10 and line 11 will also take O(n) time combined due to string
+	 * concatenation, as sum of rem, prefix and str.charAt(i) will always be n. Each function call therefore corresponds
+	 * to O(n) work.
 	 * 
-	 * 4. What is the total runtime? Calling perm O(n * n!) times (as an upper bound) and each call
-	 * takes O(n) time, the total runtime will not exceed O(n^2 * n!).
+	 * 4. What is the total runtime? Calling perm O(n * n!) times (as an upper bound) and each call takes O(n) time, the
+	 * total runtime will not exceed O(n^2 * n!).
 	 * 
 	 * @param str
 	 */
@@ -123,8 +415,39 @@ public class StringProblems {
 	}
 
 	/**
-	 * Algorithm to find if a string has unique characters. Time complexity - O(N) as hashset operations
-	 * is constant time O(1). space complexity - O(N)
+	 * String permutation using back tracking
+	 * 
+	 * @param s
+	 *            input string
+	 * @param i
+	 *            count
+	 * @param n
+	 *            length of string
+	 */
+	public void stringPermutationsBT(char[] arr, int i, int n) {
+		// base case. if count reached the end of string
+		if (i == n - 1) {
+			System.out.println(arr);
+			return;
+		}
+
+		for (int j = i; j < n; j++) {
+			swap(arr, i, j);
+			stringPermutationsBT(arr, i + 1, n);
+			// backtrack to restore original position
+			swap(arr, i, j);
+		}
+	}
+
+	private void swap(char[] ar, int i, int j) {
+		char t = ar[i];
+		ar[i] = ar[j];
+		ar[j] = t;
+	}
+
+	/**
+	 * Algorithm to find if a string has unique characters. Time complexity - O(N) as hashset operations is constant
+	 * time O(1). space complexity - O(N)
 	 * 
 	 * @param s
 	 * @return
@@ -142,8 +465,8 @@ public class StringProblems {
 	}
 
 	/**
-	 * Algorithm to find if a string has unique characters using a temp array. Time complexity is O(N^2)
-	 * for worst case , where N is the length of the string. space complexity - O(N)
+	 * Algorithm to find if a string has unique characters using a temp array. Time complexity is O(N^2) for worst case
+	 * , where N is the length of the string. space complexity - O(N)
 	 * 
 	 * @param s
 	 * @return
@@ -170,8 +493,8 @@ public class StringProblems {
 	}
 
 	/**
-	 * Time complexity - O(N^2) as for each iteration of N, the indexOf check runs N times. If extra
-	 * space is not allowed.
+	 * Time complexity - O(N^2) as for each iteration of N, the indexOf check runs N times. If extra space is not
+	 * allowed.
 	 * 
 	 * @param s
 	 * @return
@@ -299,10 +622,9 @@ public class StringProblems {
 	}
 
 	/**
-	 * Solution #2: Check if the two strings have identical character counts. We can also use the
-	 * definition of a permutation-two words with the same character counts-to implement this algorithm.
-	 * We simply iterate through this code, counting how many times each character appears. Then,
-	 * afterwards, we compare the two arrays.
+	 * Solution #2: Check if the two strings have identical character counts. We can also use the definition of a
+	 * permutation-two words with the same character counts-to implement this algorithm. We simply iterate through this
+	 * code, counting how many times each character appears. Then, afterwards, we compare the two arrays.
 	 * 
 	 * @param s
 	 * @param t
@@ -327,8 +649,8 @@ public class StringProblems {
 	}
 
 	/**
-	 * Given two strings s and t, determine if they are isomorphic. Two strings are isomorphic if the
-	 * characters in s can be replaced to get t.
+	 * Given two strings s and t, determine if they are isomorphic. Two strings are isomorphic if the characters in s
+	 * can be replaced to get t.
 	 * 
 	 * For example,"egg" and "add" are isomorphic, "foo" and "bar" are not. complexity - O(n)
 	 * 
@@ -360,10 +682,9 @@ public class StringProblems {
 	/**
 	 * CTCI - 1.3
 	 * 
-	 * Write a method to replace all spaces in a string with '%20': You may assume that the string has
-	 * sufficient space at the end to hold the additional characters, and that you are given the "true"
-	 * length of the string. (Note: if implementing in Java, please use a character array so that you
-	 * can perform this operation in place.)
+	 * Write a method to replace all spaces in a string with '%20': You may assume that the string has sufficient space
+	 * at the end to hold the additional characters, and that you are given the "true" length of the string. (Note: if
+	 * implementing in Java, please use a character array so that you can perform this operation in place.)
 	 * 
 	 * Examples:
 	 * 
@@ -404,8 +725,8 @@ public class StringProblems {
 	 * 
 	 * Implement atoi to convert a string to an integer.
 	 * 
-	 * Hint: Carefully consider all possible input cases. If you want a challenge, please do not see
-	 * below and ask yourself what are the possible input cases.
+	 * Hint: Carefully consider all possible input cases. If you want a challenge, please do not see below and ask
+	 * yourself what are the possible input cases.
 	 * 
 	 * Analysis
 	 * 
@@ -455,10 +776,9 @@ public class StringProblems {
 	}
 
 	/**
-	 * We are playing the Guess Game. The game is as follows: I pick a number from 1 to n. You have to
-	 * guess which number I picked. Every time you guess wrong, I'll tell you whether the number is
-	 * higher or lower. You call a pre-defined API guess(int num) which returns 3 possible results (-1,
-	 * 1, or 0): <br>
+	 * We are playing the Guess Game. The game is as follows: I pick a number from 1 to n. You have to guess which
+	 * number I picked. Every time you guess wrong, I'll tell you whether the number is higher or lower. You call a
+	 * pre-defined API guess(int num) which returns 3 possible results (-1, 1, or 0): <br>
 	 * -1 : My number is lower <br>
 	 * 1 : My number is higher <br>
 	 * 0 : Congrats! You got it! <br>
@@ -486,18 +806,17 @@ public class StringProblems {
 	/**
 	 * Validate if a given string is numeric. Some examples: "0" -> true "0.1" -> true "abc" -> false.
 	 * 
-	 * A string could be divided into these four substrings in the order from left to right: s1. Leading
-	 * whitespaces (optional). s2. Plus (+) or minus (â€“) sign (optional). s3. Number. s4. Optional
-	 * trailing whitespaces (optional). We ignore s1, s2, s4 and evaluate whether s3 is a valid number.
-	 * We realize that a number could either be a whole number or a decimal number. For a whole number,
-	 * it is easy: We evaluate whether s3 contains only digits and we are done.
+	 * A string could be divided into these four substrings in the order from left to right: s1. Leading whitespaces
+	 * (optional). s2. Plus (+) or minus (â€“) sign (optional). s3. Number. s4. Optional trailing whitespaces
+	 * (optional). We ignore s1, s2, s4 and evaluate whether s3 is a valid number. We realize that a number could either
+	 * be a whole number or a decimal number. For a whole number, it is easy: We evaluate whether s3 contains only
+	 * digits and we are done.
 	 * 
-	 * On the other hand, a decimal number could be further divided into three parts: a. Integer part b.
-	 * Decimal point c. Fractional part The integer and fractional parts contain only digits. For
-	 * example, the number â€œ3.64â€� has integer part (3) and fractional part (64). Both of them are
-	 * optional, but at least one of them must present. For example, a single dot â€˜.â€™ is not a valid
-	 * number, but â€œ1.â€�, â€œ.1â€�, and â€œ1.0â€� are all valid. Please note that â€œ1.â€� is valid
-	 * because it implies â€œ1.0â€�.
+	 * On the other hand, a decimal number could be further divided into three parts: a. Integer part b. Decimal point
+	 * c. Fractional part The integer and fractional parts contain only digits. For example, the number â€œ3.64â€� has
+	 * integer part (3) and fractional part (64). Both of them are optional, but at least one of them must present. For
+	 * example, a single dot â€˜.â€™ is not a valid number, but â€œ1.â€�, â€œ.1â€�, and â€œ1.0â€� are all valid. Please
+	 * note that â€œ1.â€� is valid because it implies â€œ1.0â€�.
 	 * 
 	 * @param input
 	 * @return
@@ -636,16 +955,15 @@ public class StringProblems {
 	}
 
 	/**
-	 * Given a string check if it is Pangram or not. A pangram is a sentence containing every letter in
-	 * the English Alphabet.
+	 * Given a string check if it is Pangram or not. A pangram is a sentence containing every letter in the English
+	 * Alphabet.
 	 * 
 	 * @param input
 	 */
 	public void pangram(String input) {
 
 		/*
-		 * Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named
-		 * Solution.
+		 * Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution.
 		 */
 		String s = "abcdefghijklmnopqrstuvwxyz";
 		List<Character> list = new ArrayList<>();
@@ -714,9 +1032,9 @@ public class StringProblems {
 	}
 
 	/**
-	 * There are three types of edits that can be performed on strings: insert a character, remove a
-	 * character, or replace a character. Given two strings, write a function to check if they are one
-	 * edit (or zero edits) away. time complexity - O(M + N).
+	 * There are three types of edits that can be performed on strings: insert a character, remove a character, or
+	 * replace a character. Given two strings, write a function to check if they are one edit (or zero edits) away. time
+	 * complexity - O(M + N).
 	 * 
 	 * EXAMPLE pale, ple -) true . pales, pale -) true . pale, bale -) true pale, bae -) false.
 	 * 
@@ -767,14 +1085,13 @@ public class StringProblems {
 	}
 
 	/**
-	 * This is one of those problems where it's helpful to think about the "meaning" of each of these
-	 * operations. What does it mean for two strings to be one insertion, replacement, or removal away
-	 * from each other? Replacement: Consider two strings, such as bale and pale, that are one
-	 * replacement away. Yes, that does mean that you could replace a character in bale to make pale.
-	 * But more precisely, it means that they are different only in one place. Insertion: The strings
-	 * apple and aple are one insertion away. This means that if you compared the strings, they would be
-	 * identical-except for a shift at some point in the strings. Removal: The strings apple and aple
-	 * are also one removal away, since removal is just the inverse of insertion.
+	 * This is one of those problems where it's helpful to think about the "meaning" of each of these operations. What
+	 * does it mean for two strings to be one insertion, replacement, or removal away from each other? Replacement:
+	 * Consider two strings, such as bale and pale, that are one replacement away. Yes, that does mean that you could
+	 * replace a character in bale to make pale. But more precisely, it means that they are different only in one place.
+	 * Insertion: The strings apple and aple are one insertion away. This means that if you compared the strings, they
+	 * would be identical-except for a shift at some point in the strings. Removal: The strings apple and aple are also
+	 * one removal away, since removal is just the inverse of insertion.
 	 * 
 	 * complexity - 0 (n) time, where n is the length of the shorter string.
 	 * 
@@ -829,10 +1146,9 @@ public class StringProblems {
 	}
 
 	/**
-	 * The runtime is O(p + k^2), where p is the size of the original string and k is the number of
-	 * character sequences. For example, if the string is aabccdeeaa, then there are six character
-	 * sequences. It 's slow because string concatenation operates in O(n^2). Instead of this
-	 * concatenation we can use StringBuilder
+	 * The runtime is O(p + k^2), where p is the size of the original string and k is the number of character sequences.
+	 * For example, if the string is aabccdeeaa, then there are six character sequences. It 's slow because string
+	 * concatenation operates in O(n^2). Instead of this concatenation we can use StringBuilder
 	 * 
 	 * CTCI - 1.6
 	 * 
@@ -853,10 +1169,10 @@ public class StringProblems {
 	}
 
 	/**
-	 * Implement a method to perform basic string compression using the counts of repeated characters.
-	 * For example, the string aabcccccaaa would become a2b1c5a3. If the "compressed" string would not
-	 * become smaller than the original string, your method should return the original string. You can
-	 * assume the string has only uppercase and lowercase letters (a - z). complexity - O(N)
+	 * Implement a method to perform basic string compression using the counts of repeated characters. For example, the
+	 * string aabcccccaaa would become a2b1c5a3. If the "compressed" string would not become smaller than the original
+	 * string, your method should return the original string. You can assume the string has only uppercase and lowercase
+	 * letters (a - z). complexity - O(N)
 	 * 
 	 * @param input
 	 * @return
@@ -889,8 +1205,7 @@ public class StringProblems {
 	}
 
 	/**
-	 * Rotating to the left by n is the same as rotating to the right by length-n. time and space
-	 * complexity - O(N)
+	 * Rotating to the left by n is the same as rotating to the right by length-n. time and space complexity - O(N)
 	 * 
 	 * @param input
 	 * @param d
@@ -919,16 +1234,15 @@ public class StringProblems {
 	}
 
 	/**
-	 * Assume you have a method isSubstring which checks if one word is a substring of another. Given
-	 * two strings, s1 and s2, write code to check if s2 is a rotation of s1 using only one call to
-	 * isSubstring (e.g., waterbottle is a rotation of erbottlewat ).
+	 * Assume you have a method isSubstring which checks if one word is a substring of another. Given two strings, s1
+	 * and s2, write code to check if s2 is a rotation of s1 using only one call to isSubstring (e.g., waterbottle is a
+	 * rotation of erbottlewat ).
 	 * 
-	 * We ask what the rotation point is. If a string is broken down into x and y, so thst xy = s1 and
-	 * yx = s2, then yx is a substring of xyxy. i.e s2 is always a substring of s1s1.
+	 * We ask what the rotation point is. If a string is broken down into x and y, so thst xy = s1 and yx = s2, then yx
+	 * is a substring of xyxy. i.e s2 is always a substring of s1s1.
 	 * 
-	 * The runtime of this varies based on the runtime of isSubString. But if you assume that
-	 * isSubstring runs in O(A+B) time (on strings of length A and B), then the runtime of isRotation is
-	 * O( N) .
+	 * The runtime of this varies based on the runtime of isSubString. But if you assume that isSubstring runs in O(A+B)
+	 * time (on strings of length A and B), then the runtime of isRotation is O( N) .
 	 * 
 	 * CTCI - 1.9
 	 */
@@ -946,11 +1260,10 @@ public class StringProblems {
 	}
 
 	/**
-	 * Given a string of lowercase letters in the range ascii[a-z], determine a character that can be
-	 * removed to make the string a palindrome. There may be more than one solution, but any will do.
-	 * For example, if your string is "bcbc", you can either remove 'b' at index or 'c' at index . If
-	 * the word is already a palindrome or there is no solution, return -1. Otherwise, return the index
-	 * of a character to remove.
+	 * Given a string of lowercase letters in the range ascii[a-z], determine a character that can be removed to make
+	 * the string a palindrome. There may be more than one solution, but any will do. For example, if your string is
+	 * "bcbc", you can either remove 'b' at index or 'c' at index . If the word is already a palindrome or there is no
+	 * solution, return -1. Otherwise, return the index of a character to remove.
 	 * 
 	 * @param input
 	 * @return

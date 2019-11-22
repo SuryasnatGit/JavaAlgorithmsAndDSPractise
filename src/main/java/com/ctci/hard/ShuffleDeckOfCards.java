@@ -3,9 +3,8 @@ package com.ctci.hard;
 import java.util.Arrays;
 
 /**
- * Write a method to shuffle a deck of cards. It must be a perfect shuffle-in other words, each of
- * the 52! permutations of the deck has to be equally likely. Assume that you are given a random
- * number generator which is perfect
+ * Write a method to shuffle a deck of cards. It must be a perfect shuffle-in other words, each of the 52! permutations
+ * of the deck has to be equally likely. Assume that you are given a random number generator which is perfect
  * 
  * CTCI : 17.2
  *
@@ -13,10 +12,10 @@ import java.util.Arrays;
 public class ShuffleDeckOfCards {
 
 	/**
-	 * Using our BaseCaseand Build approach, we can ask this question : suppose we had a method shuffle
-	 * ( ... ) that worked on n - 1 elements. Could we use this to shuffle n elements? Sure. In fact,
-	 * that's quite easy. We would first shuffle the first n - 1 elements. Then, we would take the nth
-	 * element and randomly swap it with an element in the array. That's it!
+	 * Using our Base Case and Build approach, we can ask this question : suppose we had a method shuffle ( ... ) that
+	 * worked on n - 1 elements. Could we use this to shuffle n elements? Sure. In fact, that's quite easy. We would
+	 * first shuffle the first n - 1 elements. Then, we would take the nth element and randomly swap it with an element
+	 * in the array. That's it!
 	 * 
 	 * Iterative way
 	 * 

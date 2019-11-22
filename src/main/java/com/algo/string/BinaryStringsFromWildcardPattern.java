@@ -8,6 +8,7 @@ import java.util.Stack;
  * Given a binary pattern that contains ‘?’ wildcard character at few positions, find all possible combinations of
  * binary strings that can be formed by replacing the wildcard character by either 0 or 1.
  * 
+ * Time complexity. Worst case - exponential. best case - O(N)
  */
 public class BinaryStringsFromWildcardPattern {
 

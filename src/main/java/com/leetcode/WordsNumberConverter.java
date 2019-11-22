@@ -4,11 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class WordsToNumberConverter {
-
-	public void wordsToNumber(String[] args) {
-
-	}
+public class WordsNumberConverter {
 
 	public static String numberToWords(long num, String s) {
 		int len = String.valueOf(num).length();
@@ -53,18 +49,7 @@ public class WordsToNumberConverter {
 		return s;
 	}
 
-	public static String withSeparator(long number) {
-		if (number < 0) {
-			return "-" + withSeparator(-number);
-		}
-		if (number / 1000L > 0) {
-			return withSeparator(number / 1000L) + "," + String.format("%1$03d", number % 1000L);
-		} else {
-			return String.format("%1$d", number);
-		}
-	}
-
-	public static long parseNumerals(String text) throws Exception {
+	private static long parseNumerals(String text) throws Exception {
 		long value = 0;
 		String[] words = text.replaceAll(" and ", " ").split("\\s");
 		for (String word : words) {
@@ -132,7 +117,7 @@ public class WordsToNumberConverter {
 		return bigNumMap;
 	}
 
-	public static long parse(String text) throws Exception {
+	public static long wordsToNumber(String text) throws Exception {
 		text = text.toLowerCase().replaceAll("[\\-,]", " ").replaceAll(" and ", " ");
 		long totalValue = 0;
 		boolean processed = false;
@@ -149,7 +134,7 @@ public class WordsToNumberConverter {
 				if (text2.equals(""))
 					text2 = "zero";
 
-				totalValue = parseNumerals(text1) * set.getValue() + parse(text2);
+				totalValue = parseNumerals(text1) * set.getValue() + wordsToNumber(text2);
 				processed = true;
 				break;
 			}
@@ -162,20 +147,11 @@ public class WordsToNumberConverter {
 	}
 
 	public static void main(String[] args) throws Exception {
-		// while (true) {
-		// Scanner in = new Scanner(System.in);
-		// System.out.print("Number in words : ");
-		// String numberWordsText = in.nextLine();
-		// if (numberWordsText.equalsIgnoreCase("bye")) {
-		// break;
-		// }
-		// // System.out.println(
-		// // "Value : " +
-		// // WordsToNumberConverter.withSeparator(WordsToNumberConverter.parse(numberWordsText)));
-		// System.out.println("Value : " + WordsToNumberConverter.parse(numberWordsText));
-		// }
-		System.out.println(WordsToNumberConverter.numberToWords(5984, ""));
-		System.out.println(WordsToNumberConverter.numberToWords(2005984, ""));
-		System.out.println(WordsToNumberConverter.numberToWords(2001005984, ""));
+
+		System.out.println("Value : " + WordsNumberConverter.wordsToNumber("five thousand nine hundred eighty four"));
+
+		System.out.println(WordsNumberConverter.numberToWords(5984, ""));
+		System.out.println(WordsNumberConverter.numberToWords(2005984, ""));
+		System.out.println(WordsNumberConverter.numberToWords(2001005984, ""));
 	}
 }
