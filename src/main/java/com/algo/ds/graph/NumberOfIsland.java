@@ -1,20 +1,22 @@
 package com.algo.ds.graph;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * http://www.geeksforgeeks.org/find-number-of-islands/.
  * 
- * Given a boolean 2D matrix, find the number of islands. A group of connected 1s forms an island.
- * For example, the below matrix contains 5 islands.
+ * Given a boolean 2D matrix, find the number of islands. A group of connected 1s forms an island. For example, the
+ * below matrix contains 5 islands.
  * 
- * Input : mat[][] = {{1, 1, 0, 0, 0}, {0, 1, 0, 0, 1}, {1, 0, 0, 1, 1}, {0, 0, 0, 0, 0}, {1, 0, 1,
- * 0, 1} Output : 5.
+ * Input : mat[][] = {{1, 1, 0, 0, 0}, {0, 1, 0, 0, 1}, {1, 0, 0, 1, 1}, {0, 0, 0, 0, 0}, {1, 0, 1, 0, 1} Output : 5.
  * 
- * This is a variation of the standard problem: “Counting the number of connected components in an
- * undirected graph”. The problem can be easily solved by applying DFS() on each component. In each
- * DFS() call, a component or a sub-graph is visited. We will call DFS on the next un-visited
- * component. The number of calls to DFS() gives the number of connected components. BFS can also be
- * used.
+ * This is a variation of the standard problem: ï¿½Counting the number of connected components in an undirected graphï¿½.
+ * The problem can be easily solved by applying DFS() on each component. In each DFS() call, a component or a sub-graph
+ * is visited. We will call DFS on the next un-visited component. The number of calls to DFS() gives the number of
+ * connected components. BFS can also be used.
  * 
+ * Category : Hard
  */
 public class NumberOfIsland {
 
@@ -54,7 +56,64 @@ public class NumberOfIsland {
 	}
 
 	/**
-	 * Solution 2 - Using disjoint sets
+	 * Solution 2 - Using BFS
+	 *
+	 */
+	class Pair {
+		int x, y;
+
+		public Pair(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
+	}
+
+	// Below arrays details all 8 possible movements from a cell
+	// (top, right, bottom, left and 4 diagonal moves)
+	private final int[] row = { -1, -1, -1, 0, 1, 0, 1, 1 };
+	private final int[] col = { -1, 1, 0, -1, -1, 1, 0, 1 };
+
+	// Function to check if it is safe to go to position (x, y)
+	// from current position. The function returns false if (x, y)
+	// is not valid matrix coordinates or (x, y) represents water or
+	// position (x, y) is already processed
+	public boolean isSafe(int[][] mat, int x, int y, boolean[][] processed) {
+		return (x >= 0) && (x < processed.length) && (y >= 0) && (y < processed[0].length)
+				&& (mat[x][y] == 1 && !processed[x][y]);
+	}
+
+	public void BFS(int[][] mat, boolean[][] processed, int i, int j) {
+		// create an empty queue and enqueue source node
+		Queue<Pair> q = new LinkedList<>();
+		q.add(new Pair(i, j));
+
+		// mark source node as processed
+		processed[i][j] = true;
+
+		// run till queue is not empty
+		while (!q.isEmpty()) {
+			// pop front node from queue and process it
+			int x = q.peek().x;
+			int y = q.peek().y;
+			q.poll();
+
+			// check for all 8 possible movements from current cell
+			// and enqueue each valid movement
+			for (int k = 0; k < 8; k++) {
+				// Skip if location is invalid or already processed
+				// or has water
+				if (isSafe(mat, x + row[k], y + col[k], processed)) {
+					// skip if location is invalid or it is already
+					// processed or consists of water
+					processed[x + row[k]][y + col[k]] = true;
+					q.add(new Pair(x + row[k], y + col[k]));
+				}
+			}
+		}
+	}
+
+	/**
+	 * Solution 3 - Using disjoint sets
 	 * 
 	 * @param args
 	 */
