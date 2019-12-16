@@ -1,5 +1,7 @@
 package com.algo.ds.sorting;
 
+import java.util.Arrays;
+
 /**
  * Merge Sort is a Divide and Conquer algorithm. It divides input array in two halves, calls itself for the two halves
  * and then merges the two sorted halves.
@@ -153,6 +155,46 @@ public class MergeSort {
 		}
 	}
 
+	public void mergeSortIterative(int[] arr) {
+		int l = 0;
+		int r = arr.length - 1;
+
+		int[] temp = Arrays.copyOf(arr, arr.length);
+
+		for (int i = 1; i <= (r - l); i = 2 * i) {
+			for (int j = l; j < r; j += 2 * i) {
+				int low = j;
+				int mid = i + j - 1;
+				int to = Math.min(j + 2 * i - 1, r);
+
+				merge(arr, low, mid, to, temp);
+			}
+		}
+	}
+
+	private void merge(int[] arr, int low, int mid, int to, int[] temp) {
+		int i = low;
+		int j = mid + 1;
+		int r = low;
+
+		while (i <= mid && j <= to) {
+			if (arr[i] < arr[j]) {
+				temp[r++] = arr[i++];
+			} else {
+				temp[r++] = arr[j++];
+			}
+		}
+
+		while (i <= mid) {
+			temp[r++] = arr[i++];
+		}
+
+		for (int c = low; c <= to; c++) {
+			arr[c] = temp[c];
+		}
+
+	}
+
 	public static void main(String args[]) {
 		int input1[] = { 1 };
 		int input2[] = { 4, 2 };
@@ -169,7 +211,8 @@ public class MergeSort {
 		// ms.printArray(input3);
 		// ms.printArray(input4);
 
-		ms.sort3Way(input4, 0, input4.length - 1);
+		// ms.sort3Way(input4, 0, input4.length - 1);
+		ms.mergeSortIterative(input4);
 		ms.printArray(input4);
 	}
 }

@@ -19,7 +19,7 @@ import java.util.Map;
  * 
  * 
  */
-public class VerticalOrder {
+public class VerticalOrderTraversal {
     public List<List<Integer>> verticalOrder(Node root) {
         if (root == null) {
             return new ArrayList<>();
