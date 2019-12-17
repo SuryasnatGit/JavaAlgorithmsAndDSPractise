@@ -50,10 +50,33 @@ public class ActivitySelectionProblem {
 
 	public static void main(String[] args) {
 		ActivitySelectionProblem a = new ActivitySelectionProblem();
-		List<Pair> activities = Arrays.asList(new Pair(1, 4), new Pair(3, 5), new Pair(0, 6), new Pair(5, 7),
+		List<Pair> activities = Arrays.asList(new Pair(3, 5), new Pair(1, 4), new Pair(0, 6), new Pair(5, 7),
 				new Pair(3, 8), new Pair(5, 9), new Pair(6, 10), new Pair(8, 11), new Pair(8, 12), new Pair(2, 13),
 				new Pair(12, 14));
 
 		a.activitySelection(activities);
+	}
+}
+
+class Pair {
+	private int start;
+	private int end;
+
+	public Pair(int start, int end) {
+		this.start = start;
+		this.end = end;
+	}
+
+	public int getStart() {
+		return start;
+	}
+
+	public int getEnd() {
+		return end;
+	}
+
+	@Override
+	public String toString() {
+		return "Pair [start=" + start + ", end=" + end + "]";
 	}
 }

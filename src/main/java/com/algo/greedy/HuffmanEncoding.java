@@ -1,6 +1,5 @@
 package com.algo.greedy;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -18,78 +17,121 @@ import java.util.PriorityQueue;
  * 
  * Category : Hard
  */
-class HuffmanNode {
+class Node {
 	int freq;
-	char input;
-	HuffmanNode left;
-	HuffmanNode right;
-}
+	char data;
+	Node left;
+	Node right;
 
-class HuffmanNodeComparator implements Comparator<HuffmanNode> {
-
-	@Override
-	public int compare(HuffmanNode o1, HuffmanNode o2) {
-		if (o1.freq < o2.freq) {
-			return -1;
-		} else {
-			return 1;
-		}
+	public Node(char ch, int fr) {
+		this.data = ch;
+		this.freq = fr;
+		this.left = null;
+		this.right = null;
 	}
 
+	public Node(char ch, int fr, Node left, Node right) {
+		this.data = ch;
+		this.freq = fr;
+		this.left = left;
+		this.right = right;
+	}
 }
 
 public class HuffmanEncoding {
 
-	public Map<Character, String> huffman(char[] input, int freq[]) {
-		HuffmanNodeComparator comparator = new HuffmanNodeComparator();
-		PriorityQueue<HuffmanNode> heap = new PriorityQueue<HuffmanNode>(input.length, comparator);
-		for (int i = 0; i < input.length; i++) {
-			HuffmanNode node = new HuffmanNode();
-			node.freq = freq[i];
-			node.input = input[i];
-			heap.offer(node);
+	public void encode(Node root, String input, Map<Character, String> huffmanCodes) {
+		if (root == null)
+			return;
+
+		// if leaf node
+		if (root.left == null && root.right == null) {
+			huffmanCodes.put(root.data, input);
 		}
 
-		while (heap.size() > 1) {
-			HuffmanNode node1 = heap.poll();
-			HuffmanNode node2 = heap.poll();
-			HuffmanNode node = new HuffmanNode();
-			node.left = node1;
-			node.right = node2;
-			node.freq = node1.freq + node2.freq;
-			heap.offer(node);
-		}
-
-		Map<Character, String> map = new HashMap<Character, String>();
-		StringBuffer buff = new StringBuffer();
-		createCode(heap.poll(), map, buff);
-		return map;
-
+		// recurse for left and right sub trees
+		encode(root.left, input + "0", huffmanCodes);
+		encode(root.right, input + "1", huffmanCodes);
 	}
 
-	public void createCode(HuffmanNode node, Map<Character, String> map, StringBuffer buff) {
-		if (node == null) {
-			return;
+	public int decode(Node root, int index, StringBuilder sb) {
+		if (root == null)
+			return index;
+
+		// found a leaf node
+		if (root.left == null && root.right == null) {
+			System.out.println(root.data);
+			return index;
 		}
 
-		if (node.left == null && node.right == null) {
-			map.put(node.input, buff.toString());
-			return;
+		index++;
+
+		// traverse sub trees
+		if (sb.charAt(index) == '0') {
+			index = decode(root.left, index, sb);
+		} else {
+			index = decode(root.right, index, sb);
 		}
-		buff.append("0");
-		createCode(node.left, map, buff);
-		buff.deleteCharAt(buff.length() - 1);
-		buff.append("1");
-		createCode(node.right, map, buff);
-		buff.deleteCharAt(buff.length() - 1);
+
+		return index;
+	}
+
+	public void huffmanCode(String input) {
+		// create a map to capture the frequencies of each char
+		Map<Character, Integer> freqMap = new HashMap<Character, Integer>();
+		for (char ch : input.toCharArray()) {
+			if (!freqMap.containsKey(ch)) {
+				freqMap.put(ch, 0);
+			}
+			freqMap.put(ch, freqMap.get(ch) + 1);
+		}
+
+		// create a PQ add the chars sorted by frequency(highest priority has less freqeuncy)
+		PriorityQueue<Node> pq = new PriorityQueue<Node>((l, r) -> l.freq - r.freq);
+		for (Map.Entry<Character, Integer> entry : freqMap.entrySet()) {
+			pq.add(new Node(entry.getKey(), entry.getValue()));
+		}
+
+		// keep reading from the PQ until the size is > 2
+		while (pq.size() != 1) {
+			// poll top 2 elements from PQ containing least freqeuncy
+			Node left = pq.poll();
+			Node right = pq.poll();
+
+			int sum = left.freq + right.freq;
+			pq.add(new Node('\0', sum, left, right));
+		}
+
+		// root stores pointer to root of huffman tree
+		Node root = pq.peek();
+
+		// traverse huffman tree and store huffman code in a map
+		Map<Character, String> huffmanCodes = new HashMap<Character, String>();
+		encode(root, "", huffmanCodes);
+
+		// print the huffman codes
+		for (Map.Entry<Character, String> code : huffmanCodes.entrySet()) {
+			System.out.println("char :" + code.getKey() + " Value:" + code.getValue());
+		}
+
+		// print encoded string
+		StringBuilder sb = new StringBuilder();
+		for (char ch : input.toCharArray()) {
+			sb.append(huffmanCodes.get(ch));
+		}
+		System.out.println("Encoded string : " + sb.toString());
+
+		// decode the encoded string
+		System.out.println("Decoded string :");
+		int index = -1;
+		while (index < sb.length() - 2) {
+			index = decode(root, index, sb);
+		}
 	}
 
 	public static void main(String args[]) {
 		HuffmanEncoding he = new HuffmanEncoding();
-		char input[] = { 'a', 'b', 'c', 'd', 'e', 'f' };
-		int freq[] = { 5, 9, 12, 13, 16, 45 };
-		Map<Character, String> code = he.huffman(input, freq);
-		System.out.println(code);
+		he.huffmanCode("suryasnat");
 	}
 
 }
