@@ -39,7 +39,7 @@ public class BubbleSort {
 	}
 
 	/**
-	 * It can be optimized by stopping the algorithm if inner loop didn’t cause any swap
+	 * It can be optimized by stopping the algorithm if inner loop didnt cause any swap
 	 * 
 	 * @param arr
 	 */

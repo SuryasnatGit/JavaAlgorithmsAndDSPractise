@@ -1,7 +1,7 @@
 package com.algo.backtracking;
 
 /**
- * The N Queen is the problem of placing N chess queens on an N×N chessboard so that no two queens
+ * The N Queen is the problem of placing N chess queens on an NN chessboard so that no two queens
  * attack each other
  * 
  * Backtracking Algorithm The idea is to place queens one by one in different columns, starting from

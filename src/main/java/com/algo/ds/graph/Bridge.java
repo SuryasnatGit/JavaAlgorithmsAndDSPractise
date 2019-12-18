@@ -23,11 +23,11 @@ import java.util.Set;
  * 
  * 1) For every edge (u, v), do following.
  * 
- * …..a) Remove (u, v) from graph
+ * ..a) Remove (u, v) from graph
  * 
- * ..…b) See if the graph remains connected (We can either use BFS or DFS)
+ * ..b) See if the graph remains connected (We can either use BFS or DFS)
  * 
- * …..c) Add (u, v) back to the graph.
+ * ..c) Add (u, v) back to the graph.
  * 
  * Time complexity of above method is O(E*(V+E)) for a graph represented using adjacency list. Can
  * we do better?
@@ -38,7 +38,7 @@ import java.util.Set;
  * graph. In DFS tree an edge (u, v) (u is parent of v in DFS tree) is bridge if there does not
  * exist any other alternative to reach u or an ancestor of u from subtree rooted with v. As
  * discussed in the previous post, the value low[v] indicates earliest visited vertex reachable from
- * subtree rooted with v. The condition for an edge (u, v) to be a bridge is, “low[v] > disc[u]”.
+ * subtree rooted with v. The condition for an edge (u, v) to be a bridge is, low[v] > disc[u].
  * 
  * 
  */

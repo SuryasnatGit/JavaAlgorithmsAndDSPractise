@@ -1,11 +1,11 @@
 package com.algo.ds.tree;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import com.algo.ds.linkedlist.Position;
-import com.algo.ds.queue.LinkedQueue;
-import com.algo.ds.queue.Queue;
 
 public abstract class AbstractTree<E> implements Tree<E> {
 
@@ -56,8 +56,7 @@ public abstract class AbstractTree<E> implements Tree<E> {
 	}
 
 	/**
-	 * returns a iterable collection of positions of the tree reported in
-	 * preorder. applicable to all trees
+	 * returns a iterable collection of positions of the tree reported in preorder. applicable to all trees
 	 * 
 	 * @return
 	 */
@@ -84,8 +83,7 @@ public abstract class AbstractTree<E> implements Tree<E> {
 	}
 
 	/**
-	 * returns a iterable collection of positions of the tree reported in
-	 * postorder. applicable to all trees
+	 * returns a iterable collection of positions of the tree reported in postorder. applicable to all trees
 	 * 
 	 * @return
 	 */
@@ -107,13 +105,13 @@ public abstract class AbstractTree<E> implements Tree<E> {
 	public Iterable<Position<E>> breadthFirstTraversal() {
 		List<Position<E>> snapshot = new ArrayList<>();
 		while (!isEmpty()) {
-			Queue<Position<E>> fringe = new LinkedQueue<>();
-			fringe.enqueue(root());
+			Queue<Position<E>> fringe = new LinkedList<>();
+			fringe.add(root());
 			while (!fringe.isEmpty()) {
-				Position<E> p = fringe.dequeue();
+				Position<E> p = fringe.poll();
 				snapshot.add(p);
 				for (Position<E> child : children(p)) {
-					fringe.enqueue(child);
+					fringe.add(child);
 				}
 			}
 		}

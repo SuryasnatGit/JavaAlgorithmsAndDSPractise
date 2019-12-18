@@ -11,7 +11,7 @@ import java.util.Queue;
  * 
  * Input : mat[][] = {{1, 1, 0, 0, 0}, {0, 1, 0, 0, 1}, {1, 0, 0, 1, 1}, {0, 0, 0, 0, 0}, {1, 0, 1, 0, 1} Output : 5.
  * 
- * This is a variation of the standard problem: �Counting the number of connected components in an undirected graph�.
+ * This is a variation of the standard problem: Counting the number of connected components in an undirected graph.
  * The problem can be easily solved by applying DFS() on each component. In each DFS() call, a component or a sub-graph
  * is visited. We will call DFS on the next un-visited component. The number of calls to DFS() gives the number of
  * connected components. BFS can also be used.

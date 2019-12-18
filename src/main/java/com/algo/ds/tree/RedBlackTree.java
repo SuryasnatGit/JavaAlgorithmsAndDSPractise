@@ -6,9 +6,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  *
- * Red Black Tree - self balancing binary search tree. each node has a extra bit which represents
- * the color of the node(red or black). The color of the node is used to approximately balance the
- * tree during insertion and deletion.
+ * Red Black Tree - self balancing binary search tree. each node has a extra bit which represents the color of the
+ * node(red or black). The color of the node is used to approximately balance the tree during insertion and deletion.
  * 
  * Rules:<br/>
  * 1. Every node is either black or red.<br/>
@@ -16,23 +15,22 @@ import java.util.concurrent.atomic.AtomicReference;
  * 3. There are no 2 adjacent red nodes.<br/>
  * 4. Every path from root to null node has same number of black nodes.
  * 
- * Why Red-Black Trees? Most of the BST operations (e.g., search, max, min, insert, delete.. etc)
- * take O(h) time where h is the height of the BST. The cost of these operations may become O(n) for
- * a skewed Binary tree. If we make sure that height of the tree remains O(Logn) after every
- * insertion and deletion, then we can guarantee an upper bound of O(Logn) for all these operations.
- * The height of a Red Black tree is always O(Logn) where n is the number of nodes in the tree
+ * Why Red-Black Trees? Most of the BST operations (e.g., search, max, min, insert, delete.. etc) take O(h) time where h
+ * is the height of the BST. The cost of these operations may become O(n) for a skewed Binary tree. If we make sure that
+ * height of the tree remains O(Logn) after every insertion and deletion, then we can guarantee an upper bound of
+ * O(Logn) for all these operations. The height of a Red Black tree is always O(Logn) where n is the number of nodes in
+ * the tree
  * 
  * Time complexity Insert - O(logn) Delete - O(logn) Search -O(logn)
  *
- * Comparison with AVL Tree: The AVL trees are more balanced compared to Red Black Trees, but they
- * may cause more rotations during insertion and deletion. So if your application involves many
- * frequent insertions and deletions, then Red Black trees should be preferred. And if the
- * insertions and deletions are less frequent and search is more frequent operation, then AVL tree
- * should be preferred over Red Black Tree.
+ * Comparison with AVL Tree: The AVL trees are more balanced compared to Red Black Trees, but they may cause more
+ * rotations during insertion and deletion. So if your application involves many frequent insertions and deletions, then
+ * Red Black trees should be preferred. And if the insertions and deletions are less frequent and search is more
+ * frequent operation, then AVL tree should be preferred over Red Black Tree.
  * 
- * Black Height of a Red-Black Tree : Black height is number of black nodes on a path from a node to
- * a leaf. Leaf nodes are also counted black nodes. From above properties 3 and 4, we can derive, a
- * node of height h has black-height >= h/2.
+ * Black Height of a Red-Black Tree : Black height is number of black nodes on a path from a node to a leaf. Leaf nodes
+ * are also counted black nodes. From above properties 3 and 4, we can derive, a node of height h has black-height >=
+ * h/2.
  * 
  * Every Red Black Tree with n nodes has height <= 2Log2(n+1).
  * 
@@ -194,12 +192,11 @@ public class RedBlackTree {
 	}
 
 	/**
-	 * We try recoloring first, if recoloring doesn’t work, then we go for rotation. <br/>
+	 * We try recoloring first, if recoloring doesn't work, then we go for rotation. <br/>
 	 * Following is detailed algorithm. <br/>
 	 * 
-	 * The algorithms has mainly two cases depending upon the color of uncle. If uncle is red, we do
-	 * recoloring. If uncle is black, we do rotations and/or recoloring. Color of a NULL node is
-	 * considered as BLACK
+	 * The algorithms has mainly two cases depending upon the color of uncle. If uncle is red, we do recoloring. If
+	 * uncle is black, we do rotations and/or recoloring. Color of a NULL node is considered as BLACK
 	 * 
 	 * @param parent
 	 * @param root
@@ -318,8 +315,7 @@ public class RedBlackTree {
 	}
 
 	/**
-	 * Using atomicreference because java does not provide mutable wrapper. Its like double pointer in
-	 * C.
+	 * Using atomicreference because java does not provide mutable wrapper. Its like double pointer in C.
 	 */
 	private void delete(Node root, int data, AtomicReference<Node> rootReference) {
 		if (root == null || root.isNullLeaf) {
@@ -376,8 +372,8 @@ public class RedBlackTree {
 	}
 
 	/**
-	 * If double black node becomes root then we are done. Turning it into single black node just
-	 * reduces one black in every path.
+	 * If double black node becomes root then we are done. Turning it into single black node just reduces one black in
+	 * every path.
 	 */
 	private void deleteCase1(Node doubleBlackNode, AtomicReference<Node> rootReference) {
 		if (doubleBlackNode.parent == null) {
@@ -388,8 +384,8 @@ public class RedBlackTree {
 	}
 
 	/**
-	 * If sibling is red and parent and sibling's children are black then rotate it so that sibling
-	 * becomes black. Double black node is still double black so we need further processing.
+	 * If sibling is red and parent and sibling's children are black then rotate it so that sibling becomes black.
+	 * Double black node is still double black so we need further processing.
 	 */
 	private void deleteCase2(Node doubleBlackNode, AtomicReference<Node> rootReference) {
 		Node siblingNode = findSiblingNode(doubleBlackNode).get();
@@ -407,9 +403,9 @@ public class RedBlackTree {
 	}
 
 	/**
-	 * If sibling, sibling's children and parent are all black then turn sibling into red. This reduces
-	 * black node for both the paths from parent. Now parent is new double black node which needs
-	 * further processing by going back to case1.
+	 * If sibling, sibling's children and parent are all black then turn sibling into red. This reduces black node for
+	 * both the paths from parent. Now parent is new double black node which needs further processing by going back to
+	 * case1.
 	 */
 	private void deleteCase3(Node doubleBlackNode, AtomicReference<Node> rootReference) {
 
@@ -425,9 +421,9 @@ public class RedBlackTree {
 	}
 
 	/**
-	 * If sibling color is black, parent color is red and sibling's children color is black then swap
-	 * color b/w sibling and parent. This increases one black node on double black node path but does
-	 * not affect black node count on sibling path. We are done if we hit this situation.
+	 * If sibling color is black, parent color is red and sibling's children color is black then swap color b/w sibling
+	 * and parent. This increases one black node on double black node path but does not affect black node count on
+	 * sibling path. We are done if we hit this situation.
 	 */
 	private void deleteCase4(Node doubleBlackNode, AtomicReference<Node> rootReference) {
 		Node siblingNode = findSiblingNode(doubleBlackNode).get();
@@ -442,9 +438,9 @@ public class RedBlackTree {
 	}
 
 	/**
-	 * If sibling is black, double black node is left child of its parent, siblings right child is black
-	 * and sibling's left child is red then do a right rotation at siblings left child and swap colors.
-	 * This converts it to delete case6. It will also have a mirror case.
+	 * If sibling is black, double black node is left child of its parent, siblings right child is black and sibling's
+	 * left child is red then do a right rotation at siblings left child and swap colors. This converts it to delete
+	 * case6. It will also have a mirror case.
 	 */
 	private void deleteCase5(Node doubleBlackNode, AtomicReference<Node> rootReference) {
 		Node siblingNode = findSiblingNode(doubleBlackNode).get();
@@ -461,10 +457,10 @@ public class RedBlackTree {
 	}
 
 	/**
-	 * If sibling is black, double black node is left child of its parent, sibling left child is black
-	 * and sibling's right child is red, sibling takes its parent color, parent color becomes black,
-	 * sibling's right child becomes black and then do left rotation at sibling without any further
-	 * change in color. This removes double black and we are done. This also has a mirror condition.
+	 * If sibling is black, double black node is left child of its parent, sibling left child is black and sibling's
+	 * right child is red, sibling takes its parent color, parent color becomes black, sibling's right child becomes
+	 * black and then do left rotation at sibling without any further change in color. This removes double black and we
+	 * are done. This also has a mirror condition.
 	 */
 	private void deleteCase6(Node doubleBlackNode, AtomicReference<Node> rootReference) {
 		Node siblingNode = findSiblingNode(doubleBlackNode).get();

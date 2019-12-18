@@ -15,7 +15,7 @@ import java.util.LinkedList;
  * the previous post which was for Balanced BSTs. The method 1 can be applied here also, but the
  * time complexity will be O(n^2) in worst case. The method 2 can also be applied here, but the
  * extra space required will be O(n) which violates the constraint given in this question. Method 3
- * can be applied here but the step 3 of method 3 can’t be done in O(n) for an unbalanced BST.
+ * can be applied here but the step 3 of method 3 cant be done in O(n) for an unbalanced BST.
  * 
  * Thanks to Kumar for suggesting the following solution.
  * 

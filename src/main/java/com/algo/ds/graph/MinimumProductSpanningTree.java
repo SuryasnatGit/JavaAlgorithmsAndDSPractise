@@ -9,13 +9,13 @@ package com.algo.ds.graph;
  * each edge of the spanning tree. All weights of the given graph will be positive for simplicity.
  * 
  * This problem can be solved using standard minimum spanning tree algorithms like krushkal and
- * prim’s algorithm, but we need to modify our graph to use these algorithms. Minimum spanning tree
+ * prims algorithm, but we need to modify our graph to use these algorithms. Minimum spanning tree
  * algorithms tries to minimize total sum of weights, here we need to minimize total product of
  * weights. We can use property of logarithms to overcome this problem. As we know, log(w1* w2 * w3
- * * …. * wN) = log(w1) + log(w2) + log(w3) ….. + log(wN) We can replace each weight of graph by its
+ * * . * wN) = log(w1) + log(w2) + log(w3) .. + log(wN) We can replace each weight of graph by its
  * log value, then we apply any minimum spanning tree algorithm which will try to minimize sum of
  * log(wi) which in-turn minimizes weight product. In below code first we have constructed the log
- * graph from given input graph, then that graph is given as input to prim’s MST algorithm, which
+ * graph from given input graph, then that graph is given as input to prims MST algorithm, which
  * will minimize the total sum of weights of tree. Since weight of modified graph are logarithms of
  * actual input graph, we actually minimize the product of weights of spanning tree.
  * 

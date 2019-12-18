@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * You are in charge of preparing a recently purchased lot for Amazon’s building. The lot is covered with trenches and
+ * You are in charge of preparing a recently purchased lot for Amazon's building. The lot is covered with trenches and
  * has a single obstacle that needs to be taken down before the foundation is prepared for the building. The demolition
  * robot must remove the obstacle before the progress can be made on the building. Write an algorithm to determine the
  * minimum distance required for the demolition robot to remove the obstacle.
@@ -22,11 +22,11 @@ import java.util.Queue;
  * 
  * Input: The input of the function has 3 arguments:
  * 
- * numRows – number of rows
+ * numRows -number of rows
  * 
- * numColumns – number of columns
+ * numColumns - number of columns
  * 
- * lot – 2d grid of integers
+ * lot -2d grid of integers
  * 
  * Output: Return an integer that indicated the minimum distance traversed to remove the obstacle else return -1
  * 
@@ -37,7 +37,7 @@ import java.util.Queue;
  * Output: 3
  * 
  * Explanation: Starting from the top-left corner, the demolition robot traversed the cells (0,0) -> (1,0)->
- * (2,0)->(2,1). The robot moves 3 times to remove the obstacle “9”
+ * (2,0)->(2,1). The robot moves 3 times to remove the obstacle 9
  * 
  * Using BFS.
  *

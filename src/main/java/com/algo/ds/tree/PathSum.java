@@ -6,10 +6,11 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
+import com.algo.common.TreeNode;
+
 /**
  *
- * Given a binary tree and a sum, find all root-to-leaf paths where each path's sum equals the given
- * sum.
+ * Given a binary tree and a sum, find all root-to-leaf paths where each path's sum equals the given sum.
  *
  * Time complexity O(n)
  *
@@ -51,9 +52,9 @@ public class PathSum {
 		Stack<Integer> stackInt = new Stack<>();
 		Stack<List<Integer>> stackList = new Stack<>();
 		stack.add(root);
-		stackInt.add(root.value);
+		stackInt.add(root.data);
 		List<Integer> temp = new ArrayList<>();
-		temp.add(root.value);
+		temp.add(root.data);
 		stackList.add(temp);
 		while (!stack.empty()) {
 			TreeNode node = stack.pop();
@@ -65,14 +66,14 @@ public class PathSum {
 			}
 			if (node.right != null) {
 				stack.push(node.right);
-				stackInt.push(new_sum + node.right.value);
-				list2.add(node.right.value);
+				stackInt.push(new_sum + node.right.data);
+				list2.add(node.right.data);
 				stackList.push(list2);
 			}
 			if (node.left != null) {
 				stack.push(node.left);
-				stackInt.add(new_sum + node.left.value);
-				list.add(node.left.value);
+				stackInt.add(new_sum + node.left.data);
+				list.add(node.left.data);
 				stackList.push(list);
 			}
 
@@ -88,9 +89,9 @@ public class PathSum {
 		Queue<Integer> queueInt = new LinkedList<>();
 		Queue<List<Integer>> queueList = new LinkedList<>();
 		queue.add(root);
-		queueInt.add(root.value);
+		queueInt.add(root.data);
 		List<Integer> temp = new ArrayList<>();
-		temp.add(root.value);
+		temp.add(root.data);
 		queueList.add(temp);
 		while (!queue.isEmpty()) {
 			TreeNode node = queue.remove();
@@ -102,14 +103,14 @@ public class PathSum {
 			}
 			if (node.left != null) {
 				queue.add(node.left);
-				queueInt.add(new_sum + node.left.value);
-				list.add(node.left.value);
+				queueInt.add(new_sum + node.left.data);
+				list.add(node.left.data);
 				queueList.add(list);
 			}
 			if (node.right != null) {
 				queue.add(node.right);
-				queueInt.add(new_sum + node.right.value);
-				list2.add(node.right.value);
+				queueInt.add(new_sum + node.right.data);
+				list2.add(node.right.data);
 				queueList.add(list2);
 			}
 		}
@@ -117,21 +118,20 @@ public class PathSum {
 	}
 
 	/**
-	 * Given a binary tree and a sum, determine if the tree has a root-to-leaf path such that adding up
-	 * all the values along the path equals the given sum.
+	 * Given a binary tree and a sum, determine if the tree has a root-to-leaf path such that adding up all the values
+	 * along the path equals the given sum.
 	 * 
 	 * https://leetcode.com/problems/path-sum/
 	 * 
 	 * Complexity Analysis
 	 * 
-	 * Time complexity : we visit each node exactly once, thus the time complexity is O(N), where N is
-	 * the number of nodes.
+	 * Time complexity : we visit each node exactly once, thus the time complexity is O(N), where N is the number of
+	 * nodes.
 	 * 
-	 * Space complexity : in the worst case, the tree is completely unbalanced, e.g. each node has only
-	 * one child node, the recursion call would occur N times (the height of the tree), therefore the
-	 * storage to keep the call stack would be O(N). But in the best case (the tree is completely
-	 * balanced), the height of the tree would be log(N). Therefore, the space complexity in this case
-	 * would be O(log(N)).
+	 * Space complexity : in the worst case, the tree is completely unbalanced, e.g. each node has only one child node,
+	 * the recursion call would occur N times (the height of the tree), therefore the storage to keep the call stack
+	 * would be O(N). But in the best case (the tree is completely balanced), the height of the tree would be log(N).
+	 * Therefore, the space complexity in this case would be O(log(N)).
 	 */
 
 	/**
@@ -152,28 +152,24 @@ public class PathSum {
 	/**
 	 * Algorithm
 	 * 
-	 * We could also convert the above recursion into iteration, with the help of stack. DFS would be
-	 * better than BFS here since it works faster except the worst case. In the worst case the path
-	 * root->leaf with the given sum is the last considered one and in this case DFS results in the same
-	 * productivity as BFS.
+	 * We could also convert the above recursion into iteration, with the help of stack. DFS would be better than BFS
+	 * here since it works faster except the worst case. In the worst case the path root->leaf with the given sum is the
+	 * last considered one and in this case DFS results in the same productivity as BFS.
 	 * 
-	 * The idea is to visit each node with the DFS strategy, while updating the remaining sum to
-	 * cumulate at each visit.
+	 * The idea is to visit each node with the DFS strategy, while updating the remaining sum to cumulate at each visit.
 	 * 
-	 * So we start from a stack which contains the root node and the corresponding remaining sum which
-	 * is sum - root.val. Then we proceed to the iterations: pop the current node out of the stack and
-	 * return True if the remaining sum is 0 and we're on the leaf node. If the remaining sum is not
-	 * zero or we're not on the leaf yet then we push the child nodes and corresponding remaining sums
-	 * into stack.
+	 * So we start from a stack which contains the root node and the corresponding remaining sum which is sum -
+	 * root.val. Then we proceed to the iterations: pop the current node out of the stack and return True if the
+	 * remaining sum is 0 and we're on the leaf node. If the remaining sum is not zero or we're not on the leaf yet then
+	 * we push the child nodes and corresponding remaining sums into stack.
 	 * 
 	 * Complexity Analysis
 	 * 
 	 * Time complexity : the same as the recursion approach O(N).
 	 * 
-	 * Space complexity : O(N) since in the worst case, when the tree is completely unbalanced, e.g.
-	 * each node has only one child node, we would keep all NN nodes in the stack. But in the best case
-	 * (the tree is balanced), the height of the tree would be log(N). Therefore, the space complexity
-	 * in this case would be O(log(N)).
+	 * Space complexity : O(N) since in the worst case, when the tree is completely unbalanced, e.g. each node has only
+	 * one child node, we would keep all NN nodes in the stack. But in the best case (the tree is balanced), the height
+	 * of the tree would be log(N). Therefore, the space complexity in this case would be O(log(N)).
 	 * 
 	 * @param root
 	 * @param sum

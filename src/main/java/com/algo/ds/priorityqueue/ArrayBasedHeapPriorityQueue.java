@@ -8,7 +8,7 @@ import com.algo.ds.linkedlist.PositionalList;
 
 /**
  * Heap-Order Property: In a heap T, for every position p other than the root, the key stored at p is greater than or
- * equal to the key stored at p�s parent.
+ * equal to the key stored at ps parent.
  * 
  * Complete Binary Tree Property: A heap T with height h is a complete binary tree if levels 0,1,2, . . . ,h-1 of T have
  * the maximal number of nodes possible (namely, level i has 2i nodes, for 0 <= i <= h-1) and the remaining nodes at

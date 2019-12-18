@@ -24,8 +24,8 @@ import java.util.function.IntConsumer;
 public class TwoSum {
 
 	/**
-	 * O(n2) runtime, O(1) space � Brute force: The brute force approach is simple. Loop through each
-	 * element x and find if there is another value that equals to target � x. As finding another value
+	 * O(n2) runtime, O(1) space  Brute force: The brute force approach is simple. Loop through each
+	 * element x and find if there is another value that equals to target  x. As finding another value
 	 * requires looping through the rest of array, its runtime complexity is O(n2).
 	 * 
 	 * @param arr
@@ -46,7 +46,7 @@ public class TwoSum {
 	}
 
 	/**
-	 * O(n) runtime, O(n) space � Hash table: We could reduce the runtime complexity of looking up a
+	 * O(n) runtime, O(n) space  Hash table: We could reduce the runtime complexity of looking up a
 	 * value to O(1) using a hash map that maps a value to its index.
 	 * 
 	 * @param arr
@@ -72,7 +72,7 @@ public class TwoSum {
 	 * it does not make use of the fact that the input is already sorted.
 	 * 
 	 * <br/>
-	 * O(n log n) runtime, O(1) space � Binary search: For each element x, we could look up if target �
+	 * O(n log n) runtime, O(1) space  Binary search: For each element x, we could look up if target 
 	 * x exists in O(log n) time by applying binary search over the sorted array. Total runtime
 	 * complexity is O(n log n).
 	 * 
@@ -105,13 +105,13 @@ public class TwoSum {
 	}
 
 	/**
-	 * O(n) runtime, O(1) space �
+	 * O(n) runtime, O(1) space 
 	 * 
-	 * Two pointers: Array needs to be sorted. Let�s assume we have two indices
+	 * Two pointers: Array needs to be sorted. Lets assume we have two indices
 	 * pointing to the ith and jth elements, Ai and Aj respectively. The sum of Ai
 	 * and Aj could only fall into one of these three possibilities: i. Ai + Aj >
-	 * target. Increasing i isn�t going to help us, as it makes the sum even bigger.
-	 * Therefore we should decrement j. ii. Ai + Aj < target. Decreasing j isn�t
+	 * target. Increasing i isnt going to help us, as it makes the sum even bigger.
+	 * Therefore we should decrement j. ii. Ai + Aj < target. Decreasing j isnt
 	 * going to help us, as it makes the sum even smaller. Therefore we should
 	 * increment i. iii. Ai + Aj == target. We have found the answer.
 	 * 

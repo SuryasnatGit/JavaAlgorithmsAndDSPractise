@@ -38,7 +38,7 @@ public class NumberofTriangles {
 	 * 
 	 * Disadvantages:
 	 * 
-	 * The time complexity is O(n3) and can’t be reduced any further.
+	 * The time complexity is O(n3) and cant be reduced any further.
 	 * 
 	 * @return
 	 */

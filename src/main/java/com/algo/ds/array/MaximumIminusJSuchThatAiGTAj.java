@@ -3,7 +3,7 @@ package com.algo.ds.array;
 /**
  * http://www.geeksforgeeks.org/given-an-array-arr-find-the-maximum-j-i-such-that-arrj-arri/
  * 
- * Given an array arr[], find the maximum j – i such that arr[j] > arr[i]. Examples :
+ * Given an array arr[], find the maximum j  i such that arr[j] > arr[i]. Examples :
  * 
  * Input: {34, 8, 10, 3, 2, 80, 30, 33, 1} Output: 6 (j = 7, i = 1)
  * 
@@ -46,7 +46,7 @@ public class MaximumIminusJSuchThatAiGTAj {
 	 * arr[j]. After constructing these two auxiliary arrays, we traverse both of these arrays from left
 	 * to right. While traversing LMin[] and RMa[] if we see that LMin[i] is greater than RMax[j], then
 	 * we must move ahead in LMin[] (or do i++) because all elements on left of LMin[i] are greater than
-	 * or equal to LMin[i]. Otherwise we must move ahead in RMax[j] to look for a greater j – i value.
+	 * or equal to LMin[i]. Otherwise we must move ahead in RMax[j] to look for a greater j  i value.
 	 * 
 	 * Time complexity - O(n) , space complexity - O(n)
 	 * 

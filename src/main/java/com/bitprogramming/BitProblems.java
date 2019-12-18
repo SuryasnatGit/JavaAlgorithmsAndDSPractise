@@ -232,9 +232,9 @@ public class BitProblems {
 	/**
 	 * An Efficient Solution can solve this problem in O(n) time using the fact that all numbers are
 	 * represented using 32 bits (or some fixed number of bits). The idea is to count differences at
-	 * individual bit positions. We traverse from 0 to 31 and count numbers with i’th bit set. Let this
-	 * count be ‘count’. There would be “n-count” numbers with i’th bit not set. So count of differences
-	 * at i’th bit would be “count * (n-count) * 2”.
+	 * individual bit positions. We traverse from 0 to 31 and count numbers with ith bit set. Let this
+	 * count be count. There would be n-count numbers with ith bit not set. So count of differences
+	 * at ith bit would be count * (n-count) * 2.
 	 * 
 	 * 
 	 * @param arr

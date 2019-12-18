@@ -53,7 +53,7 @@ public class MaximumNumericValue {
 	}
 
 	/**
-	 * But in the case of large numbers above program wouldn�t work because of integer range in C and C++. So, to handle
+	 * But in the case of large numbers above program wouldnt work because of integer range in C and C++. So, to handle
 	 * the case of large numbers we have to take each numeric value as separate string and then find maximum value.
 	 * 
 	 * @return

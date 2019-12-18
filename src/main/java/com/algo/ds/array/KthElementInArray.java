@@ -8,7 +8,7 @@ import com.algo.ds.graph.BinaryMinHeap;
 /**
  * Kth largest element in an array.
  * 
- * Given an array and a number k where k is smaller than size of array, we need to find the k’th
+ * Given an array and a number k where k is smaller than size of array, we need to find the kth
  * smallest element in the given array. It is given that ll array elements are distinct.
  * 
  * Examples:
@@ -39,7 +39,7 @@ public class KthElementInArray {
 	/**
 	 * Approach 2 - Using min heap - heap select. time complexity - O(n + k log n) .
 	 * 
-	 * We can find k’th smallest element in time complexity better than O(nLogn). A simple optimization
+	 * We can find kth smallest element in time complexity better than O(nLogn). A simple optimization
 	 * is to create a Min Heap of the given n elements and call extractMin() k times.
 	 * 
 	 * @param arr
@@ -58,13 +58,13 @@ public class KthElementInArray {
 	}
 
 	/**
-	 * We can also use Max Heap for finding the k’th smallest element.
+	 * We can also use Max Heap for finding the kth smallest element.
 	 * 
 	 * Following is algorithm.
 	 * 
 	 * 1) Build a Max-Heap MH of the first k elements (arr[0] to arr[k-1]) of the given array. O(k)
 	 * 
-	 * 2) For each element, after the k’th element (arr[k] to arr[n-1]), compare it with root of MH.
+	 * 2) For each element, after the kth element (arr[k] to arr[n-1]), compare it with root of MH.
 	 * 
 	 * a) If the element is less than the root then make it root and call heapify for MH <br/>
 	 * b) Else ignore it. // The step 2 is O((n-k)*logk)
@@ -116,7 +116,7 @@ public class KthElementInArray {
 
 	/**
 	 * Using quick select. The idea is, not to do complete quicksort, but stop at the point where pivot
-	 * itself is k’th smallest element. Also, not to recur for both left and right sides of pivot, but
+	 * itself is kth smallest element. Also, not to recur for both left and right sides of pivot, but
 	 * recur for one of them according to the position of pivot. The worst case time complexity of this
 	 * method is O(n2), but it works in O(n) on average.
 	 * 

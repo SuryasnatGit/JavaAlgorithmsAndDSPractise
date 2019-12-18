@@ -3,7 +3,7 @@ package com.algo.ds.tree;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import com.algo.common.Node;
+import com.algo.common.TreeNode;
 
 /**
  * Category : Medium
@@ -67,25 +67,25 @@ public class BinaryTreeHeightProblems {
 	// problem 2 - Write an efficient algorithm to compute the height of binary tree. The height or depth of a tree is
 	// number of edges or nodes on longest path from root node to leaf node.
 	// both cases time complexity - O(n)
-	public int heightOfBinaryTree_recursive(Node root) {
+	public int heightOfBinaryTree_recursive(TreeNode root) {
 		if (root == null)
 			return 0;
 
 		return 1 + Math.max(heightOfBinaryTree_recursive(root.left), heightOfBinaryTree_recursive(root.right));
 	}
 
-	public int heightOfBinaryTree_iterative(Node root) {
+	public int heightOfBinaryTree_iterative(TreeNode root) {
 		if (root == null)
 			return 0;
 
-		Queue<Node> queue = new LinkedList<>();
+		Queue<TreeNode> queue = new LinkedList<>();
 		queue.add(root);
 
 		int height = 0;
 		while (!queue.isEmpty()) {
 			int size = queue.size();
 			while (size-- > 0) {
-				Node node = queue.poll();
+				TreeNode node = queue.poll();
 				if (node.left != null)
 					queue.add(node.left);
 
@@ -101,10 +101,10 @@ public class BinaryTreeHeightProblems {
 
 	public static void main(String[] args) {
 		BinaryTreeHeightProblems bth = new BinaryTreeHeightProblems();
-		Node root = new Node(5);
-		root.left = new Node(10);
-		root.right = new Node(20);
-		root.right.right = new Node(30);
+		TreeNode root = new TreeNode(5);
+		root.left = new TreeNode(10);
+		root.right = new TreeNode(20);
+		root.right.right = new TreeNode(30);
 		System.out.println(bth.heightOfBinaryTree_recursive(root));
 		System.out.println(bth.heightOfBinaryTree_iterative(root));
 	}

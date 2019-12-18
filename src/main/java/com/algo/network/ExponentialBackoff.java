@@ -6,7 +6,7 @@ import java.util.Random;
  * An exponential backoff is an algorithm that repeatedly attempts to execute some action until that action has
  * succeeded, waiting an amount of time that grows exponentially between each attempt, up to some maximum number of
  * attempts. This can be a useful way to manage network calls to external services, so that temporary errors or glitches
- * don’t cause permanent failures.
+ * dont cause permanent failures.
  * 
  * @author surya
  *

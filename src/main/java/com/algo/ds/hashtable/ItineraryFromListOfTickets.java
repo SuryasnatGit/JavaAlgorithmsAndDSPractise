@@ -22,7 +22,7 @@ public class ItineraryFromListOfTickets {
 
 	/**
 	 * Solution 2 - We can also use hashing to avoid building a graph. The idea is to first find the starting point. A
-	 * starting point would never be on ‘to’ side of a ticket. Once we find the starting point, we can simply traverse
+	 * starting point would never be on to side of a ticket. Once we find the starting point, we can simply traverse
 	 * the given map to print itinerary in order.
 	 * 
 	 * All of the above steps require O(n) time so overall time complexity is O(n).

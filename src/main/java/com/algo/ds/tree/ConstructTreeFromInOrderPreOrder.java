@@ -71,9 +71,9 @@ public class ConstructTreeFromInOrderPreOrder {
 	 * array) and Set (to maintain the node in which the next right subtree is expected).
 	 * 
 	 * 1. Do below until you reach the leftmost node. Keep creating the nodes from PreOrder traversal If
-	 * the stack’s topmost element is not in the set, link the created node to the left child of stack’s
+	 * the stacks topmost element is not in the set, link the created node to the left child of stacks
 	 * topmost element (if any), without popping the element. Else link the created node to the right
-	 * child of stack’s topmost element. Remove the stack’s topmost element from the set and the stack.
+	 * child of stacks topmost element. Remove the stacks topmost element from the set and the stack.
 	 * Push the node to a stack.
 	 *
 	 * 2. Keep popping the nodes from the stack until either the stack is empty, or the topmost element

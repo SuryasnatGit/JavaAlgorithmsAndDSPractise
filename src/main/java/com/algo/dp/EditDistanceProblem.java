@@ -1,8 +1,8 @@
 package com.algo.dp;
 
 /**
- * Given two strings str1 and str2 and below operations that can performed on str1. Find minimum
- * number of edits (operations) required to convert ‘str1’ into ‘str2’.
+ * Given two strings str1 and str2 and below operations that can performed on str1. Find minimum number of edits
+ * (operations) required to convert str1 to str2
  * 
  * Insert Remove Replace
  * 
@@ -12,12 +12,10 @@ package com.algo.dp;
  * 
  * Input: str1 = "geek", str2 = "gesek" Output: 1 We can convert str1 into str2 by inserting a 's'.
  * 
- * Input: str1 = "cat", str2 = "cut" Output: 1 We can convert str1 into str2 by replacing 'a' with
- * 'u'.
+ * Input: str1 = "cat", str2 = "cut" Output: 1 We can convert str1 into str2 by replacing 'a' with 'u'.
  * 
- * Input: str1 = "sunday", str2 = "saturday" Output: 3 Last three and first characters are same. We
- * basically need to convert "un" to "atur". This can be done using below three operations. Replace
- * 'n' with 'r', insert t, insert a
+ * Input: str1 = "sunday", str2 = "saturday" Output: 3 Last three and first characters are same. We basically need to
+ * convert "un" to "atur". This can be done using below three operations. Replace 'n' with 'r', insert t, insert a
  * 
  * @author surya
  *

@@ -1,12 +1,19 @@
 package com.algo.common;
 
-public class Node {
+public class TreeNode {
 
 	public int data;
-	public Node left;
-	public Node right;
+	public TreeNode left;
+	public TreeNode right;
+	public int height;
+	public int size;
 
-	public Node(int d) {
+	// default constructor
+	public TreeNode() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public TreeNode(int d) {
 		this.data = d;
 		left = null;
 		right = null;
@@ -16,19 +23,19 @@ public class Node {
 		return data;
 	}
 
-	public Node getLeft() {
+	public TreeNode getLeft() {
 		return left;
 	}
 
-	public void setLeft(Node left) {
+	public void setLeft(TreeNode left) {
 		this.left = left;
 	}
 
-	public Node getRight() {
+	public TreeNode getRight() {
 		return right;
 	}
 
-	public void setRight(Node right) {
+	public void setRight(TreeNode right) {
 		this.right = right;
 	}
 

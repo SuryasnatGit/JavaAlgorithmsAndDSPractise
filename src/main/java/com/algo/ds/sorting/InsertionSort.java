@@ -13,7 +13,7 @@ import java.util.Arrays;
  * It is faster than most O(nlogn) sorting algorithms for small lists. <br/>
  * It is very memory efficient requiring only O(1) auxiliary space for the single item that is being moved. <br/>
  * It is a stable sort; equal elements appear in the same order in the sorted list. <br/>
- * It is an adaptive sort; it�s fast when sorting mostly sorted lists or when adding items to an already sorted list.
+ * It is an adaptive sort; its fast when sorting mostly sorted lists or when adding items to an already sorted list.
  * <br/>
  * It is really easy to implement.
  * 

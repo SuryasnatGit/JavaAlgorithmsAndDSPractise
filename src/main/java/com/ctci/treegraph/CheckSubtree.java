@@ -1,6 +1,6 @@
 package com.ctci.treegraph;
 
-import com.algo.common.Node;
+import com.algo.common.TreeNode;
 
 /**
  * CTCI - 4.10
@@ -27,7 +27,7 @@ public class CheckSubtree {
 	 * @param S
 	 * @return
 	 */
-	public boolean isSubTree(Node T, Node S) {
+	public boolean isSubTree(TreeNode T, TreeNode S) {
 		// base case
 		if (S == null)
 			return true;
@@ -41,7 +41,7 @@ public class CheckSubtree {
 		return isSubTree(T.left, S) || isSubTree(T.right, S);
 	}
 
-	private boolean areIdenticalTrees(Node T, Node S) {
+	private boolean areIdenticalTrees(TreeNode T, TreeNode S) {
 		// base case
 		if (T == null && S == null)
 			return true;
@@ -63,12 +63,12 @@ public class CheckSubtree {
 
 	class BinaryTree {
 
-		Node root;
+		TreeNode root;
 		Passing p = new Passing();
 
 		// A utility function to store inorder traversal of tree rooted
 		// with root in an array arr[]. Note that i is passed as reference
-		void storeInorder(Node node, int arr[], Passing i) {
+		void storeInorder(TreeNode node, int arr[], Passing i) {
 			if (node == null) {
 				arr[i.i++] = '$';
 				return;
@@ -80,7 +80,7 @@ public class CheckSubtree {
 
 		// A utility function to store preorder traversal of tree rooted
 		// with root in an array arr[]. Note that i is passed as reference
-		void storePreOrder(Node node, int arr[], Passing i) {
+		void storePreOrder(TreeNode node, int arr[], Passing i) {
 			if (node == null) {
 				arr[i.i++] = '$';
 				return;
@@ -91,7 +91,7 @@ public class CheckSubtree {
 		}
 
 		/* This function returns true if S is a subtree of T, otherwise false */
-		boolean isSubtree(Node T, Node S) {
+		boolean isSubtree(TreeNode T, TreeNode S) {
 			/* base cases */
 			if (S == null) {
 				return true;
@@ -138,16 +138,16 @@ public class CheckSubtree {
 	public static void main(String[] args) {
 		CheckSubtree cs = new CheckSubtree();
 
-		Node r1 = new Node(1);
-		r1.left = new Node(2);
-		r1.right = new Node(3);
-		r1.right.left = new Node(4);
-		r1.right.right = new Node(5);
+		TreeNode r1 = new TreeNode(1);
+		r1.left = new TreeNode(2);
+		r1.right = new TreeNode(3);
+		r1.right.left = new TreeNode(4);
+		r1.right.right = new TreeNode(5);
 
-		Node r2 = new Node(3);
-		r2.left = new Node(4);
+		TreeNode r2 = new TreeNode(3);
+		r2.left = new TreeNode(4);
 		// r2.right = new Node(5);
-		r2.right = new Node(6);
+		r2.right = new TreeNode(6);
 
 		System.out.println(cs.isSubTree(r1, r2));
 	}

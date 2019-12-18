@@ -4,10 +4,10 @@ package com.algo.ds.array;
  * The Stable Marriage Problem states that given N men and N women, where each person has ranked all
  * members of the opposite sex in order of preference, marry the men and women together such that
  * there are no two people of opposite sex who would both rather have each other than their current
- * partners. If there are no such people, all the marriages are “stable”.
+ * partners. If there are no such people, all the marriages are stable.
  * 
  * It is always possible to form stable marriages from lists of preferences (See references for
- * proof). Following is Gale–Shapley algorithm to find a stable matching: The idea is to iterate
+ * proof). Following is GaleShapley algorithm to find a stable matching: The idea is to iterate
  * through all free men while there is any free man available. Every free man goes to all women in
  * his preference list according to the order. For every woman he goes to, he checks if the woman is
  * free, if yes, they both become engaged. If the woman is not free, then the woman chooses either
@@ -16,7 +16,7 @@ package com.algo.ds.array;
  * 
  * Time Complexity of Gale-Shapley Algorithm is O(n2) where n is the number of men or women.
  * 
- * The Gale–Shapley algorithm involves a number of "rounds" (or "iterations"):
+ * The GaleShapley algorithm involves a number of "rounds" (or "iterations"):
  * 
  * In the first round, first each unengaged man proposes to the woman he prefers most, and then each
  * woman replies "maybe" to her suitor she most prefers and "no" to all other suitors. She is then

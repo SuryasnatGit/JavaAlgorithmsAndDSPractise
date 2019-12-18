@@ -26,7 +26,7 @@ public class IsBST {
 	 * Approach 1: A better solution looks at each node only once. The trick is to write a utility
 	 * helper function that traverses down the tree keeping track of the narrowing min and max allowed
 	 * values as it goes, looking at each node only once. The initial values for min and max should be
-	 * INT_MIN and INT_MAX — they narrow from there.
+	 * INT_MIN and INT_MAX  they narrow from there.
 	 * 
 	 * Run on IDE
 	 * 

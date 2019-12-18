@@ -5,7 +5,7 @@ package com.algo.ds.array;
  * http://articles.leetcode.com/2011/01/find-k-th-smallest-element-in-union-of.html.
  * 
  * Given two sorted arrays of size m and n respectively, you are tasked with finding the element
- * that would be at the k’th position of the final sorted array.
+ * that would be at the kth position of the final sorted array.
  * 
  * Examples:
  * 

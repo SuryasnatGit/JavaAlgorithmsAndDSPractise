@@ -11,44 +11,22 @@ import com.algo.ds.trie.Trie;
  * 
  * Input: {"apple", "ape", "april"} Output: "ap"
  *
- * The longest common prefix for an array of strings is the common prefix between 2 most dissimilar
- * strings. For example, in the given array {“apple”, “ape”, “zebra”}, there is no common prefix
- * because the 2 most dissimilar strings of the array “ape” and “zebra” do not share any starting
- * characters.
+ * The longest common prefix for an array of strings is the common prefix between 2 most dissimilar strings. For
+ * example, in the given array {apple, ape, zebra}, there is no common prefix because the 2 most dissimilar
+ * strings of the array ape and zebra do not share any starting characters.
  * 
  * 
  */
 public class LongestCommonPrefix {
 
 	/**
-	 * We start with an example. Suppose there are two strings- “geeksforgeeks” and “geeks”. What is the
-	 * longest common prefix in both of them? It is “geeks”.
 	 * 
-	 * Now let us introduce another word “geek”. So now what is the longest common prefix in these three
-	 * words ? It is “geek”
-	 * 
-	 * We can see that the longest common prefix holds the associative property, i.e-
-	 * 
-	 * LCP(string1, string2, string3) = LCP (LCP (string1, string2), string3)
-	 * 
-	 * Like here
-	 * 
-	 * LCP (“geeksforgeeks”, “geeks”, “geek”) = LCP (LCP (“geeksforgeeks”, “geeks”), “geek”) = LCP
-	 * (“geeks”, “geek”) = “geek” So we can make use of the above associative property to find the LCP
-	 * of the given strings. We one by one calculate the LCP of each of the given string with the LCP so
-	 * far. The final result will be our longest common prefix of all the strings.
-	 * 
-	 * Note that it is possible that the given strings have no common prefix. This happens when the
-	 * first character of all the strings are not same.
-	 * 
-	 * Time Complexity : Since we are iterating through all the strings and for each string we are
-	 * iterating though each characters, so we can say that the time complexity is O(N M) where,
+	 * Time Complexity : Since we are iterating through all the strings and for each string we are iterating though each
+	 * characters, so we can say that the time complexity is O(N M) where,
 	 * 
 	 * N = Number of strings M = Length of the largest string string
 	 * 
 	 * Auxiliary Space : To store the longest prefix string we are allocating space which is O(M).
-	 * 
-	 * 
 	 * 
 	 * @param input
 	 * @return
@@ -72,14 +50,13 @@ public class LongestCommonPrefix {
 	}
 
 	/**
-	 * In this algorithm, instead of going through the strings one by one, we will go through the
-	 * characters one by one.
+	 * In this algorithm, instead of going through the strings one by one, we will go through the characters one by one.
 	 * 
-	 * Time Complexity : Since we are iterating through all the characters of all the strings, so we can
-	 * say that the time complexity is O(N M) where,
+	 * Time Complexity : Since we are iterating through all the characters of all the strings, so we can say that the
+	 * time complexity is O(N M) where,
 	 * 
-	 * N = Number of strings M = Length of the largest string string Auxiliary Space : To store the
-	 * longest prefix string we are allocating space which is O(M).
+	 * N = Number of strings M = Length of the largest string string Auxiliary Space : To store the longest prefix
+	 * string we are allocating space which is O(M).
 	 * 
 	 * 
 	 * 
@@ -110,16 +87,16 @@ public class LongestCommonPrefix {
 	}
 
 	/**
-	 * In this algorithm, a divide and conquer approach is discussed. We first divide the arrays of
-	 * string into two parts. Then we do the same for left part and after that for the right part. We
-	 * will do it until and unless all the strings become of length 1. Now after that, we will start
-	 * conquering by returning the common prefix of the left and the right strings.
+	 * In this algorithm, a divide and conquer approach is discussed. We first divide the arrays of string into two
+	 * parts. Then we do the same for left part and after that for the right part. We will do it until and unless all
+	 * the strings become of length 1. Now after that, we will start conquering by returning the common prefix of the
+	 * left and the right strings.
 	 *
-	 * Time Complexity : Since we are iterating through all the characters of all the strings, so we can
-	 * say that the time complexity is O(N M) where,
+	 * Time Complexity : Since we are iterating through all the characters of all the strings, so we can say that the
+	 * time complexity is O(N M) where,
 	 * 
-	 * N = Number of strings M = Length of the largest string string Auxiliary Space : To store the
-	 * longest prefix string we are allocating space which is O(M Log N).
+	 * N = Number of strings M = Length of the largest string string Auxiliary Space : To store the longest prefix
+	 * string we are allocating space which is O(M Log N).
 	 * 
 	 * 
 	 * @param input
@@ -145,11 +122,11 @@ public class LongestCommonPrefix {
 	 * 
 	 * T(M) = T(M/2) + O(MN) where
 	 * 
-	 * N = Number of strings M = Length of the largest string string So we can say that the time
-	 * complexity is O(NM log M)
+	 * N = Number of strings M = Length of the largest string string So we can say that the time complexity is O(NM log
+	 * M)
 	 * 
-	 * Auxiliary Space: To store the longest prefix string we are allocating space which is O(N) where,
-	 * N = length of the largest string among all the strings
+	 * Auxiliary Space: To store the longest prefix string we are allocating space which is O(N) where, N = length of
+	 * the largest string among all the strings
 	 * 
 	 * @param input
 	 * @return
@@ -186,17 +163,16 @@ public class LongestCommonPrefix {
 	/**
 	 * In this article, an approach using Trie date structure is discussed. Steps:
 	 * 
-	 * Insert all the words one by one in the trie. After inserting we perform a walk on the trie. In
-	 * this walk, go deeper until we find a node having more than 1 children(branching occurs) or 0
-	 * children (one of the string gets exhausted). This is because the characters (nodes in trie) which
-	 * are present in the longest common prefix must be the single child of its parent, i.e- there
-	 * should not be a branching in any of these nodes.
+	 * Insert all the words one by one in the trie. After inserting we perform a walk on the trie. In this walk, go
+	 * deeper until we find a node having more than 1 children(branching occurs) or 0 children (one of the string gets
+	 * exhausted). This is because the characters (nodes in trie) which are present in the longest common prefix must be
+	 * the single child of its parent, i.e- there should not be a branching in any of these nodes.
 	 * 
-	 * Time Complexity : Inserting all the words in the trie takes O(MN) time and performing a walk on
-	 * the trie takes O(M) time, where-
+	 * Time Complexity : Inserting all the words in the trie takes O(MN) time and performing a walk on the trie takes
+	 * O(M) time, where-
 	 * 
-	 * N = Number of strings M = Length of the largest string string Auxiliary Space: To store all the
-	 * strings we need to allocate O(26*M*N) ~ O(MN) space for the Trie.
+	 * N = Number of strings M = Length of the largest string string Auxiliary Space: To store all the strings we need
+	 * to allocate O(26*M*N) ~ O(MN) space for the Trie.
 	 * 
 	 * @param input
 	 * @return

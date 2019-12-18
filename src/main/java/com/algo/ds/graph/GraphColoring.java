@@ -37,8 +37,8 @@ public class GraphColoring {
 			sortedSet.add(v);
 		}
 
-		Map<Long, String> assignedColor = new HashMap<Long, String>();
-		Map<Long, String> finalAssignedColor = new HashMap<Long, String>();
+		Map<Integer, String> assignedColor = new HashMap<>();
+		Map<Integer, String> finalAssignedColor = new HashMap<>();
 
 		Map<String, Boolean> colorsUsed = new TreeMap<String, Boolean>();
 		colorsUsed.put("Green", false);
@@ -70,7 +70,7 @@ public class GraphColoring {
 		System.out.println(finalAssignedColor);
 	}
 
-	private boolean allAdjacentUnColored(Collection<Vertex<Integer>> vertexes, Map<Long, String> colorsAssigned) {
+	private boolean allAdjacentUnColored(Collection<Vertex<Integer>> vertexes, Map<Integer, String> colorsAssigned) {
 		for (Vertex<Integer> vertex : vertexes) {
 			if (colorsAssigned.containsKey(vertex.getId())) {
 				return false;
@@ -100,7 +100,7 @@ public class GraphColoring {
 		colorsUsed.put("Red", false);
 		colorsUsed.put("Yellow", false);
 
-		Map<Long, String> colorsAssigned = new HashMap<Long, String>();
+		Map<Integer, String> colorsAssigned = new HashMap<>();
 
 		Collection<Vertex<Integer>> allVertex = graph.getAllVertex();
 

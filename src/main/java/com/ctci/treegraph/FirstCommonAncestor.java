@@ -1,13 +1,12 @@
 package com.ctci.treegraph;
 
-import com.algo.ds.tree.TreeNode;
+import com.algo.common.TreeNode;
 
 /**
  * CTCI - 4.8
  * 
- * First Common Ancestor: Design an algorithm and write code to find the first common ancestor of
- * two nodes in a binary tree. Avoid storing additional nodes in a data structure. NOTE: This is not
- * necessarily a binary search tree.
+ * First Common Ancestor: Design an algorithm and write code to find the first common ancestor of two nodes in a binary
+ * tree. Avoid storing additional nodes in a data structure. NOTE: This is not necessarily a binary search tree.
  * 
  * @author surya
  *
@@ -20,8 +19,8 @@ public class FirstCommonAncestor<K, V> {
 	 * 
 	 * worst case O(N^2) unbalanced tree.
 	 * 
-	 * Trace p's path upwards. At each node on this path, check to see if node is on the path from q to
-	 * the root. The first node will be the first common ancestor
+	 * Trace p's path upwards. At each node on this path, check to see if node is on the path from q to the root. The
+	 * first node will be the first common ancestor
 	 * 
 	 * @param p
 	 * @param q
@@ -99,12 +98,11 @@ public class FirstCommonAncestor<K, V> {
 
 	// Approach 3 - Solution Without Links to Parents
 	/**
-	 * O(n) time on balanced tree. covers() is called on 2n nodes in the first call. n nodes on left
-	 * side, n nodes for right side. algorithm branches left or right 2n/2 nodes then 2n/4 ... O(n).
-	 * Follow a chain in which p and q are on the same side. If p and q are both on the left of the
-	 * node, branch left to look for common ancestor if they are both on the right, branch right to look
-	 * for the common ancestor. When p and q are no longer on the same side, you have fond the first
-	 * common ancestor
+	 * O(n) time on balanced tree. covers() is called on 2n nodes in the first call. n nodes on left side, n nodes for
+	 * right side. algorithm branches left or right 2n/2 nodes then 2n/4 ... O(n). Follow a chain in which p and q are
+	 * on the same side. If p and q are both on the left of the node, branch left to look for common ancestor if they
+	 * are both on the right, branch right to look for the common ancestor. When p and q are no longer on the same side,
+	 * you have fond the first common ancestor
 	 * 
 	 * @param root
 	 * @param p

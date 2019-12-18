@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class RearrangeArrayPerIndex {
 
 	/**
-	 * A Simple Solution is to create a temporary array and one by one copy ‘i’ to ‘temp[arr[i]]’ where
+	 * A Simple Solution is to create a temporary array and one by one copy i to temp[arr[i]] where
 	 * i varies from 0 to n-1.
 	 *
 	 * time - O(n), Space - O(n)
@@ -68,9 +68,9 @@ public class RearrangeArrayPerIndex {
 	}
 
 	/**
-	 * The idea is to store each element’s new and old value as quotient and remainder of n,
-	 * respectively (n being the size of the array). For example, Suppose an element’s new value is 2,
-	 * the old value is 1 and n is 3, then the element’s value is stored as 1 + 2*3 = 7. We can retrieve
+	 * The idea is to store each elements new and old value as quotient and remainder of n,
+	 * respectively (n being the size of the array). For example, Suppose an elements new value is 2,
+	 * the old value is 1 and n is 3, then the elements value is stored as 1 + 2*3 = 7. We can retrieve
 	 * its old value by 7%3 = 1 and its new value by 7/3 = 2.
 	 * 
 	 * Time - O(n) Space - O(1)

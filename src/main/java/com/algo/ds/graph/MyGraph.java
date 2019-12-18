@@ -6,8 +6,7 @@ import java.util.LinkedList;
 
 import com.algo.ds.queue.QueueAsArray;
 import com.algo.ds.stack.ArrayStack;
-import com.algo.ds.stack.Stack;
-import com.algo.ds.stack.StackAsArray;
+import com.algo.ds.stack.Stack;;
 
 public class MyGraph<K> {
 
@@ -15,7 +14,7 @@ public class MyGraph<K> {
 	private Vertex[] vertexArray;
 	private int[][] adjMatrix;
 	private int numVer;
-	private StackAsArray stack;
+	private ArrayStack stack;
 	private QueueAsArray queue;
 	// array of linked lists for adjacency list
 	private LinkedList<Integer>[] adjList;
@@ -29,7 +28,7 @@ public class MyGraph<K> {
 		for (int i = 0; i < MAX_VERTEX; i++)
 			for (int j = 0; j < MAX_VERTEX; j++)
 				adjMatrix[i][j] = 0; // initialize
-		stack = new StackAsArray(MAX_VERTEX);
+		stack = new ArrayStack(MAX_VERTEX);
 		queue = new QueueAsArray(MAX_VERTEX);
 		// for adjacency list
 		adjList = new LinkedList[numVer];
@@ -71,7 +70,7 @@ public class MyGraph<K> {
 
 		while (!stack.isEmpty()) {// until stack empty
 			// find the first unvisited adjacent vertex
-			int d = findAdjUnvisitedVertex(stack.peek());
+			int d = findAdjUnvisitedVertex((int) stack.top());
 			if (d == -1)
 				stack.pop();
 			else {
@@ -126,15 +125,15 @@ public class MyGraph<K> {
 	public void bfs_adjacencyMatrix() {
 		vertexArray[0].wasVisited = true; // start with the top
 		displayVertex(0);
-		queue.insert(0);
+		queue.enqueue(0);
 
 		while (!queue.isEmpty()) { // until the queue is empty
-			int v1 = queue.remove(); // remove vertex at head
+			int v1 = queue.dequeue(); // remove vertex at head
 			int v2 = findAdjUnvisitedVertex(v1);
 			while (v2 != -1) {
 				vertexArray[v2].wasVisited = true;
 				displayVertex(v2);
-				queue.insert(v2);
+				queue.enqueue(v2);
 			}
 			// reset
 			for (int i = 0; i < numVer; i++)
@@ -177,7 +176,7 @@ public class MyGraph<K> {
 		stack.push((char) 0);
 
 		while (!stack.isEmpty()) {
-			int currentVertex = stack.peek(); // current vertex.
+			int currentVertex = (int) stack.top(); // current vertex.
 			int v2 = findAdjUnvisitedVertex(currentVertex);
 			if (v2 == -1)
 				stack.pop();

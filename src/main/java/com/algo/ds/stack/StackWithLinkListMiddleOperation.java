@@ -1,6 +1,6 @@
 package com.algo.ds.stack;
 
-import com.algo.ds.linkedlist.Node;
+import com.algo.common.ListNode;
 
 /**
  * http://www.geeksforgeeks.org/design-a-stack-with-find-middle-operation/
@@ -13,19 +13,16 @@ import com.algo.ds.linkedlist.Node;
  * 
  * 3) findMiddle() which will return middle element of the stack.
  * 
- * 4) deleteMiddle() which will delete the middle element. Push and pop are standard stack
- * operations.
+ * 4) deleteMiddle() which will delete the middle element. Push and pop are standard stack operations.
  * 
  * The important question is, whether to use a linked list or array for implementation of stack?
  * 
- * Please note that, we need to find and delete middle element. Deleting an element from middle is
- * not O(1) for array. Also, we may need to move the middle pointer up when we push an element and
- * move down when we pop(). In singly linked list, moving middle pointer in both directions is not
- * possible.
+ * Please note that, we need to find and delete middle element. Deleting an element from middle is not O(1) for array.
+ * Also, we may need to move the middle pointer up when we push an element and move down when we pop(). In singly linked
+ * list, moving middle pointer in both directions is not possible.
  * 
- * The idea is to use Doubly Linked List (DLL). We can delete middle element in O(1) time by
- * maintaining mid pointer. We can move mid pointer in both directions using previous and next
- * pointers.
+ * The idea is to use Doubly Linked List (DLL). We can delete middle element in O(1) time by maintaining mid pointer. We
+ * can move mid pointer in both directions using previous and next pointers.
  * 
  * 
  * 
@@ -36,24 +33,24 @@ import com.algo.ds.linkedlist.Node;
  */
 public class StackWithLinkListMiddleOperation {
 
-	private Node head = null;
-	private Node middle = null;
+	private ListNode head = null;
+	private ListNode middle = null;
 	private int size = 0;
 
 	public void push(int data) {
 		if (head == null) {
-			head = Node.newNode(data);
+			head = new ListNode(data);
 			middle = head;
 			size++;
 			return;
 		}
 		size++;
-		Node node = Node.newNode(data);
+		ListNode node = new ListNode(data);
 		node.next = head;
-		head.before = node;
+		head.previous = node;
 		head = node;
 		if (size % 2 == 0) {
-			middle = middle.before;
+			middle = middle.previous;
 		}
 	}
 
@@ -79,7 +76,7 @@ public class StackWithLinkListMiddleOperation {
 		}
 		int data = head.data;
 		head = head.next;
-		head.before = null;
+		head.previous = null;
 		return data;
 	}
 
@@ -107,25 +104,25 @@ public class StackWithLinkListMiddleOperation {
 			middle = middle.next;
 			head = head.next;
 			if (head != null) {
-				head.before = null;
+				head.previous = null;
 			}
 			return data;
 		}
 
 		if (size % 2 == 0) {
 			int data = middle.data;
-			Node next = middle.next;
-			middle = middle.before;
+			ListNode next = middle.next;
+			middle = middle.previous;
 			middle.next = next;
 			if (next != null) {
-				next.before = middle;
+				next.previous = middle;
 			}
 			return data;
 		} else {
 			int data = middle.data;
-			Node before = middle.before;
+			ListNode before = middle.previous;
 			middle = middle.next;
-			middle.before = before;
+			middle.previous = before;
 			if (before != null) {
 				before.next = middle;
 			}

@@ -14,7 +14,7 @@ import java.util.Set;
  * we may come to the same node again. To avoid processing a node more than once, we use a boolean
  * visited array. For simplicity, it is assumed that all vertices are reachable from the starting
  * vertex. For example, in the following graph, we start traversal from vertex 2. When we come to
- * vertex 0, we look for all adjacent vertices of it. 2 is also an adjacent vertex of 0. If we don’t
+ * vertex 0, we look for all adjacent vertices of it. 2 is also an adjacent vertex of 0. If we dont
  * mark visited vertices, then 2 will be processed again and it will become a non-terminating
  * process.
  * 

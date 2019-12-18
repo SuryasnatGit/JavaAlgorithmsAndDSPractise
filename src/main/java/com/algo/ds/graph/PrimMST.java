@@ -87,7 +87,7 @@ public class PrimMST {
 	/**
 	 * Main method of Prim's algorithm. Find minimum spanning tree using Prim's algorithm.
 	 * 
-	 * As discussed in the previous post, in Prim’s algorithm, two sets are maintained, one set contains
+	 * As discussed in the previous post, in Prims algorithm, two sets are maintained, one set contains
 	 * list of vertices already included in MST, other set contains vertices not yet included. With
 	 * adjacency list representation, all vertices of a graph can be traversed in O(V+E) time using BFS.
 	 * The idea is to traverse all vertices of graph using BFS and use a Min Heap to store the vertices

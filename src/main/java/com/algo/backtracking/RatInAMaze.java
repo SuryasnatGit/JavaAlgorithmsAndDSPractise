@@ -122,7 +122,7 @@ public class RatInAMaze {
 	 * used in the path or in other words present in the stack. While trying out any direction we will
 	 * also check if the block of the maze is not a dead end and is not out of the maze too.
 	 * 
-	 * We will do this while either the topmost node coordinates become equal to the food’s coordinates
+	 * We will do this while either the topmost node coordinates become equal to the foods coordinates
 	 * that means we have reached the food or the stack becomes empty which means that there is no
 	 * possible path to reach the food.
 	 * 

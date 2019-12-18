@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-import com.algo.common.Node;
+import com.algo.common.TreeNode;
 
 /**
  * 
@@ -129,7 +129,7 @@ public class IdenticalTrees {
 	 * @param n2
 	 * @return
 	 */
-	public boolean isIdenticalBSTs_recursive(Node n1, Node n2) {
+	public boolean isIdenticalBSTs_recursive(TreeNode n1, TreeNode n2) {
 		if (n1 == null && n2 == null)
 			return true;
 
@@ -137,7 +137,7 @@ public class IdenticalTrees {
 				&& isIdenticalBSTs_recursive(n1.right, n2.right);
 	}
 
-	public boolean isIdenticalBSTs_iterative(Node n1, Node n2) {
+	public boolean isIdenticalBSTs_iterative(TreeNode n1, TreeNode n2) {
 		if (n1 == null && n2 == null)
 			return true;
 
@@ -153,8 +153,8 @@ public class IdenticalTrees {
 		while (!queue.isEmpty()) {
 			Pair pair = queue.poll();
 
-			Node node1 = pair.n1;
-			Node node2 = pair.n2;
+			TreeNode node1 = pair.n1;
+			TreeNode node2 = pair.n2;
 
 			if (node1.data != node2.data)
 				return false;
@@ -178,10 +178,10 @@ public class IdenticalTrees {
 	}
 
 	private class Pair {
-		Node n1;
-		Node n2;
+		TreeNode n1;
+		TreeNode n2;
 
-		public Pair(Node n1, Node n2) {
+		public Pair(TreeNode n1, TreeNode n2) {
 			this.n1 = n1;
 			this.n2 = n2;
 		}
@@ -193,22 +193,22 @@ public class IdenticalTrees {
 		IdenticalTrees it = new IdenticalTrees();
 		System.out.println(it.sameBST1(tree1, tree2));
 
-		Node x = new Node(15);
-		x.left = new Node(10);
-		x.right = new Node(20);
-		x.left.left = new Node(8);
-		x.left.right = new Node(12);
-		x.right.left = new Node(16);
-		x.right.right = new Node(25);
+		TreeNode x = new TreeNode(15);
+		x.left = new TreeNode(10);
+		x.right = new TreeNode(20);
+		x.left.left = new TreeNode(8);
+		x.left.right = new TreeNode(12);
+		x.right.left = new TreeNode(16);
+		x.right.right = new TreeNode(25);
 
 		// construct second tree
-		Node y = new Node(15);
-		y.left = new Node(10);
-		y.right = new Node(20);
-		y.left.left = new Node(8);
-		y.left.right = new Node(12);
-		y.right.left = new Node(16);
-		y.right.right = new Node(25);
+		TreeNode y = new TreeNode(15);
+		y.left = new TreeNode(10);
+		y.right = new TreeNode(20);
+		y.left.left = new TreeNode(8);
+		y.left.right = new TreeNode(12);
+		y.right.left = new TreeNode(16);
+		y.right.right = new TreeNode(25);
 
 		System.out.println(it.isIdenticalBSTs_recursive(x, y));
 		System.out.println(it.isIdenticalBSTs_iterative(x, y));

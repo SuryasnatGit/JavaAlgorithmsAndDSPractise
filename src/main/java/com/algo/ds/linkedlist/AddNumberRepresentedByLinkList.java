@@ -15,11 +15,11 @@ package com.algo.ds.linkedlist;
  * 2) If sizes are same, then calculate sum using recursion. Hold all nodes in recursion call stack
  * till the rightmost node, calculate sum of rightmost nodes and forward carry to left side.<br/>
  * 
- * 3) If size is not same, then follow below steps: �.<br/>
- * a) Calculate difference of sizes of two linked lists. Let the difference be diff �.<br/>
+ * 3) If size is not same, then follow below steps: .<br/>
+ * a) Calculate difference of sizes of two linked lists. Let the difference be diff .<br/>
  * 
  * b) Move diff nodes ahead in the bigger linked list. Now use step 2 to calculate sum of smaller
- * list and right sub-list (of same size) of larger list. Also, store the carry of this sum. �.<br/>
+ * list and right sub-list (of same size) of larger list. Also, store the carry of this sum. .<br/>
  * 
  * c) Calculate sum of the carry (calculated in previous step) with the remaining left sub-list of
  * larger list. Nodes of this sum are added at the beginning of sum list obtained previous step.

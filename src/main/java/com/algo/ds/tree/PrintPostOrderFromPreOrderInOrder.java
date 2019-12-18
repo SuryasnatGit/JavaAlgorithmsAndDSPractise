@@ -1,4 +1,4 @@
-package com.interview.tree;
+package com.algo.ds.tree;
 
 /**
   Given a preorder/inorder traversal of binary tree create postorder traversal of binary tree

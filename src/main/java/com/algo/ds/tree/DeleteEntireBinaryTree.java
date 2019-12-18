@@ -3,7 +3,7 @@ package com.algo.ds.tree;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import com.algo.common.Node;
+import com.algo.common.TreeNode;
 
 /**
  * https://www.techiedelight.com/delete-given-binary-tree-iterative-recursive/
@@ -17,7 +17,7 @@ public class DeleteEntireBinaryTree {
 	 * 
 	 * @param root
 	 */
-	public void delete_recursive(Node root) {
+	public void delete_recursive(TreeNode root) {
 		if (root == null)
 			return;
 
@@ -34,14 +34,14 @@ public class DeleteEntireBinaryTree {
 	 * 
 	 * @param root
 	 */
-	public void delete_iterative(Node root) {
+	public void delete_iterative(TreeNode root) {
 		if (root == null)
 			return;
 
-		Queue<Node> queue = new LinkedList<Node>();
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
 		queue.add(root);
 		while (!queue.isEmpty()) {
-			Node r = queue.poll();
+			TreeNode r = queue.poll();
 			if (r.left != null)
 				queue.add(r.left);
 			if (r.right != null)

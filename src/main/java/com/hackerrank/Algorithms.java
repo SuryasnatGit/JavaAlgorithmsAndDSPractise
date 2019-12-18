@@ -303,12 +303,4 @@ public class Algorithms {
 		return false;
 	}
 
-	/**
-	 * https://www.hackerrank.com/challenges/almost-sorted/problem
-	 * 
-	 * @return
-	 */
-	public String almostSorted(int[] arr) {
-
-	}
 }

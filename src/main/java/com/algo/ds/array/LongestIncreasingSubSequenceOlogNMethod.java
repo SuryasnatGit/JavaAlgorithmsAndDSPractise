@@ -19,8 +19,8 @@ package com.algo.ds.array;
  * Clone and extend this list by A[i]. We will discard all other lists of same length as that of
  * this modified list.
  * 
- * Also, ensure we have maintained the condition, “end element of smaller list is smaller than end
- * elements of larger lists“.
+ * Also, ensure we have maintained the condition, end element of smaller list is smaller than end
+ * elements of larger lists.
  * 
  * Complexity:
  * 

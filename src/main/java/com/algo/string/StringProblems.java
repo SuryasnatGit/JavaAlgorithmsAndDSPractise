@@ -342,8 +342,8 @@ public class StringProblems {
 
 	/**
 	 * Given a string S, Check if characters of the given string can be rearranged to form a palindrome. For example
-	 * characters of �geeksogeeks� can be rearranged to form a palindrome �geeksoskeeg�, but characters of
-	 * �geeksforgeeks� cannot be rearranged to form a palindrome.
+	 * characters of geeksogeeks can be rearranged to form a palindrome geeksoskeeg, but characters of
+	 * geeksforgeeks cannot be rearranged to form a palindrome.
 	 * 
 	 * @param s
 	 * @return
@@ -811,10 +811,10 @@ public class StringProblems {
 	 * digits and we are done.
 	 * 
 	 * On the other hand, a decimal number could be further divided into three parts: a. Integer part b. Decimal point
-	 * c. Fractional part The integer and fractional parts contain only digits. For example, the number â€œ3.64â€� has
+	 * c. Fractional part The integer and fractional parts contain only digits. For example, the number â€œ3.64â€ has
 	 * integer part (3) and fractional part (64). Both of them are optional, but at least one of them must present. For
-	 * example, a single dot â€˜.â€™ is not a valid number, but â€œ1.â€�, â€œ.1â€�, and â€œ1.0â€� are all valid. Please
-	 * note that â€œ1.â€� is valid because it implies â€œ1.0â€�.
+	 * example, a single dot â€˜.â€™ is not a valid number, but â€œ1.â€, â€œ.1â€, and â€œ1.0â€ are all valid. Please
+	 * note that â€œ1.â€ is valid because it implies â€œ1.0â€.
 	 * 
 	 * @param input
 	 * @return

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Queue;
 
 import com.algo.common.ListNode;
-import com.algo.common.Node;
+import com.algo.common.TreeNode;
 
 /**
  * CTCI - 4.3
@@ -19,13 +19,13 @@ import com.algo.common.Node;
  */
 public class LinkedListOfDepthsFromBT {
 
-	public void printLists(Node root) {
+	public void printLists(TreeNode root) {
 		List<ListNode> lists = new ArrayList<>(); // collector
 
 		if (root == null)
 			return;
 		// queue is needed for level or breadth first search
-		Queue<Node> queue = new LinkedList<>();
+		Queue<TreeNode> queue = new LinkedList<>();
 		queue.add(root);
 		int numLevelNodes = 0;
 		while (!queue.isEmpty()) {
@@ -33,7 +33,7 @@ public class LinkedListOfDepthsFromBT {
 			ListNode head = null; // pointer to head in LL
 			ListNode curr = null; // pointer to current in LL
 			while (numLevelNodes > 0) {
-				Node node = queue.remove();
+				TreeNode node = queue.remove();
 				ListNode newListNode = new ListNode(node.getData());
 				if (head == null) {
 					head = newListNode;
@@ -57,13 +57,13 @@ public class LinkedListOfDepthsFromBT {
 	}
 
 	public static void main(String[] args) {
-		Node root = new Node(5);
-		root.left = new Node(10);
-		root.right = new Node(15);
-		root.left.left = new Node(20);
-		root.left.right = new Node(25);
-		root.right.left = new Node(30);
-		root.right.right = new Node(35);
+		TreeNode root = new TreeNode(5);
+		root.left = new TreeNode(10);
+		root.right = new TreeNode(15);
+		root.left.left = new TreeNode(20);
+		root.left.right = new TreeNode(25);
+		root.right.left = new TreeNode(30);
+		root.right.right = new TreeNode(35);
 		LinkedListOfDepthsFromBT l = new LinkedListOfDepthsFromBT();
 		l.printLists(root);
 

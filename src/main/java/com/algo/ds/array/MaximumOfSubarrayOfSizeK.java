@@ -60,7 +60,7 @@ public class MaximumOfSubarrayOfSizeK {
 	 * 
 	 * 1. Pick first k elements and create a Self-Balancing Binary Search Tree (BST) of size k.
 	 * 
-	 * 2. Run a loop for i = 0 to n – k
+	 * 2. Run a loop for i = 0 to n  k
 	 * 
 	 * - Get the maximum element from the BST, and print it.
 	 * 
@@ -131,12 +131,12 @@ public class MaximumOfSubarrayOfSizeK {
 	 * 1. Pick first k elements and create a max heap of size k.<br/>
 	 * 2. Perform heapify and print the root element. <br/>
 	 * 3. Store the next and last element from the array <br/>
-	 * 4. Run a loop from k – 1 to n. <br/>
+	 * 4. Run a loop from k  1 to n. <br/>
 	 * - Replace the value of element which is got out of the window with new element which came inside the window.<br/>
 	 * - Perform heapify. <br/>
 	 * - Print the root of the Heap. <br/>
 	 * 
-	 * Time Complexity: Time Complexity of steps 4(a) is O(k), 4(b) is O(Log(k)) and it is in a loop that runs (n – k +
+	 * Time Complexity: Time Complexity of steps 4(a) is O(k), 4(b) is O(Log(k)) and it is in a loop that runs (n  k +
 	 * 1) times. Hence, the time complexity of the complete algorithm is O((k + Log(k)) * n) i.e. O(n * k).
 	 * 
 	 * @param args

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import com.algo.ds.priorityqueue.DefaultComparator;
-import com.algo.ds.queue.LinkedQueue;
-import com.algo.ds.queue.Queue;
 
 public class Sorting<K> {
 
@@ -91,15 +91,15 @@ public class Sorting<K> {
 		if (n < 2)
 			return;
 		// 1. divide
-		Queue<K> S1 = new LinkedQueue<>();
-		Queue<K> S2 = new LinkedQueue<>();
+		Queue<K> S1 = new LinkedList<>();
+		Queue<K> S2 = new LinkedList<>();
 		// move first n/2 elements to S1
 		while (S1.size() < n / 2) {
-			S1.enqueue(S.dequeue());
+			S1.add(S.poll());
 		}
 		// move next elements to S2
 		while (!S.isEmpty()) {
-			S2.enqueue(S.dequeue());
+			S2.add(S.poll());
 		}
 
 		// 2. concour
@@ -113,16 +113,16 @@ public class Sorting<K> {
 	private void merge(Queue<K> S1, Queue<K> S2, Queue<K> S, Comparator<K> comp) {
 		while (!S1.isEmpty() && !S2.isEmpty()) {
 			if (comp.compare(S1.peek(), S2.peek()) < 0) {
-				S.enqueue(S1.dequeue());
+				S.add(S1.poll());
 			} else {
-				S.enqueue(S2.dequeue());
+				S.add(S2.poll());
 			}
 		}
 		while (!S1.isEmpty()) {
-			S.enqueue(S1.dequeue());
+			S.add(S1.poll());
 		}
 		while (!S2.isEmpty()) {
-			S.enqueue(S2.dequeue());
+			S.add(S2.poll());
 		}
 	}
 
@@ -140,18 +140,18 @@ public class Sorting<K> {
 
 		// 1. Divide
 		K pivot = S.peek();
-		Queue<K> L = new LinkedQueue<>(); // for < pivot
-		Queue<K> E = new LinkedQueue<>(); // for = pivot
-		Queue<K> G = new LinkedQueue<>(); // for > pivot
+		Queue<K> L = new LinkedList<>(); // for < pivot
+		Queue<K> E = new LinkedList<>(); // for = pivot
+		Queue<K> G = new LinkedList<>(); // for > pivot
 		while (!S.isEmpty()) {
-			K elem = S.dequeue();
+			K elem = S.poll();
 			int result = comp.compare(elem, pivot);
 			if (result < 0) {
-				L.enqueue(elem);
+				L.add(elem);
 			} else if (result == 0) {
-				E.enqueue(elem);
+				E.add(elem);
 			} else {
-				G.enqueue(elem);
+				G.add(elem);
 			}
 		}
 
@@ -161,11 +161,11 @@ public class Sorting<K> {
 
 		// 3. concatenate
 		while (!L.isEmpty())
-			S.enqueue(L.dequeue());
+			S.add(L.poll());
 		while (!E.isEmpty())
-			S.enqueue(E.dequeue());
+			S.add(E.poll());
 		while (!G.isEmpty())
-			S.enqueue(G.dequeue());
+			S.add(G.poll());
 
 		// S.display();// test
 	}
@@ -356,12 +356,12 @@ public class Sorting<K> {
 		Sorting<Integer> sort = new Sorting<>();
 		Integer[] intarr = { 10, 15, 12, 17, 13 };
 		// sort.mergeSort_array(intarr, new DefaultComparator<Integer>());
-		Queue<Integer> S = new LinkedQueue<>();
-		S.enqueue(10);
-		S.enqueue(15);
-		S.enqueue(12);
-		S.enqueue(17);
-		S.enqueue(13);
+		Queue<Integer> S = new LinkedList<>();
+		S.add(10);
+		S.add(15);
+		S.add(12);
+		S.add(17);
+		S.add(13);
 		// System.out.println(Arrays.asList(intarr));
 		// sort.mergeSort_queue(S, new DefaultComparator<Integer>());
 		sort.quickSort_queue(S, new DefaultComparator<Integer>());

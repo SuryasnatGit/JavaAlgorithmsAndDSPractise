@@ -3,9 +3,8 @@ package com.algo.ds.array;
 import java.util.Arrays;
 
 /**
- * Given an array of positive and negative numbers, arrange them such that all negative integers
- * appear before all the positive integers in the array.The order of appearance should be
- * maintained.
+ * Given an array of positive and negative numbers, arrange them such that all negative integers appear before all the
+ * positive integers in the array.The order of appearance should be maintained.
  * 
  */
 public class PositiveAndNegativeNumberRearrangement {
@@ -37,12 +36,11 @@ public class PositiveAndNegativeNumberRearrangement {
 	 * 
 	 * We can modify insertion sort to solve this problem.
 	 * 
-	 * Algorithm –
+	 * Algorithm:
 	 * 
-	 * Loop from i = 1 to n - 1. a) If the current element is positive, do nothing. b) If the current
-	 * element arr[i] is negative, we insert it into sequence arr[0..i-1] such that all positive
-	 * elements in arr[0..i-1] are shifted one position to their right and arr[i] is inserted at index
-	 * of first positive element.
+	 * Loop from i = 1 to n - 1. a) If the current element is positive, do nothing. b) If the current element arr[i] is
+	 * negative, we insert it into sequence arr[0..i-1] such that all positive elements in arr[0..i-1] are shifted one
+	 * position to their right and arr[i] is inserted at index of first positive element.
 	 * 
 	 * time - O(n^2), space - O(1)
 	 * 
@@ -70,16 +68,16 @@ public class PositiveAndNegativeNumberRearrangement {
 	/**
 	 * Using modified merge sort.
 	 * 
-	 * Let Ln and Lp denotes the negative part and positive part of left sub-array respectively.
-	 * Similarly, Rn and Rp denotes the negative and positive part of right sub-array respectively.
-	 * Below are the steps to convert [Ln Lp Rn Rp] to [Ln Rn Lp Rp] without using extra space.
+	 * Let Ln and Lp denotes the negative part and positive part of left sub-array respectively. Similarly, Rn and Rp
+	 * denotes the negative and positive part of right sub-array respectively. Below are the steps to convert [Ln Lp Rn
+	 * Rp] to [Ln Rn Lp Rp] without using extra space.
 	 * 
-	 * 1. Reverse Lp and Rn. We get [Lp] -> [Lp'] and [Rn] -> [Rn'] [Ln Lp Rn Rp] -> [Ln Lp’ Rn’ Rp]
+	 * 1. Reverse Lp and Rn. We get [Lp] -> [Lp'] and [Rn] -> [Rn'] [Ln Lp Rn Rp] -> [Ln Lp Rn Rp]
 	 * 
-	 * 2. Reverse [Lp’ Rn’]. We get [Rn Lp]. [Ln Lp’ Rn’ Rp] -> [Ln Rn Lp Rp]
+	 * 2. Reverse [Lp Rn]. We get [Rn Lp]. [Ln Lp Rn Rp] -> [Ln Rn Lp Rp]
 	 * 
-	 * Time complexity of above solution is O(n log n), O(Log n) space for recursive calls, and no
-	 * additional data structure.
+	 * Time complexity of above solution is O(n log n), O(Log n) space for recursive calls, and no additional data
+	 * structure.
 	 * 
 	 * 
 	 * @param input

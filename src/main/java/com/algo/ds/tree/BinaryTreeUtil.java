@@ -1,8 +1,10 @@
 package com.algo.ds.tree;
 
 import java.util.LinkedList;
+import java.util.Queue;
 
-import com.algo.ds.stack.StackAsSingleLinkedList;
+import com.algo.common.TreeNode;
+import com.algo.ds.stack.LinkedListStack;
 
 public class BinaryTreeUtil<K, V> {
 
@@ -60,7 +62,7 @@ public class BinaryTreeUtil<K, V> {
 	 * @return
 	 */
 	public int kthSmallestElementinBst(TreeNode<K, V> root, int k) {
-		StackAsSingleLinkedList stack = new StackAsSingleLinkedList();
+		LinkedListStack<TreeNode<K, V>> stack = new LinkedListStack<>();
 		TreeNode<K, V> p = root;
 		int result = 0;
 		while (!stack.isEmpty() || p != null) {
@@ -103,6 +105,37 @@ public class BinaryTreeUtil<K, V> {
 		return recursive(root.left, minValue, root.value - 1) && recursive(root.right, root.value + 1, maxValue);
 	}
 
+	/**
+	 * prints 1st element in each level
+	 */
+	public void printLeftView(TreeNode root) {
+		if (root == null)
+			return;
+
+		Queue<TreeNode> queue = new LinkedList<>();
+		queue.add(root);
+
+		TreeNode curr;
+		while (!queue.isEmpty()) {
+			int i = 0;
+			int size = queue.size();
+			while (i++ < size) {
+				curr = queue.poll();
+				// if this is the first node in current level then print it. for last node in curr level check against
+				// size
+				if (i == 1)
+					System.out.println(curr.data);
+
+				if (curr.left != null) {
+					queue.add(curr.left);
+				}
+				if (curr.right != null) {
+					queue.add(curr.left);
+				}
+			}
+		}
+	}
+
 	public static void main(String[] args) {
 		BinaryTreeUtil<Integer, Integer> util = new BinaryTreeUtil<>();
 		TreeNode<Integer, Integer> root = new TreeNode<>(1, 1);
@@ -110,6 +143,13 @@ public class BinaryTreeUtil<K, V> {
 		root.right = new TreeNode<>(3, 3);
 		root.left.left = new TreeNode<>(4, 4);
 		root.left.right = new TreeNode<>(5, 5);
-		System.out.println(util.kthSmallestElementinBst(root, 4));
+		// System.out.println(util.kthSmallestElementinBst(root, 4));
+
+		TreeNode n = new TreeNode(1);
+		n.left = new TreeNode(2);
+		n.right = new TreeNode(3);
+		n.left.left = new TreeNode(4);
+		n.right.right = new TreeNode(5);
+		util.printLeftView(n);
 	}
 }

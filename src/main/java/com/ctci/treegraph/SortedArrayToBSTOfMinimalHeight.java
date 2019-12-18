@@ -1,6 +1,6 @@
 package com.ctci.treegraph;
 
-import com.algo.common.Node;
+import com.algo.common.TreeNode;
 
 /**
  * CTCI - 4.2
@@ -36,22 +36,22 @@ import com.algo.common.Node;
  */
 public class SortedArrayToBSTOfMinimalHeight {
 
-	public Node toBST(int[] arr) {
+	public TreeNode toBST(int[] arr) {
 		return toBST(arr, 0, arr.length - 1);
 	}
 
-	private Node toBST(int[] arr, int start, int end) {
+	private TreeNode toBST(int[] arr, int start, int end) {
 		if (start > end)
 			return null;
 
 		int mid = (start + end) / 2;
-		Node root = new Node(arr[mid]);
+		TreeNode root = new TreeNode(arr[mid]);
 		root.setLeft(toBST(arr, start, mid - 1));
 		root.setRight(toBST(arr, mid + 1, end));
 		return root;
 	}
 
-	public void displayTree(Node root) {
+	public void displayTree(TreeNode root) {
 		if (root != null) {
 			displayTree(root.getLeft());
 			System.out.print(" " + root.getData());
@@ -62,7 +62,7 @@ public class SortedArrayToBSTOfMinimalHeight {
 	public static void main(String[] args) {
 		SortedArrayToBSTOfMinimalHeight arr = new SortedArrayToBSTOfMinimalHeight();
 		int[] intarr = { 2, 3, 6, 7, 8, 9, 12, 15, 16, 18, 20 };
-		Node root = arr.toBST(intarr);
+		TreeNode root = arr.toBST(intarr);
 		arr.displayTree(root);
 	}
 }

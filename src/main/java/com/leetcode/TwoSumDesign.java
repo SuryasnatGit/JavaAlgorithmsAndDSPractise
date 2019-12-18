@@ -83,7 +83,7 @@ public class TwoSumDesign {
 	}
 
 	/**
-	 * add � O(log n) runtime, find � O(n) runtime, O(n) space � Binary search + Two pointers:
+	 * add  O(log n) runtime, find  O(n) runtime, O(n) space  Binary search + Two pointers:
 	 * 
 	 * @author surya
 	 *
@@ -118,7 +118,7 @@ public class TwoSumDesign {
 	}
 
 	/**
-	 * add � O(1) runtime, find � O(n) runtime, O(n) space � Store input in hash table: A simpler approach is to store
+	 * add  O(1) runtime, find  O(n) runtime, O(n) space  Store input in hash table: A simpler approach is to store
 	 * each input into a hash table. To find if a pair sum exists, just iterate through the hash table in O(n) runtime.
 	 * Make sure you are able to handle duplicates correctly.
 	 * 

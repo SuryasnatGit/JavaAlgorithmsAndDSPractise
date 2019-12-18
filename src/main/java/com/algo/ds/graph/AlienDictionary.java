@@ -35,9 +35,9 @@ public class AlienDictionary {
 	 * language. For example, if the alphabet size is 5, then there can be 5 characters in words.
 	 * Initially there are no edges in graph.
 	 * 
-	 * 2) Do following for every pair of adjacent words in given sorted array. …..a) Let the current
+	 * 2) Do following for every pair of adjacent words in given sorted array. ..a) Let the current
 	 * pair of words be word1 and word2. One by one compare characters of both words and find the first
-	 * mismatching characters. …..b) Create an edge in g from mismatching character of word1 to that of
+	 * mismatching characters. ..b) Create an edge in g from mismatching character of word1 to that of
 	 * word2.
 	 * 
 	 * 3) Print topological sorting of the above created graph.

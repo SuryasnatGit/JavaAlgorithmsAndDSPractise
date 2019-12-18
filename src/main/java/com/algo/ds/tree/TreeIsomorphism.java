@@ -15,8 +15,8 @@ package com.algo.ds.tree;
  * We simultaneously traverse both trees. Let the current internal nodes of two trees being
  * traversed be n1 and n2 respectively. There are following two conditions for subtrees rooted with
  * n1 and n2 to be isomorphic. 1) Data of n1 and n2 is same. 2) One of the following two is true for
- * children of n1 and n2 ……a) Left child of n1 is isomorphic to left child of n2 and right child of
- * n1 is isomorphic to right child of n2. ……b) Left child of n1 is isomorphic to right child of n2
+ * children of n1 and n2 a) Left child of n1 is isomorphic to left child of n2 and right child of
+ * n1 is isomorphic to right child of n2. b) Left child of n1 is isomorphic to right child of n2
  * and right child of n1 is isomorphic to left child of n2.
  * 
  * Time Complexity: The above solution does a traversal of both trees. So time complexity is

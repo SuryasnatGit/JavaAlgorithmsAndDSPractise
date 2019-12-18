@@ -3,14 +3,14 @@ package com.ctci.treegraph;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.algo.ds.tree.TreeNode;
+import com.algo.common.TreeNode;
 
 /**
  * CTCI - 4.9
  * 
- * BST Sequences: A binary search tree was created by traversing through an array from left to right
- * and inserting each element. Given a binary search tree with distinct elements, print all possible
- * arrays that could have led to this tree.
+ * BST Sequences: A binary search tree was created by traversing through an array from left to right and inserting each
+ * element. Given a binary search tree with distinct elements, print all possible arrays that could have led to this
+ * tree.
  * 
  * @author surya
  *

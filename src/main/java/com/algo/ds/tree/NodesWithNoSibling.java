@@ -3,7 +3,7 @@ package com.algo.ds.tree;
 /**
  * http://www.geeksforgeeks.org/print-nodes-dont-sibling-binary-tree/
  * 
- * Given a Binary Tree, print all nodes that don’t have a sibling (a sibling is a node that has same
+ * Given a Binary Tree, print all nodes that dont have a sibling (a sibling is a node that has same
  * parent. In a Binary Tree, there can be at most one sibling). Root should not be printed as root
  * cannot have a sibling.
  * 

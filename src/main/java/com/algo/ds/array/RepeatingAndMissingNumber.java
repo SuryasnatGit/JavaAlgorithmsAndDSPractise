@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * http://www.geeksforgeeks.org/find-a-repeating-and-a-missing-number/
  * 
- * Given an unsorted array of size n. Array elements are in range from 1 to n. One number from set {1, 2, …n} is missing
+ * Given an unsorted array of size n. Array elements are in range from 1 to n. One number from set {1, 2, n} is missing
  * and one number occurs twice in array. Find these two numbers. Examples:
  * 
  * arr[] = {3, 1, 3} Output: 2, 3 // 2 is missing and 3 occurs twice
@@ -105,7 +105,7 @@ public class RepeatingAndMissingNumber {
 	 * 
 	 * xor1 = xor1^1^2^.....^n In the result xor1, all elements would nullify each other except x and y. All the bits
 	 * that are set in xor1 will be set in either x or y. So if we take any set bit (We have chosen the rightmost set
-	 * bit in code) of xor1 and divide the elements of the array in two sets – one set of elements with same bit set and
+	 * bit in code) of xor1 and divide the elements of the array in two sets  one set of elements with same bit set and
 	 * other set with same bit not set. By doing so, we will get x in one set and y in another set. Now if we do XOR of
 	 * all the elements in first set, we will get x, and by doing same in other set we will get y.
 	 * 
