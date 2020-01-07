@@ -3,6 +3,8 @@ package com.algo.ds.linkedlist;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.algo.common.ListNode;
+
 public class LeetCodeLinkedListProblems {
 
 	/**
@@ -247,6 +249,37 @@ public class LeetCodeLinkedListProblems {
 		slow.next = slow.next.next;
 
 		return head;
+	}
+
+	/**
+	 * https://www.techiedelight.com/move-even-nodes-to-end-of-list-in-reverse-order/
+	 * 
+	 * @param head
+	 */
+	public void moveEvenNodesToEndOfListInReverseOrder(ListNode head) {
+		if (head == null)
+			return;
+
+		ListNode odd = head;
+		ListNode even = null, prev = null;
+		while (odd != null && odd.next != null) {
+			if (odd.next != null) {
+				ListNode newnode = odd.next;
+				odd.next = odd.next.next;
+
+				newnode.next = even;
+				even = newnode;
+			}
+
+			prev = odd;
+			odd = odd.next;
+		}
+
+		if (odd != null) {
+			odd.next = even;
+		} else {
+			prev.next = even;
+		}
 	}
 
 	public static void main(String[] args) {

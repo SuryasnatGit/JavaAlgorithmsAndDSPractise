@@ -1,64 +1,72 @@
 package com.algo.ds.linkedlist;
 
+import com.algo.common.ListNode;
+
 /**
- * http://www.geeksforgeeks.org/given-a-linked-list-which-is-sorted-how-will-you-insert-in-sorted-way/
- * Test cases:
- * 0 nodes
- * 1 nodes 
- * 2 or more nodes
- * already sorted
- * reverse sorted
- * negative positive numbers 
+ * http://www.geeksforgeeks.org/given-a-linked-list-which-is-sorted-how-will-you-insert-in-sorted-way/ Test cases: 0
+ * nodes 1 nodes 2 or more nodes already sorted reverse sorted negative positive numbers
  * 
  * time complexity - O(n)
  */
 public class InsertionSortLinkList {
 
-    private Node insert(Node head,Node curr){
-        if(head == null){
-            return curr;
-        }
-        Node prev = null;
-        Node start = head;
-        while(start != null && curr.data >= start.data){
-            prev = start;
-            start = start.next;
-        }
-        if(prev == null){
-            curr.next = head;
-            head = curr;
-        }else{
-            prev.next = curr;
-            curr.next = start;
-        }
-        return head;
-    }
-    
-    public Node sort(Node head){
-        Node result = null;
-        Node curr = head;
-        Node prevCurr = null;
-        while(curr != null){
-            prevCurr = curr;
-            curr = curr.next;
-            prevCurr.next = null;
-            result = insert(result,prevCurr);
-        }
-        return result;
-    }
-    
-    public static void main(String args[]){
-        LinkList ll = new LinkList();
-        Node head = null;
-        head = ll.addNode(11, head);
-        head = ll.addNode(12, head);
-        head = ll.addNode(-3, head);
-        head = ll.addNode(45, head);
-        head = ll.addNode(5, head);
-        head = ll.addNode(101, head);
-    
-        InsertionSortLinkList isll = new InsertionSortLinkList();
-        head = isll.sort(head);
-        ll.printList(head);
-    }
+	public ListNode sort(ListNode head, ListNode newnode) {
+		// specual case for head node
+		if (head == null || head.data >= newnode.data) {
+			newnode.next = head;
+			head = newnode;
+			return newnode;
+		}
+
+		ListNode curr = head;
+		while (curr.next != null && curr.next.data < newnode.data) {
+			curr = curr.next;
+		}
+
+		newnode.next = curr.next;
+		curr.next = newnode;
+
+		return head;
+	}
+
+	private void print(ListNode head) {
+		ListNode curr = head;
+		while (curr != null) {
+			System.out.print(curr.data + "->");
+			curr = curr.next;
+		}
+		System.out.print("null");
+		System.out.println();
+	}
+
+	private ListNode addNode(int data, ListNode head) {
+		ListNode temp = head;
+		ListNode node = new ListNode(data);
+		if (head == null)
+			return node;
+
+		while (head.next != null)
+			head = head.next;
+
+		head.next = node;
+
+		return temp;
+	}
+
+	public static void main(String args[]) {
+		InsertionSortLinkList isll = new InsertionSortLinkList();
+
+		ListNode head = null;
+
+		int[] data = { 5, 7, 9 };
+		for (int d : data) {
+			head = isll.addNode(d, head);
+		}
+
+		isll.print(head);
+
+		head = isll.sort(head, new ListNode(8));
+
+		isll.print(head);
+	}
 }

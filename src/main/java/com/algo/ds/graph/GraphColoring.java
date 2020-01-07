@@ -12,6 +12,8 @@ import java.util.TreeSet;
 
 /**
  * http://www.geeksforgeeks.org/graph-coloring-set-2-greedy-algorithm/
+ * 
+ * https://www.techiedelight.com/greedy-coloring-graph/
  */
 public class GraphColoring {
 
