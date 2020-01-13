@@ -29,7 +29,7 @@ public class MaximumNumberInKSwaps {
 		this.max = Integer.MIN_VALUE;
 	}
 
-	public void findMin(char ch[], int k) {
+	public void findMax(char ch[], int k) {
 		if (k == 0) {
 			return;
 		}
@@ -40,7 +40,7 @@ public class MaximumNumberInKSwaps {
 				if (max < temp) {
 					max = temp;
 				}
-				findMin(ch, k - 1);
+				findMax(ch, k - 1);
 				swap(ch, j, i);
 			}
 		}
@@ -56,7 +56,7 @@ public class MaximumNumberInKSwaps {
 		String str = "243";
 		int n = 2;
 		MaximumNumberInKSwaps ks = new MaximumNumberInKSwaps();
-		ks.findMin(str.toCharArray(), n);
+		ks.findMax(str.toCharArray(), n);
 		System.out.println(ks.max + "");
 	}
 }

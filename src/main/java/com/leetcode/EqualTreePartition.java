@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-import com.algo.ds.tree.TreeNode;
+import com.algo.common.TreeNode;
 
 /**
  * Given a binary tree with n nodes, your task is to check if it's possible to partition the tree to two trees which
@@ -46,7 +46,7 @@ public class EqualTreePartition {
 	 */
 	private Stack<Integer> stack = new Stack<>();
 
-	public boolean hasEqualPartition(TreeNode<Integer, Integer> root) {
+	public boolean hasEqualPartition(TreeNode root) {
 		int total = sum(root);
 		stack.pop(); // to remove the sum value at root node.
 		if (total % 2 == 0) {
@@ -58,12 +58,12 @@ public class EqualTreePartition {
 		return false;
 	}
 
-	private int sum(TreeNode<Integer, Integer> root) {
+	private int sum(TreeNode root) {
 		// exit criteria
 		if (root == null)
 			return 0;
 
-		stack.push(sum(root.left) + sum(root.right) + root.value);
+		stack.push(sum(root.left) + sum(root.right) + root.data);
 		return stack.peek();
 	}
 
@@ -74,7 +74,7 @@ public class EqualTreePartition {
 	 * @param root
 	 * @return
 	 */
-	public boolean checkEqualTree(TreeNode<Integer, Integer> root) {
+	public boolean checkEqualTree(TreeNode root) {
 		Map<Integer, Integer> map = new HashMap<>();
 		int sum = getSum(root, map);
 		if (sum == 0)
@@ -82,20 +82,20 @@ public class EqualTreePartition {
 		return sum % 2 == 0 && map.containsKey(sum / 2);
 	}
 
-	private int getSum(TreeNode<Integer, Integer> root, Map<Integer, Integer> map) {
+	private int getSum(TreeNode root, Map<Integer, Integer> map) {
 		if (root == null)
 			return 0; // base condition for recursion
-		int cur = root.value + getSum(root.left, map) + getSum(root.right, map);
+		int cur = root.data + getSum(root.left, map) + getSum(root.right, map);
 		map.put(cur, map.getOrDefault(cur, 0) + 1);
 		return cur;
 	}
 
 	public static void main(String[] args) {
-		TreeNode<Integer, Integer> a = new TreeNode<>(5, 5);
-		a.left = new TreeNode<>(10, 10);
-		a.right = new TreeNode<>(10, 10);
-		a.right.left = new TreeNode<>(2, 2);
-		a.right.right = new TreeNode<>(3, 3);
+		TreeNode a = new TreeNode(5);
+		a.left = new TreeNode(10);
+		a.right = new TreeNode(10);
+		a.right.left = new TreeNode(2);
+		a.right.right = new TreeNode(3);
 		EqualTreePartition par = new EqualTreePartition();
 		System.out.println(par.checkEqualTree(a));
 		System.out.println(par.hasEqualPartition(a));

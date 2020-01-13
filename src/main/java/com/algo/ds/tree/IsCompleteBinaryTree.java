@@ -6,34 +6,19 @@ import java.util.Queue;
 /**
  * http://www.geeksforgeeks.org/check-if-a-given-binary-tree-is-complete-tree-or-not/
  * 
- * A complete binary tree is a binary tree in which every level, except possibly the last, is
- * completely filled, and all nodes are as far left as possible. Test cases: A node with only right
- * child. A node with only left child. A node with both left and right child
+ * https://www.techiedelight.com/check-given-binary-tree-complete-binary-tree-not/
+ * 
+ * A complete binary tree is a binary tree in which every level, except possibly the last, is completely filled, and all
+ * nodes are as far left as possible. Test cases: A node with only right child. A node with only left child. A node with
+ * both left and right child
  */
 public class IsCompleteBinaryTree {
 
 	/**
-	 *  /* Let us construct the following Binary Tree which 
-          is not a complete Binary Tree 
-                1 
-              /   \ 
-             2     3 
-            / \     \ 
-           4   5     6 
-           
-           The approach is to do a level order traversal starting from root. In the traversal, once a node is found which is NOT a Full Node, 
-           all the following nodes must be leaf nodes. Also, one more thing needs to be checked to handle the below case: 
-           If a node has empty left child, then the right child must be empty.
-
-
-
 	 * Time Complexity: O(n) where n is the number of nodes in given Binary Tree
 	 * 
 	 * Auxiliary Space: O(n) for queue.
 	 * 
-	 * 
-	 * @param root
-	 * @return
 	 */
 	public boolean isComplete(Node root) {
 		Queue<Node> queue = new LinkedList<Node>();
@@ -60,6 +45,46 @@ public class IsCompleteBinaryTree {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Using array representation of complete tree.
+	 * 
+	 * @param root
+	 * @return
+	 */
+	public boolean isComplete1(Node root) {
+		if (root == null)
+			return true;
+
+		int size = size(root);
+		boolean[] arr = new boolean[size];
+
+		// perform inorder traversal and fill the boolean array starting with index 0
+		inorder(root, arr, 0);
+
+		for (boolean b : arr) {
+			if (!b)
+				return false;
+		}
+
+		return true;
+	}
+
+	private void inorder(Node root, boolean[] arr, int index) {
+		if (root == null || index >= arr.length)
+			return;
+
+		inorder(root.left, arr, 2 * index + 1);
+		arr[index] = true;
+		inorder(root.left, arr, 2 * index + 2);
+	}
+
+	private int size(Node root) {
+		if (root == null)
+			return 0;
+
+		return 1 + size(root.left) + size(root.right);
 	}
 
 	public static void main(String args[]) {
