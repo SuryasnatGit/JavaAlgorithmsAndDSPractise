@@ -15,28 +15,36 @@ import java.util.Arrays;
  */
 public class MultiplyAllFieldsExceptOwnPosition {
 
+	// T - O(n) S - O(n)
 	public int[] multiply(int nums[]) {
-		if (nums.length == 0) {
+		int l = nums.length;
+		if (l == 0) {
 			return new int[0];
 		}
-		int[] output = new int[nums.length];
-		int product = nums[0];
-		for (int i = 1; i < nums.length; i++) {
-			output[i] = product;
-			product *= nums[i];
+
+		int[] left = new int[l];
+		int[] right = new int[l];
+		left[0] = 1;
+		// go from left to right
+		for (int i = 1; i < l; i++) {
+			left[i] = left[i - 1] * nums[i - 1];
 		}
 
-		output[0] = 1;
-		product = nums[nums.length - 1];
-		for (int i = nums.length - 2; i >= 0; i--) {
-			output[i] *= product;
-			product *= nums[i];
+		right[l - 1] = 1;
+		// go from right to left
+		for (int i = l - 2; i >= 0; i--) {
+			right[i] = right[i + 1] * nums[i + 1];
 		}
-		return output;
+
+		for (int i = 0; i < l; i++)
+			nums[i] = left[i] * right[i];
+
+		return nums;
 	}
 
 	public static void main(String[] args) {
 		MultiplyAllFieldsExceptOwnPosition m = new MultiplyAllFieldsExceptOwnPosition();
 		System.out.println(Arrays.toString(m.multiply(new int[] { 2, 3, 1, 4 })));
+		System.out.println(Arrays.toString(m.multiply(new int[] { 1, 2, 3, 4, 5 })));
 	}
 }

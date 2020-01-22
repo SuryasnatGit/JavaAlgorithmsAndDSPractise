@@ -70,34 +70,63 @@ public class MaxSubarrayHavingLargestSum {
 		return maxSoFar;
 	}
 
-	// T - O(n^2)
-	public void maxLengthSubArrayHavingGivenSum(int[] arr, int s) {
+	/**
+	 * Using kadane's algorithm.
+	 * 
+	 * Simple idea of the Kadane’s algorithm is to look for all positive contiguous segments of the array
+	 * (max_ending_here is used for this). And keep track of maximum sum contiguous segment among all positive segments
+	 * (max_so_far is used for this). Each time we get a positive sum compare it with max_so_far and update max_so_far
+	 * if it is greater than max_so_far
+	 * 
+	 * 
+	 * 
+	 * @param arr
+	 */
+	public void printContiguousSubArrayHavingLargestSum(int[] A) {
+		// stores maximum sum sub-array found so far
+		int maxSoFar = 0;
 
-		int max = 0;
-		int start = 0;
-		int end = 0;
-		for (int i = 0; i < arr.length; i++) {
-			int sum = 0;
-			for (int j = i; j < arr.length; j++) {
-				sum += arr[j];
+		// stores maximum sum of sub-array ending at current position
+		int maxEndingHere = 0;
 
-				if (sum == s) {
-					if (max < j - i + 1) {
-						max = j - i + 1;
-						start = i;
-						end = j;
-					}
-				}
+		// stores end-points of maximum sum sub-array found so far
+		int start = 0, end = 0;
+
+		// stores starting index of a positive sum sequence
+		int beg = 0;
+
+		// traverse the given array
+		for (int i = 0; i < A.length; i++) {
+			// update maximum sum of sub-array "ending" at index i
+			maxEndingHere = maxEndingHere + A[i];
+
+			// if maximum sum is negative, set it to 0
+			if (maxEndingHere < 0) {
+				maxEndingHere = 0; // empty sub-array
+				beg = i + 1;
+			}
+
+			// update result if current sub-array sum is found to be greater
+			if (maxSoFar < maxEndingHere) {
+				maxSoFar = maxEndingHere;
+				start = beg;
+				end = i;
 			}
 		}
-		System.out.println("From " + start + " to " + end);
+
+		System.out.println("The sum of contiguous sub-array with the " + "largest sum is " + maxSoFar);
+
+		System.out.print("The contiguous sub-array with the largest sum is ");
+		for (int i = start; i <= end; i++) {
+			System.out.print(A[i] + " ");
+		}
 	}
 
 	public static void main(String[] args) {
 		MaxSubarrayHavingLargestSum max = new MaxSubarrayHavingLargestSum();
 		System.out.println(max.maxSumSubArray1(new int[] { 2, 1, -3, 4, -1, 2, 1, -5, 4 }));
 		System.out.println(max.maxSumSubArray2(new int[] { 2, 1, -3, 4, -1, 2, 1, -5, 4 }));
-		max.maxLengthSubArrayHavingGivenSum(new int[] { 5, 6, -5, 5, 3, 5, 3, -2, 0 }, 8);
+		max.printContiguousSubArrayHavingLargestSum(new int[] { 2, 1, -3, 4, -1, 2, 1, -5, 4 });
 	}
 
 }
