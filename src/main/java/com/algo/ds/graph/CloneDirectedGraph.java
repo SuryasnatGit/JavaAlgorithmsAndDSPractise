@@ -47,11 +47,9 @@ public class CloneDirectedGraph<T> {
 		}
 		for (Edge<T> edge : origVertex.getEdges()) {
 			if (edge.getVertex1().equals(origVertex)) {
-				Vertex<T> adjVertex = edge.getVertex2();
-				updateMap(cloneMap, cloneVertex, adjVertex, edge);
+				updateMap(cloneMap, cloneVertex, edge.getVertex2(), edge);
 			} else {
-				Vertex<T> adjVertex = edge.getVertex1();
-				updateMap(cloneMap, cloneVertex, adjVertex, edge);
+				updateMap(cloneMap, cloneVertex, edge.getVertex1(), edge);
 			}
 		}
 	}

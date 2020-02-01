@@ -13,7 +13,46 @@ import java.util.Set;
  */
 public class PalindromeSubstrings {
 
-	public void substrings(String s) {
+	public int countPalindromicSubstrings(String s) {
+		int N = s.length();
+		boolean[][] hash = new boolean[N][N]; // Good, you got the idea to use a 2D boolean array
+
+		for (int i = 0; i < N; i++) {
+			hash[i][i] = true;
+		}
+
+		for (int i = 0; i < N - 1; i++) { // 把length为2的也算出来
+			if (s.charAt(i) == s.charAt(i + 1)) {
+				hash[i][i + 1] = true;
+			}
+		}
+
+		for (int len = 3; len <= N; len++) { // 用length!
+			for (int i = 0; i + len <= N; i++) {
+				char left = s.charAt(i);
+				char right = s.charAt(i + len - 1);
+
+				if (left == right) {
+					hash[i][i + len - 1] = hash[i + 1][i + len - 2]; // Go inside
+				} else {
+					hash[i][i + len - 1] = false;
+				}
+			}
+		}
+
+		int count = 0;
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if (i != j && hash[i][j]) {
+					count++;
+				}
+			}
+		}
+
+		return count;
+	}
+
+	public void printPalindromicSubstrings(String s) {
 		Set<String> set = new HashSet<String>();
 
 		for (int i = 0; i < s.length(); i++) {
@@ -39,7 +78,8 @@ public class PalindromeSubstrings {
 
 	public static void main(String[] args) {
 		PalindromeSubstrings ps = new PalindromeSubstrings();
-		ps.substrings("apple");
+		// ps.printPalindromicSubstrings("apple");
+		System.out.println(ps.countPalindromicSubstrings("abbaeae"));
 	}
 
 }

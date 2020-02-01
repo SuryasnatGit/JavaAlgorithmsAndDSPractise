@@ -6,11 +6,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
- * Remove the minimum number of invalid parentheses in order to make the input string valid. Return
- * all possible results. Note: The input string may contain letters other than the parentheses ( and
- * ).
+ * Remove the minimum number of invalid parentheses in order to make the input string valid. Return all possible
+ * results. Note: The input string may contain letters other than the parentheses ( and ).
  * 
  * Examples: "()())()" -> ["()()()", "(())()"]
  * 
@@ -20,24 +20,47 @@ import java.util.Queue;
  * 
  * Time complexity:
  * 
- * In BFS we handle the states level by level, in the worst case, we need to handle all the levels,
- * we can analyze the time complexity level by level and add them up to get the final complexity.
+ * In BFS we handle the states level by level, in the worst case, we need to handle all the levels, we can analyze the
+ * time complexity level by level and add them up to get the final complexity.
  * 
- * On the first level, there's only one string which is the input string s, let's say the length of
- * it is n, to check whether it's valid, we need O(n) time. On the second level, we remove one ( or
- * ) from the first level, so there are C(n, n-1) new strings, each of them has n-1 characters, and
- * for each string, we need to check whether it's valid or not, thus the total time complexity on
- * this level is (n-1) x C(n, n-1). Come to the third level, total time complexity is (n-2) x C(n,
- * n-2), so on and so forth...
+ * On the first level, there's only one string which is the input string s, let's say the length of it is n, to check
+ * whether it's valid, we need O(n) time. On the second level, we remove one ( or ) from the first level, so there are
+ * C(n, n-1) new strings, each of them has n-1 characters, and for each string, we need to check whether it's valid or
+ * not, thus the total time complexity on this level is (n-1) x C(n, n-1). Come to the third level, total time
+ * complexity is (n-2) x C(n, n-2), so on and so forth...
  * 
- * Finally we have this formula: T(n) = n x C(n, n) + (n-1) x C(n, n-1) + ... + 1 x C(n, 1) = n x
- * 2^(n-1).
+ * Finally we have this formula: T(n) = n x C(n, n) + (n-1) x C(n, n-1) + ... + 1 x C(n, 1) = n x 2^(n-1).
  * 
- * 
- * @author M_402201
+ * Category : Hard
  *
  */
 public class RemoveInvalidParenthesis {
+
+	public String removeInvalid(String s) {
+		Stack<Integer> stack = new Stack<>();
+		StringBuilder sb = new StringBuilder(s);
+
+		for (int i = 0; i < s.length(); i++) {
+			char cur = s.charAt(i);
+
+			if (cur == ')') {
+				if (stack.isEmpty()) {
+					sb.setCharAt(i, '*');
+				} else {
+					stack.pop();
+				}
+			} else if (cur == '(') {
+				stack.push(i);
+			}
+		}
+
+		while (!stack.isEmpty()) {
+			int cur = stack.pop();
+			sb.replace(cur, cur + 1, "*");
+		}
+
+		return sb.toString().replaceAll("\\*", "");
+	}
 
 	/**
 	 * Solution 1 - Using DFS.
@@ -46,22 +69,22 @@ public class RemoveInvalidParenthesis {
 	 * 
 	 * 2. Do not need preprocess.
 	 * 
-	 * We all know how to check a string of parentheses is valid using a stack. Or even simpler use a
-	 * counter. The counter will increase when it is ‘(‘ and decrease when it is ‘)’. Whenever the
-	 * counter is negative, we have more ‘)’ than ‘(‘ in the prefix.
+	 * We all know how to check a string of parentheses is valid using a stack. Or even simpler use a counter. The
+	 * counter will increase when it is ‘(‘ and decrease when it is ‘)’. Whenever the counter is negative, we have more
+	 * ‘)’ than ‘(‘ in the prefix.
 	 * 
-	 * To make the prefix valid, we need to remove a ‘)’. The problem is: which one? The answer is any
-	 * ‘)’ in the prefix. However, if we remove any one, we will generate duplicate results, for
-	 * example: s = ()), we can remove s[1] or s[2] but the result is the same (). Thus, we restrict
-	 * ourself to remove the first ) in a series of consecutive )s. After the removal, the prefix is
-	 * then valid. We then call the function recursively to solve the rest of the string.
+	 * To make the prefix valid, we need to remove a ‘)’. The problem is: which one? The answer is any ‘)’ in the
+	 * prefix. However, if we remove any one, we will generate duplicate results, for example: s = ()), we can remove
+	 * s[1] or s[2] but the result is the same (). Thus, we restrict ourself to remove the first ) in a series of
+	 * consecutive )s. After the removal, the prefix is then valid. We then call the function recursively to solve the
+	 * rest of the string.
 	 * 
-	 * However, we need to keep another information: the last removal position. If we do not have this
-	 * position, we will generate duplicate by removing two ) in two steps only with a different order.
-	 * For this, we keep tracking the last removal position and only remove ) after that.
+	 * However, we need to keep another information: the last removal position. If we do not have this position, we will
+	 * generate duplicate by removing two ) in two steps only with a different order. For this, we keep tracking the
+	 * last removal position and only remove ) after that.
 	 * 
-	 * Now one may ask. What about (? What if s = (()(() in which we need remove (? The answer is: do
-	 * the same from right to left. However, a cleverer idea is: reverse the string and reuse the code!
+	 * Now one may ask. What about (? What if s = (()(() in which we need remove (? The answer is: do the same from
+	 * right to left. However, a cleverer idea is: reverse the string and reuse the code!
 	 * 
 	 * @param s
 	 * @return
@@ -118,21 +141,19 @@ public class RemoveInvalidParenthesis {
 	 * 
 	 * DFS solution with optimizations:
 	 * 
-	 * 1. Before starting DFS, calculate the total numbers of opening and closing parentheses that need
-	 * to be removed in the final solution, then these two numbers could be used to speed up the DFS
-	 * process.
+	 * 1. Before starting DFS, calculate the total numbers of opening and closing parentheses that need to be removed in
+	 * the final solution, then these two numbers could be used to speed up the DFS process.
 	 * 
 	 * 2. Use while loop to avoid duplicate result in DFS, instead of using HashSet.
 	 * 
 	 * 3. Use count variable to validate the parentheses dynamically.
 	 * 
-	 * openN and closeN means the total numbers of opening and closing parentheses that need to be
-	 * removed in the final solution (removed the minimum number of invalid parentheses). dfs(s, p + i,
-	 * count + i, openN, closeN, result, sb) means not to remove the current parenthesis. dfs(s, p + 1,
-	 * count, openN - 1, closeN, result, sb) means to remove the current parenthesis. We won't need to
-	 * do the dfs if openN has been decreased to zero - if the openN is zero, that means there are
-	 * already enough open parentheses has been removed, and continually removing open parenthesis won't
-	 * be a possible solution.
+	 * openN and closeN means the total numbers of opening and closing parentheses that need to be removed in the final
+	 * solution (removed the minimum number of invalid parentheses). dfs(s, p + i, count + i, openN, closeN, result, sb)
+	 * means not to remove the current parenthesis. dfs(s, p + 1, count, openN - 1, closeN, result, sb) means to remove
+	 * the current parenthesis. We won't need to do the dfs if openN has been decreased to zero - if the openN is zero,
+	 * that means there are already enough open parentheses has been removed, and continually removing open parenthesis
+	 * won't be a possible solution.
 	 * 
 	 * @param s
 	 * @return
@@ -211,35 +232,31 @@ public class RemoveInvalidParenthesis {
 	/**
 	 * Solution 3 - Using BFS.
 	 * 
-	 * The naive BFS solution is quite simple to implement. To speed up we can use a Set to record all
-	 * the strings generated and avoid revisit. But a better and faster solution is to avoid generate
-	 * duplicate strings all together.
+	 * The naive BFS solution is quite simple to implement. To speed up we can use a Set to record all the strings
+	 * generated and avoid revisit. But a better and faster solution is to avoid generate duplicate strings all
+	 * together.
 	 * 
-	 * The first observation is when we want to remove a ')' or '(' from several consecutive ones we
-	 * only remove the first one, because remove any one the result will be the same.
+	 * The first observation is when we want to remove a ')' or '(' from several consecutive ones we only remove the
+	 * first one, because remove any one the result will be the same.
 	 * 
 	 * For example "())" ---> "()" only remove the first one of '))'
 	 * 
-	 * The second observation is when we remove a character it must behind it's parent removal position.
-	 * For example
+	 * The second observation is when we remove a character it must behind it's parent removal position. For example
 	 * 
-	 * we need remove 2 from "(())((" we want to remove positions combination i,j with no duplicate so
-	 * we let i < j then it will not generate duplicate combinations in practice, we record the position
-	 * i and put it in to queue which is then polled out and used as the starting point of the next
-	 * removal
+	 * we need remove 2 from "(())((" we want to remove positions combination i,j with no duplicate so we let i < j then
+	 * it will not generate duplicate combinations in practice, we record the position i and put it in to queue which is
+	 * then polled out and used as the starting point of the next removal
 	 * 
-	 * A third observation is if the previous step we removed a "(", we should never remove a ")" in the
-	 * following steps. This is obvious since otherwise we could just save these two removals and still
-	 * be valid with less removals. With this observation all the possible removals will be something
-	 * like this ")))))))))((((((((("
+	 * A third observation is if the previous step we removed a "(", we should never remove a ")" in the following
+	 * steps. This is obvious since otherwise we could just save these two removals and still be valid with less
+	 * removals. With this observation all the possible removals will be something like this ")))))))))((((((((("
 	 * 
-	 * All the removed characters forming a string with consecutive left bracket followed by consecutive
-	 * right bracket.
+	 * All the removed characters forming a string with consecutive left bracket followed by consecutive right bracket.
 	 * 
-	 * By applying these restrictions, we can avoid generate duplicate strings and the need of a set
-	 * which saves a lot of space. Ultimately we can further improve the algorithm to eliminate isValid
-	 * calls. To do this we need to remove and only remove those characters that would lead us to valid
-	 * strings. This needs some preprocess and can reduce the time to around 3ms.
+	 * By applying these restrictions, we can avoid generate duplicate strings and the need of a set which saves a lot
+	 * of space. Ultimately we can further improve the algorithm to eliminate isValid calls. To do this we need to
+	 * remove and only remove those characters that would lead us to valid strings. This needs some preprocess and can
+	 * reduce the time to around 3ms.
 	 * 
 	 * 
 	 * @param s
@@ -305,8 +322,10 @@ public class RemoveInvalidParenthesis {
 
 	public static void main(String[] args) {
 		RemoveInvalidParenthesis r = new RemoveInvalidParenthesis();
-		System.out.println(r.removeInvalidParentheses("()())()"));
-		System.out.println(r.removeInvalidParentheses("(a)())()"));
-		System.out.println(r.removeInvalidParentheses(")("));
+		// System.out.println(r.removeInvalidParentheses("()())()"));
+		// System.out.println(r.removeInvalidParentheses("(a)())()"));
+		// System.out.println(r.removeInvalidParentheses(")("));
+
+		System.out.println(r.removeInvalid("()())()"));
 	}
 }

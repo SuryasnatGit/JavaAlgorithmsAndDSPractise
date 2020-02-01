@@ -7,12 +7,28 @@ class Count {
 /**
  * http://www.geeksforgeeks.org/check-if-a-given-binary-tree-is-sumtree/
  * 
- * A SumTree is a Binary Tree where the value of a node is equal to sum of the nodes present in its
- * left subtree and right subtree. An empty tree is SumTree if sum of an empty tree can be
- * considered as 0. A leaf node is also considered as SumTree.
+ * A SumTree is a Binary Tree where the value of a node is equal to sum of the nodes present in its left subtree and
+ * right subtree. An empty tree is SumTree if sum of an empty tree can be considered as 0. A leaf node is also
+ * considered as SumTree.
  * 
  */
-public class SumTree {
+public class SumTreeProblems {
+
+	// https://www.techiedelight.com/inplace-convert-a-tree-sum-tree/
+	public int convertToSumTree(Node root) {
+		if (root == null)
+			return 0;
+
+		int left = convertToSumTree(root.left);
+		int right = convertToSumTree(root.right);
+
+		int old = root.data;
+
+		// update root to sum of left and right sub tree
+		root.data = left + right;
+
+		return root.data + old;
+	}
 
 	/**
 	 * Solution 1 - Simple. Time Complexity: O(n^2) in worst case. Worst case occurs for a skewed tree.
@@ -91,7 +107,7 @@ public class SumTree {
 		int inorder[] = { 4, 10, 6, 46, 11, 13, 2 };
 		int preorder[] = { 46, 10, 4, 6, 13, 11, 2 };
 		Node root = ctf.createTree(inorder, preorder);
-		SumTree st = new SumTree();
+		SumTreeProblems st = new SumTreeProblems();
 		System.out.println(st.isSumTree(root));
 		System.out.println(st.isSumTree1(root));
 	}

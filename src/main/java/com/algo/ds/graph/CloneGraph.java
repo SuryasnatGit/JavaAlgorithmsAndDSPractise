@@ -16,40 +16,40 @@ import java.util.Set;
  */
 public class CloneGraph {
 
-	class UndirectedGraphNode {
+	class Node {
 		int label;
-		List<UndirectedGraphNode> neighbors;
+		List<Node> neighbors;
 
-		UndirectedGraphNode(int x) {
+		Node(int x) {
 			label = x;
-			neighbors = new ArrayList<UndirectedGraphNode>();
+			neighbors = new ArrayList<Node>();
 		}
 	};
 
-	public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+	public Node cloneGraph(Node node) {
 		if (node == null) {
 			return null;
 		}
-		UndirectedGraphNode clone = new UndirectedGraphNode(node.label);
+		Node clone = new Node(node.label);
 		Set<Integer> visited = new HashSet<>();
-		Map<Integer, UndirectedGraphNode> map = new HashMap<>();
+		Map<Integer, Node> map = new HashMap<>();
 		map.put(clone.label, clone);
 		dfs(node, clone, map, visited);
 		return clone;
 	}
 
-	private void dfs(UndirectedGraphNode current, UndirectedGraphNode clone, Map<Integer, UndirectedGraphNode> map,
+	private void dfs(Node current, Node clone, Map<Integer, Node> map,
 			Set<Integer> visited) {
 		if (visited.contains(current.label)) {
 			return;
 		}
 		visited.add(current.label);
-		for (UndirectedGraphNode adj : current.neighbors) {
+		for (Node adj : current.neighbors) {
 
 			if (adj.label != current.label) {
-				UndirectedGraphNode adjClone = map.get(adj.label);
+				Node adjClone = map.get(adj.label);
 				if (adjClone == null) {
-					adjClone = new UndirectedGraphNode(adj.label);
+					adjClone = new Node(adj.label);
 					map.put(adjClone.label, adjClone);
 				}
 				clone.neighbors.add(adjClone);
@@ -60,26 +60,26 @@ public class CloneGraph {
 		}
 	}
 
-	public UndirectedGraphNode cloneGraphBfs(UndirectedGraphNode node) {
+	public Node cloneGraphBfs(Node node) {
 		// base case
 		if (node == null)
 			return null;
 
 		// have a queue for bfs
-		Queue<UndirectedGraphNode> queue = new LinkedList<>();
+		Queue<Node> queue = new LinkedList<>();
 		// have a map to contain cloned nodes
-		Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
+		Map<Node, Node> map = new HashMap<>();
 
 		queue.add(node);
-		map.put(node, new UndirectedGraphNode(node.label));
+		map.put(node, new Node(node.label));
 
 		while (!queue.isEmpty()) {
-			UndirectedGraphNode polledNode = queue.poll();
+			Node polledNode = queue.poll();
 			// handle the neighbours
-			for (UndirectedGraphNode neighbour : polledNode.neighbors) {
+			for (Node neighbour : polledNode.neighbors) {
 				if (!map.containsKey(neighbour)) {
 					// clone neighbour
-					map.put(neighbour, new UndirectedGraphNode(neighbour.label));
+					map.put(neighbour, new Node(neighbour.label));
 					queue.add(neighbour);
 				}
 				map.get(polledNode).neighbors.add(map.get(neighbour));
