@@ -9,11 +9,10 @@ import java.util.Set;
 /**
  * http://www.geeksforgeeks.org/rearrange-a-string-so-that-all-same-characters-become-at-least-d-distance-away/
  * 
- * Given a string and a positive integer d. Some characters may be repeated in the given string.
- * Rearrange characters of the given string such that the same characters become d distance away
- * from each other. Note that there can be many possible rearrangements, the output should be one of
- * the possible rearrangements. If no such arrangement is possible, that should also be reported.
- * Expected time complexity is O(n) where n is length of input string.
+ * Given a string and a positive integer d. Some characters may be repeated in the given string. Rearrange characters of
+ * the given string such that the same characters become d distance away from each other. Note that there can be many
+ * possible rearrangements, the output should be one of the possible rearrangements. If no such arrangement is possible,
+ * that should also be reported. Expected time complexity is O(n) where n is length of input string.
  * 
  * Examples: Input: "abb", d = 2 Output: "bab"
  * 
@@ -173,6 +172,18 @@ public class RearrangeDuplicateCharsdDistanceAway {
 		boolean r = rdc.rearrangeAtleastkDistanceAway(input, 3);
 		if (r) {
 			for (char ch : input) {
+				System.out.print(ch + " ");
+			}
+		} else {
+			System.out.println("Not possible");
+		}
+
+		System.out.println();
+
+		char[] input1 = "ABBACCCCDD".toCharArray();
+		boolean res = rdc.rearrangeExactKDistanceAway(input1, 3);
+		if (res) {
+			for (char ch : input1) {
 				System.out.print(ch + " ");
 			}
 		} else {
