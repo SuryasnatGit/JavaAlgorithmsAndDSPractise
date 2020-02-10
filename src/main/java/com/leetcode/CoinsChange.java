@@ -90,10 +90,72 @@ public class CoinsChange {
 		return -1;
 	}
 
+	/**
+	 * Problem 2 :
+	 *
+	 * You are given coins of different denominations and a total amount of money. Write a function to compute the
+	 * number of combinations that make up that amount. You may assume that you have infinite number of each kind of
+	 * coin.
+	 * 
+	 * Example 1:
+	 * 
+	 * Input: amount = 5, coins = [1, 2, 5] Output: 4
+	 * 
+	 * Explanation: there are four ways to make up the amount:
+	 * 
+	 * 5=5
+	 * 
+	 * 5=2+2+1
+	 * 
+	 * 5=2+1+1+1
+	 * 
+	 * 5=1+1+1+1+1
+	 * 
+	 * Example 2:
+	 * 
+	 * Input: amount = 3, coins = [2] Output: 0
+	 * 
+	 * Explanation: the amount of 3 cannot be made up just with coins of 2.
+	 * 
+	 * Example 3:
+	 * 
+	 * Input: amount = 10, coins = [10]
+	 * 
+	 * Output: 1
+	 * 
+	 * Time complexity of this method is (arr.length * target)
+	 */
+	public int numberOfCombinations(int[] arr, int target) {
+		// Use first i item to form target j, how many solutions?
+		int[][] hash = new int[arr.length + 1][target + 1]; // 不能重复使用，必须二维数组
+
+		for (int i = 0; i < hash.length; i++) {
+			hash[i][0] = 1; // From first i items to form target 0, it has 1 solution. Just pick up nothing.
+		}
+
+		for (int i = 1; i < hash[0].length; i++) {
+			hash[0][i] = 0; // From first 0 items to form target i(>=1), it has 0 solution. Impossible.
+		}
+
+		for (int i = 1; i <= arr.length; i++) {
+			for (int t = 1; t <= target; t++) {
+				hash[i][t] = hash[i - 1][t]; // Default value is using first (i - 1) coins
+				if (t - arr[i - 1] >= 0) {
+					// Coins could be used repeatedly, so it is hash[i][t - arr[i - 1]]
+					hash[i][t] += hash[i][t - arr[i - 1]]; //
+				}
+			}
+		}
+
+		return hash[arr.length][target]; // Final result
+	}
+
 	public static void main(String[] args) {
 		CoinsChange cc = new CoinsChange();
 		int[] coins = { 1, 2, 5 };
 		int amount = 11;
 		System.out.println(cc.coinChangeDP(coins, amount));
+		System.out.println(cc.coinChangeBFS(coins, amount));
+		System.out.println(cc.numberOfCombinations(coins, 5));
 	}
 }
