@@ -1,6 +1,7 @@
 package com.algo.ds.array;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -11,8 +12,9 @@ import java.util.List;
  */
 public class DistinctCombinationOfGivenLength {
 
-	public void findDistinctCombination(int[] arr, int k) {
+	public void findDistinctCombinationWhereRepetetionNotAllowed(int[] arr, int k) {
 		combinationRecursive(arr, "", 0, arr.length, k);
+		System.out.println();
 	}
 
 	private void combinationRecursive(int[] arr, String out, int i, int length, int k) {
@@ -35,6 +37,11 @@ public class DistinctCombinationOfGivenLength {
 				j++;
 			}
 		}
+	}
+
+	public void findDistinctCombinationWhereRepetetionAllowed(int[] arr, int k) {
+		recur(arr, new ArrayList<>(), k, 0, arr.length);
+		System.out.println();
 	}
 
 	// Function to print all distinct combinations of length k where
@@ -66,9 +73,23 @@ public class DistinctCombinationOfGivenLength {
 
 	public static void main(String[] args) {
 		DistinctCombinationOfGivenLength dis = new DistinctCombinationOfGivenLength();
-		int[] arr = { 1, 1, 3 };
-		int k = 2;
-		// dis.findDistinctCombination(arr, k);
-		dis.recur(arr, new ArrayList<>(), 2, 0, arr.length);
+
+		dis.findDistinctCombinationWhereRepetetionNotAllowed(new int[] { 1, 2, 3 }, 2);
+
+		// to print distinct element combination in case of repeat elements in input, sort the input array
+
+		int[] arr = { 1, 3, 1 };
+		Arrays.sort(arr);
+
+		dis.findDistinctCombinationWhereRepetetionNotAllowed(arr, 2);
+
+		System.out.println();
+
+		dis.findDistinctCombinationWhereRepetetionAllowed(new int[] { 1, 2, 3 }, 2);
+
+		int[] arr1 = { 1, 3, 1 };
+		Arrays.sort(arr1);
+
+		dis.findDistinctCombinationWhereRepetetionAllowed(arr1, 2);
 	}
 }

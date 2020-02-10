@@ -8,7 +8,7 @@ import java.util.List;
  * Given input array of 0s and 1s and number of flips allowed from 0 to 1, what is maximum consecutive 1s we can have in
  * array
  *
- * Time complexity - O(n) Space complexity - O(1)
+ * https://www.techiedelight.com/find-maximum-sequence-of-continuous-1s-can-formed-replacing-k-zeroes-ones/
  *
  * http://www.geeksforgeeks.org/find-zeroes-to-be-flipped-so-that-number-of-consecutive-1s-is-maximized/
  * 
@@ -16,10 +16,10 @@ import java.util.List;
  * 
  * arr={1 1 0 1 1 0 0 1 1 1 } m=2 output={1 1 0 1 1 1 1 1 1 1} position=5,6
  * 
- * @author Tushar Roy
  */
 public class Flip0sMaximum1s {
 
+	// Sliding window technique : Time complexity - O(n) Space complexity - O(1)
 	public int flip0sToMaximizeConsecutive1s(int input[], int flipsAllowed) {
 
 		int windowStart = 0; // start position of sliding window
