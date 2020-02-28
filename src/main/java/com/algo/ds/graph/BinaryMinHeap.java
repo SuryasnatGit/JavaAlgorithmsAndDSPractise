@@ -1,203 +1,227 @@
 package com.algo.ds.graph;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 /**
- * Date 04/06/2013
+ * https://www.techiedelight.com/min-heap-max-heap-implementation-in-java/#min-heap
  * 
- * Data structure to support following operations :
- * 
- * extracMin - O(logn) 
- * addToHeap - O(logn) 
- * containsKey - O(1) 
- * decreaseKey - O(logn) 
- * getKeyWeight - O(1)
- *
- * It is a combination of binary heap and hash map
- * 
- * @author Tushar Roy
- *
+ * Time of add/poll is O(log n) toArray/contains is O(n) and peek/size/isEmpty is O(1)
  */
 public class BinaryMinHeap<T> {
 
-	private List<Node> allNodes = new ArrayList<>();
-	private Map<T, Integer> nodePosition = new HashMap<>();
+	// List to store heap elements
+	private List<Integer> A;
 
-	public class Node {
-		int weight;
-		T key;
+	// constructor: use default initial capacity of List
+	public BinaryMinHeap() {
+		A = new ArrayList<>();
 	}
 
-	/**
-	 * Checks where the key exists in heap or not
-	 */
-	public boolean containsData(T key) {
-		return nodePosition.containsKey(key);
+	// constructor: set custom initial capacity for List
+	public BinaryMinHeap(int capacity) {
+		A = new ArrayList<>(capacity);
 	}
 
-	/**
-	 * Add key and its weight to they heap. complexity - O(log N)
-	 */
-	public void add(int weight, T key) {
-		Node node = new Node();
-		node.weight = weight;
-		node.key = key;
-		allNodes.add(node);
-		int size = allNodes.size();
-		int current = size - 1;
-		int parentIndex = (current - 1) / 2;
-		nodePosition.put(node.key, current);
+	// return parent of A.get(i)
+	private int parent(int i) {
+		// if i is already a root node
+		if (i == 0)
+			return 0;
 
-		while (parentIndex >= 0) {
-			Node parentNode = allNodes.get(parentIndex);
-			Node currentNode = allNodes.get(current);
-			if (parentNode.weight > currentNode.weight) {
-				swap(parentNode, currentNode);
-				updatePositionMap(parentNode.key, currentNode.key, parentIndex, current);
-				current = parentIndex;
-				parentIndex = (parentIndex - 1) / 2;
-			} else {
-				break;
-			}
+		return (i - 1) / 2;
+	}
+
+	// return left child of A.get(i)
+	private int left(int i) {
+		return (2 * i + 1);
+	}
+
+	// return right child of A.get(i)
+	private int right(int i) {
+		return (2 * i + 2);
+	}
+
+	// swap values at two indexes
+	void swap(int x, int y) {
+		// swap with child having greater value
+		Integer temp = A.get(x);
+		A.set(x, A.get(y));
+		A.set(y, temp);
+	}
+
+	// Recursive Heapify-down procedure. Here the node at index i
+	// and its two direct children violates the heap property
+	private void heapify_down(int i) {
+		// get left and right child of node at index i
+		int left = left(i);
+		int right = right(i);
+
+		int smallest = i;
+
+		// compare A.get(i) with its left and right child
+		// and find smallest value
+		if (left < size() && A.get(left) < A.get(i)) {
+			smallest = left;
+		}
+
+		if (right < size() && A.get(right) < A.get(smallest)) {
+			smallest = right;
+		}
+
+		if (smallest != i) {
+			// swap with child having lesser value
+			swap(i, smallest);
+
+			// call heapify-down on the child
+			heapify_down(smallest);
 		}
 	}
 
-	/**
-	 * Get the heap min without extracting the key
-	 */
-	public T min() {
-		return allNodes.get(0).key;
-	}
+	// Recursive Heapify-up procedure
+	private void heapify_up(int i) {
+		// check if node at index i and its parent violates
+		// the heap property
+		if (i > 0 && A.get(parent(i)) > A.get(i)) {
+			// swap the two if heap property is violated
+			swap(i, parent(i));
 
-	/**
-	 * Checks with heap is empty or not
-	 */
-	public boolean empty() {
-		return allNodes.size() == 0;
-	}
-
-	/**
-	 * Decreases the weight of given key to newWeight. complexity - O(log N)
-	 */
-	public void decrease(T data, int newWeight) {
-		Integer position = nodePosition.get(data);
-		allNodes.get(position).weight = newWeight;
-		int parent = (position - 1) / 2;
-		while (parent >= 0) {
-			if (allNodes.get(parent).weight > allNodes.get(position).weight) {
-				swap(allNodes.get(parent), allNodes.get(position));
-				updatePositionMap(allNodes.get(parent).key, allNodes.get(position).key, parent, position);
-				position = parent;
-				parent = (parent - 1) / 2;
-			} else {
-				break;
-			}
+			// call Heapify-up on the parent
+			heapify_up(parent(i));
 		}
 	}
 
-	/**
-	 * Get the weight of given key
-	 */
-	public Integer getWeight(T key) {
-		Integer position = nodePosition.get(key);
-		if (position == null) {
+	// return size of the heap
+	public int size() {
+		return A.size();
+	}
+
+	// check if heap is empty or not
+	public Boolean isEmpty() {
+		return A.isEmpty();
+	}
+
+	// insert specified key into the heap
+	public void add(Integer key) {
+		// insert the new element to the end of the List
+		A.add(key);
+
+		// get element index and call heapify-up procedure
+		int index = size() - 1;
+		heapify_up(index);
+	}
+
+	// function to remove and return element with highest priority
+	// (present at root). It returns null if queue is empty
+	public Integer poll() {
+		try {
+			// if heap is empty, throw an exception
+			if (size() == 0) {
+				throw new Exception("Index is out of range (Heap underflow)");
+			}
+
+			// element with highest priority
+			int root = A.get(0); // or A.get(0);
+
+			// replace the root of the heap with the last element of the List
+			A.set(0, A.get(A.size() - 1));
+			A.remove(size() - 1);
+
+			// call heapify-down on root node
+			heapify_down(0);
+
+			// return root element
+			return root;
+		}
+		// catch and print the exception
+		catch (Exception ex) {
+			System.out.println(ex);
 			return null;
-		} else {
-			return allNodes.get(position).weight;
 		}
 	}
 
-	/**
-	 * Returns the min node of the heap. complexity - O(log N)
-	 */
-	public Node extractMinNode() {
-		int size = allNodes.size() - 1;
-		Node minNode = new Node();
-		minNode.key = allNodes.get(0).key;
-		minNode.weight = allNodes.get(0).weight;
+	// function to return, but does not remove, element with highest priority
+	// (present at root). It returns null if queue is empty
+	public Integer peek() {
+		try {
+			// if heap has no elements, throw an exception
+			if (size() == 0) {
+				throw new Exception("Index out of range (Heap underflow)");
+			}
 
-		int lastNodeWeight = allNodes.get(size).weight;
-		allNodes.get(0).weight = lastNodeWeight;
-		allNodes.get(0).key = allNodes.get(size).key;
-		nodePosition.remove(minNode.key);
-		nodePosition.remove(allNodes.get(0));
-		nodePosition.put(allNodes.get(0).key, 0);
-		allNodes.remove(size);
-
-		int currentIndex = 0;
-		size--;
-		while (true) {
-			int left = 2 * currentIndex + 1;
-			int right = 2 * currentIndex + 2;
-			if (left > size) {
-				break;
-			}
-			if (right > size) {
-				right = left;
-			}
-			int smallerIndex = allNodes.get(left).weight <= allNodes.get(right).weight ? left : right;
-			if (allNodes.get(currentIndex).weight > allNodes.get(smallerIndex).weight) {
-				swap(allNodes.get(currentIndex), allNodes.get(smallerIndex));
-				updatePositionMap(allNodes.get(currentIndex).key, allNodes.get(smallerIndex).key, currentIndex,
-						smallerIndex);
-				currentIndex = smallerIndex;
-			} else {
-				break;
-			}
+			// else return the top (first) element
+			return A.get(0); // or A.get(0);
 		}
-		return minNode;
-	}
-
-	/**
-	 * Extract min value key from the heap
-	 */
-	public T extractMin() {
-		Node node = extractMinNode();
-		return node.key;
-	}
-
-	private void printPositionMap() {
-		System.out.println(nodePosition);
-	}
-
-	private void swap(Node node1, Node node2) {
-		int weight = node1.weight;
-		T data = node1.key;
-
-		node1.key = node2.key;
-		node1.weight = node2.weight;
-
-		node2.key = data;
-		node2.weight = weight;
-	}
-
-	private void updatePositionMap(T data1, T data2, int pos1, int pos2) {
-		nodePosition.remove(data1);
-		nodePosition.remove(data2);
-		nodePosition.put(data1, pos1);
-		nodePosition.put(data2, pos2);
-	}
-
-	public void printHeap() {
-		for (Node n : allNodes) {
-			System.out.println(n.weight + " " + n.key);
+		// catch the exception and print it, and return null
+		catch (Exception ex) {
+			System.out.println(ex);
+			return null;
 		}
+	}
+
+	// function to remove all elements from priority queue
+	public void clear() {
+		System.out.print("Emptying queue: ");
+		while (!A.isEmpty()) {
+			System.out.print(poll() + " ");
+		}
+		System.out.println();
+	}
+
+	// returns true if queue contains the specified element
+	public Boolean contains(Integer i) {
+		return A.contains(i);
+	}
+
+	// returns an array containing all elements in the queue
+	public Integer[] toArray() {
+		return A.toArray(new Integer[size()]);
 	}
 
 	public static void main(String args[]) {
-		BinaryMinHeap<String> heap = new BinaryMinHeap<String>();
-		heap.add(3, "Tushar");
-		heap.add(4, "Ani");
-		heap.add(8, "Vijay");
-		heap.add(10, "Pramila");
-		heap.add(5, "Roy");
-		heap.add(6, "NTF");
-		heap.add(2, "AFR");
-		heap.decrease("Pramila", 1);
-		heap.printHeap();
-		heap.printPositionMap();
+		// create a Priority Queue of initial capacity 10
+		// Priority of an element is decided by element's value
+		BinaryMinHeap<Integer> pq = new BinaryMinHeap<>(10);
+
+		// insert three integers
+		pq.add(3);
+		pq.add(2);
+		pq.add(15);
+
+		// print Priority Queue size
+		System.out.println("Priority Queue Size is " + pq.size());
+
+		// search 2 in Priority Queue
+		Integer searchKey = 2;
+
+		if (pq.contains(searchKey)) {
+			System.out.println("Priority Queue contains " + searchKey + "\n");
+		}
+
+		// empty queue
+		pq.clear();
+
+		if (pq.isEmpty()) {
+			System.out.println("Queue is Empty");
+		}
+
+		System.out.println("\nCalling remove operation on an empty heap");
+		System.out.println("Element with highest priority is " + pq.poll() + '\n');
+
+		System.out.println("Calling peek operation on an empty heap");
+		System.out.println("Element with highest priority is " + pq.peek() + '\n');
+
+		// again insert three integers
+		pq.add(5);
+		pq.add(4);
+		pq.add(45);
+
+		// construct array containing all elements present in the queue
+		Integer[] I = pq.toArray();
+		System.out.println("Printing array: " + Arrays.toString(I));
+
+		System.out.println("\nElement with highest priority is " + pq.poll());
+		System.out.println("Element with highest priority is " + pq.peek());
 	}
 }

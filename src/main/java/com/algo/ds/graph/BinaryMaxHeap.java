@@ -1,109 +1,224 @@
 package com.algo.ds.graph;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+// https://www.techiedelight.com/min-heap-max-heap-implementation-in-java/
 public class BinaryMaxHeap<T> {
 
-	private List<Node> allNodes = new ArrayList<Node>();
+	// List to store heap elements
+	private List<Integer> A;
 
-	class Node {
-		int weight;
-		T data;
+	// constructor: use default initial capacity of List
+	public BinaryMaxHeap() {
+		A = new ArrayList<>();
 	}
 
-	public void add(int weight, T data) {
+	// constructor: set custom initial capacity for List
+	public BinaryMaxHeap(int capacity) {
+		A = new ArrayList<>(capacity);
+	}
 
-		Node node = new Node();
-		node.weight = weight;
-		node.data = data;
-		allNodes.add(node);
-		int size = allNodes.size();
-		int current = size - 1;
-		int parentIndex = (current - 1) / 2;
+	// return parent of A.get(i)
+	private int parent(int i) {
+		// if i is already a root node
+		if (i == 0)
+			return 0;
 
-		while (parentIndex >= 0) {
-			Node parentNode = allNodes.get(parentIndex);
-			Node currentNode = allNodes.get(current);
-			if (parentNode.weight < currentNode.weight) {
-				swap(parentNode, currentNode);
-				current = parentIndex;
-				parentIndex = (parentIndex - 1) / 2;
-			} else {
-				break;
-			}
+		return (i - 1) / 2;
+	}
+
+	// return left child of A.get(i)
+	private int left(int i) {
+		return (2 * i + 1);
+	}
+
+	// return right child of A.get(i)
+	private int right(int i) {
+		return (2 * i + 2);
+	}
+
+	// swap values at two indexes
+	void swap(int x, int y) {
+		// swap with child having greater value
+		Integer temp = A.get(x);
+		A.set(x, A.get(y));
+		A.set(y, temp);
+	}
+
+	// Recursive Heapify-down procedure. Here the node at index i
+	// and its two direct children violates the heap property
+	private void heapify_down(int i) {
+		// get left and right child of node at index i
+		int left = left(i);
+		int right = right(i);
+
+		int largest = i;
+
+		// compare A.get(i) with its left and right child
+		// and find largest value
+		if (left < size() && A.get(left) > A.get(i)) {
+			largest = left;
 		}
 
-	}
-
-	private void swap(Node node1, Node node2) {
-		int weight = node1.weight;
-		T data = node1.data;
-
-		node1.data = node2.data;
-		node1.weight = node2.weight;
-
-		node2.data = data;
-		node2.weight = weight;
-	}
-
-	public T max() {
-		return allNodes.get(0).data;
-	}
-
-	public void replaceMax(T val) {
-		allNodes.get(0).data = val;
-		add(allNodes.get(0).weight, allNodes.get(0).data);
-	}
-
-	public boolean empty() {
-		return allNodes.size() == 0;
-	}
-
-	public T extractMap() {
-		int size = allNodes.size() - 1;
-		T max = allNodes.get(0).data;
-		int lastNodeWeight = allNodes.get(size).weight;
-		allNodes.get(0).weight = lastNodeWeight;
-		allNodes.get(0).data = allNodes.get(size).data;
-		allNodes.remove(size);
-
-		int currentIndex = 0;
-		size--;
-		while (true) {
-			int left = 2 * currentIndex + 1;
-			int right = 2 * currentIndex + 2;
-			if (left > size) {
-				break;
-			}
-			if (right > size) {
-				right = left;
-			}
-			int largerIndex = allNodes.get(left).weight >= allNodes.get(right).weight ? left : right;
-			if (allNodes.get(currentIndex).weight < allNodes.get(largerIndex).weight) {
-				swap(allNodes.get(currentIndex), allNodes.get(largerIndex));
-				currentIndex = largerIndex;
-			} else {
-				break;
-			}
+		if (right < size() && A.get(right) > A.get(largest)) {
+			largest = right;
 		}
-		return max;
+
+		if (largest != i) {
+			// swap with child having greater value
+			swap(i, largest);
+
+			// call heapify-down on the child
+			heapify_down(largest);
+		}
 	}
 
-	public void printHeap() {
-		for (Node n : allNodes) {
-			System.out.println(n.weight + " " + n.data);
+	// Recursive Heapify-up procedure
+	private void heapify_up(int i) {
+		// check if node at index i and its parent violates
+		// the heap property
+		if (i > 0 && A.get(parent(i)) < A.get(i)) {
+			// swap the two if heap property is violated
+			swap(i, parent(i));
+
+			// call Heapify-up on the parent
+			heapify_up(parent(i));
 		}
+	}
+
+	// return size of the heap
+	public int size() {
+		return A.size();
+	}
+
+	// check if heap is empty or not
+	public Boolean isEmpty() {
+		return A.isEmpty();
+	}
+
+	// insert specified key into the heap
+	public void add(Integer key) {
+		// insert the new element to the end of the List
+		A.add(key);
+
+		// get element index and call heapify-up procedure
+		int index = size() - 1;
+		heapify_up(index);
+	}
+
+	// function to remove and return element with highest priority
+	// (present at root). It returns null if queue is empty
+	public Integer poll() {
+		try {
+			// if heap is empty, throw an exception
+			if (size() == 0) {
+				throw new Exception("Index is out of range (Heap underflow)");
+			}
+
+			// element with highest priority
+			int root = A.get(0); // or A.get(0);
+
+			// replace the root of the heap with the last element of the List
+			A.set(0, A.get(A.size() - 1));
+			A.remove(size() - 1);
+
+			// call heapify-down on root node
+			heapify_down(0);
+
+			// return root element
+			return root;
+		}
+		// catch and print the exception
+		catch (Exception ex) {
+			System.out.println(ex);
+			return null;
+		}
+	}
+
+	// function to return, but does not remove, element with highest priority
+	// (present at root). It returns null if queue is empty
+	public Integer peek() {
+		try {
+			// if heap has no elements, throw an exception
+			if (size() == 0) {
+				throw new Exception("Index out of range (Heap underflow)");
+			}
+
+			// else return the top (first) element
+			return A.get(0); // or A.get(0);
+		}
+		// catch the exception and print it, and return null
+		catch (Exception ex) {
+			System.out.println(ex);
+			return null;
+		}
+	}
+
+	// function to remove all elements from priority queue
+	public void clear() {
+		System.out.print("Emptying queue: ");
+		while (!A.isEmpty()) {
+			System.out.print(poll() + " ");
+		}
+		System.out.println();
+	}
+
+	// returns true if queue contains the specified element
+	public Boolean contains(Integer i) {
+		return A.contains(i);
+	}
+
+	// returns an array containing all elements in the queue
+	public Integer[] toArray() {
+		return A.toArray(new Integer[size()]);
 	}
 
 	public static void main(String args[]) {
-		BinaryMaxHeap<String> heap = new BinaryMaxHeap<String>();
-		heap.add(3, "Tushar");
-		heap.add(4, "Ani");
-		heap.add(8, "Vijay");
-		heap.add(10, "Pramila");
-		heap.add(5, "Roy");
-		heap.add(6, "NTF");
-		heap.printHeap();
+		BinaryMaxHeap<String> pq = new BinaryMaxHeap<String>(10);
+
+		// create a Priority Queue of initial capacity 10
+		// Priority of an element is decided by element's value
+
+		// insert three integers
+		pq.add(3);
+		pq.add(2);
+		pq.add(15);
+
+		// print Priority Queue size
+		System.out.println("Priority Queue Size is " + pq.size());
+
+		// search 2 in Priority Queue
+		Integer searchKey = 2;
+
+		if (pq.contains(searchKey)) {
+			System.out.println("Priority Queue contains " + searchKey + "\n");
+		}
+
+		// empty queue
+		pq.clear();
+
+		if (pq.isEmpty()) {
+			System.out.println("Queue is Empty");
+		}
+
+		System.out.println("\nCalling remove operation on an empty heap");
+		System.out.println("Element with highest priority is " + pq.poll() + '\n');
+
+		System.out.println("Calling peek operation on an empty heap");
+		System.out.println("Element with highest priority is " + pq.peek() + '\n');
+
+		// again insert three integers
+		pq.add(5);
+		pq.add(4);
+		pq.add(45);
+
+		// construct array containing all elements present in the queue
+		Integer[] I = pq.toArray();
+		System.out.println("Printing array: " + Arrays.toString(I));
+
+		System.out.println("\nElement with highest priority after poll is " + pq.poll());
+		System.out.println("Element with highest priority after peek is " + pq.peek());
 	}
 }

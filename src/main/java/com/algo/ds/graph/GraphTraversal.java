@@ -1,12 +1,18 @@
 package com.algo.ds.graph;
 
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Queue;
-import java.util.Set;
+import java.util.Stack;
 
 /**
+ * 
+ * https://www.techiedelight.com/breadth-first-search/
+ * 
+ * https://www.techiedelight.com/depth-first-search/
+ * 
  * http://www.geeksforgeeks.org/breadth-first-traversal-for-a-graph/
  * 
  * Breadth First Traversal (or Search) for a graph is similar to Breadth First Traversal of a tree (See method 2 of this
@@ -25,117 +31,41 @@ import java.util.Set;
  * once, we use a boolean visited array.
  */
 public class GraphTraversal {
-
-	public void DFS(Graph<Integer> graph) {
-		Set<Integer> visited = new HashSet<>();
-		for (Vertex<Integer> vertex : graph.getAllVertex()) {
-			if (!visited.contains(vertex.getId())) {
-				DFSUtil(vertex, visited);
-			}
-		}
-
-	}
-
-	private void DFSUtil(Vertex<Integer> v, Set<Integer> visited) {
-		visited.add(v.getId());
-		System.out.print(v.getId() + " ");
-		for (Vertex<Integer> vertex : v.getAdjacentVertexes()) {
-			if (!visited.contains(vertex.getId()))
-				DFSUtil(vertex, visited);
-		}
-	}
-
-	// The function to do DFS traversal. It uses recursive DFSUtil()
-	public void DFS(int v) {
-		// Mark all the vertices as not visited(set as
-		// false by default in java)
-		boolean visited[] = new boolean[V];
-
-		// Call the recursive helper function to print DFS traversal
-		DFSUtil(v, visited);
-	}
-
-	// A function used by DFS
-	private void DFSUtil(int v, boolean visited[]) {
-		// Mark the current node as visited and print it
-		visited[v] = true;
-		System.out.print(v + " ");
-
-		// Recur for all the vertices adjacent to this vertex
-		Iterator<Integer> i = adj[v].listIterator();
-		while (i.hasNext()) {
-			int n = i.next();
-			if (!visited[n])
-				DFSUtil(n, visited);
-		}
-	}
-
-	public void BFS(Graph<Integer> graph) {
-		Set<Integer> visited = new HashSet<>();
-		Queue<Vertex<Integer>> q = new LinkedList<Vertex<Integer>>();
-
-		for (Vertex<Integer> vertex : graph.getAllVertex()) {
-			if (!visited.contains(vertex.getId())) {
-				q.add(vertex);
-				visited.add(vertex.getId());
-				while (q.size() != 0) {
-					Vertex<Integer> vq = q.poll();
-					System.out.print(vq.getId() + " ");
-					for (Vertex<Integer> v : vq.getAdjacentVertexes()) {
-						if (!visited.contains(v.getId())) {
-							q.add(v);
-							visited.add(v.getId());
-						}
-					}
-				}
-			}
-		}
-	}
-
 	/**
-	 * BFS of graph using adjacency list.
+	 * 
+	 * T - O(m + n) where m = num of vertices and n = num of edges
 	 */
-	private int V = 4; // No. of vertices
-	private LinkedList<Integer> adj[]; // Adjacency Lists
 
-	// prints BFS traversal from a given source s
-	public void BFS(int s) {
-		adj = new LinkedList[4];
-		for (int i = 0; i < 4; ++i)
-			adj[i] = new LinkedList();
+	// Perform BFS on graph starting from vertex v
+	public void BFS_iterative(Graph1 graph, int v, boolean[] discovered) {
+		// create a queue used to do BFS
+		Queue<Integer> q = new ArrayDeque<>();
 
-		// Mark all the vertices as not visited(By default
-		// set as false)
-		boolean visited[] = new boolean[V];
+		// mark source vertex as discovered
+		discovered[v] = true;
 
-		// Create a queue for BFS
-		LinkedList<Integer> queue = new LinkedList<Integer>();
+		// push source vertex into the queue
+		q.add(v);
 
-		// Mark the current node as visited and enqueue it
-		visited[s] = true;
-		queue.add(s);
+		// run till queue is not empty
+		while (!q.isEmpty()) {
+			// pop front node from queue and print it
+			v = q.poll();
+			System.out.print(v + " ");
 
-		while (queue.size() != 0) {
-			// Dequeue a vertex from queue and print it
-			s = queue.poll();
-			System.out.print(s + " ");
-
-			// Get all adjacent vertices of the dequeued vertex s
-			// If a adjacent has not been visited, then mark it
-			// visited and enqueue it
-			Iterator<Integer> i = adj[s].listIterator();
-			while (i.hasNext()) {
-				int n = i.next();
-				if (!visited[n]) {
-					visited[n] = true;
-					queue.add(n);
+			// do for every edge (v -> u)
+			for (int u : graph.adjList.get(v)) {
+				if (!discovered[u]) {
+					// mark it discovered and push it into queue
+					discovered[u] = true;
+					q.add(u);
 				}
 			}
 		}
 	}
 
 	// Perform BFS recursively on graph
-	public void recursiveBFS(Queue<Integer> q, boolean[] discovered) {
+	public void BFS_recursive(Graph1 graph, Queue<Integer> q, boolean[] discovered) {
 		if (q.isEmpty())
 			return;
 
@@ -144,7 +74,7 @@ public class GraphTraversal {
 		System.out.print(v + " ");
 
 		// do for every edge (v -> u)
-		for (int u : adj[v]) {
+		for (int u : graph.adjList.get(v)) {
 			if (!discovered[u]) {
 				// mark it discovered and push it into queue
 				discovered[u] = true;
@@ -152,22 +82,130 @@ public class GraphTraversal {
 			}
 		}
 
-		recursiveBFS(q, discovered);
+		BFS_recursive(graph, q, discovered);
+	}
+
+	// Perform iterative DFS on graph g starting from vertex v
+	public void DFS_iterative(Graph1 graph, int v, boolean[] discovered) {
+		// create a stack used to do iterative DFS
+		Stack<Integer> stack = new Stack<>();
+
+		// push the source node into stack
+		stack.push(v);
+
+		// run till stack is not empty
+		while (!stack.empty()) {
+			// Pop a vertex from stack
+			v = stack.pop();
+
+			// if the vertex is already discovered yet, ignore it
+			if (discovered[v])
+				continue;
+
+			// we will reach here if the popped vertex v
+			// is not discovered yet. We print it and process
+			// its undiscovered adjacent nodes into stack
+			discovered[v] = true;
+			System.out.print(v + " ");
+
+			// do for every edge (v -> u)
+			List<Integer> adj = graph.adjList.get(v);
+			for (int i = adj.size() - 1; i >= 0; i--) {
+				int u = adj.get(i);
+				if (!discovered[u]) {
+					stack.push(u);
+				}
+			}
+		}
+	}
+
+	// Function to perform DFS Traversal
+	public void DFS_recursive(Graph1 graph, int v, boolean[] discovered) {
+		// mark current node as discovered
+		discovered[v] = true;
+
+		// print current node
+		System.out.print(v + " ");
+
+		// do for every edge (v -> u)
+		for (int u : graph.adjList.get(v)) {
+			// u is not discovered
+			if (!discovered[u]) {
+				DFS_recursive(graph, u, discovered);
+			}
+		}
 	}
 
 	public static void main(String args[]) {
 
-		Graph<Integer> graph = new Graph<Integer>(true);
-		graph.addEdge(1, 2);
-		graph.addEdge(1, 3);
-		graph.addEdge(2, 4);
-		graph.addEdge(3, 4);
-		graph.addEdge(4, 6);
-		graph.addEdge(6, 5);
-		// graph.addEdge(5, 1);
-		graph.addEdge(5, 3);
+		GraphTraversal gt = new GraphTraversal();
 
-		GraphTraversal g = new GraphTraversal();
-		g.BFS(graph);
+		// List of graph edges as per above diagram
+		List<Edge1> edges = Arrays.asList(new Edge1(1, 2), new Edge1(1, 3), new Edge1(1, 4), new Edge1(2, 5),
+				new Edge1(2, 6), new Edge1(5, 9), new Edge1(5, 10), new Edge1(4, 7), new Edge1(4, 8), new Edge1(7, 11),
+				new Edge1(7, 12)
+		// vertex 0, 13 and 14 are single nodes
+		);
+
+		// Set number of vertices in the graph
+		final int N = 15;
+
+		// create a graph from edges
+		Graph1 graph = new Graph1(edges, N);
+
+		// stores vertex is discovered or not
+		boolean[] discovered = new boolean[N];
+
+		// create a queue used to do BFS
+		Queue<Integer> q = new ArrayDeque<>();
+
+		// Do BFS traversal from all undiscovered nodes to
+		// cover all unconnected components of graph
+		for (int i = 0; i < N; i++) {
+			if (discovered[i] == false) {
+				// mark source vertex as discovered
+				discovered[i] = true;
+
+				// push source vertex into the queue
+				q.add(i);
+
+				// start BFS traversal from vertex i
+				gt.BFS_recursive(graph, q, discovered);
+			}
+		}
+	}
+}
+
+// data structure to store graph edges
+class Edge1 {
+	int source, dest;
+
+	public Edge1(int source, int dest) {
+		this.source = source;
+		this.dest = dest;
+	}
+};
+
+// class to represent a graph object
+class Graph1 {
+	// A List of Lists to represent an adjacency list
+	List<List<Integer>> adjList = null;
+
+	// Constructor
+	Graph1(List<Edge1> edges, int N) {
+		adjList = new ArrayList<>(N);
+
+		for (int i = 0; i < N; i++) {
+			adjList.add(i, new ArrayList<>());
+		}
+
+		// add edges to the undirected graph
+		for (int i = 0; i < edges.size(); i++) {
+			int src = edges.get(i).source;
+			int dest = edges.get(i).dest;
+
+			adjList.get(src).add(dest);
+			adjList.get(dest).add(src);
+		}
 	}
 }
