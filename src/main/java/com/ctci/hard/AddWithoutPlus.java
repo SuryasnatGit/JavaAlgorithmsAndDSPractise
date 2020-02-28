@@ -11,24 +11,23 @@ public class AddWithoutPlus {
 	 * 
 	 * Using half-adder logic..
 	 * 
-	 * Can we make this a little easier? Yes! Imagine I decided to split apart the "addition" and
-	 * "carry" steps. That is, I do the following:
+	 * Can we make this a little easier? Yes! Imagine I decided to split apart the "addition" and "carry" steps. That
+	 * is, I do the following:
 	 * 
 	 * 1. Add 759 + 674, but "forget" to carry. I then get 323.
 	 * 
-	 * 2. Add 759 + 674 but only do the carrying, rather than the addition of each digit.I then get
-	 * 1110.
+	 * 2. Add 759 + 674 but only do the carrying, rather than the addition of each digit.I then get 1110.
 	 * 
-	 * 3. Add the result of the first two operations (recursively, using the same process described in
-	 * step 1 and 2): 1110 + 323 = 1433.
+	 * 3. Add the result of the first two operations (recursively, using the same process described in step 1 and 2):
+	 * 1110 + 323 = 1433.
 	 * 
 	 * Now, how would we do this in binary?
 	 * 
-	 * 1. If I add two binary numbers together, but forget to carry, the i th bit in the sum will be e
-	 * only if a and b have the same ith bit (both e or both 1). This is essentially an XOR.
+	 * 1. If I add two binary numbers together, but forget to carry, the i th bit in the sum will be e only if a and b
+	 * have the same ith bit (both e or both 1). This is essentially an XOR.
 	 * 
-	 * 2. If I add two numbers together but only carry, I will have a 1 in the ith bit of the sum only
-	 * if bits i - 10f a and b are both is. This is an AND, shifted.
+	 * 2. If I add two numbers together but only carry, I will have a 1 in the ith bit of the sum only if bits i - 10f a
+	 * and b are both is. This is an AND, shifted.
 	 * 
 	 * 3. Now, recurse until there's nothing to carry.
 	 * 
@@ -73,6 +72,29 @@ public class AddWithoutPlus {
 		return x;
 	}
 
+	// Problem - Write code to sum 2 integer but u can't use a+b method, you have to use either ++ or --. How you will
+	// handle negative numbers.
+	public int sum(int a, int b) {
+		// for optimization
+		if (a > b) {
+			int temp = a;
+			a = b;
+			b = temp;
+		}
+
+		while (a > 0) {
+			a--;
+			b++;
+		}
+
+		while (a < 0) {
+			a++;
+			b--;
+		}
+
+		return b;
+	}
+
 	public static void main(String[] args) {
 		AddWithoutPlus ap = new AddWithoutPlus();
 		int a = 8;
@@ -91,5 +113,10 @@ public class AddWithoutPlus {
 
 		System.out.println("Result :" + ap.add(19, 27));
 		System.out.println("Result :" + ap.subtract(95, 195));
+
+		System.out.println(ap.sum(2, 5));
+		System.out.println(ap.sum(2, -5));
+		System.out.println(ap.sum(-2, 5));
+		System.out.println(ap.sum(-2, -5));
 	}
 }

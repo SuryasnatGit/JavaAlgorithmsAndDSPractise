@@ -5,6 +5,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * Give a linkedlist, the elements inside are sorted, but it is a blackbox, There are three functions that can be
+ * called. pop () randomly pops out the first or last element, peek () randomly peeks at the front or back element,
+ * isEmpty () returns whether the linkedlist is empty.
+ * 
+ * Ask to design a data structure, either a list or an array. Take out all the elements in the linkedlist and keep them
+ * sorted. Followup is what to do if peek () cannot be used. My thinking: if I got element A, and next element B is
+ * smaller than A, then A is from the tail of the list; otherwise, A is from the head of the list.
+ *
+ */
 public class BlackBoxLinkedList {
 
 	public static void main(String[] args) {
@@ -37,7 +47,8 @@ public class BlackBoxLinkedList {
 	}
 
 	/**
-	 * 一个数组内要是存在至少三个升序的数（array[x] < array[y] < array[z], x < y < z）就返回true // Brute Force using 3 for loops
+	 * 
+	 * If there are at least three ascending numbers in an array (array [x] <array [y] <array [z], x <y <z) returns true
 	 */
 	static boolean increasing(int[] arr) {
 		TreeMap<Integer, Integer> map = new TreeMap<Integer, Integer>();
