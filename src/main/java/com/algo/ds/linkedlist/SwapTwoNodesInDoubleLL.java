@@ -1,12 +1,11 @@
 package com.algo.ds.linkedlist;
 
 /**
- * Swap two nodes in double link list. If it swaps first node its callers responsibility to fix the
- * head.
+ * Swap two nodes in double link list. If it swaps first node its callers responsibility to fix the head.
  * 
- * Given a linked list and two keys in it, swap nodes for two given keys. Nodes should be swapped by
- * changing links. Swapping data of nodes may be expensive in many situations when data contains
- * many fields. It may be assumed that all keys in linked list are distinct.
+ * Given a linked list and two keys in it, swap nodes for two given keys. Nodes should be swapped by changing links.
+ * Swapping data of nodes may be expensive in many situations when data contains many fields. It may be assumed that all
+ * keys in linked list are distinct.
  * 
  * Examples:
  * 
@@ -86,17 +85,17 @@ public class SwapTwoNodesInDoubleLL {
 	}
 
 	public static void main(String args[]) {
-		DoubleLinkList dll = new DoubleLinkList();
-		Node head = null;
-		head = dll.addNodeAtEnd(head, 1);
-		head = dll.addNodeAtEnd(head, 2);
-		head = dll.addNodeAtEnd(head, 3);
-		head = dll.addNodeAtEnd(head, 4);
-		head = dll.addNodeAtEnd(head, 5);
+		DoublyLinkedList dll = new DoublyLinkedList();
+		dll.insertLast(1);
+		dll.insertLast(2);
+		dll.insertLast(3);
+		dll.insertLast(4);
+		dll.insertLast(5);
+
 		SwapTwoNodesInDoubleLL snt = new SwapTwoNodesInDoubleLL();
-		Node nodeA = dll.find(head, 3);
-		Node nodeB = dll.find(head, 5);
+		Node nodeA = Node.newNode(3);
+		Node nodeB = Node.newNode(5);
 		snt.swap(nodeA, nodeB);
-		dll.printFrontBack(head);
+
 	}
 }
