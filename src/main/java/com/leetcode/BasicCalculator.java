@@ -70,5 +70,8 @@ public class BasicCalculator {
 
 		System.out.println(bc.calculator("3+2*2"));
 		System.out.println(bc.calculator("3/2"));
+
+		// this does not work for basic calculator. We need the arithmetic calculator approach.
+		System.out.println(bc.calculator("2*3+5/6*3+15"));
 	}
 }
