@@ -23,9 +23,8 @@ public class ArrayProblems {
 		// System.out.println(arrays.reverseWordsinString1(s.toCharArray()));
 		// System.out.println(arrays.reverseWordsInString2(s));
 		/*
-		 * int[] a = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }; arrays.reverse(a);
-		 * arrays.maxArray(a); int[] b = { 3, 4, 1, 2, 5, 6, 6, 9 };
-		 * System.out.println(arrays.unique2(b));
+		 * int[] a = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }; arrays.reverse(a); arrays.maxArray(a); int[] b = { 3, 4, 1, 2,
+		 * 5, 6, 6, 9 }; System.out.println(arrays.unique2(b));
 		 */
 
 		// Scanner sc = new Scanner(System.in);
@@ -64,17 +63,21 @@ public class ArrayProblems {
 		list.add(i1);
 		list.add(i4);
 
-		System.out.println("Output ->" + arrays.mergeIntervals(list));
-		System.out.println("Merged ->" + arrays.insertInterval(list, arrays.new Interval(4, 16)));
+		// System.out.println("Output ->" + arrays.mergeIntervals(list));
+		// System.out.println("Merged ->" + arrays.insertInterval(list, arrays.new Interval(4, 16)));
 
-//        int[] arr = new int[] { 2, 7, 11, 15 };
-//        int[] twoSum = arrays.twoSum_2(arr, 19);
-//        for (int i = 0; i < twoSum.length; i++)
-//            System.out.println(twoSum[i]);
-//        
+		// int[] arr = new int[] { 2, 7, 11, 15 };
+		// int[] twoSum = arrays.twoSum_2(arr, 19);
+		// for (int i = 0; i < twoSum.length; i++)
+		// System.out.println(twoSum[i]);
+		//
 		int[] arr = new int[] { 1, 2, 3, 4, 5 };
-		arrays.leftRotate(arr, 4);
-		System.out.println(Arrays.toString(arr));
+		// arrays.leftRotate(arr, 4);
+		// System.out.println(Arrays.toString(arr));
+
+		// arrays.equilibriumIndex(new int[] { 0, -3, 5, -4, -2, 3, 1, 0 });
+
+		arrays.formLargestNumFromAllNumsInSet(Arrays.asList("10", "68", "97", "9", "21", "12"));
 	}
 
 	public void reverse(int[] a) {
@@ -177,8 +180,7 @@ public class ArrayProblems {
 	}
 
 	/**
-	 * rotate int arr by k steps. using intermediate array takes O(n) space and O(n)
-	 * time
+	 * rotate int arr by k steps. using intermediate array takes O(n) space and O(n) time
 	 * 
 	 * @param arr
 	 * @param steps
@@ -200,8 +202,8 @@ public class ArrayProblems {
 	}
 
 	/**
-	 * using bubble sort, it takes O(1) space but O(n * k) time where n = number of
-	 * elements in array and k is number of steps
+	 * using bubble sort, it takes O(1) space but O(n * k) time where n = number of elements in array and k is number of
+	 * steps
 	 * 
 	 * @param arr
 	 * @param k
@@ -220,8 +222,8 @@ public class ArrayProblems {
 	}
 
 	/**
-	 * first split the array in 2 halfs. reverse first half reverse second half
-	 * reverse whole array takes O(1) space and O(n) time
+	 * first split the array in 2 halfs. reverse first half reverse second half reverse whole array takes O(1) space and
+	 * O(n) time
 	 * 
 	 * @param arr
 	 * @param k
@@ -296,14 +298,11 @@ public class ArrayProblems {
 	}
 
 	/**
-	 * Question: There are 2 sorted arrays A and B of size n each. Write an
-	 * algorithm to find the median of the array obtained after merging the above 2
-	 * arrays(i.e. array of length 2n). The complexity should be O(log(n)) Method 1
-	 * (Simply count while Merging) Use merge procedure of merge sort. Keep track of
-	 * count while comparing elements of two arrays. If count becomes n(For 2n
-	 * elements), we have reached the median. Take the average of the elements at
-	 * indexes n-1 and n in the merged array. See the below implementation. Time
-	 * Complexity: O(n)
+	 * Question: There are 2 sorted arrays A and B of size n each. Write an algorithm to find the median of the array
+	 * obtained after merging the above 2 arrays(i.e. array of length 2n). The complexity should be O(log(n)) Method 1
+	 * (Simply count while Merging) Use merge procedure of merge sort. Keep track of count while comparing elements of
+	 * two arrays. If count becomes n(For 2n elements), we have reached the median. Take the average of the elements at
+	 * indexes n-1 and n in the merged array. See the below implementation. Time Complexity: O(n)
 	 * 
 	 * @param ar1
 	 * @param ar2
@@ -404,8 +403,7 @@ public class ArrayProblems {
 	}
 
 	/**
-	 * using quick select which is similar to quicksort. Average case time is O(n),
-	 * worst case time is O(n^2).
+	 * using quick select which is similar to quicksort. Average case time is O(n), worst case time is O(n^2).
 	 * 
 	 * @param arr
 	 * @param k
@@ -448,10 +446,8 @@ public class ArrayProblems {
 	}
 
 	/**
-	 * We can use a min heap to solve this problem. The heap stores the top k
-	 * elements. Whenever the size is greater than k, delete the min. Time
-	 * complexity is O(nlog(k)). Space complexity is O(k) for storing the top k
-	 * numbers.
+	 * We can use a min heap to solve this problem. The heap stores the top k elements. Whenever the size is greater
+	 * than k, delete the min. Time complexity is O(nlog(k)). Space complexity is O(k) for storing the top k numbers.
 	 * 
 	 * @param arr
 	 * @param k
@@ -468,10 +464,9 @@ public class ArrayProblems {
 	}
 
 	/**
-	 * Given a collection of intervals, merge all overlapping intervals. For
-	 * example, Given [1,3],[2,6],[8,10],[15,18], return [1,6],[8,10],[15,18].
-	 * Analysis The key to solve this problem is defining a Comparator first to sort
-	 * the array list of Intervals.
+	 * Given a collection of intervals, merge all overlapping intervals. For example, Given [1,3],[2,6],[8,10],[15,18],
+	 * return [1,6],[8,10],[15,18]. Analysis The key to solve this problem is defining a Comparator first to sort the
+	 * array list of Intervals.
 	 * 
 	 * @param input
 	 * @return
@@ -511,13 +506,11 @@ public class ArrayProblems {
 	}
 
 	/**
-	 * Given a set of non-overlapping & sorted intervals, insert a new interval into
-	 * the intervals (merge if necessary). Example 1: Given intervals [1,3],[6,9],
-	 * insert and merge [2,5] in as [1,5],[6,9]. Example 2: Given
-	 * [1,2],[3,5],[6,7],[8,10],[12,16], insert and merge [4,9] in as
-	 * [1,2],[3,10],[12,16]. This is because the new interval [4,9] overlaps with
-	 * [3,5],[6,7],[8,10]. Thoughts of This Problem Quickly summarize 3 cases.
-	 * Whenever there is intersection, created a new interval.
+	 * Given a set of non-overlapping & sorted intervals, insert a new interval into the intervals (merge if necessary).
+	 * Example 1: Given intervals [1,3],[6,9], insert and merge [2,5] in as [1,5],[6,9]. Example 2: Given
+	 * [1,2],[3,5],[6,7],[8,10],[12,16], insert and merge [4,9] in as [1,2],[3,10],[12,16]. This is because the new
+	 * interval [4,9] overlaps with [3,5],[6,7],[8,10]. Thoughts of This Problem Quickly summarize 3 cases. Whenever
+	 * there is intersection, created a new interval.
 	 * 
 	 * @param input
 	 * @param newInterval
@@ -556,14 +549,12 @@ public class ArrayProblems {
 	}
 
 	/**
-	 * Given an array of integers, find two numbers such that they add up to a
-	 * specific target number. The function twoSum should return indices of the two
-	 * numbers such that they add up to the target, where index1 must be less than
-	 * index2. Please note that your returned answers (both index1 and index2) are
-	 * not zero-based. For example: Input: numbers={2, 7, 11, 15}, target=9 Output:
-	 * index1=0, index2=1 Java Solution The optimal solution to solve this problem
-	 * is using a HashMap. For each element of the array, (target-nums[i]) and the
-	 * index are stored in the HashMap.
+	 * Given an array of integers, find two numbers such that they add up to a specific target number. The function
+	 * twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less
+	 * than index2. Please note that your returned answers (both index1 and index2) are not zero-based. For example:
+	 * Input: numbers={2, 7, 11, 15}, target=9 Output: index1=0, index2=1 Java Solution The optimal solution to solve
+	 * this problem is using a HashMap. For each element of the array, (target-nums[i]) and the index are stored in the
+	 * HashMap.
 	 * 
 	 * @param arr
 	 * @param target
@@ -584,8 +575,8 @@ public class ArrayProblems {
 	}
 
 	/**
-	 * Input array is sorted. To solve this problem, we can use two points to scan
-	 * the array from both sides. See Java solution below:
+	 * Input array is sorted. To solve this problem, we can use two points to scan the array from both sides. See Java
+	 * solution below:
 	 * 
 	 * @param arr
 	 * @param target
@@ -610,12 +601,10 @@ public class ArrayProblems {
 	}
 
 	/**
-	 * Given two sorted integer arrays A and B, merge B into A as one sorted array.
-	 * Note: You may assume that A has enough space to hold additional elements from
-	 * B. The number of elements initialized in A and B are m and n respectively.
-	 * Analysis The key to solve this problem is moving element of A and B
-	 * backwards. If B has some elements left after A is done, also need to handle
-	 * that case.
+	 * Given two sorted integer arrays A and B, merge B into A as one sorted array. Note: You may assume that A has
+	 * enough space to hold additional elements from B. The number of elements initialized in A and B are m and n
+	 * respectively. Analysis The key to solve this problem is moving element of A and B backwards. If B has some
+	 * elements left after A is done, also need to handle that case.
 	 * 
 	 * @param a
 	 * @param m
@@ -655,11 +644,12 @@ public class ArrayProblems {
 	}
 
 	/**
-	 * Given an array arr[] of integers, find out the difference between any two
-	 * elements such that larger element appears after the smaller number in arr[].
-	 * Examples: If array is [2, 3, 10, 6, 4, 8, 1] then returned value should be 8
-	 * (Diff between 10 and 2). If array is [ 7, 9, 5, 6, 3, 2 ] then returned value
-	 * should be 2 (Diff between 7 and 9)<br/>
+	 * https://www.techiedelight.com/find-maximum-difference-between-two-elements-array/
+	 * 
+	 * Given an array arr[] of integers, find out the difference between any two elements such that larger element
+	 * appears after the smaller number in arr[]. Examples: If array is [2, 3, 10, 6, 4, 8, 1] then returned value
+	 * should be 8 (Diff between 10 and 2). If array is [ 7, 9, 5, 6, 3, 2 ] then returned value should be 2 (Diff
+	 * between 7 and 9)<br/>
 	 * Time complexity - O(n^2) <br/>
 	 * Space complexity - O(1)
 	 * 
@@ -686,10 +676,9 @@ public class ArrayProblems {
 	}
 
 	/**
-	 * In this method, instead of taking difference of the picked element with every
-	 * other element, we take the difference with the minimum element found so far.
-	 * So we need to keep track of 2 things: 1) Maximum difference found so far
-	 * (max_diff). 2) Minimum number visited so far (min_element). <br/>
+	 * In this method, instead of taking difference of the picked element with every other element, we take the
+	 * difference with the minimum element found so far. So we need to keep track of 2 things: 1) Maximum difference
+	 * found so far (max_diff). 2) Minimum number visited so far (min_element). <br/>
 	 * Time Complexity: O(n) <br/>
 	 * Auxiliary Space: O(1)
 	 * 
@@ -710,9 +699,8 @@ public class ArrayProblems {
 	}
 
 	/**
-	 * We can modify the above method to work in O(1) extra space. Instead of
-	 * creating an auxiliary array, we can calculate diff and max sum in same loop.
-	 * Following is the space optimized version.<br/>
+	 * We can modify the above method to work in O(1) extra space. Instead of creating an auxiliary array, we can
+	 * calculate diff and max sum in same loop. Following is the space optimized version.<br/>
 	 * Time Complexity: O(n)<br/>
 	 * Auxiliary Space: O(1)
 	 * 
@@ -738,8 +726,7 @@ public class ArrayProblems {
 	}
 
 	/**
-	 * O(R x C) where R = # of rows and C = # of columns or O(N^2) if R and C are
-	 * same.
+	 * O(R x C) where R = # of rows and C = # of columns or O(N^2) if R and C are same.
 	 */
 	public void maxHourglassSum() {
 		// 6 x 6 array
@@ -782,11 +769,10 @@ public class ArrayProblems {
 	}
 
 	/**
-	 * Given a sorted array of integers, write a method to remove the duplicates. Do
-	 * not use any classes from the java.util package, or the equivalent library for
-	 * your language. Example: [ 1, 2, 3, 3, 3, 4, 4, 10, 13, 15, 15, 17 ] -> [ 1,
-	 * 2, 3, 4, 10, 13, 15, 17 ] This solution has a limitation that after removing
-	 * the duplicates it places 0(default value) for the empty spaces.
+	 * Given a sorted array of integers, write a method to remove the duplicates. Do not use any classes from the
+	 * java.util package, or the equivalent library for your language. Example: [ 1, 2, 3, 3, 3, 4, 4, 10, 13, 15, 15,
+	 * 17 ] -> [ 1, 2, 3, 4, 10, 13, 15, 17 ] This solution has a limitation that after removing the duplicates it
+	 * places 0(default value) for the empty spaces.
 	 * 
 	 * @param values
 	 * @return
@@ -808,8 +794,8 @@ public class ArrayProblems {
 	}
 
 	/**
-	 * one approach to remove the 0 is calculate number of duplicates and make the
-	 * temp arr with size equals to (values.len - number of duuplicates)
+	 * one approach to remove the 0 is calculate number of duplicates and make the temp arr with size equals to
+	 * (values.len - number of duuplicates)
 	 * 
 	 * @param values
 	 * @return
@@ -842,5 +828,35 @@ public class ArrayProblems {
 		Set<Integer> set = new HashSet<>();
 		set.addAll(values);
 		return new ArrayList<>(set);
+	}
+
+	/**
+	 * https://www.techiedelight.com/find-equilibrium-index-array/
+	 * 
+	 * @param array
+	 */
+	public void equilibriumIndex(int[] array) {
+		int[] left = new int[array.length];
+		left[0] = 0;
+
+		// traverse from left to right
+		for (int i = 1; i < array.length; i++) {
+			left[i] = left[i - 1] + array[i - 1];
+		}
+
+		int right = 0;
+		// now traverse from right to left
+		for (int i = array.length - 1; i >= 0; i--) {
+			if (left[i] == right) {
+				System.out.println("Equilibrium index found at index :" + i);
+			}
+			right += array[i];
+		}
+	}
+
+	// https://www.techiedelight.com/find-largest-number-possible-set-given-numbers/
+	public void formLargestNumFromAllNumsInSet(List<String> nums) {
+		Collections.sort(nums, (a, b) -> (b + a).compareTo(a + b));
+		nums.stream().forEach(a -> System.out.print(a));
 	}
 }
