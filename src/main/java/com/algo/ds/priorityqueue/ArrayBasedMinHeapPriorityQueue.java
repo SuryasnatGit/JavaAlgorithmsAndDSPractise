@@ -21,16 +21,16 @@ import com.algo.ds.linkedlist.PositionalList;
  * @param <K>
  * @param <V>
  */
-public class ArrayBasedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
+public class ArrayBasedMinHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
 
 	// binary heap represented by array list
 	private List<Entry<K, V>> heap = new ArrayList<>();
 
-	public ArrayBasedHeapPriorityQueue() {
+	public ArrayBasedMinHeapPriorityQueue() {
 		super();
 	}
 
-	public ArrayBasedHeapPriorityQueue(Comparator<K> comp) {
+	public ArrayBasedMinHeapPriorityQueue(Comparator<K> comp) {
 		super(comp);
 	}
 
@@ -40,74 +40,12 @@ public class ArrayBasedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, 
 	 * @param keys
 	 * @param values
 	 */
-	public ArrayBasedHeapPriorityQueue(K[] keys, V[] values) {
+	public ArrayBasedMinHeapPriorityQueue(K[] keys, V[] values) {
 		super();
 		for (int i = 0; i < Math.min(keys.length, values.length); i++) {
 			heap.add(new PQEntry(keys[i], values[i]));
 		}
 		heapify();
-	}
-
-	/**
-	 * performs bottom-up heap construction in linear time. start at parent of last entry
-	 */
-	private void heapify() {
-		int rootIndex = parent(size() - 1);
-		for (int j = rootIndex; j >= 0; j--) {
-			downheap(j);
-		}
-	}
-
-	protected int parent(int j) {
-		return (j - 1) / 2;
-	}
-
-	protected int left(int j) {
-		return 2 * j + 1;
-	}
-
-	protected int right(int j) {
-		return 2 * j + 2;
-	}
-
-	protected boolean hasLeft(int j) {
-		return left(j) < heap.size();
-	}
-
-	protected boolean hasRight(int j) {
-		return right(j) < heap.size();
-	}
-
-	protected void swap(int i, int j) {
-		Entry<K, V> temp = heap.get(j);
-		heap.set(i, temp);
-		heap.set(j, heap.get(i));
-	}
-
-	protected void upheap(int j) {
-		while (j > 0) {
-			int p = parent(j);
-			if (compare(heap.get(j), heap.get(p)) >= 0)
-				break;
-			swap(j, p);
-			j = p;
-		}
-	}
-
-	protected void downheap(int j) {
-		while (hasLeft(j)) {
-			int leftIndex = left(j);
-			int smallChildIndex = leftIndex;
-			if (hasRight(j)) {
-				int rightIndex = right(j);
-				if (compare(heap.get(leftIndex), heap.get(rightIndex)) > 0)
-					smallChildIndex = rightIndex;
-			}
-			if (compare(heap.get(smallChildIndex), heap.get(j)) >= 0)
-				break;
-			swap(j, smallChildIndex);
-			j = smallChildIndex;
-		}
 	}
 
 	/**
@@ -169,5 +107,83 @@ public class ArrayBasedHeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, 
 			E key = P.removeMin().getKey();
 			S.addLast(key);
 		}
+	}
+
+	/**
+	 * performs bottom-up heap construction in linear time. start at parent of last entry
+	 */
+	private void heapify() {
+		int rootIndex = parent(size() - 1);
+		for (int j = rootIndex; j >= 0; j--) {
+			downheap(j);
+		}
+	}
+
+	protected int parent(int index) {
+		// if index is already a root node
+		if (index == 0)
+			return 0;
+
+		return (index - 1) / 2;
+	}
+
+	protected int left(int index) {
+		return 2 * index + 1;
+	}
+
+	protected int right(int index) {
+		return 2 * index + 2;
+	}
+
+	protected boolean hasLeft(int j) {
+		return left(j) < heap.size();
+	}
+
+	protected boolean hasRight(int j) {
+		return right(j) < heap.size();
+	}
+
+	protected void swap(int i, int j) {
+		Entry<K, V> temp = heap.get(j);
+		heap.set(i, temp);
+		heap.set(j, heap.get(i));
+	}
+
+	protected void upheap(int j) {
+		while (j > 0) {
+			int p = parent(j);
+			if (compare(heap.get(j), heap.get(p)) >= 0)
+				break;
+			swap(j, p);
+			j = p;
+		}
+	}
+
+	protected void downheap(int j) {
+		while (hasLeft(j)) {
+			int leftIndex = left(j);
+			int smallChildIndex = leftIndex;
+			if (hasRight(j)) {
+				int rightIndex = right(j);
+				if (compare(heap.get(leftIndex), heap.get(rightIndex)) > 0)
+					smallChildIndex = rightIndex;
+			}
+			if (compare(heap.get(smallChildIndex), heap.get(j)) >= 0)
+				break;
+			swap(j, smallChildIndex);
+			j = smallChildIndex;
+		}
+	}
+
+	public static void main(String[] args) {
+		ArrayBasedMinHeapPriorityQueue<Integer, Integer> pq = new ArrayBasedMinHeapPriorityQueue<>();
+		pq.insert(5, 5);
+		pq.insert(4, 4);
+		pq.insert(7, 7);
+		pq.insert(1, 1);
+		System.out.println(pq.min());
+		System.out.println(pq.removeMin());
+		System.out.println(pq.min());
+		System.out.println(pq.size());
 	}
 }

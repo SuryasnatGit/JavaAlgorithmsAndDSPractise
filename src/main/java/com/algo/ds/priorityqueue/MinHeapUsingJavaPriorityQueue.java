@@ -1,12 +1,12 @@
-package com.algo.ds.queue;
+package com.algo.ds.priorityqueue;
 
 import java.util.PriorityQueue;
 
-public class MinHeapUsingPriorityQueue {
+public class MinHeapUsingJavaPriorityQueue {
 
 	private PriorityQueue<Integer> pq;
 
-	public MinHeapUsingPriorityQueue() {
+	public MinHeapUsingJavaPriorityQueue() {
 		pq = new PriorityQueue<>();
 	}
 
@@ -39,7 +39,7 @@ public class MinHeapUsingPriorityQueue {
 	}
 
 	public static void main(String[] args) {
-		MinHeapUsingPriorityQueue min = new MinHeapUsingPriorityQueue();
+		MinHeapUsingJavaPriorityQueue min = new MinHeapUsingJavaPriorityQueue();
 		int[] input = new int[] { 1, 3, 7, 2, 4, 8, 9 };
 		min.insert(input);
 		System.out.println(min.extractMin());

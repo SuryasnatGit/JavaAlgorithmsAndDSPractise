@@ -2,7 +2,7 @@ package com.algo.ds.priorityqueue;
 
 import java.util.Comparator;
 
-public class AdaptableHeapPriorityQueue<K, V> extends ArrayBasedHeapPriorityQueue<K, V>
+public class AdaptableHeapPriorityQueue<K, V> extends ArrayBasedMinHeapPriorityQueue<K, V>
 		implements AdaptablePriorityQueue<K, V> {
 
 	// this extended version contains an additional location index

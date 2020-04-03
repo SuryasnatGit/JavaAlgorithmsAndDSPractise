@@ -4,7 +4,7 @@ package com.ctci.moderate;
  * Given two straight line segments (represented as a start point and an end point)' compute the point of intersection,
  * if any.
  * 
- * CTCI : 16.4
+ * CTCI : 16.3
  *
  */
 public class LinesIntersection {
