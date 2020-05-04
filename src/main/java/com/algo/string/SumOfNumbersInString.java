@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Given a string with digits and non-digits, find the sum of numbers in the string without
- * pattern-matching, substring or built in convert string to integer functions. Consequestive digits
- * form a single number. Except - any other character is a separator. '.' is a separator. any number
- * precedded with '-' will be considered as a negative number.
+ * Given a string with digits and non-digits, find the sum of numbers in the string without pattern-matching, substring
+ * or built in convert string to integer functions. Consecutive digits form a single number. Except - any other
+ * character is a separator. '.' is a separator. any number Preceded with '-' will be considered as a negative number.
  * 
  * 
  * Example : in = abc123def4 , result = 123 + 4 = 127
@@ -105,7 +104,7 @@ public class SumOfNumbersInString {
 		int j = 1;
 		for (int i = in.length() - 1; i >= 0; i--) {
 			int c = in.charAt(i) - '0';
-//			System.out.println(c);
+			// System.out.println(c);
 			sum += j * c;
 			j *= 10;
 		}

@@ -2,11 +2,13 @@ package com.leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
 /**
+ * 
+ * https://www.geeksforgeeks.org/find-k-pairs-smallest-sums-two-arrays/
+ * 
  * You are given two integer arrays nums1 and nums2 sorted in ascending order and an integer k.
  * 
  * Define a pair (u,v) which consists of one element from the first array and one element from the second array.
@@ -36,6 +38,8 @@ import java.util.PriorityQueue;
  * Return: [1,3],[2,3]
  * 
  * All possible pairs are returned from the sequence: [1,3],[2,3]
+ * 
+ * Category : Medium
  *
  */
 public class KSmallestSumPairs {
@@ -48,43 +52,12 @@ public class KSmallestSumPairs {
 		pairs.forEach(a -> System.out.println(Arrays.toString(a)));
 	}
 
-	// Klog(K)
-	public List<int[]> kSmallestPairs2(int[] nums1, int[] nums2, int k) {
-		List<int[]> res = new ArrayList<int[]>();
+	// Method 1 - Simple
+	// Find all pairs and store their sums. Time complexity of this step is O(n1 * n2) where n1 and n2 are sizes of
+	// input arrays. Then sort pairs according to sum. Time complexity of this step is O(n1 * n2 * log (n1 * n2))
+	// Overall Time Complexity : O(n1 * n2 * log (n1 * n2))
 
-		if ((nums1 == null || nums1.length == 0) || (nums2 == null || nums2.length == 0)) {
-			return res;
-		}
-
-		PriorityQueue<int[]> heap = new PriorityQueue<int[]>(k, new Comparator<int[]>() {
-			public int compare(int[] arr1, int[] arr2) {
-				int sum1 = arr1[0] + arr1[1];
-				int sum2 = arr2[0] + arr2[1];
-
-				return sum1 - sum2;
-			}
-		});
-
-		for (int i = 0; i < k && i < nums1.length; i++) {
-			int[] arr = { nums1[i], nums2[0], 0 }; // val of arr1, val of arr2, index of arr2
-			heap.offer(arr);
-		}
-
-		while (k > 0 && !heap.isEmpty()) {
-			int[] now = heap.poll();
-			res.add(new int[] { now[0], now[1] });
-			k--;
-
-			if (now[2] == nums2.length - 1) {
-				continue; // continue with the ones in heap
-			}
-
-			heap.offer(new int[] { now[0], nums2[now[2] + 1], now[2] + 1 });
-		}
-
-		return res;
-	}
-
+	// Method 2 - Using priority queue. T - O(k log k)
 	public List<int[]> kSmallestPairs(int[] nums1, int[] nums2, int k) {
 		List<int[]> res = new ArrayList<int[]>();
 		PriorityQueue<Pair> heap = new PriorityQueue<Pair>(k);

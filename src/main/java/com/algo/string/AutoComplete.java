@@ -30,6 +30,11 @@ public class AutoComplete {
 			this.prefix = prefix;
 			this.children = new HashMap<>();
 		}
+
+		@Override
+		public String toString() {
+			return "Node [prefix=" + prefix + ", children=" + children + ", isWord=" + isWord + "]";
+		}
 	}
 
 	// The trie
@@ -78,10 +83,22 @@ public class AutoComplete {
 
 	// Recursively find every child word
 	private void findAllChildWords(Node n, List<String> results) {
-		if (n.isWord)
+		if (n.isWord) {
 			results.add(n.prefix);
+		}
+
 		for (Character c : n.children.keySet()) {
 			findAllChildWords(n.children.get(c), results);
 		}
+	}
+
+	public static void main(String[] args) {
+		String[] dict = { "abc", "acd", "bcd", "def", "a", "aba" };
+		AutoComplete ac = new AutoComplete(dict);
+		ac.getWordsForPrefix("a").forEach(a -> System.out.print(a + " "));
+		System.out.println();
+		ac.getWordsForPrefix("b").forEach(a -> System.out.print(a + " "));
+		System.out.println();
+		ac.getWordsForPrefix("ab").forEach(a -> System.out.print(a + " "));
 	}
 }

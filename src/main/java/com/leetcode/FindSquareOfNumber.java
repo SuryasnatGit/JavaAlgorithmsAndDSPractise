@@ -40,11 +40,16 @@ public class FindSquareOfNumber {
 		int x = n >> 1;
 
 		// If n is odd
-		;
 		if (n % 2 != 0)
 			return ((square1(x) << 2) + (x << 2) + 1);
 		else // If n is even
 			return (square1(x) << 2);
+	}
+
+	public static void main(String[] args) {
+		FindSquareOfNumber sq = new FindSquareOfNumber();
+		System.out.println(sq.square(5));
+		System.out.println(sq.square1(10));
 	}
 
 }

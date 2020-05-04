@@ -44,8 +44,9 @@ public class InPlaceTransformationOfString {
 			cli.iterate(str, low, end + low - 1);
 			low = low + end;
 		}
+
+		// calculate size and end for merge operations
 		size = str.length;
-		low = 0;
 		int end = get3PowerK1(size);
 		// find the size chunks of CLI lengths
 		while (end < str.length) {

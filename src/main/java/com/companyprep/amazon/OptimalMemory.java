@@ -26,9 +26,12 @@ public class OptimalMemory {
 	public List<int[]> getTaskPairs(int[] fgTasks, int[] bgTasks, int totalMem) {
 
 		List<int[]> list = new ArrayList<int[]>();
+
 		Arrays.sort(bgTasks);
+
 		for (int fgTask : fgTasks) {
 			int rest = totalMem - fgTask;
+			// do binary search on back ground tasks
 			int lo = 0;
 			int high = bgTasks.length - 1;
 			while (lo < high) {

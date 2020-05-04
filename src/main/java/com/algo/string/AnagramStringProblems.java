@@ -3,7 +3,6 @@ package com.algo.string;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -166,70 +165,10 @@ public class AnagramStringProblems {
 		return false;
 	}
 
-	public void printAnagramsTogether(String[] string) {
-		Map<String, List<Integer>> invertedIndex = new HashMap<String, List<Integer>>();
-		int index = 0;
-		for (String str : string) {
-			char[] charArray = str.toCharArray();
-			Arrays.sort(charArray);
-			String newString = new String(charArray);
-			if (invertedIndex.containsKey(newString)) {
-				List<Integer> pos = invertedIndex.get(newString);
-				pos.add(index);
-			} else {
-				List<Integer> pos = new ArrayList<Integer>();
-				pos.add(index);
-				invertedIndex.put(newString, pos);
-			}
-			index++;
-		}
-		for (List<Integer> result : invertedIndex.values()) {
-			for (Integer i : result) {
-				System.out.println(string[i]);
-			}
-		}
-	}
-
 	/*
 	 * https://leetcode.com/problems/anagrams/. <br/> Given an array of words, print all anagrams together. For example,
 	 * given: ["eat", "tea", "tan", "ate", "nat", "bat"], Return: [ ["ate", "eat","tea"], ["nat","tan"], ["bat"] ]
 	 */
-
-	/**
-	 * A simple method is to create a Hash Table. Calculate the hash value of each word in such a way that all anagrams
-	 * have the same hash value. Populate the Hash Table with these hash values. Finally, print those words together
-	 * with same hash values. A simple hashing mechanism can be modulo sum of all characters. With modulo sum, two
-	 * non-anagram words may have same hash value. This can be handled by matching individual characters.
-	 * 
-	 * @param strs
-	 * @return
-	 */
-	public Collection<List<String>> groupAnagrams_hashing(String[] strs) {
-		Map<Integer, List<String>> map = new HashMap<>();
-		for (String s : strs) {
-			int hash = ascii(s);
-			// int hash = s.hashCode();
-			if (map.containsKey(hash)) {
-				map.get(hash).add(s);
-			} else {
-				List<String> l = new ArrayList<>();
-				l.add(s);
-				map.put(hash, l);
-			}
-		}
-		// System.out.println(map);
-		System.out.println(map.values());
-		return map.values();
-	}
-
-	private int ascii(String str) {
-		int m = 10;
-		int i, sum;
-		for (i = 0, sum = 0; i < str.length(); i++) {
-			sum += str.charAt(i);
-		}
-		return sum % m;
-	}
 
 	/**
 	 * If there are m strings and each string is of n characters, then time complexity is O(m * n log n) in best case.
@@ -346,12 +285,16 @@ public class AnagramStringProblems {
 	 * 
 	 */
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws Exception {
 		char str1[] = "aaabccde".toCharArray();
 		char str2[] = "tbcdaacaaecbd".toCharArray();
 		AnagramStringProblems ana = new AnagramStringProblems();
 		System.out.println(ana.isAnagramSubString_bruteForce(str1, str2));
 		System.out.println(ana.isAnagramSubString_hashing(str1, str2));
 		System.out.println(ana.isAnagramSubString_sorting(str1, str2));
+
+		String[] strs = { "eat", "tea", "tan", "ate", "nat", "bat" };
+		ana.groupAnagrams_usingHashMap(strs).forEach(a -> System.out.println(a));
+		ana.printAnagramGroupsUsingTrie(strs);
 	}
 }

@@ -1,5 +1,6 @@
 package com.companyprep.amazon;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
@@ -30,13 +31,13 @@ import java.util.PriorityQueue;
  */
 public class LongestStringWithout3ConsequetiveChars {
 
-	public static String generateString(Map<Character, Integer> map) {
+	public String generateString(Map<Character, Integer> map) {
 		PriorityQueue<Map.Entry<Character, Integer>> maxHeap = new PriorityQueue<Map.Entry<Character, Integer>>(
 				(a, b) -> b.getValue() - a.getValue());
 
-		int cnt = 0;
+		int count = 0;
 		for (Map.Entry<Character, Integer> e : map.entrySet()) {
-			cnt += e.getValue();
+			count += e.getValue();
 			maxHeap.add(e);
 		}
 
@@ -46,24 +47,33 @@ public class LongestStringWithout3ConsequetiveChars {
 		StringBuilder sb = new StringBuilder();
 
 		while (!maxHeap.isEmpty()) {
-			Map.Entry<Character, Integer> cur = maxHeap.poll();
-			sb.append(cur.getKey());
+			Map.Entry<Character, Integer> entry = maxHeap.poll();
+			sb.append(entry.getKey());
 
 			if (onHold != null) {
 				maxHeap.add(onHold);
 				onHold = null;
 			}
-			int curValue = cur.getValue();
+			int curValue = entry.getValue();
 			if (curValue > 1) {
-				cur.setValue(curValue - 1);
-				if (sb.length() >= 2 && cur.getKey() == sb.charAt(sb.length() - 2)) { // on hold
-					onHold = cur;
+				entry.setValue(curValue - 1);
+				if (sb.length() >= 2 && entry.getKey() == sb.charAt(sb.length() - 2)) { // on hold
+					onHold = entry;
 				} else { // add back to heap
-					maxHeap.add(cur);
+					maxHeap.add(entry);
 				}
 			}
 
 		}
-		return sb.length() == cnt ? sb.toString() : "";
+		return sb.length() == count ? sb.toString() : "";
+	}
+
+	public static void main(String[] args) {
+		LongestStringWithout3ConsequetiveChars lon = new LongestStringWithout3ConsequetiveChars();
+		Map<Character, Integer> map = new HashMap<>();
+		map.put('A', 1);
+		map.put('B', 1);
+		map.put('C', 6);
+		System.out.println(lon.generateString(map));
 	}
 }
