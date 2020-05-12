@@ -15,43 +15,44 @@ import java.util.Map;
  * 
  * knapsack(items, maxWeight) = 22
  * 
+ * You cannot break an item, either pick the complete item, or don’t pick it (0-1 property)
+ * 
+ * W(1+2) -> V(6+10) -> V(16)
+ * 
+ * W(1+3) -> V(6+12) -> V(18)
+ * 
+ * W(2+3) -> V(10+12) -> V(22)
+ * 
  * Category : Hard
  *
  */
 public class KnapsackProblem {
 
-	// Item class
-	public class Item {
-		int weight;
-		int value;
-
-		public Item(int weight, int value) {
-			this.weight = weight;
-			this.value = value;
-		}
-	}
-
-	// Recursively check every combination of items by traversing list of items
-	// and either including or excluding each item
-	public int naiveKnapsack(Item[] items, int W) {
-		return naiveKnapsack(items, W, 0);
+	// SOlution 1
+	/**
+	 * Recursively check every combination of items by traversing list of items and either including or excluding each
+	 * item. Overlapping subproblem property. T - O(2^n)
+	 */
+	public int knapsackRecursive(Item[] items, int W) {
+		return knapsackRecursive(items, W, 0);
 	}
 
 	// Overloaded recursive function for naiveKnapsack
-	private int naiveKnapsack(Item[] items, int W, int i) {
+	private int knapsackRecursive(Item[] items, int W, int i) {
 		// Return when we reach the end of the list
 		if (i == items.length)
 			return 0;
 
 		// If item is heavier than remaining weight, skip item
 		if (W - items[i].weight < 0)
-			return naiveKnapsack(items, W, i + 1);
+			return knapsackRecursive(items, W, i + 1);
 
 		// Try both including and excluding the current item
-		return Math.max(naiveKnapsack(items, W - items[i].weight, i + 1) + items[i].value,
-				naiveKnapsack(items, W, i + 1));
+		return Math.max(knapsackRecursive(items, W - items[i].weight, i + 1) + items[i].value,
+				knapsackRecursive(items, W, i + 1));
 	}
 
+	// SOlution 2
 	// Recursive solution that uses a cache to improve performance
 	public int topDownKnapsack(Item[] items, int W) {
 		// Map: i -> W -> value
@@ -84,7 +85,8 @@ public class KnapsackProblem {
 		return toReturn;
 	}
 
-	// Iterative dynamic programming solution
+	// SOlution 3
+	// Iterative dynamic programming solution. T - O(nW) where n is number of items and W is capacity of knapsack
 	public int bottomUpKnapsack(Item[] items, int W) {
 		// cache[i][j] = max value for the first i items with a max weight of j
 		int[][] cache = new int[items.length + 1][W + 1];
@@ -101,5 +103,29 @@ public class KnapsackProblem {
 		}
 
 		return cache[items.length][W];
+	}
+
+	// TODO : Fractional knapsack, knapsack with large weights, unbounded fractional knapsack, double knapsack
+
+	public static void main(String[] args) {
+		KnapsackProblem ksp = new KnapsackProblem();
+		Item[] items = new Item[3];
+		items[0] = new Item(1, 6);
+		items[1] = new Item(2, 10);
+		items[2] = new Item(3, 12);
+		System.out.println(ksp.knapsackRecursive(items, 5));
+		System.out.println(ksp.topDownKnapsack(items, 5));
+		System.out.println(ksp.bottomUpKnapsack(items, 5));
+	}
+}
+
+// Item class
+class Item {
+	int weight;
+	int value;
+
+	public Item(int weight, int value) {
+		this.weight = weight;
+		this.value = value;
 	}
 }

@@ -2,7 +2,6 @@ package com.algo.ds.graph;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
@@ -14,8 +13,57 @@ import java.util.Set;
  */
 public class MaxCostPathInGraph {
 
+	/**
+	 * Class definitions
+	 */
+	// data structure to store graph edges
+	class Edge {
+		public final int src, dest, weight;
+
+		public Edge(int src, int dest, int weight) {
+			this.src = src;
+			this.dest = dest;
+			this.weight = weight;
+		}
+	}
+
+	// BFS Node
+	class Node {
+		// current vertex number and cost of current path
+		public int vertex, weight;
+
+		// set of nodes visited so far in current path
+		public Set<Integer> s;
+
+		public Node(int vertex, int weight, Set<Integer> s) {
+			this.vertex = vertex;
+			this.weight = weight;
+			this.s = s;
+		}
+	}
+
+	// class to represent a graph object
+	class Graph {
+		// A list of lists to represent adjacency list
+		public List<List<Edge>> adj = new ArrayList<>();
+
+		// Constructor to construct graph
+		public Graph(List<Edge> edges, int N) {
+			// resize the List to N elements of type List<Edge>
+			for (int i = 0; i < N; i++) {
+				adj.add(i, new ArrayList<>());
+			}
+
+			// add edges to the undirected graph
+			for (Edge e : edges) {
+				adj.get(e.src).add(new Edge(e.src, e.dest, e.weight));
+				adj.get(e.dest).add(new Edge(e.dest, e.src, e.weight));
+			}
+		}
+	}
+
 	// Perform BFS on graph g starting from vertex v
-	public static int modifiedBFS(Graph g, int src, int k) {
+	public int maxCostBFS(Graph g, int src, int k) {
 		// create a queue used to do BFS
 		Queue<Node> q = new ArrayDeque<>();
 
@@ -63,22 +111,50 @@ public class MaxCostPathInGraph {
 	}
 
 	public static void main(String[] args) {
-		// List of graph edges as per above diagram
-		List<Edge> edges = Arrays.asList(Edge.of(0, 6, 11), Edge.of(0, 1, 5), Edge.of(1, 6, 3), Edge.of(1, 5, 5),
-				Edge.of(1, 2, 7), Edge.of(2, 3, -8), Edge.of(3, 4, 10), Edge.of(5, 2, -1), Edge.of(5, 3, 9),
-				Edge.of(5, 4, 1), Edge.of(6, 5, 2), Edge.of(7, 6, 9), Edge.of(7, 1, 6));
 
-		// Number of nodes in the graph
+		MaxCostPathInGraph path = new MaxCostPathInGraph();
+
+		// List of graph edges as per above diagram
+		List<Edge> edges = new ArrayList<>();
+		Edge e1 = path.new Edge(0, 6, 11);
+		Edge e2 = path.new Edge(0, 1, 5);
+		Edge e3 = path.new Edge(1, 6, 3);
+		Edge e4 = path.new Edge(1, 5, 5);
+		Edge e5 = path.new Edge(0, 1, 5);
+		Edge e6 = path.new Edge(1, 2, 7);
+		Edge e7 = path.new Edge(2, 3, -8);
+		Edge e8 = path.new Edge(3, 4, 10);
+		Edge e9 = path.new Edge(5, 2, -1);
+		Edge e10 = path.new Edge(5, 3, 9);
+		Edge e11 = path.new Edge(5, 4, 1);
+		Edge e12 = path.new Edge(6, 5, 2);
+		Edge e13 = path.new Edge(7, 6, 9);
+		Edge e14 = path.new Edge(7, 1, 6);
+		edges.add(e1);
+		edges.add(e2);
+		edges.add(e3);
+		edges.add(e4);
+		edges.add(e5);
+		edges.add(e6);
+		edges.add(e7);
+		edges.add(e8);
+		edges.add(e9);
+		edges.add(e10);
+		edges.add(e11);
+		edges.add(e12);
+		edges.add(e13);
+		edges.add(e14);
+
 		int N = 9;
 
 		// create a graph from edges
-		Graph g = new Graph(edges, N);
+		Graph g = path.new Graph(edges, N);
 
 		int src = 0;
 		int cost = 50;
 
 		// Do modified BFS traversal from source vertex src
-		int maxCost = modifiedBFS(g, src, cost);
+		int maxCost = path.maxCostBFS(g, src, cost);
 
 		if (maxCost != Integer.MIN_VALUE) {
 			System.out.println(maxCost);
@@ -87,55 +163,4 @@ public class MaxCostPathInGraph {
 		}
 	}
 
-}
-
-// data structure to store graph edges
-class Edge {
-	public final int src, dest, weight;
-
-	private Edge(int src, int dest, int weight) {
-		this.src = src;
-		this.dest = dest;
-		this.weight = weight;
-	}
-
-	// Factory method for creating a Edge immutable instance
-	public static Edge of(int a, int b, int c) {
-		return new Edge(a, b, c); // calls private constructor
-	}
-}
-
-// BFS Node
-class Node {
-	// current vertex number and cost of current path
-	int vertex, weight;
-
-	// set of nodes visited so far in current path
-	Set<Integer> s;
-
-	Node(int vertex, int weight, Set<Integer> s) {
-		this.vertex = vertex;
-		this.weight = weight;
-		this.s = s;
-	}
-}
-
-// class to represent a graph object
-class Graph {
-	// A list of lists to represent adjacency list
-	List<List<Edge>> adj = new ArrayList<>();
-
-	// Constructor to construct graph
-	public Graph(List<Edge> edges, int N) {
-		// resize the List to N elements of type List<Edge>
-		for (int i = 0; i < N; i++) {
-			adj.add(i, new ArrayList<>());
-		}
-
-		// add edges to the undirected graph
-		for (Edge e : edges) {
-			adj.get(e.src).add(Edge.of(e.src, e.dest, e.weight));
-			adj.get(e.dest).add(Edge.of(e.dest, e.src, e.weight));
-		}
-	}
 }

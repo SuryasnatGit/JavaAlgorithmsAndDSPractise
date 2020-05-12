@@ -43,7 +43,7 @@ public class Graph<T> {
 		return v;
 	}
 
-	public Vertex<T> getVertex(long id) {
+	public Vertex<T> getVertex(int id) {
 		return allVertex.get(id);
 	}
 

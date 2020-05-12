@@ -1,5 +1,7 @@
 package com.algo.ds.tree;
 
+import com.algo.common.TreeNode;
+
 class Count {
 	int size;
 }
@@ -102,6 +104,35 @@ public class SumTreeProblems {
 		return false;
 	}
 
+	/**
+	 * /** Given a binary tree, find the subtree with maximum sum. Return the root of the subtree.
+	 * 
+	 **/
+	private Wrapper max = null;
+
+	public TreeNode maxSubTree(TreeNode root) {
+		util(root);
+		return max.node;
+	}
+
+	private Wrapper util(TreeNode node) {
+		if (node == null) {
+			return new Wrapper(0, null);
+		}
+
+		int data = node.data;
+		Wrapper left = util(node.left);
+		Wrapper right = util(node.right);
+		int sum = left.sum + right.sum + data;
+		Wrapper temp = new Wrapper(sum, node);
+
+		if (max == null || temp.sum > max.sum) {
+			max = temp;
+		}
+
+		return temp;
+	}
+
 	public static void main(String args[]) {
 		ConstructTreeFromInOrderPreOrder ctf = new ConstructTreeFromInOrderPreOrder();
 		int inorder[] = { 4, 10, 6, 46, 11, 13, 2 };
@@ -110,5 +141,15 @@ public class SumTreeProblems {
 		SumTreeProblems st = new SumTreeProblems();
 		System.out.println(st.isSumTree(root));
 		System.out.println(st.isSumTree1(root));
+	}
+}
+
+class Wrapper {
+	int sum;
+	TreeNode node;
+
+	public Wrapper(int sum, TreeNode node) {
+		this.sum = sum;
+		this.node = node;
 	}
 }

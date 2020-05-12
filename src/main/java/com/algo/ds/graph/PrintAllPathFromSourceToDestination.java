@@ -6,11 +6,13 @@ import java.util.Set;
 /**
  * http://www.careercup.com/question?id=5922416572235776.
  * 
- * Write code to print all different paths in an undirected graph from a given source to destination
- * with no loop(any node can be at most once in a path ).
+ * Write code to print all different paths in an undirected graph from a given source to destination with no loop(any
+ * node can be at most once in a path ).
  * 
- * Test case: 1. Source or destination vertex does not exist in the graph 2. There is no path
- * between src to dest vertex
+ * Test case: 1. Source or destination vertex does not exist in the graph 2. There is no path between src to dest
+ * vertex.
+ * 
+ * TODO: this is throwing error. need to check.
  */
 public class PrintAllPathFromSourceToDestination {
 
@@ -52,8 +54,11 @@ public class PrintAllPathFromSourceToDestination {
 		graph.addEdge(1, 8);
 		graph.addEdge(8, 9);
 		graph.addEdge(9, 1);
+		System.out.println(graph.getAllVertex());
 		Vertex<Integer> start = graph.getVertex(1);
+		System.out.println(start);
 		Vertex<Integer> dest = graph.getVertex(7);
+		System.out.println(dest);
 		PrintAllPathFromSourceToDestination pap = new PrintAllPathFromSourceToDestination();
 		pap.printPath(graph, start, dest);
 	}

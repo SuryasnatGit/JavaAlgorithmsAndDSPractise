@@ -11,14 +11,20 @@ import java.util.Set;
  * you do not know what N is. With only 4 kilobytes of memory available, how would you print all duplicate elements in
  * the array?
  * 
- * @author ctsuser1
+ * dups([1, 2, 3]) = []
+ * 
+ * dups([1, 2, 2]) = [2]
+ * 
+ * dups([3, 3, 3]) = [3]
+ * 
+ * dups([2, 1, 2, 1]) = [1, 2]
  */
 public class FindDuplicates {
 
 	// Return a list of duplicates in the array. To avoid using extra space,
 	// we flag which elements we've seen before by negating the value at
 	// indexed at that value in the array.
-	public static List<Integer> findDuplicates(int[] arr) {
+	public List<Integer> findDuplicates(int[] arr) {
 		// Use a set for results to avoid duplicates
 		Set<Integer> resultSet = new HashSet<Integer>();
 
@@ -41,6 +47,17 @@ public class FindDuplicates {
 			arr[i] = Math.abs(arr[i]);
 		}
 
-		return new ArrayList(resultSet);
+		return new ArrayList<Integer>(resultSet);
+	}
+
+	public static void main(String[] args) {
+		FindDuplicates fd = new FindDuplicates();
+		fd.findDuplicates(new int[] { 1, 2, 3 }).forEach(a -> System.out.print(a + " "));
+		System.out.println();
+		fd.findDuplicates(new int[] { 1, 2, 2 }).forEach(a -> System.out.print(a + " "));
+		System.out.println();
+		fd.findDuplicates(new int[] { 3, 3, 3 }).forEach(a -> System.out.print(a + " "));
+		System.out.println();
+		fd.findDuplicates(new int[] { 2, 1, 2, 1 }).forEach(a -> System.out.print(a + " "));
 	}
 }
