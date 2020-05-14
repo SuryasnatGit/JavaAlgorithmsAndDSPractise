@@ -29,7 +29,7 @@ package com.algo.string;
  * 
  * The judging time limit has been increased for this question
  * 
- * @author surya
+ * Category : Hard
  *
  */
 public class SimilarStringGroups {

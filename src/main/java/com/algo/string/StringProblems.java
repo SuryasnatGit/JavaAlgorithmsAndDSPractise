@@ -77,8 +77,8 @@ public class StringProblems {
 		//
 		// System.out.println(sp.missingCharsToMakeStringPanagram("suryasnat"));
 		String s = "stop";
-		sp.stringPermutationsBT(s.toCharArray(), 0, s.length());
-
+		// sp.stringPermutationsBT(s.toCharArray(), 0, s.length());
+		sp.stringPermutations("cat").forEach(a -> System.out.println(a));
 	}
 
 	/**
@@ -342,8 +342,8 @@ public class StringProblems {
 
 	/**
 	 * Given a string S, Check if characters of the given string can be rearranged to form a palindrome. For example
-	 * characters of geeksogeeks can be rearranged to form a palindrome geeksoskeeg, but characters of
-	 * geeksforgeeks cannot be rearranged to form a palindrome.
+	 * characters of geeksogeeks can be rearranged to form a palindrome geeksoskeeg, but characters of geeksforgeeks
+	 * cannot be rearranged to form a palindrome.
 	 * 
 	 * @param s
 	 * @return
@@ -396,18 +396,20 @@ public class StringProblems {
 	 * 
 	 * @param str
 	 */
-	public void stringPermutations(String str) {
-		permutations(str, "");
+	public List<String> stringPermutations(String str) {
+		List<String> res = new ArrayList<>();
+		permutations(str, "", res);
+		return res;
 	}
 
-	private void permutations(String string, String prefix) {
-		if (string.length() == 0) {
-			System.out.println(prefix);
-			System.out.println(++count);
+	private void permutations(String remainder, String prefix, List<String> res) {
+		if (remainder.length() == 0) {
+			res.add(prefix);
+			return;
 		} else {
-			for (int i = 0; i < string.length(); i++) {
-				String rem = string.substring(0, i) + string.substring(i + 1);
-				permutations(rem, prefix + string.charAt(i));
+			for (int i = 0; i < remainder.length(); i++) {
+				permutations(remainder.substring(0, i) + remainder.substring(i + 1, remainder.length()),
+						prefix + remainder.charAt(i), res);
 			}
 		}
 	}
@@ -1299,6 +1301,27 @@ public class StringProblems {
 		}
 
 		System.out.println(sb.reverse());
+	}
+
+	// replace %20 with " "
+	public String replaceSpace(String s) {
+		int posOld = 0, posNew = 0;
+		char[] res = s.toCharArray();
+
+		while (posOld < s.length()) {
+			if (posOld < s.length() - 2 && res[posOld] == '%' && res[posOld + 1] == '2' && res[posOld + 2] == '0') {
+				while (posOld < s.length() - 2 && res[posOld] == '%' && res[posOld + 1] == '2'
+						&& res[posOld + 2] == '0') {
+					posOld += 3;
+				} //
+
+				res[posNew++] = ' ';
+			} else {
+				res[posNew++] = res[posOld++];
+			}
+		}
+
+		return new String(res).substring(0, posNew);
 	}
 
 }

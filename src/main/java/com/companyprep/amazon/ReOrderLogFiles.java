@@ -1,7 +1,6 @@
 package com.companyprep.amazon;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -16,13 +15,13 @@ import java.util.Queue;
  * 
  * For each log, the first word in each log is an alphanumeric identifier. Then, either:
  * 
- * Each word after the identifier will consist only of lowercase letters, or; Each word after the
- * identifier will consist only of digits. We will call these two varieties of logs letter-logs and
- * digit-logs. It is guaranteed that each log has at least one word after its identifier.
+ * Each word after the identifier will consist only of lowercase letters, or; Each word after the identifier will
+ * consist only of digits. We will call these two varieties of logs letter-logs and digit-logs. It is guaranteed that
+ * each log has at least one word after its identifier.
  * 
- * Reorder the logs so that all of the letter-logs come before any digit-log. The letter-logs are
- * ordered lexicographically ignoring identifier, with the identifier used in case of ties. The
- * digit-logs should be put in their original order.
+ * Reorder the logs so that all of the letter-logs come before any digit-log. The letter-logs are ordered
+ * lexicographically ignoring identifier, with the identifier used in case of ties. The digit-logs should be put in
+ * their original order.
  * 
  * Return the final order of the logs.
  * 
@@ -42,10 +41,10 @@ import java.util.Queue;
  *
  * TAGS : Amazon
  */
-public class PrioritizedOrders {
+public class ReOrderLogFiles {
 
 	public static void main(String[] args) {
-		PrioritizedOrders ap = new PrioritizedOrders();
+		ReOrderLogFiles ap = new ReOrderLogFiles();
 		List<String> orderList = new ArrayList<String>();
 		orderList.add("1a2b apple iphone");
 		orderList.add("12bc 123 567");
@@ -55,15 +54,14 @@ public class PrioritizedOrders {
 
 		prioritizedOrders.forEach(o -> System.out.println(o));
 
-		String[] ar = new String[orderList.size()];
-		String[] res = ap.reorderLogFiles(orderList.toArray(ar));
-		System.out.println(Arrays.toString(res));
+		List<String> res = ap.reorderLogFiles(orderList);
+		System.out.println(res);
 	}
 
 	// Solution 1
 	/**
-	 * Time complexity - O(m * n) + k log k where m = number of strings, n = number of words in a
-	 * string, k = number of prime orders
+	 * Time complexity - O(m * n) + k log k where m = number of strings, n = number of words in a string, k = number of
+	 * prime orders
 	 * 
 	 * @param numOrders
 	 * @param orderList
@@ -182,9 +180,9 @@ public class PrioritizedOrders {
 	}
 
 	// Solution 2 - Using Priority Queue
-	public String[] reorderLogFiles(String[] input) {
-		if (input.length < 2)
-			return input;
+	public List<String> reorderLogFiles(List<String> logLines) {
+		if (logLines.size() < 2)
+			return logLines;
 
 		Queue<String> numbers = new LinkedList<String>();
 
@@ -201,7 +199,7 @@ public class PrioritizedOrders {
 			}
 		});
 
-		for (String s : input) {
+		for (String s : logLines) {
 			int ind = s.indexOf(" ");
 			if (Character.isDigit(s.charAt(ind + 1)))
 				numbers.offer(s);
@@ -209,15 +207,14 @@ public class PrioritizedOrders {
 				letters.offer(s);
 		}
 
-		int i = 0;
+		List<String> result = new ArrayList<>();
 		while (!letters.isEmpty()) {
-			input[i++] = letters.poll();
+			result.add(letters.poll());
 		}
 		while (!numbers.isEmpty()) {
-			input[i++] = numbers.poll();
+			result.add(numbers.poll());
 		}
 
-		return input;
+		return result;
 	}
 }
-
