@@ -25,131 +25,49 @@ package com.algo.ds.array;
 public class MedianOfSortedArrays {
 
 	public static void main(String[] args) {
-		int ar1[] = { 1, 12, 15, 26, 38 };
-		int ar2[] = { 2, 13, 18, 30, 45 };
 		MedianOfSortedArrays me = new MedianOfSortedArrays();
-		System.out.println(me.findMedian(ar1, ar2));
+		System.out.println(me.findMedianSortedArrays(new int[] { 1 }, new int[] { 2, 3 }));
+		System.out.println(me.findMedianSortedArrays(new int[] { 1, 2 }, new int[] { 3, 4 }));
+		System.out.println(me.findMedianSortedArrays(new int[] { 1, 2 }, new int[] { 3 }));
+		System.out.println(me.findMedianSortedArrays(new int[] { 1, 2 }, new int[] {}));
+		System.out.println(me.findMedianSortedArrays(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 },
+				new int[] { 11, 12, 13, 14, 15, 16, 17, 18, 19 }));
 	}
 
-	public int findMedian(int[] arrA, int[] arrB) {
-		if (arrA.length == 0 && arrB.length == 0)
-			throw new IllegalArgumentException("Array should not be null");
-		return findMedianOfArrays(arrA, 0, arrA.length - 1, arrB, 0, arrB.length - 1);
-	}
+	public double findMedianSortedArrays(int[] A, int[] B) {
+		// Based on isEven, find either mid or (mid - 1, mid)
+		int len = A.length + B.length;
+		boolean isEven = (len % 2 == 0);
 
-	private int findMedianOfArrays(int[] arrA, int startA, int endA, int[] arrB, int startB, int endB) {
-		// check for 0 length
-		if (arrA.length == 0)
-			return medianOfArray(arrB, startB, endB);
-		if (arrB.length == 0)
-			return medianOfArray(arrA, startA, endA);
-
-		int lengthA = arrA.length;
-		int lengthB = arrB.length;
-
-		// check for 1 length of both arrays
-		if (lengthA == 1 && lengthB == 1)
-			return (arrA[startA] + arrB[startB]) / 2;
-
-		// check for length 1 of A and more than 1 of B
-		if (lengthA == 1 && lengthB > 1)
-			return findMedianOfArrayAndValue(arrB, startB, endB, arrA[startA]);
-		if (lengthB == 1 && lengthA > 1)
-			return findMedianOfArrayAndValue(arrA, startA, endA, arrB[startB]);
-
-		// check for length 2 of A and more than 2 of B
-		if (lengthA == 2 && lengthB >= 2 && lengthB % 2 == 0) {
-			if (areVauesInMiddleOFEvenArray(arrB, startB, endB, arrA[startA], arrA[endA]))
-				return (arrA[startA] + arrA[endA]) / 2;
-		}
-
-		// check for length 2 of B and more than 2 of A
-		if (lengthB == 2 && lengthA >= 2 && lengthA % 2 == 0) {
-			if (areVauesInMiddleOFEvenArray(arrA, startA, endA, arrB[startB], arrB[endB]))
-				return (arrB[startB] + arrB[endB]) / 2;
-		}
-
-		int medianA = medianOfArray(arrA, startA, endA);
-		int medianB = medianOfArray(arrB, startB, endB);
-		if (medianA == medianB)
-			return medianA;
-
-		int maxDiscardable = Math.min((endA - startA) / 2 - 1, (endB - startB) / 2 - 1);
-		if (maxDiscardable < 1)
-			maxDiscardable = 1;
-
-		if (medianA < medianB)
-			return findMedianOfArrays(arrA, startA + maxDiscardable, endA, arrB, startB, endB - maxDiscardable);
-		return findMedianOfArrays(arrA, startA, endA - maxDiscardable, arrB, startB + maxDiscardable, endB);
-	}
-
-	/**
-	 * Gets whether two values belong in sorted order in the middle of an array.
-	 * 
-	 * @return
-	 */
-	private boolean areVauesInMiddleOFEvenArray(int[] arr, int start, int end, int smallVal, int bigVal) {
-		int midIndex = (start + end) / 2;
-		return smallVal > arr[midIndex] && bigVal < arr[midIndex + 1];
-	}
-
-	/**
-	 * Get median of sorted array and an additional value
-	 * 
-	 * @return
-	 */
-	private int findMedianOfArrayAndValue(int[] arr, int start, int end, int value) {
-		int median = medianOfArray(arr, start, end);
-		if (median == value)
-			return value;
-		// if array length is even
-		if ((end - start) % 2 == 1)
-			return findMedianOfArrayAndValueEvenCase(arr, start, end, median, value);
-		return findMedianOfArrayAndValueOddCase(arr, start, end, median, value);
-	}
-
-	/**
-	 * finds median of sorted array with odd number of elements and additional value
-	 * 
-	 */
-	private int findMedianOfArrayAndValueOddCase(int[] arr, int start, int end, int median, int value) {
-		int midIndex = (start + end) / 2;
-		int leftVal = arr[midIndex - 1];
-		int midVal = arr[midIndex];
-		int rightVal = arr[midIndex + 1];
-		if (value < leftVal)
-			return (leftVal + midVal) / 2;
-		if (value > rightVal)
-			return (midVal + rightVal) / 2;
-		else
-			return (value + midVal) / 2;
-	}
-
-	/**
-	 * finds median of sorted array with even number of elements and additional value
-	 * 
-	 */
-	private int findMedianOfArrayAndValueEvenCase(int[] arr, int start, int end, int median, int value) {
-		if (median < value) {
-			int right = arr[(end - start) / 2 + 1];
-			return Math.max(right, value);
+		if (isEven) {
+			return (findKth(A, 0, B, 0, len / 2) + findKth(A, 0, B, 0, len / 2 + 1)) / 2.0;
 		} else {
-			int left = arr[(end - start) / 2];
-			return Math.max(left, value);
+			return findKth(A, 0, B, 0, len / 2 + 1);
 		}
 	}
 
-	/**
-	 * Finds median value of the array
-	 */
-	private int medianOfArray(int[] arr, int start, int end) {
-		if (start == end)
-			return arr[start];
-		int mid = (start + end) / 2;
-		// if array length is even
-		if ((end - start) % 2 == 1)
-			return (arr[mid] + arr[mid + 1]) / 2;
-		return arr[mid];
+	// Find kth element in 2 sorted array
+	private int findKth(int[] A, int A_start, int[] B, int B_start, int k) {
+		if (A_start >= A.length) {
+			return B[B_start + k - 1];
+		}
+		if (B_start >= B.length) {
+			return A[A_start + k - 1];
+		}
+		if (k == 1) {
+			return Math.min(A[A_start], B[B_start]);
+		}
+
+		// Minus 1 because this is index
+		int A_key = A_start + k / 2 - 1 < A.length ? A[A_start + k / 2 - 1] : Integer.MAX_VALUE;
+		int B_key = B_start + k / 2 - 1 < B.length ? B[B_start + k / 2 - 1] : Integer.MAX_VALUE;
+
+		if (A_key <= B_key) { // Cut half every time
+			// The 2rd parameter will advance. last parameter will cut half
+			return findKth(A, A_start + k / 2, B, B_start, k - k / 2);
+		} else {
+			return findKth(A, A_start, B, B_start + k / 2, k - k / 2);
+		}
 	}
 
 }

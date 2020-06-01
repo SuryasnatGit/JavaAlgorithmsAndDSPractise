@@ -1,5 +1,7 @@
 package com.ctci.arraysnstrings;
 
+import java.util.Arrays;
+
 /**
  * Write an algorithm such that if an element in an MxN matrix is 0, its entire row and column are set to 0.
  * 
@@ -27,7 +29,8 @@ public class ZeroMatrix {
 		if (matrix.length == 0 || matrix[0].length == 0)
 			return;
 
-		// Determine whether the first row or first column is true
+		// Determine whether the first row or first column is true.
+		// boolean 1 - true and 0 - false
 		boolean rowZero = false, colZero = false;
 		for (boolean i : matrix[0]) {
 			rowZero |= i;
@@ -80,6 +83,13 @@ public class ZeroMatrix {
 				matrix[i][0] = true;
 			}
 		}
+	}
+
+	public static void main(String[] args) {
+		ZeroMatrix zm = new ZeroMatrix();
+		boolean[][] matrix = { { true, false, false }, { false, false, false }, { false, false, false } };
+		zm.zeroMatrix(matrix);
+		Arrays.stream(matrix).forEach(a -> System.out.println(Arrays.toString(a) + ","));
 	}
 
 }

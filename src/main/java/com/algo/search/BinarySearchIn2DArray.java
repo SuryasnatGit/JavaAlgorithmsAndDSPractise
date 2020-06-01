@@ -1,8 +1,35 @@
 package com.algo.search;
 
+/**
+ * CTCI - 10.9
+ *
+ */
 public class BinarySearchIn2DArray {
 
 	/**
+	 * Time Complexity: O(n)
+	 * 
+	 * The above approach will also work for m x n matrix (not only for n x n). Complexity would be O(m + n).
+	 * 
+	 * @param matrix
+	 * @return
+	 */
+	public boolean search_naive(int[][] matrix, int elem) {
+		int row = 0;
+		int col = matrix[0].length - 1;
+		while (row < matrix.length && col >= 0) {
+			if (matrix[row][col] == elem)
+				return true;
+			else if (matrix[row][col] > elem)
+				col--;
+			else
+				row++;
+		}
+		return false;
+	}
+
+	/**
+	 * O(log n + log m)
 	 * 
 	 * @param array
 	 *            sorted array where each row is also sorted and last element of a row is less that first element of
