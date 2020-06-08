@@ -47,7 +47,7 @@ public class WordsNumberConverter {
 		return sb.toString().trim();
 	}
 
-	public String convert(int num) {
+	private String convert(int num) {
 
 		StringBuilder sb = new StringBuilder();
 
@@ -74,7 +74,7 @@ public class WordsNumberConverter {
 		return sb.toString();
 	}
 
-	public void fillMap() {
+	private void fillMap() {
 		map.put(0, "Zero");
 		map.put(1, "One");
 		map.put(2, "Two");
@@ -103,17 +103,6 @@ public class WordsNumberConverter {
 		map.put(70, "Seventy");
 		map.put(80, "Eighty");
 		map.put(90, "Ninety");
-	}
-
-	public String withSeparator(long number) {
-		if (number < 0) {
-			return "-" + withSeparator(-number);
-		}
-		if (number / 1000L > 0) {
-			return withSeparator(number / 1000L) + "," + String.format("%1$03d", number % 1000L);
-		} else {
-			return String.format("%1$d", number);
-		}
 	}
 
 	public long wordsToNumber(String text) throws Exception {
@@ -154,7 +143,7 @@ public class WordsNumberConverter {
 		return bigNumMap;
 	}
 
-	public long parseNumerals(String text) throws Exception {
+	private long parseNumerals(String text) throws Exception {
 		long value = 0;
 		String[] words = text.replaceAll(" and ", " ").split("\\s");
 		for (String word : words) {

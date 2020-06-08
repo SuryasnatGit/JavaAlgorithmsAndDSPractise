@@ -18,12 +18,28 @@ import java.util.Stack;
  * 
  * " 3+5 / 2 " = 5
  * 
- * Follow up : What if you need to support parentheses?
+ * Also support parenthesis.
  *
  */
 public class BasicCalculator {
 
 	public int calculator(String s) {
+
+		if (s == null || s.length() == 0)
+			return 0;
+
+		while (s.indexOf("(") != -1) {
+			int open = s.lastIndexOf("(");
+			int close = s.indexOf(")", open);
+			int result = calculateSubSection(s.substring(open + 1, close).replaceAll("--", "+"));
+			s = s.substring(0, open) + result + s.substring(close + 1);
+		}
+
+		s = s.replaceAll("--", "+");
+		return calculateSubSection(s);
+	}
+
+	private int calculateSubSection(String s) {
 		Stack<Integer> stack = new Stack<Integer>();
 		int num = 0; // To be prepared
 		char sign = '+'; // This sign is the sign before num.
@@ -70,8 +86,9 @@ public class BasicCalculator {
 
 		System.out.println(bc.calculator("3+2*2"));
 		System.out.println(bc.calculator("3/2"));
-
-		// this does not work for basic calculator. We need the arithmetic calculator approach.
+		System.out.println(bc.calculator("3*(2*2+1)"));
 		System.out.println(bc.calculator("2*3+5/6*3+15"));
+		System.out.println(bc.calculator("(2*3+4)-3*5"));
+		System.out.println(bc.calculator("((2*3+4)-3)*5"));
 	}
 }
