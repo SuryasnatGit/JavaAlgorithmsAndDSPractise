@@ -35,10 +35,20 @@ public class MaxCostPathInGraph {
 		// set of nodes visited so far in current path
 		public Set<Integer> s;
 
+		// maintain parent node for printing final path
+		public Node parent;
+
 		public Node(int vertex, int weight, Set<Integer> s) {
 			this.vertex = vertex;
 			this.weight = weight;
 			this.s = s;
+		}
+
+		public Node(int vertex, int weight, Set<Integer> s, Node parent) {
+			this.vertex = vertex;
+			this.weight = weight;
+			this.s = s;
+			this.parent = parent;
 		}
 	}
 
@@ -85,7 +95,7 @@ public class MaxCostPathInGraph {
 			vertices = new HashSet<>(node.s);
 
 			// if destination is reached and BFS depth is equal to m
-			// update minimum cost calculated so far
+			// update maximum cost calculated so far
 			if (cost > k) {
 				maxCost = Math.max(maxCost, cost);
 			}
@@ -108,6 +118,65 @@ public class MaxCostPathInGraph {
 
 		// return max-cost
 		return maxCost;
+	}
+
+	// Perform BFS on graph g starting from vertex v
+	public Node maxCostBFSPath(Graph g, int src, int k) {
+		// create a queue used to do BFS
+		Queue<Node> q = new ArrayDeque<>();
+
+		// add source vertex to set and push it into the queue
+		Set<Integer> vertices = new HashSet<>();
+		vertices.add(0);
+		q.add(new Node(src, 0, vertices, null));
+
+		// stores maximum-cost path information
+		Node maxCostPathLastNode = null;
+
+		// stores front node of queue
+		Node front = null;
+
+		// run till queue is not empty
+		while (!q.isEmpty()) {
+			// pop front node from queue
+			front = q.poll();
+
+			int v = front.vertex;
+			int cost = front.weight;
+			vertices = new HashSet<>(front.s);
+
+			// if destination is reached and BFS depth is equal to m
+			// update minimum cost calculated so far
+			if (cost > k && (maxCostPathLastNode == null || maxCostPathLastNode.weight < cost)) {
+				maxCostPathLastNode = front;
+			}
+
+			// do for every adjacent edge of v
+			for (Edge edge : g.adj.get(v)) {
+				// check for cycle
+				if (!vertices.contains(edge.dest)) {
+					// add current node into the path
+					Set<Integer> s = new HashSet<>(vertices);
+					s.add(edge.dest);
+
+					// push every vertex (discovered or undiscovered) into
+					// the queue with cost equal to (cost of parent + weight
+					// of current edge)
+					q.add(new Node(edge.dest, cost + edge.weight, s, front));
+				}
+			}
+		}
+
+		// return last node containing max-cost path information
+		return maxCostPathLastNode;
+	}
+
+	private void printPath(Node node) {
+		if (node == null) {
+			return;
+		}
+		printPath(node.parent);
+		System.out.print(node.vertex + " -> ");
 	}
 
 	public static void main(String[] args) {
@@ -161,6 +230,9 @@ public class MaxCostPathInGraph {
 		} else {
 			System.out.println("All paths from source have their costs < " + cost);
 		}
+
+		Node maxCostBFSPath = path.maxCostBFSPath(g, src, cost);
+		path.printPath(maxCostBFSPath);
 	}
 
 }

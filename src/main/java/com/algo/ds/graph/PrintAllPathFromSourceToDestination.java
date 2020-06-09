@@ -12,7 +12,6 @@ import java.util.Set;
  * Test case: 1. Source or destination vertex does not exist in the graph 2. There is no path between src to dest
  * vertex.
  * 
- * TODO: this is throwing error. need to check.
  */
 public class PrintAllPathFromSourceToDestination {
 
