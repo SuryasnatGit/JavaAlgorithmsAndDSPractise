@@ -72,41 +72,6 @@ public class ArraySubsetOfAnotherArray {
 	}
 
 	/**
-	 * Solution 3 : sorting and merging. time complexity - O(m log m + n log n)
-	 * 
-	 * @param arr1
-	 * @param arr2
-	 * @return
-	 */
-	public boolean isArraySubset3(int[] arr1, int[] arr2) {
-		int m = arr1.length;
-		int n = arr2.length;
-
-		if (m < n)
-			return false;
-
-		Arrays.sort(arr1);
-		Arrays.sort(arr2);
-
-		int i = 0, j = 0;
-		while (i < m && j < n) {
-			if (arr1[i] < arr2[j]) {
-				i++;
-			} else if (arr1[i] == arr2[j]) {
-				i++;
-				j++;
-			} else {
-				return false;
-			}
-		}
-
-		if (j < n)
-			return false;
-		else
-			return true;
-	}
-
-	/**
 	 * Solution 4 - using hashing. time complexity - O(m + n) space - O(m)
 	 * 
 	 * @param arr1
@@ -136,11 +101,10 @@ public class ArraySubsetOfAnotherArray {
 
 	public static void main(String[] args) {
 		ArraySubsetOfAnotherArray su = new ArraySubsetOfAnotherArray();
-		int[] arr1 = { 1, 2, 3, 4, 5, 6 };
-		int[] arr2 = { 1, 2, 4, 7 };
+		int[] arr1 = { 2, 1, 3, 4, 5, 6 };
+		int[] arr2 = { 1, 2, 4, 6 };
 		System.out.println(su.isArraySubSet1(arr1, arr2));
 		System.out.println(su.isArraySubset2(arr1, arr2));
-		System.out.println(su.isArraySubset3(arr1, arr2));
 		System.out.println(su.isArraySubset4(arr1, arr2));
 	}
 }

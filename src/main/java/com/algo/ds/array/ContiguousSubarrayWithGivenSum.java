@@ -1,8 +1,8 @@
 
 package com.algo.ds.array;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * https://www.techiedelight.com/find-subarray-having-given-sum-given-array/
@@ -33,7 +33,7 @@ public class ContiguousSubarrayWithGivenSum {
 
 			// if current window's sum is equal to the given sum
 			if (windowSum == sum) {
-				System.out.printf("Subarray found [%d-%d]\n", low, high - 1);
+				System.out.printf("Subarray found from [%d %d]\n", low, high - 1);
 				return;
 			}
 
@@ -50,44 +50,43 @@ public class ContiguousSubarrayWithGivenSum {
 	 * T - O(n) S - O(n)
 	 * 
 	 */
-	public boolean findSubarray1(int[] A, int sum) {
-		// create an empty set
-		Set<Integer> set = new HashSet<>();
+	public void findSubarrayHash(int[] A, int sum) {
+		int start = 0, end = -1, currSum = 0;
+		Map<Integer, Integer> map = new HashMap<>();
 
-		// insert number 0 into the set to handle the case when
-		// sub-array with given sum starts from index 0
-		set.add(0);
+		for (int i = 0; i < A.length; i++) {
+			currSum += A[i];
 
-		// maintains sum of elements so far
-		int sum_so_far = 0;
-
-		// traverse the given array
-		for (int i : A) {
-			// update sum_so_far
-			sum_so_far += i;
-
-			// if (sum_so_far - sum) is seen before, we have found
-			// the sub-array with sum 'sum'
-			if (set.contains(sum_so_far - sum)) {
-				return true;
+			if (currSum - sum == 0) {
+				start = 0;
+				end = i;
+				System.out.println("Subarray found from " + start + " to " + end);
+				break;
 			}
 
-			// else insert sum of elements so far into the set
-			set.add(sum_so_far);
-		}
+			if (map.containsKey(currSum - sum)) {
+				start = map.get(currSum - sum) + 1;
+				end = i;
+				System.out.println("Subarray found from " + start + " to " + end);
+				break;
+			}
 
-		// we reach here when no sub-array exists
-		return false;
+			map.put(currSum, i);
+		}
+		if (end == -1) {
+			System.out.println("subarray not found");
+		}
 	}
 
 	public static void main(String args[]) {
 		ContiguousSubarrayWithGivenSum sgs = new ContiguousSubarrayWithGivenSum();
-		int input[] = { 6, 3, 9, 11, 1, 3, 5 };
 
-		System.out.println(sgs.findSubarray1(new int[] { -3, -1, -5, 8 }, -4));
-		System.out.println(sgs.findSubarray1(new int[] { -3, -1, -5, 8 }, -6));
-		System.out.println(sgs.findSubarray1(new int[] { -3, -1, -5, 8 }, 2));
-		System.out.println(sgs.findSubarray1(new int[] { -3, -1, -5, 8 }, -8));
-		System.out.println(sgs.findSubarray1(new int[] { 3, -1, -5, 8 }, 5));
+		sgs.findSubarray(new int[] { 2, 1, 4, 3 }, 5);
+
+		sgs.findSubarrayHash(new int[] { -3, -1, -5, 8 }, -4);
+		sgs.findSubarrayHash(new int[] { -3, -1, -5, 8 }, -6);
+		sgs.findSubarrayHash(new int[] { -3, -1, -5, 8 }, 2);
+		sgs.findSubarrayHash(new int[] { -3, -1, -5, 8 }, -8);
+		sgs.findSubarrayHash(new int[] { 3, -1, -5, 8 }, 5);
 	}
 }

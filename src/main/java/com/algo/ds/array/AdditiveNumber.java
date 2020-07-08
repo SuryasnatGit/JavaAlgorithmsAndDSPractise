@@ -18,6 +18,8 @@ import java.util.List;
  * Note: Numbers in the additive sequence cannot have leading zeros, so sequence 1, 2, 03 or 1, 02, 3 is invalid.
  *
  * https://leetcode.com/problems/additive-number/
+ * 
+ * Priority : Medium
  */
 public class AdditiveNumber {
 
@@ -95,11 +97,9 @@ public class AdditiveNumber {
 		return true;
 	}
 
-	///// ANOTHER APPROACH //////
-
-	// Method returns additive sequence from string as
-	// a list
-	public List<String> additiveSequence(String num) {
+	// TODO : this is not working. check later.
+	// Method returns additive sequence from string as a list
+	public List<String> getAdditiveNumberSequence(String num) {
 		List<String> res = new ArrayList<>();
 		int l = num.length();
 
@@ -125,7 +125,7 @@ public class AdditiveNumber {
 	}
 
 	// Recursive method to check c = a + b
-	boolean checkAddition(List<String> res, String a, String b, String c) {
+	private boolean checkAddition(List<String> res, String a, String b, String c) {
 		// both first and second number should be valid
 		if (!isValid(a) || !isValid(b))
 			return false;
@@ -201,5 +201,6 @@ public class AdditiveNumber {
 		System.out.println(an.isAdditiveNumberRecursive("112358"));
 		System.out.println(an.isAdditiveNumberIterative("112358"));
 		System.out.println(an.isAdditiveNumberRecursive("991100102"));
+		// System.out.println(an.getAdditiveNumberSequence("112358"));
 	}
 }

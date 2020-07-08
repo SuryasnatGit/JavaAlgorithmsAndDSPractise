@@ -33,6 +33,7 @@ import java.util.Map;
  */
 public class IsSubsequence {
 
+	// Simple. T - O(n)
 	public boolean isSubsequence2Pointers(String s, String t) {
 		int p1 = 0;
 		int p2 = 0;
@@ -54,7 +55,7 @@ public class IsSubsequence {
 	}
 
 	// This will be better if there are multiple strings to compare with s. So better to build a dictionary on T
-	boolean isSubsequence(String s, String t) {
+	public boolean isSubsequence(String s, String t) {
 		// This could also be -> List<Integer>[] hash = new List<Integer>[26];
 		Map<Character, List<Integer>> map = new HashMap<Character, List<Integer>>(); // Indexes of each char
 
