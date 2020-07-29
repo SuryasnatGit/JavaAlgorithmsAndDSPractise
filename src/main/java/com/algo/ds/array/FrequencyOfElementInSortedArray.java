@@ -21,6 +21,8 @@ package com.algo.ds.array;
  * Input: arr[] = {1, 1, 2, 2, 2, 2, 3,}, x = 4
  * 
  * Output: -1 // 4 doesn't occur in arr[]
+ * 
+ * Category : Medium
  *
  */
 public class FrequencyOfElementInSortedArray {

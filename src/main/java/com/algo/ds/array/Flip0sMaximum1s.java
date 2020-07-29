@@ -20,17 +20,17 @@ import java.util.List;
 public class Flip0sMaximum1s {
 
 	// Sliding window technique : Time complexity - O(n) Space complexity - O(1)
-	public int flip0sToMaximizeConsecutive1s(int input[], int flipsAllowed) {
+	public int maximizeConsecutive1sLength(int input[], int flipsAllowed) {
 
 		int windowStart = 0; // start position of sliding window
-		int countZero = 0;
+		int zeroCount = 0;
 		int result = 0;
 		for (int i = 0; i < input.length; i++) {
 			if (input[i] == 1) {
 				result = Math.max(result, i - windowStart + 1);
 			} else {
-				if (countZero < flipsAllowed) {
-					countZero++;
+				if (zeroCount < flipsAllowed) {
+					zeroCount++;
 					result = Math.max(result, i - windowStart + 1);
 				} else {
 					while (true) {
@@ -66,7 +66,7 @@ public class Flip0sMaximum1s {
 	 * @param m
 	 * @return
 	 */
-	public List<Integer> maximumContinuousOnes(int[] arr, int m) {
+	public List<Integer> maximumConsequetive1sPositions(int[] arr, int m) {
 		// initialize variables
 		int maxBegin = 0;
 		int maxEnd = 0;
@@ -111,10 +111,10 @@ public class Flip0sMaximum1s {
 	public static void main(String args[]) {
 		int input[] = { 0, 1, 0, 0, 1, 1, 0, 1, 0, 1, 1, 1 };
 		Flip0sMaximum1s fm = new Flip0sMaximum1s();
-		System.out.println(fm.flip0sToMaximizeConsecutive1s(input, 1));
+		System.out.println(fm.maximizeConsecutive1sLength(input, 1));
 
 		int[] input1 = { 1, 1, 0, 1, 1, 0, 0, 1, 1, 1 };
-		System.out.println(fm.maximumContinuousOnes(input1, 1));
-		System.out.println(fm.maximumContinuousOnes(input1, 2));
+		System.out.println(fm.maximumConsequetive1sPositions(input1, 1));
+		System.out.println(fm.maximumConsequetive1sPositions(input1, 2));
 	}
 }

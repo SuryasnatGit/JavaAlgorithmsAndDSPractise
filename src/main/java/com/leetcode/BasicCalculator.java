@@ -19,6 +19,8 @@ import java.util.Stack;
  * " 3+5 / 2 " = 5
  * 
  * Also support parenthesis.
+ * 
+ * Category : Hard
  *
  */
 public class BasicCalculator {

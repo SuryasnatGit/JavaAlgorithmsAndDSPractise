@@ -23,7 +23,7 @@ import java.util.Arrays;
  * all 0s
  */
 
-public class KadaneWrapArray {
+public class KadaneWrapCircularSum {
 
 	public int circularSum(int[] arr) {
 		int arraySum = Arrays.stream(arr).sum();
@@ -57,7 +57,7 @@ public class KadaneWrapArray {
 	}
 
 	public static void main(String args[]) {
-		KadaneWrapArray kwa = new KadaneWrapArray();
+		KadaneWrapCircularSum kwa = new KadaneWrapCircularSum();
 		System.out.println(kwa.circularSum(new int[] { 8, -8, 9, -9, 10, -11, 12 }));
 		System.out.println(kwa.circularSum(new int[] { 10, -3, -4, 7, 6, 5, -4, -1 }));
 		System.out.println(kwa.circularSum(new int[] { -1, 40, -14, 7, 6, 5, -4, -1 }));

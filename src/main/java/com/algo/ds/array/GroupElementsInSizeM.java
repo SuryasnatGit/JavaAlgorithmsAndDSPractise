@@ -1,5 +1,6 @@
 package com.algo.ds.array;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,14 +9,15 @@ import java.util.PriorityQueue;
 /**
  * http://www.careercup.com/question?id=6026101998485504.
  * 
- * Given an unordered array of positive integers, create an algorithm that makes sure no group of
- * integers of size bigger than M have the same integers.
+ * Given an unordered array of positive integers, create an algorithm that makes sure no group of integers of size
+ * bigger than M have the same integers.
  * 
- * This answer two questions. Group elements in size m such that in every group only unique elements
- * are possible. It also answers question where rearrange array such that same elements are exactly
- * m distance from each other.
+ * This answer two questions. Group elements in size m such that in every group only unique elements are possible. It
+ * also answers question where rearrange array such that same elements are exactly m distance from each other.
  * 
  * Input: 2,1,1,1,3,4,4,4,5 M = 2 Output: 2,1,1,3,1,4,4,5,4
+ * 
+ * Category : Medium
  */
 class Pair {
 	int num;
@@ -86,8 +88,9 @@ public class GroupElementsInSizeM {
 		GroupElementsInSizeM gps = new GroupElementsInSizeM();
 		boolean r = gps.group(input, 3);
 		System.out.println(r);
-		for (int i = 0; i < input.length; i++) {
-			System.out.println(input[i]);
-		}
+		System.out.println(Arrays.toString(input));
+
+		System.out.println(gps.group(input1, 3));
+
 	}
 }
