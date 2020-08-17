@@ -35,6 +35,9 @@ public class IsSubsequence {
 
 	// Simple. T - O(n)
 	public boolean isSubsequence2Pointers(String s, String t) {
+		if (s == null || s.length() == 0)
+			return true;
+
 		int p1 = 0;
 		int p2 = 0;
 
@@ -113,5 +116,12 @@ public class IsSubsequence {
 		} else {
 			return -1;
 		}
+	}
+
+	public static void main(String[] args) {
+		IsSubsequence is = new IsSubsequence();
+		System.out.println(is.isSubsequence2Pointers("abc", "ahbgdc"));
+		System.out.println(is.isSubsequence2Pointers("axc", "ahbgdc"));
+		System.out.println(is.isSubsequence2Pointers("", "ahbgdc"));
 	}
 }

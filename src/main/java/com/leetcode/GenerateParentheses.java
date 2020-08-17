@@ -4,40 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Given n pairs of parentheses, write a function to generate all combinations of well-formed
- * parentheses. For example, given n = 3, a solution set is: [ "((()))", "(()())", "(())()",
- * "()(())", "()()()" ]
+ * Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses. For example,
+ * given n = 3, a solution set is: [ "((()))", "(()())", "(())()", "()(())", "()()()" ]
  * 
- * @author surya
+ * Category : Medium
  *
  */
 public class GenerateParentheses {
 
-	List<String> res = new ArrayList<>();
-
 	/**
-	 * Easy solution: DFS. Left and right represents the remaining number of ( and ) that need to be
-	 * added. When left > right, there are more ")" placed than "(". Such cases are wrong and the method
-	 * stops.
-	 * 
-	 * @param n
-	 * @return
+	 * Easy solution: DFS. Left and right represents the remaining number of ( and ) that need to be added. When left >
+	 * right, there are more ")" placed than "(". Such cases are wrong and the method stops.
+	 *
 	 */
-	public List<String> generateParenthesis(int n) {
-		generate("", n, n);
+	public List<String> generateParenthesis1(int n) {
+		List<String> res = new ArrayList<>();
+		generate("", n, n, res);
 		return res;
 	}
 
-	private void generate(String s, int left, int right) {
+	private void generate(String s, int left, int right, List<String> res) {
 		if (left == 0 && right == 0) {
 			res.add(s);
 		}
 		if (left < 0 || right < 0 || left > right)
 			return;
 
-		generate(s + '(', left - 1, right);
-		generate(s + ')', left, right - 1);
-
+		generate(s + '(', left - 1, right, res);
+		generate(s + ')', left, right - 1, res);
 	}
 
 	/**
@@ -46,16 +40,16 @@ public class GenerateParentheses {
 	 * @param n
 	 * @return
 	 */
-	public List<String> generateParenthesis1(int n) {
-		ArrayList<String> result = new ArrayList<String>();
-		ArrayList<Integer> diff = new ArrayList<Integer>();
+	public List<String> generateParenthesis2(int n) {
+		List<String> result = new ArrayList<String>();
+		List<Integer> diff = new ArrayList<Integer>();
 
 		result.add("");
 		diff.add(0);
 
 		for (int i = 0; i < 2 * n; i++) {
-			ArrayList<String> temp1 = new ArrayList<String>();
-			ArrayList<Integer> temp2 = new ArrayList<Integer>();
+			List<String> temp1 = new ArrayList<String>();
+			List<Integer> temp2 = new ArrayList<Integer>();
 
 			for (int j = 0; j < result.size(); j++) {
 				String s = result.get(j);
@@ -81,10 +75,9 @@ public class GenerateParentheses {
 
 	public static void main(String[] args) {
 		GenerateParentheses gp = new GenerateParentheses();
-		// List<String> list = gp.generateParenthesis(4);
-		// list.forEach(a -> System.out.println(a));
-		List<String> list = gp.generateParenthesis1(3);
-		list.forEach(a -> System.out.println(a));
+		gp.generateParenthesis1(3).forEach(a -> System.out.println(a));
+		System.out.println();
+		gp.generateParenthesis2(3).forEach(a -> System.out.println(a));
 	}
 
 }
