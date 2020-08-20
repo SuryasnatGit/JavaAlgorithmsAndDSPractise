@@ -1120,6 +1120,26 @@ public class MiscellaneousLinkedListProblems {
 		return head;
 	}
 
+	public ListNode deleteOddNodes(ListNode head) {
+		if (head == null || head.next == null)
+			return head;
+
+		ListNode dummy = new ListNode(-1);
+		ListNode curr = dummy;
+
+		int i = 0;
+		while (head != null) {
+			if (i % 2 == 0) {
+				curr.next = head;
+				curr = head;
+			}
+			head = head.next;
+			i++;
+		}
+
+		return dummy.next;
+	}
+
 	public static void main(String[] args) {
 		MiscellaneousLinkedListProblems prob = new MiscellaneousLinkedListProblems();
 
@@ -1168,6 +1188,30 @@ public class MiscellaneousLinkedListProblems {
 		// prob.testSwapNodesInPairs_1();
 		// prob.testReverseNodesInKGroup();
 
+		// ListNode a = new ListNode(1);
+		// a.next = new ListNode(2);
+		// a.next.next = new ListNode(3);
+		// a.next.next.next = new ListNode(4);
+		// a.next.next.next.next = new ListNode(6);
+		//
+		// System.out.println(a);
+		// ListNode h = prob.rearrangeOddEvenListByPosition(a);
+		// System.out.println(h);
+		// ListNode v = prob.rearrangeOddEvenListByValue(a);
+		// System.out.println(v);
+		//
+		// ListNode b = new ListNode(1);
+		// b.next = new ListNode(3);
+		// b.next.next = new ListNode(5);
+
+		prob.testDeleteOddNodes();
+		// System.out.println(b);
+		//
+		// ListNode n = prob.sortedIntersectNode(a, b);
+		// System.out.println(n);
+	}
+
+	private void testDeleteOddNodes() {
 		ListNode a = new ListNode(1);
 		a.next = new ListNode(2);
 		a.next.next = new ListNode(3);
@@ -1175,19 +1219,8 @@ public class MiscellaneousLinkedListProblems {
 		a.next.next.next.next = new ListNode(6);
 
 		System.out.println(a);
-		ListNode h = prob.rearrangeOddEvenListByPosition(a);
-		System.out.println(h);
-		ListNode v = prob.rearrangeOddEvenListByValue(a);
-		System.out.println(v);
-
-		ListNode b = new ListNode(1);
-		b.next = new ListNode(3);
-		b.next.next = new ListNode(5);
-
-		// System.out.println(b);
-		//
-		// ListNode n = prob.sortedIntersectNode(a, b);
-		// System.out.println(n);
+		deleteOddNodes(a);
+		System.out.println(a);
 	}
 
 	private void testReverseNodesInKGroup() {

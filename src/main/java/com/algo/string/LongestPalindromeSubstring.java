@@ -26,7 +26,7 @@ public class LongestPalindromeSubstring {
 	 * Step to generate even length palindrome Fix two centre ( low and high ) and expand in both directions for longer
 	 * palindromes.
 	 * 
-	 * Since expanding a palindrome around its center could take O(n) time, the overall complexity is O(n2).
+	 * Since expanding a palindrome around its center could take O(n) time, the overall time complexity is O(n ^ 2).
 	 * 
 	 * space - O(1)
 	 * 
@@ -160,70 +160,10 @@ public class LongestPalindromeSubstring {
 		return max;
 	}
 
-	/**
-	 * Let s be the input string, i and j are two indices of the string. Define a 2-dimension array "table" and let
-	 * table[i][j] denote whether a substring from i to j is palindrome.
-	 * 
-	 * Changing condition:
-	 * 
-	 * table[i+1][j-1] == 1/true && s.charAt(i) == s.charAt(j) => table[i][j] == 1/true
-	 * 
-	 * Time - O(n^2) space O(n^2)
-	 * 
-	 * @param str
-	 * @return
-	 */
-	public int longestPalindromeDynamic(char[] str) {
-		// table[i][j] will be false if substring str[i..j] is not palindrome else table[i][j] will be true
-		boolean T[][] = new boolean[str.length][str.length];
-
-		// All substrings of length 1 are palindromes
-		for (int i = 0; i < T.length; i++) {
-			T[i][i] = true;
-		}
-
-		// pointer for start
-		int start = 0;
-		// counter for max length
-		int max = 1;
-		// Check for lengths greater than 2. l is length of substring
-		for (int l = 2; l <= str.length; l++) {
-			int len = 0;
-			// fix the starting index
-			for (int i = 0; i < str.length - l + 1; i++) {
-				// get the ending index j from starting index i and length l
-				int j = i + l - 1;
-				len = 0;
-				// checking for length == 2
-				if (l == 2) {
-					if (str[i] == str[j]) {
-						T[i][j] = true;
-						start = i;
-						len = 2;
-					}
-				} else { // checking for length > 2
-					if (str[i] == str[j] && T[i + 1][j - 1]) {
-						T[i][j] = true;
-						len = j - i + 1;
-					}
-				}
-				if (len > max) {
-					start = i;
-					max = len;
-				}
-			}
-		}
-		// print max substring which is palindrome
-		System.out.println(new String(str).substring(start, start + max));
-		return max;
-	}
-
 	public static void main(String args[]) {
 		LongestPalindromeSubstring lps = new LongestPalindromeSubstring();
-		System.out.println(lps.longestPalindromeDynamic("abba".toCharArray()));
 		System.out.println(lps.longestPalindromeSubstringEasy("abbababbacd".toCharArray()));
-		System.out.println(lps.longestPalindromeDynamic("abbababbacd".toCharArray()));
-		// System.out.println(lps.longestPalindromicSubstringLinear("cdbabcbabdab".toCharArray()));
+		System.out.println(lps.longestPalindromicSubstringLinear("abbababbacd".toCharArray()));
 	}
 
 }

@@ -78,7 +78,9 @@ public class StringProblems {
 		// System.out.println(sp.missingCharsToMakeStringPanagram("suryasnat"));
 		String s = "stop";
 		// sp.stringPermutationsBT(s.toCharArray(), 0, s.length());
-		sp.stringPermutations("cat").forEach(a -> System.out.println(a));
+		// sp.stringPermutations("cat").forEach(a -> System.out.println(a));
+
+		System.out.println(sp.eliminateStopWords("to be or not to be!"));
 	}
 
 	/**
@@ -721,61 +723,6 @@ public class StringProblems {
 	}
 
 	/**
-	 * https://leetcode.com/problems/string-to-integer-atoi/
-	 * 
-	 * Implement atoi to convert a string to an integer.
-	 * 
-	 * Hint: Carefully consider all possible input cases. If you want a challenge, please do not see below and ask
-	 * yourself what are the possible input cases.
-	 * 
-	 * Analysis
-	 * 
-	 * The following cases should be considered for this problem:
-	 * 
-	 * 1. null or empty string 2. white spaces 3. +/- sign 4. calculate real value 5. handle min & max
-	 * 
-	 * @param input
-	 * @return
-	 */
-	public int asciiToInt(String input) {
-		System.out.println("input :" + input);
-		if (input == null || input.length() < 1)
-			return 0;
-
-		// trim white space
-		input = input.trim();
-
-		// check negative or positive
-		char flag = '+';
-		int i = 0;
-		if (input.charAt(0) == '-') {
-			flag = '-';
-			i++;
-		} else if (input.charAt(0) == '+') {
-			i++;
-		}
-
-		// calculate value
-		double res = 0;
-		while (input.length() > i && input.charAt(i) >= '0' && input.charAt(i) <= '9') {
-			res = res * 10 + (input.charAt(i) - '0');
-			i++;
-		}
-
-		// check sign
-		if (flag == '-')
-			res = -res;
-
-		// check int limits
-		if (res > Integer.MAX_VALUE)
-			return Integer.MAX_VALUE;
-		else if (res < Integer.MIN_VALUE)
-			return Integer.MIN_VALUE;
-
-		return (int) res;
-	}
-
-	/**
 	 * We are playing the Guess Game. The game is as follows: I pick a number from 1 to n. You have to guess which
 	 * number I picked. Every time you guess wrong, I'll tell you whether the number is higher or lower. You call a
 	 * pre-defined API guess(int num) which returns 3 possible results (-1, 1, or 0): <br>
@@ -1324,4 +1271,18 @@ public class StringProblems {
 		return new String(res).substring(0, posNew);
 	}
 
+	public String eliminateStopWords(String s) {
+		Set<String> stopWords = new HashSet<>();
+		stopWords.addAll(Arrays.asList("a", "be", "to", "the", "that", "this", "or"));
+
+		StringBuilder sb = new StringBuilder();
+		String[] splits = s.split(" ");
+		for (String split : splits) {
+			if (stopWords.contains(split.toLowerCase())) {
+				split = "";
+			}
+			sb.append(split).append(" ");
+		}
+		return sb.toString();
+	}
 }
