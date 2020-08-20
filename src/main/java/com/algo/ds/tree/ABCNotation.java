@@ -29,7 +29,7 @@ public class ABCNotation {
 		return str;
 	}
 
-	public String bst(TreeNode node, int num) {
+	private String bst(TreeNode node, int num) {
 		if (node == null) {
 			return "NotFound";
 		}
@@ -57,5 +57,27 @@ public class ABCNotation {
 			}
 		}
 		return null;
+	}
+
+	public static void main(String[] args) {
+		ABCNotation abc = new ABCNotation();
+
+		BinarySearchTree bst = new BinarySearchTree();
+		bst.insert(5);
+		bst.insert(2);
+		bst.insert(8);
+		bst.insert(3);
+		bst.insert(6);
+		bst.insert(9);
+		bst.insert(1);
+
+		bst.inorder(bst.getRoot());
+		System.out.println();
+
+		System.out.println(abc.bstSearch(bst.getRoot(), 6));
+		System.out.println(abc.bstSearch(bst.getRoot(), 1));
+		System.out.println(abc.bstSearch(bst.getRoot(), 10));
+		System.out.println(abc.bstSearch(bst.getRoot(), 2));
+
 	}
 }

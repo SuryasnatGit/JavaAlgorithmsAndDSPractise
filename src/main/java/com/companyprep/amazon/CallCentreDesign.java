@@ -7,16 +7,16 @@ import java.util.List;
 // TODO : some items cleanup
 public class CallCentreDesign {
 
-	List<List<Representative>> handlers = new ArrayList<List<Representative>>();
-	List<LinkedList<Call>> calls = new ArrayList<LinkedList<Call>>();
+	private List<List<Representative>> handlers = new ArrayList<List<Representative>>();
+	private List<LinkedList<Call>> calls = new ArrayList<LinkedList<Call>>();
 
 	public void dispatchCall(Caller caller) {
 		Call call = new Call(caller); // Add additional atttribute like call-in time
 		dispatchCall(call);
 	}
 
-	void dispatchCall(Call call) {
-		int level = call.getRank();
+	public void dispatchCall(Call call) {
+		Rank rank = call.getRank();
 
 		List<Representative> rep = handlers.get(level);
 		for (Representative r : rep) {
@@ -38,77 +38,83 @@ public class CallCentreDesign {
 		}
 	}
 
-}
+	abstract class Representative {
+		private Rank rank;
+		private String name;
+		private Call currentCall; // This will also decide if this representative is available or not
 
-abstract class Representative {
-	Rank rank;
-	String name;
-	Call currentCall = null; // This will also decide if this representative is available or not
+		void escalateCallToNextLeval(Call call) {
+			call.setRank(call.getRank().getRank() + 1);
 
-	void escalateCallToNextLeval(Call call) {
-		call.setRank(call.getRank().getRank() + 1);
+			CallCenter.dispatchCall(call);
+		}
 
-		CallCenter.dispatchCall(call);
+		boolean pickUpCall(Call call) {
+			this.currentCall = call;
+			call.setHandler(this);
+		}
+
+		void finishCall(Call call) {
+			this.currentCall = null;
+			call.setResult(this, "Done OR Escalated");
+		}
 	}
 
-	boolean pickUpCall(Call call) {
-		this.currentCall = call;
-		call.setHandler(this);
+	public class Director extends Representative {
+
+		private Rank rank;
+
+		public Director() {
+			this.rank = Rank.DIRECTOR;
+		}
+
+		public void escalateCallToNextLeval(Call call) {
+			call.setRank(this.rank.getRank() + 1);
+		}
 	}
 
-	void finishCall(Call call) {
-		this.currentCall = null;
-		call.setResult(this, "Done OR Escalated");
-	}
-}
+	public enum Rank {
+		RESPONDENT(3), MANAGER(2), DIRECTOR(1);
 
-class Director extends Representative {
-	Director() {
-		this.rank = Rank.DIRECTOR;
-	}
+		private int value;
 
-	void escalateCallToNextLeval(Call call) {
-		call.setRank(this.rank.getRank() + 1);
-	}
-}
+		private Rank(int value) {
+			this.value = value;
+		}
 
-enum Rank {
-	RESPONDENT(3), MANAGER(2), DIRECTOR(1);
-
-	private int value;
-
-	Rank(int value) {
-		this.value = value;
+		public int getRank() {
+			return value;
+		}
 	}
 
-	int getRank() {
-		return value;
+	public class Call {
+		private Rank rank;
+		private Caller caller;
+		private Representative handler;
+
+		public Call() {
+			this.caller = null;
+		}
+
+		public Call(Caller caller) {
+			this.caller = caller;
+			this.rank = Rank.RESPONDENT;
+		}
+
+		public void setHandler(Representative handler) {
+			this.handler = handler;
+		}
+
+		public Rank getRank() {
+			return rank;
+		}
+
+		public void setRank(Rank rank) {
+			this.rank = rank;
+		}
 	}
-}
 
-class Call {
-	Rank rank;
-	Caller caller = null;
-	Representative handler = null;
+	class Caller {
 
-	Call(Caller caller) {
-		this.caller = caller;
-		this.rank = Rank.RESPONDENT;
 	}
-
-	void setHandler(Representative handler) {
-		this.handler = handler;
-	}
-
-	public Rank getRank() {
-		return rank;
-	}
-
-	public void setRank(Rank rank) {
-		this.rank = rank;
-	}
-}
-
-class Caller {
-
 }

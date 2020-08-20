@@ -1,6 +1,7 @@
 package com.leetcode;
 
 // TODO: add desc / problem statement / link
+// Similar to https://leetcode.com/problems/best-sightseeing-pair/
 public class MaximumAppeal {
 	public int maxAppeal(int[] a) {
 

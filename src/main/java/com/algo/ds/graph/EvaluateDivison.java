@@ -4,21 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Date 10/31/2016
- * 
- * @author Tushar Roy
+ * Equations are given in the format A / B = k, where A and B are variables represented as strings, and k is a real
+ * number (floating point number). Given some queries, return the answers. If the answer does not exist, return -1.0.
  *
- *         Equations are given in the format A / B = k, where A and B are variables represented as strings, and k is a
- *         real number (floating point number). Given some queries, return the answers. If the answer does not exist,
- *         return -1.0.
+ * Solution Do Flyod warshall algorithm initialized as values between equations. Do Flyod Warshall to create all
+ * possible paths b/w two strings.
  *
- *         Solution Do Flyod warshall algorithm initialized as values between equations. Do Flyod Warshall to create all
- *         possible paths b/w two strings.
+ * Time complexity O(n * n * n) + O(m) where n is total number of strings in equations and m is total number of queries
  *
- *         Time complexity O(n * n * n) + O(m) where n is total number of strings in equations and m is total number of
- *         queries
- *
- *         Reference https://leetcode.com/problems/evaluate-division/
+ * Reference https://leetcode.com/problems/evaluate-division/
  */
 public class EvaluateDivison {
 	public double[] calcEquation(String[][] equations, double[] values, String[][] queries) {

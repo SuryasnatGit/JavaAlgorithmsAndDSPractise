@@ -1,5 +1,7 @@
 package com.algo.ds.tree;
 
+import com.algo.common.TreeNode;
+
 /**
  * Binary Search Tree, is a node-based binary tree data structure which has the following properties: <br/>
  * 
@@ -13,17 +15,7 @@ package com.algo.ds.tree;
  */
 public class BinarySearchTree {
 
-	private class Node {
-		private int data;
-		private Node leftChild;
-		private Node rightChild;
-
-		public void displayNode() {
-			System.out.println("Node: " + data);
-		}
-	}
-
-	private Node root;
+	private TreeNode root;
 
 	public BinarySearchTree() {
 		root = null;
@@ -35,13 +27,13 @@ public class BinarySearchTree {
 	 * @param key
 	 * @return
 	 */
-	public Node find(int key) {
-		Node current = root;
+	public TreeNode find(int key) {
+		TreeNode current = root;
 		while (current.data != key) {
 			if (key < current.data)
-				current = current.leftChild;
+				current = current.left;
 			else
-				current = current.rightChild;
+				current = current.right;
 			if (current == null)
 				return null;
 		}
@@ -49,26 +41,26 @@ public class BinarySearchTree {
 	}
 
 	public void insert(int d) {
-		Node newNode = new Node();
+		TreeNode newNode = new TreeNode();
 		newNode.data = d;
 
 		if (root == null)
 			root = newNode;
 		else {
-			Node current = root;
-			Node parent;
+			TreeNode current = root;
+			TreeNode parent;
 			while (true) {
 				parent = current;
 				if (d < current.data) { // go left
-					current = current.leftChild;
+					current = current.left;
 					if (current == null) {
-						parent.leftChild = newNode;
+						parent.left = newNode;
 						return;
 					}
 				} else { // go right
-					current = current.rightChild;
+					current = current.right;
 					if (current == null) {
-						parent.rightChild = newNode;
+						parent.right = newNode;
 						return;
 					}
 				}
@@ -76,26 +68,26 @@ public class BinarySearchTree {
 		}
 	}
 
-	public void inorder(Node root) {
+	public void inorder(TreeNode root) {
 		if (root != null) {
-			inorder(root.leftChild);
-			root.displayNode();
-			inorder(root.rightChild);
+			inorder(root.left);
+			System.out.println(root.data);
+			inorder(root.right);
 		}
 	}
 
 	public boolean delete(int key) {
-		Node current = root;
-		Node parent = root;
-		boolean isLeftChild = true;
+		TreeNode current = root;
+		TreeNode parent = root;
+		boolean isleft = true;
 		while (current.data != key) {
 			parent = current;
 			if (key < current.data) {
-				isLeftChild = true;
-				current = current.leftChild;
+				isleft = true;
+				current = current.left;
 			} else {
-				isLeftChild = false;
-				current = current.rightChild;
+				isleft = false;
+				current = current.right;
 			}
 			if (current == null)
 				return false;
@@ -103,74 +95,102 @@ public class BinarySearchTree {
 
 		// when we reach this point we know that current is the node which is to be deleted.
 		// case 1 : when current(node to be deleted does not have any children
-		if (current.leftChild == null && current.rightChild == null) {
+		if (current.left == null && current.right == null) {
 			if (current == root)
 				root = null;
 			else {
-				if (isLeftChild)
-					parent.leftChild = null;
+				if (isleft)
+					parent.left = null;
 				else
-					parent.rightChild = null;
+					parent.right = null;
 			}
 		}
 
 		// case 2: when current(node to be deleted) has only left child
-		if (current.rightChild == null) {
+		if (current.right == null) {
 			if (current == root)
 				root = null;
 			else {
-				if (isLeftChild)
-					parent.leftChild = current.leftChild;
+				if (isleft)
+					parent.left = current.left;
 				else
-					parent.rightChild = current.leftChild;
+					parent.right = current.left;
 			}
 		}
 
 		// case 3: when current(node to be deleted) has only right child
-		if (current.leftChild == null) {
+		if (current.left == null) {
 			if (current == root)
 				root = null;
 			else {
-				if (isLeftChild)
-					parent.leftChild = current.rightChild;
+				if (isleft)
+					parent.left = current.right;
 				else
-					parent.rightChild = current.rightChild;
+					parent.right = current.right;
 			}
 		}
 
 		// case 4: when current node(node to be deleted) has both left and right children.
 		// find the successor here.
-		if (current.leftChild != null && current.rightChild != null) {
-			Node successor = findSuccessor(current);
+		if (current.left != null && current.right != null) {
+			TreeNode successor = findSuccessor(current);
 			if (current == root)
 				root = null;
 			else {
-				if (isLeftChild)
-					parent.leftChild = successor;
+				if (isleft)
+					parent.left = successor;
 				else
-					parent.rightChild = successor;
+					parent.right = successor;
 			}
-			successor.leftChild = current.leftChild;
+			successor.left = current.left;
 		}
 		return true;
 
 	}
 
-	private Node findSuccessor(Node deleteNode) {
-		Node successor = null;
-		Node successorParent = null;
-		Node current = deleteNode.rightChild;
+	private TreeNode findSuccessor(TreeNode deleteNode) {
+		TreeNode successor = null;
+		TreeNode successorParent = null;
+		TreeNode current = deleteNode.right;
 		while (current != null) {
 			successorParent = successor;
 			successor = current;
-			current = current.leftChild;
+			current = current.left;
 		}
 		// at this point there is no more left child of successor.
 		// check if successor has right child, if so add to left of successor parent
-		if (successor != deleteNode.rightChild) {
-			successorParent.leftChild = successor.rightChild;
-			successor.rightChild = deleteNode.rightChild;
+		if (successor != deleteNode.right) {
+			successorParent.left = successor.right;
+			successor.right = deleteNode.right;
 		}
 		return successor;
+	}
+
+	public TreeNode getRoot() {
+		return root;
+	}
+
+	public static void main(String[] args) {
+		BinarySearchTree bst = new BinarySearchTree();
+		bst.insert(1);
+		bst.inorder(bst.root);
+		System.out.println();
+		bst.insert(2);
+		bst.inorder(bst.root);
+		System.out.println();
+		bst.insert(3);
+		bst.inorder(bst.root);
+		System.out.println();
+		bst.insert(4);
+		bst.inorder(bst.root);
+		System.out.println();
+		bst.insert(5);
+		bst.inorder(bst.root);
+		System.out.println();
+		bst.insert(6);
+		bst.inorder(bst.root);
+		System.out.println();
+		bst.insert(7);
+		bst.inorder(bst.root);
 	}
 }
