@@ -30,7 +30,7 @@ public class CountNodesCompleteTree {
 	 * @param root
 	 * @return
 	 */
-	public int countNodes(Node root) {
+	public int countNodes(TreeNode root) {
 		if (root == null) {
 			return 0;
 		}
@@ -49,7 +49,7 @@ public class CountNodesCompleteTree {
 		}
 	}
 
-	int leftHeight(Node root) {
+	int leftHeight(TreeNode root) {
 		int h = 0;
 		while (root != null) {
 			root = root.left;
@@ -58,7 +58,7 @@ public class CountNodesCompleteTree {
 		return h;
 	}
 
-	int rightHeight(Node root) {
+	int rightHeight(TreeNode root) {
 		int h = 0;
 		while (root != null) {
 			root = root.right;

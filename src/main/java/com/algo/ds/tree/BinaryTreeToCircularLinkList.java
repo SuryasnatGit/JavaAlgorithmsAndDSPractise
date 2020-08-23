@@ -1,5 +1,7 @@
 package com.algo.ds.tree;
 
+import com.algo.common.TreeNode;
+
 /**
  * http://cslibrary.stanford.edu/109/TreeListRecursion.html<br/>
  * Given a Binary Tree, convert it to a Circular Doubly Linked List (In-Place).
@@ -12,7 +14,7 @@ package com.algo.ds.tree;
  */
 public class BinaryTreeToCircularLinkList {
 
-	public Node convert(Node root) {
+	public TreeNode convert(TreeNode root) {
 		if (root == null) {
 			return null;
 		}
@@ -24,8 +26,8 @@ public class BinaryTreeToCircularLinkList {
 			return root;
 		}
 
-		Node left = convert(root.left);
-		Node right = convert(root.right);
+		TreeNode left = convert(root.left);
+		TreeNode right = convert(root.right);
 
 		root.left = root;
 		root.right = root;
@@ -45,7 +47,7 @@ public class BinaryTreeToCircularLinkList {
 	 * @param r2
 	 * @return
 	 */
-	private Node join(Node r1, Node r2) {
+	private TreeNode join(TreeNode r1, TreeNode r2) {
 		// If either of the list is empty, then
 		// return the other list
 		if (r1 == null) {
@@ -54,7 +56,7 @@ public class BinaryTreeToCircularLinkList {
 		if (r2 == null) {
 			return r1;
 		}
-		Node t1 = r2.left;
+		TreeNode t1 = r2.left;
 
 		r1.left.right = r2;
 		r2.left = r1.left;
@@ -63,8 +65,8 @@ public class BinaryTreeToCircularLinkList {
 		return r1;
 	}
 
-	private void print(Node root) {
-		Node temp = root;
+	private void print(TreeNode root) {
+		TreeNode temp = root;
 		do {
 			System.out.println(temp.data);
 			temp = temp.right;
@@ -80,7 +82,7 @@ public class BinaryTreeToCircularLinkList {
 	public static void main(String args[]) {
 		BinaryTreeToCircularLinkList btc = new BinaryTreeToCircularLinkList();
 		BinaryTree bt = new BinaryTree();
-		Node root = null;
+		TreeNode root = null;
 		root = bt.addNode(10, root);
 		root = bt.addNode(3, root);
 		root = bt.addNode(-1, root);

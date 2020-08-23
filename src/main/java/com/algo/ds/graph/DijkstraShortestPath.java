@@ -42,7 +42,7 @@ public class DijkstraShortestPath {
 		// iterate till heap is not empty
 		while (!minHeap.empty()) {
 			// get the min value from heap node which has vertex and distance of that vertex from source vertex.
-			BinaryMinHeap<Vertex<Integer>>.Node heapNode = minHeap.extractMinNode();
+			BinaryMinHeap<Vertex<Integer>>.TreeNode heapNode = minHeap.extractMinNode();
 			Vertex<Integer> current = heapNode.key;
 
 			// update shortest distance of current vertex from source vertex

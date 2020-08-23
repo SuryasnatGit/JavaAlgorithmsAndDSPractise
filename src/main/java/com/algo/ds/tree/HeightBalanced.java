@@ -1,10 +1,12 @@
 package com.algo.ds.tree;
 
+import com.algo.common.TreeNode;
+
 /**
  * CTCI - 4.4
  *
- * Given a binary tree, determine if it is height-balanced. For this problem, a height-balanced
- * binary tree is defined as:
+ * Given a binary tree, determine if it is height-balanced. For this problem, a height-balanced binary tree is defined
+ * as:
  * 
  * a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
  *
@@ -23,7 +25,7 @@ public class HeightBalanced {
 	 * @param root
 	 * @return
 	 */
-	public boolean isBalanced(Node root) {
+	public boolean isBalanced(TreeNode root) {
 		if (root == null)
 			return true;
 
@@ -36,7 +38,7 @@ public class HeightBalanced {
 		return false;
 	}
 
-	private int height(Node root) {
+	private int height(TreeNode root) {
 		if (root == null)
 			return 0;
 
@@ -54,7 +56,7 @@ public class HeightBalanced {
 	 * @param height
 	 * @return
 	 */
-	public boolean isBalancedOptimized(Node root, Height height) {
+	public boolean isBalancedOptimized(TreeNode root, Height height) {
 
 		// base method
 		if (root == null) {
@@ -80,14 +82,14 @@ public class HeightBalanced {
 
 	public static void main(String[] args) {
 		HeightBalanced hb = new HeightBalanced();
-		Node root = Node.newNode(1);
-		root.left = Node.newNode(2);
-		root.right = Node.newNode(3);
-		root.left.left = Node.newNode(4);
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.right = new TreeNode(3);
+		root.left.left = new TreeNode(4);
 		Height h = new HeightBalanced().new Height();
 		System.out.println(hb.isBalanced(root));
 		System.out.println(hb.isBalancedOptimized(root, h));
-		root.left.left.right = Node.newNode(5);
+		root.left.left.right = new TreeNode(5);
 		System.out.println(hb.isBalanced(root));
 
 		System.out.println(hb.isBalancedOptimized(root, h));

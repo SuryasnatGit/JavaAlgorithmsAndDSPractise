@@ -1,11 +1,13 @@
 package com.algo.ds.tree;
 
+import com.algo.common.TreeNode;
+
 /**
  * http://www.geeksforgeeks.org/full-and-complete-binary-tree-from-given-preorder-and-postorder-traversals/
  * 
  * 
- * Full tree is a tree with all nodes with either 0 or 2 child. Never has 1 child. Test cases Empty
- * tree Tree with big on left side Tree with big on right side
+ * Full tree is a tree with all nodes with either 0 or 2 child. Never has 1 child. Test cases Empty tree Tree with big
+ * on left side Tree with big on right side
  */
 public class ConstructFullTreeFromPreOrderPostOrder {
 
@@ -16,7 +18,7 @@ public class ConstructFullTreeFromPreOrderPostOrder {
 	// from pre[] and post[]. preIndex is used to keep track of index in pre[]. l is
 	// low index and h is high index for the
 	// current subarray in post[]
-	public Node constructTreeUtil(int pre[], int post[], int l, int h, int size) {
+	public TreeNode constructTreeUtil(int pre[], int post[], int l, int h, int size) {
 
 		// Base case
 		if (preindex >= size || l > h)
@@ -26,7 +28,7 @@ public class ConstructFullTreeFromPreOrderPostOrder {
 		// root. So take the node at preIndex from
 		// preorder and make it root, and increment
 		// preIndex
-		Node root = Node.newNode(pre[preindex]);
+		TreeNode root = new TreeNode(pre[preindex]);
 		preindex++;
 
 		// If the current subarry has only one
@@ -55,7 +57,7 @@ public class ConstructFullTreeFromPreOrderPostOrder {
 	// Binary Tree from given preorder and
 	// postorder traversals. This function
 	// mainly uses constructTreeUtil()
-	public Node constructTree(int pre[], int post[], int size) {
+	public TreeNode constructTree(int pre[], int post[], int size) {
 		preindex = 0;
 		return constructTreeUtil(pre, post, 0, size - 1, size);
 	}
@@ -64,7 +66,7 @@ public class ConstructFullTreeFromPreOrderPostOrder {
 		ConstructFullTreeFromPreOrderPostOrder cft = new ConstructFullTreeFromPreOrderPostOrder();
 		int preorder[] = { 1, 2, 3, 6, 7, 8, 9 };
 		int postorder[] = { 2, 6, 8, 9, 7, 3, 1 };
-		Node root = cft.constructTree(preorder, postorder, preorder.length);
+		TreeNode root = cft.constructTree(preorder, postorder, preorder.length);
 		TreeTraversals tt = new TreeTraversals();
 		tt.inOrder(root);
 		System.out.println();

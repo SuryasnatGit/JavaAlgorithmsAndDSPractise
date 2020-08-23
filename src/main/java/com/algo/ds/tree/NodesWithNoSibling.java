@@ -1,21 +1,21 @@
 package com.algo.ds.tree;
 
+import com.algo.common.TreeNode;
+
 /**
  * http://www.geeksforgeeks.org/print-nodes-dont-sibling-binary-tree/
  * 
- * Given a Binary Tree, print all nodes that dont have a sibling (a sibling is a node that has same
- * parent. In a Binary Tree, there can be at most one sibling). Root should not be printed as root
- * cannot have a sibling.
+ * Given a Binary Tree, print all nodes that dont have a sibling (a sibling is a node that has same parent. In a Binary
+ * Tree, there can be at most one sibling). Root should not be printed as root cannot have a sibling.
  * 
  * 
  * This does not print root node even though it has no sibling
  * 
- * Test cases: Null tree. Only one node tree. All left side tree. All right side tree. Regular mix
- * tree.
+ * Test cases: Null tree. Only one node tree. All left side tree. All right side tree. Regular mix tree.
  */
 public class NodesWithNoSibling {
 
-	public void printNodes(Node root) {
+	public void printNodes(TreeNode root) {
 		if (root == null) {
 			return;
 		}
@@ -33,7 +33,7 @@ public class NodesWithNoSibling {
 
 	public static void main(String args[]) {
 		BinaryTree bt = new BinaryTree();
-		Node root = null;
+		TreeNode root = null;
 		root = bt.addNode(10, root);
 		root = bt.addNode(5, root);
 		root = bt.addNode(-1, root);

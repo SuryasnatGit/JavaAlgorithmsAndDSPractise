@@ -17,7 +17,7 @@ class Count {
 public class SumTreeProblems {
 
 	// https://www.techiedelight.com/inplace-convert-a-tree-sum-tree/
-	public int convertToSumTree(Node root) {
+	public int convertToSumTree(TreeNode root) {
 		if (root == null)
 			return 0;
 
@@ -38,12 +38,12 @@ public class SumTreeProblems {
 	 * @param root
 	 * @return
 	 */
-	public boolean isSumTree(Node root) {
+	public boolean isSumTree(TreeNode root) {
 		Count count = new Count();
 		return isSumTree(root, count);
 	}
 
-	private boolean isSumTree(Node root, Count count) {
+	private boolean isSumTree(TreeNode root, Count count) {
 		if (root == null) {
 			return true;
 		}
@@ -65,7 +65,7 @@ public class SumTreeProblems {
 	 * @param root
 	 * @return
 	 */
-	public boolean isSumTree1(Node root) {
+	public boolean isSumTree1(TreeNode root) {
 		int lc = 0, rc = 0;
 
 		if (root == null || isLeafNode(root)) {
@@ -97,7 +97,7 @@ public class SumTreeProblems {
 		return false;
 	}
 
-	private boolean isLeafNode(Node root) {
+	private boolean isLeafNode(TreeNode root) {
 		if (root.left == null && root.right == null)
 			return true;
 
@@ -137,7 +137,7 @@ public class SumTreeProblems {
 		ConstructTreeFromInOrderPreOrder ctf = new ConstructTreeFromInOrderPreOrder();
 		int inorder[] = { 4, 10, 6, 46, 11, 13, 2 };
 		int preorder[] = { 46, 10, 4, 6, 13, 11, 2 };
-		Node root = ctf.createTree(inorder, preorder);
+		TreeNode root = ctf.createTree(inorder, preorder);
 		SumTreeProblems st = new SumTreeProblems();
 		System.out.println(st.isSumTree(root));
 		System.out.println(st.isSumTree1(root));

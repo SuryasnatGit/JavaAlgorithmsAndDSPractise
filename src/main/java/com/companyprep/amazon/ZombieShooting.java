@@ -7,8 +7,6 @@ import com.algo.common.ListNode;
  * It is a circle of zombies, giving you a starting point, and then you shoot a zombie every k steps, and then go down
  * until you have a zombie, Let you output the last remaining zombie. I do it with linkedlist, and then while loop
  * shoots a zombie every time, num-1 deletes that listnode, and finally num becomes 1 to jump out of the loop.
- * 
- * TODO : to understand further.
  *
  */
 public class ZombieShooting {

@@ -1,15 +1,16 @@
 package com.algo.ds.tree;
 
+import com.algo.common.TreeNode;
+
 /**
  * Video link - https://youtu.be/4fiDs7CCxkc
  * 
  * Given a binary tree, find size of largest binary search subtree in this binary tree.
  * 
- * Traverse tree in post order fashion. Left and right nodes return 4 piece of information to root
- * which is: isBST, size of max BST, min and max in those subtree. If both left and right subtree
- * are BST and this node data is greater than max of left and less than min of right then it returns
- * to above level left size + right size + 1 and new min will be min of left side and new max will
- * be max of right side.
+ * Traverse tree in post order fashion. Left and right nodes return 4 piece of information to root which is: isBST, size
+ * of max BST, min and max in those subtree. If both left and right subtree are BST and this node data is greater than
+ * max of left and less than min of right then it returns to above level left size + right size + 1 and new min will be
+ * min of left side and new max will be max of right side.
  * 
  * References:
  * 
@@ -25,18 +26,17 @@ public class LargestBSTInBinaryTree {
 	/**
 	 * Method 1 - simple but inefficient.
 	 * 
-	 * Start from root and do an inorder traversal of the tree. For each node N, check whether the
-	 * subtree rooted with N is BST or not. If BST, then return size of the subtree rooted with N. Else,
-	 * recur down the left and right subtrees and return the maximum of values returned by left and
-	 * right subtrees.
+	 * Start from root and do an inorder traversal of the tree. For each node N, check whether the subtree rooted with N
+	 * is BST or not. If BST, then return size of the subtree rooted with N. Else, recur down the left and right
+	 * subtrees and return the maximum of values returned by left and right subtrees.
 	 * 
-	 * Time Complexity: The worst case time complexity of this method will be O(n^2). Consider a skewed
-	 * tree for worst case analysis.
+	 * Time Complexity: The worst case time complexity of this method will be O(n^2). Consider a skewed tree for worst
+	 * case analysis.
 	 * 
 	 * @param root
 	 * @return
 	 */
-	public int largestBSTSize(Node root) {
+	public int largestBSTSize(TreeNode root) {
 		if (isBST.isBST(root)) {
 			return sizeBT.size(root);
 		} else {
@@ -47,9 +47,9 @@ public class LargestBSTInBinaryTree {
 	/**
 	 * A Tree is BST if following is true for every node x.
 	 * 
-	 * The largest value in left subtree (of x) is smaller than value of x. The smallest value in right
-	 * subtree (of x) is greater than value of x. We traverse tree in bottom up manner. For every
-	 * traversed node, we return maximum and minimum values in subtree rooted with it.
+	 * The largest value in left subtree (of x) is smaller than value of x. The smallest value in right subtree (of x)
+	 * is greater than value of x. We traverse tree in bottom up manner. For every traversed node, we return maximum and
+	 * minimum values in subtree rooted with it.
 	 * 
 	 * Time Complexity : O(n)
 	 * 
@@ -58,12 +58,12 @@ public class LargestBSTInBinaryTree {
 	 * @param root
 	 * @return
 	 */
-	public int largestBST(Node root) {
+	public int largestBST(TreeNode root) {
 		MinMax m = largest(root);
 		return m.size;
 	}
 
-	private MinMax largest(Node root) {
+	private MinMax largest(TreeNode root) {
 		// if root is null return min as Integer.MAX and max as Integer.MIN
 		if (root == null) {
 			return new MinMax();
@@ -110,7 +110,7 @@ public class LargestBSTInBinaryTree {
 		// this is just to create a binary tree.
 		int inorder[] = { -7, -6, -5, -4, -3, -2, 1, 2, 3, 16, 6, 10, 11, 12, 14 };
 		int preorder[] = { 3, -2, -3, -4, -5, -6, -7, 1, 2, 16, 10, 6, 12, 11, 14 };
-		Node root = ctf.createTree(inorder, preorder);
+		TreeNode root = ctf.createTree(inorder, preorder);
 		int largestBSTSize = lbi.largestBST(root);
 		System.out.println("Size of largest BST  is " + largestBSTSize);
 		assert largestBSTSize == 8;

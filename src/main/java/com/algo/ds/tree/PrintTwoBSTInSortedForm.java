@@ -3,26 +3,26 @@ package com.algo.ds.tree;
 import java.util.Deque;
 import java.util.LinkedList;
 
+import com.algo.common.TreeNode;
+
 /**
  * http://www.geeksforgeeks.org/merge-two-bsts-with-limited-extra-space/
  * 
- * Given two Binary Search Trees(BST), print the elements of both BSTs in sorted form. The expected
- * time complexity is O(m+n) where m is the number of nodes in first tree and n is the number of
- * nodes in second tree. Maximum allowed auxiliary space is O(height of the first tree + height of
- * the second tree).
+ * Given two Binary Search Trees(BST), print the elements of both BSTs in sorted form. The expected time complexity is
+ * O(m+n) where m is the number of nodes in first tree and n is the number of nodes in second tree. Maximum allowed
+ * auxiliary space is O(height of the first tree + height of the second tree).
  * 
- * A similar question has been discussed earlier. Let us first discuss already discussed methods of
- * the previous post which was for Balanced BSTs. The method 1 can be applied here also, but the
- * time complexity will be O(n^2) in worst case. The method 2 can also be applied here, but the
- * extra space required will be O(n) which violates the constraint given in this question. Method 3
- * can be applied here but the step 3 of method 3 cant be done in O(n) for an unbalanced BST.
+ * A similar question has been discussed earlier. Let us first discuss already discussed methods of the previous post
+ * which was for Balanced BSTs. The method 1 can be applied here also, but the time complexity will be O(n^2) in worst
+ * case. The method 2 can also be applied here, but the extra space required will be O(n) which violates the constraint
+ * given in this question. Method 3 can be applied here but the step 3 of method 3 cant be done in O(n) for an
+ * unbalanced BST.
  * 
  * Thanks to Kumar for suggesting the following solution.
  * 
- * The idea is to use iterative inorder traversal. We use two auxiliary stacks for two BSTs. Since
- * we need to print the elements in sorted form, whenever we get a smaller element from any of the
- * trees, we print it. If the element is greater, then we push it back to stack for the next
- * iteration.
+ * The idea is to use iterative inorder traversal. We use two auxiliary stacks for two BSTs. Since we need to print the
+ * elements in sorted form, whenever we get a smaller element from any of the trees, we print it. If the element is
+ * greater, then we push it back to stack for the next iteration.
  * 
  * Time Complexity: O(m+n) Auxiliary Space: O(height of the first tree + height of the second tree)
  * 
@@ -36,9 +36,9 @@ import java.util.LinkedList;
  */
 public class PrintTwoBSTInSortedForm {
 
-	public void print(Node root1, Node root2) {
-		Deque<Node> s1 = new LinkedList<Node>();
-		Deque<Node> s2 = new LinkedList<Node>();
+	public void print(TreeNode root1, TreeNode root2) {
+		Deque<TreeNode> s1 = new LinkedList<TreeNode>();
+		Deque<TreeNode> s2 = new LinkedList<TreeNode>();
 
 		while (true) {
 			if (root1 != null) {
@@ -88,7 +88,7 @@ public class PrintTwoBSTInSortedForm {
 	public static void main(String args[]) {
 		PrintTwoBSTInSortedForm ptb = new PrintTwoBSTInSortedForm();
 		BinaryTree bt = new BinaryTree();
-		Node head = null;
+		TreeNode head = null;
 		head = bt.addNode(10, head);
 		head = bt.addNode(15, head);
 		head = bt.addNode(5, head);
@@ -97,7 +97,7 @@ public class PrintTwoBSTInSortedForm {
 		head = bt.addNode(20, head);
 		head = bt.addNode(-1, head);
 
-		Node head1 = null;
+		TreeNode head1 = null;
 		head1 = bt.addNode(-4, head1);
 		head1 = bt.addNode(-3, head1);
 		head1 = bt.addNode(6, head1);

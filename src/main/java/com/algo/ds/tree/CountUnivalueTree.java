@@ -1,21 +1,23 @@
 package com.algo.ds.tree;
 
+import com.algo.common.TreeNode;
+
 /**
  *
- * Given a binary tree, count the number of uni-value subtrees. A Uni-value subtree means all nodes
- * of the subtree have the same value.
+ * Given a binary tree, count the number of uni-value subtrees. A Uni-value subtree means all nodes of the subtree have
+ * the same value.
  *
  * https://leetcode.com/problems/count-univalue-subtrees/
  */
 public class CountUnivalueTree {
 	private int count = 0;
 
-	public int countUnivalSubtrees(Node root) {
+	public int countUnivalSubtrees(TreeNode root) {
 		countUnivalSubtreesUtil(root, 0);
 		return count;
 	}
 
-	private int countUnivalSubtreesUtil(Node root, int val) {
+	private int countUnivalSubtreesUtil(TreeNode root, int val) {
 		if (root == null) {
 			return val;
 		}

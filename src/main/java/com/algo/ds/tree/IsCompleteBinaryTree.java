@@ -3,6 +3,8 @@ package com.algo.ds.tree;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import com.algo.common.TreeNode;
+
 /**
  * http://www.geeksforgeeks.org/check-if-a-given-binary-tree-is-complete-tree-or-not/
  * 
@@ -20,8 +22,8 @@ public class IsCompleteBinaryTree {
 	 * Auxiliary Space: O(n) for queue.
 	 * 
 	 */
-	public boolean isComplete(Node root) {
-		Queue<Node> queue = new LinkedList<Node>();
+	public boolean isComplete(TreeNode root) {
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
 		queue.offer(root);
 		boolean foundFirstNonFull = false;
 		while (!queue.isEmpty()) {
@@ -53,7 +55,7 @@ public class IsCompleteBinaryTree {
 	 * @param root
 	 * @return
 	 */
-	public boolean isComplete1(Node root) {
+	public boolean isComplete1(TreeNode root) {
 		if (root == null)
 			return true;
 
@@ -71,7 +73,7 @@ public class IsCompleteBinaryTree {
 		return true;
 	}
 
-	private void inorder(Node root, boolean[] arr, int index) {
+	private void inorder(TreeNode root, boolean[] arr, int index) {
 		if (root == null || index >= arr.length)
 			return;
 
@@ -80,7 +82,7 @@ public class IsCompleteBinaryTree {
 		inorder(root.left, arr, 2 * index + 2);
 	}
 
-	private int size(Node root) {
+	private int size(TreeNode root) {
 		if (root == null)
 			return 0;
 
@@ -89,7 +91,7 @@ public class IsCompleteBinaryTree {
 
 	public static void main(String args[]) {
 		BinaryTree bt = new BinaryTree();
-		Node head = null;
+		TreeNode head = null;
 		head = bt.addNode(3, head);
 		head = bt.addNode(-6, head);
 		head = bt.addNode(7, head);

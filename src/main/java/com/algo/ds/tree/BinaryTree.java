@@ -1,53 +1,16 @@
 package com.algo.ds.tree;
 
-/**
- *
- */
-class NodeRef {
-	Node node;
-}
-
-enum Color {
-	RED, BLACK
-}
-
-class Node {
-	Node left;
-	Node right;
-	Node next;
-	int data;
-	int lis;
-	int height;
-	int size;
-	Color color;
-
-	public static Node newNode(int data) {
-		Node n = new Node();
-		n.left = null;
-		n.right = null;
-		n.data = data;
-		n.lis = -1;
-		n.height = 1;
-		n.size = 1;
-		n.color = Color.RED;
-		return n;
-	}
-
-	@Override
-	public String toString() {
-		return "Node [data=" + data + "]";
-	}
-}
+import com.algo.common.TreeNode;
 
 public class BinaryTree {
-	public Node addNode(int data, Node head) {
-		Node tempHead = head;
-		Node n = Node.newNode(data);
+	public TreeNode addNode(int data, TreeNode head) {
+		TreeNode tempHead = head;
+		TreeNode n = new TreeNode(data);
 		if (head == null) {
 			head = n;
 			return head;
 		}
-		Node prev = null;
+		TreeNode prev = null;
 		while (head != null) {
 			prev = head;
 			if (head.data < data) {
@@ -68,7 +31,7 @@ public class BinaryTree {
 		int height;
 	}
 
-	public int height(Node root) {
+	public int height(TreeNode root) {
 		if (root == null) {
 			return 0;
 		}
@@ -79,7 +42,7 @@ public class BinaryTree {
 
 	public static void main(String args[]) {
 		BinaryTree bt = new BinaryTree();
-		Node head = null;
+		TreeNode head = null;
 		head = bt.addNode(10, head);
 		head = bt.addNode(15, head);
 		head = bt.addNode(5, head);

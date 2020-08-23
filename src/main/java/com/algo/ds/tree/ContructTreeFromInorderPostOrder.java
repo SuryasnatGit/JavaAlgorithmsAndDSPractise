@@ -1,16 +1,18 @@
 package com.algo.ds.tree;
 
+import com.algo.common.TreeNode;
+
 /**
  * Given inorder and postorder traversal of a tree, construct the binary tree.
  *
  * https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/
  */
 public class ContructTreeFromInorderPostOrder {
-	public Node buildTree(int[] inorder, int[] postorder) {
+	public TreeNode buildTree(int[] inorder, int[] postorder) {
 		return buildTree(inorder, postorder, 0, inorder.length - 1, postorder.length - 1);
 	}
 
-	public Node buildTree(int[] inorder, int[] postorder, int start, int end, int index) {
+	public TreeNode buildTree(int[] inorder, int[] postorder, int start, int end, int index) {
 		if (start > end) {
 			return null;
 		}
@@ -22,7 +24,7 @@ public class ContructTreeFromInorderPostOrder {
 			}
 		}
 
-		Node tn = Node.newNode(postorder[index]);
+		TreeNode tn = new TreeNode(postorder[index]);
 		tn.left = buildTree(inorder, postorder, start, i - 1, index - (end - i + 1));
 		tn.right = buildTree(inorder, postorder, i + 1, end, index - 1);
 		return tn;

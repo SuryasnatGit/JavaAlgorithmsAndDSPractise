@@ -3,14 +3,16 @@ package com.algo.ds.tree;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.algo.common.TreeNode;
+
 /**
  * 
  * Youtube link - https://youtu.be/Jg4E4KZstFE
  * 
  * Given a binary tree and a sum, find if there is a path from root to leaf which sums to this sum.
  * 
- * Solution Keep going left and right and keep subtracting node value from sum. If leaf node is
- * reached check if whatever sum remaining is same as leaf node data.
+ * Solution Keep going left and right and keep subtracting node value from sum. If leaf node is reached check if
+ * whatever sum remaining is same as leaf node data.
  * 
  * Time complexity is O(n) since all nodes are visited.
  * 
@@ -20,7 +22,7 @@ import java.util.List;
  */
 public class RootToLeafToSum {
 
-	public boolean printPath(Node root, int sum, List<Node> path) {
+	public boolean printPath(TreeNode root, int sum, List<TreeNode> path) {
 		if (root == null) {
 			return false;
 		}
@@ -43,7 +45,7 @@ public class RootToLeafToSum {
 	public static void main(String args[]) {
 		RootToLeafToSum rtl = new RootToLeafToSum();
 		BinaryTree bt = new BinaryTree();
-		Node head = null;
+		TreeNode head = null;
 		head = bt.addNode(10, head);
 		head = bt.addNode(15, head);
 		head = bt.addNode(5, head);
@@ -52,7 +54,7 @@ public class RootToLeafToSum {
 		head = bt.addNode(20, head);
 		head = bt.addNode(4, head);
 		head = bt.addNode(3, head);
-		List<Node> result = new ArrayList<>();
+		List<TreeNode> result = new ArrayList<>();
 		boolean r = rtl.printPath(head, 22, result);
 		if (r) {
 			result.forEach(node -> System.out.print(node.data + " "));

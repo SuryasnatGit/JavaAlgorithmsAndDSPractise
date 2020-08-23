@@ -1,5 +1,7 @@
 package com.algo.ds.tree;
 
+import com.algo.common.TreeNode;
+
 /**
  * https://www.techiedelight.com/distance-between-given-pairs-of-nodes-binary-tree/
  *
@@ -7,7 +9,7 @@ package com.algo.ds.tree;
 public class DistanceBetweenPairsOfNodes {
 
 	// Helper function to check if given node is present in binary tree or not
-	public static boolean isNodePresent(Node root, Node node) {
+	public static boolean isNodePresent(TreeNode root, TreeNode node) {
 		// base case
 		if (root == null)
 			return false;
@@ -21,7 +23,7 @@ public class DistanceBetweenPairsOfNodes {
 	}
 
 	// Helper function to find level of given node present in binary tree
-	public static int findLevel(Node root, Node node, int level) {
+	public static int findLevel(TreeNode root, TreeNode node, int level) {
 		// base case
 		if (root == null)
 			return Integer.MIN_VALUE;
@@ -43,7 +45,7 @@ public class DistanceBetweenPairsOfNodes {
 
 	// Function to find lowest common ancestor of given nodes x and y where
 	// both x and y are present in the binary tree.
-	public static Node findLCA(Node root, Node x, Node y) {
+	public static TreeNode findLCA(TreeNode root, TreeNode x, TreeNode y) {
 		// base case 1: if tree is empty
 		if (root == null)
 			return null;
@@ -53,10 +55,10 @@ public class DistanceBetweenPairsOfNodes {
 			return root;
 
 		// recursively check if x or y exists in the left subtree
-		Node left = findLCA(root.left, x, y);
+		TreeNode left = findLCA(root.left, x, y);
 
 		// recursively check if x or y exists in the right subtree
-		Node right = findLCA(root.right, x, y);
+		TreeNode right = findLCA(root.right, x, y);
 
 		// if x is found in one subtree and y is found in other subtree,
 		// update lca to current node
@@ -79,9 +81,9 @@ public class DistanceBetweenPairsOfNodes {
 
 	// Function to find the distance between node 'x' and node 'y' in a
 	// given binary tree rooted at 'root' node
-	public static int findDistance(Node root, Node x, Node y) {
+	public static int findDistance(TreeNode root, TreeNode x, TreeNode y) {
 		// lca stores lowest common ancestor of x and y
-		Node lca = null;
+		TreeNode lca = null;
 
 		// call LCA procedure only if both x and y are present in the tree
 		if (isNodePresent(root, y) && isNodePresent(root, x))

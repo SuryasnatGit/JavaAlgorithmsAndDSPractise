@@ -1,5 +1,7 @@
 package com.algo.ds.tree;
 
+import com.algo.common.TreeNode;
+
 /**
  * http://www.geeksforgeeks.org/convert-an-arbitrary-binary-tree-to-a-tree-that-holds-children-sum-property/
  * 
@@ -8,11 +10,11 @@ package com.algo.ds.tree;
  */
 public class ArbitaryTreeToChildSumTree {
 
-	public void childSumTree(Node root) {
+	public void childSumTree(TreeNode root) {
 		toChildSumTree(root);
 	}
 
-	private int toChildSumTree(Node root) {
+	private int toChildSumTree(TreeNode root) {
 		if (root == null) {
 			return 0;
 		}
@@ -31,7 +33,7 @@ public class ArbitaryTreeToChildSumTree {
 		return root.data;
 	}
 
-	private void incrementChild(Node root, int increment) {
+	private void incrementChild(TreeNode root, int increment) {
 		if (root == null || (root.left == null && root.right == null)) {
 			return;
 		}
@@ -47,7 +49,7 @@ public class ArbitaryTreeToChildSumTree {
 	public static void main(String args[]) {
 		ArbitaryTreeToChildSumTree att = new ArbitaryTreeToChildSumTree();
 		BinaryTree bt = new BinaryTree();
-		Node head = null;
+		TreeNode head = null;
 		head = bt.addNode(10, head);
 		head = bt.addNode(15, head);
 		head = bt.addNode(5, head);

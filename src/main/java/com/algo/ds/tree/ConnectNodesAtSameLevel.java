@@ -1,5 +1,7 @@
 package com.algo.ds.tree;
 
+import com.algo.common.TreeNode;
+
 /**
  * Populate next pointer for each node of binary tree.
  *
@@ -9,16 +11,15 @@ package com.algo.ds.tree;
  * 
  * Given a binary tree
  * 
- * struct TreeLinkNode { TreeLinkNode *left; TreeLinkNode *right; TreeLinkNode *next; } Populate
- * each next pointer to point to its next right node. If there is no next right node, the next
- * pointer should be set to NULL.
+ * struct TreeLinkNode { TreeLinkNode *left; TreeLinkNode *right; TreeLinkNode *next; } Populate each next pointer to
+ * point to its next right node. If there is no next right node, the next pointer should be set to NULL.
  * 
  * Initially, all next pointers are set to NULL.
  * 
  * Note:
  * 
- * You may only use constant extra space. Recursive approach is fine, implicit stack space does not
- * count as extra space for this problem. Example:
+ * You may only use constant extra space. Recursive approach is fine, implicit stack space does not count as extra space
+ * for this problem. Example:
  * 
  * Given the following binary tree,
  * 
@@ -29,17 +30,17 @@ package com.algo.ds.tree;
 public class ConnectNodesAtSameLevel {
 
 	/**
-	 * Starting at any node, its left child's next value will be the node's right child, and it's right
-	 * child's next value will be the node's next value's left child. We need to make sure the next
-	 * value isn't null, so we add in a ternary conditional check.
+	 * Starting at any node, its left child's next value will be the node's right child, and it's right child's next
+	 * value will be the node's next value's left child. We need to make sure the next value isn't null, so we add in a
+	 * ternary conditional check.
 	 * 
 	 * @param root
 	 */
-	public void connect_simpleRecursive(Node root) {
+	public void connect_simpleRecursive(TreeNode root) {
 		connect_simpleRecursive(root, null);
 	}
 
-	private void connect_simpleRecursive(Node root, Node next) {
+	private void connect_simpleRecursive(TreeNode root, TreeNode next) {
 		if (root == null)
 			return;
 		root.next = next;
@@ -52,12 +53,12 @@ public class ConnectNodesAtSameLevel {
 	 * 
 	 * @param root
 	 */
-	public void connect_iterative(Node root) {
+	public void connect_iterative(TreeNode root) {
 		if (root == null)
 			return;
-		Node curr_level = root;
+		TreeNode curr_level = root;
 		while (curr_level != null) {
-			Node temp = curr_level;
+			TreeNode temp = curr_level;
 			while (temp != null) {
 				if (temp.left != null)
 					temp.left.next = temp.right;
@@ -69,13 +70,13 @@ public class ConnectNodesAtSameLevel {
 		}
 	}
 
-	public void connect(Node root) {
+	public void connect(TreeNode root) {
 		if (root == null) {
 			return;
 		}
 
-		Node firstNode = root;
-		Node prevNode = null;
+		TreeNode firstNode = root;
+		TreeNode prevNode = null;
 		while (firstNode != null) {
 			root = firstNode;
 			firstNode = null;
@@ -106,7 +107,7 @@ public class ConnectNodesAtSameLevel {
 
 	public static void main(String args[]) {
 		BinaryTree bt = new BinaryTree();
-		Node root = null;
+		TreeNode root = null;
 		root = bt.addNode(10, root);
 		root = bt.addNode(15, root);
 		root = bt.addNode(5, root);

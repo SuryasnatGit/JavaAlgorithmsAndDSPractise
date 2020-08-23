@@ -1,5 +1,7 @@
 package com.algo.ds.tree;
 
+import com.algo.common.TreeNode;
+
 /**
  * http://www.geeksforgeeks.org/print-nodes-distance-k-given-node-binary-tree/
  * 
@@ -14,12 +16,12 @@ package com.algo.ds.tree;
  */
 public class NodesAtDistanceK {
 
-	Node root;
+	TreeNode root;
 	/*
 	 * Recursive function to print all the nodes at distance k in tree (or subtree) rooted with given root.
 	 */
 
-	void printkdistanceNodeDown(Node node, int k) {
+	void printkdistanceNodeDown(TreeNode node, int k) {
 		// Base Case
 		if (node == null || k < 0)
 			return;
@@ -40,7 +42,7 @@ public class NodesAtDistanceK {
 	// The k distant nodes may be upward or downward.This function
 	// Returns distance of root from target node, it returns -1
 	// if target node is not present in tree rooted with root.
-	int printkdistanceNode(Node node, Node target, int k) {
+	int printkdistanceNode(TreeNode node, TreeNode target, int k) {
 		// Base Case 1: If tree is empty, return -1
 		if (node == null)
 			return -1;
@@ -95,7 +97,7 @@ public class NodesAtDistanceK {
 
 	public static void main(String args[]) {
 		NodesAtDistanceK nad = new NodesAtDistanceK();
-		Node root = null;
+		TreeNode root = null;
 		BinaryTree bt = new BinaryTree();
 		root = bt.addNode(10, root);
 		root = bt.addNode(3, root);

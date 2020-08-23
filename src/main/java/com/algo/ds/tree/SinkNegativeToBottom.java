@@ -1,14 +1,16 @@
 package com.algo.ds.tree;
 
+import com.algo.common.TreeNode;
+
 /**
  * http://www.careercup.com/question?id=5344154741637120
  * 
- * Sink Zero in Binary Tree. Swap zero value of a node with non-zero value of one of its descendants
- * so that no node with value zero could be parent of node with non-zero
+ * Sink Zero in Binary Tree. Swap zero value of a node with non-zero value of one of its descendants so that no node
+ * with value zero could be parent of node with non-zero
  */
 public class SinkNegativeToBottom {
 
-	public void sinkZero(Node root) {
+	public void sinkZero(TreeNode root) {
 		if (root == null) {
 			return;
 		}
@@ -22,7 +24,7 @@ public class SinkNegativeToBottom {
 	}
 
 	// this method is similar to heapify of heap sort.
-	private void pushDown(Node root) {
+	private void pushDown(TreeNode root) {
 		if (root == null) {
 			return;
 		}
@@ -50,7 +52,7 @@ public class SinkNegativeToBottom {
 		int preorder[] = { -1, 1, 6, -2, 11, 3, 2, -3, 31, 22, 17 };
 		int inorder[] = { -2, 6, 11, 1, 3, -1, 31, -3, 22, 2, 17 };
 		ConstructTreeFromInOrderPreOrder ctf = new ConstructTreeFromInOrderPreOrder();
-		Node root = ctf.createTree(inorder, preorder);
+		TreeNode root = ctf.createTree(inorder, preorder);
 		SinkNegativeToBottom szb = new SinkNegativeToBottom();
 		szb.sinkZero(root);
 		LevelOrderTraversal lot = new LevelOrderTraversal();

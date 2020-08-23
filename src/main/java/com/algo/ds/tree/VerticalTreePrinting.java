@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
+import com.algo.common.TreeNode;
+
 /**
  * http://www.geeksforgeeks.org/print-binary-tree-vertical-order-set-2/
  */
@@ -27,7 +29,7 @@ public class VerticalTreePrinting {
 	 * 
 	 * @param root
 	 */
-	public List<List<Integer>> printVertically(Node root) {
+	public List<List<Integer>> printVertically(TreeNode root) {
 		List<List<Integer>> ans = new ArrayList<List<Integer>>();
 
 		// 1. find the range of left bound and right bound
@@ -47,7 +49,7 @@ public class VerticalTreePrinting {
 		return ans;
 	}
 
-	private void fillNode(List<List<Integer>> ans, Node node, int index) {
+	private void fillNode(List<List<Integer>> ans, TreeNode node, int index) {
 		if (node == null) {
 			return;
 		}
@@ -56,7 +58,7 @@ public class VerticalTreePrinting {
 		fillNode(ans, node.right, index + 1);
 	}
 
-	private void findRange(Node node, int[] range, int position) {
+	private void findRange(TreeNode node, int[] range, int position) {
 		if (node == null) {
 			return;
 		}
@@ -79,31 +81,31 @@ public class VerticalTreePrinting {
 	 * 
 	 * @param root
 	 */
-	public void printVertical(Node root) {
-		Map<Integer, List<Node>> map = new TreeMap<Integer, List<Node>>();
+	public void printVertical(TreeNode root) {
+		Map<Integer, List<TreeNode>> map = new TreeMap<Integer, List<TreeNode>>();
 		populateMap(root, map, 0);
 		printLevel(map);
 	}
 
-	private void printLevel(Map<Integer, List<Node>> map) {
+	private void printLevel(Map<Integer, List<TreeNode>> map) {
 		for (Integer key : map.keySet()) {
-			List<Node> listNodes = map.get(key);
-			for (Node n : listNodes) {
+			List<TreeNode> listNodes = map.get(key);
+			for (TreeNode n : listNodes) {
 				System.out.print(n.data + " ");
 			}
 			System.out.println();
 		}
 	}
 
-	private void populateMap(Node root, Map<Integer, List<Node>> map, int level) {
+	private void populateMap(TreeNode root, Map<Integer, List<TreeNode>> map, int level) {
 		if (root == null) {
 			return;
 		}
-		List<Node> listNodes = null;
+		List<TreeNode> listNodes = null;
 		if (map.containsKey(level)) {
 			listNodes = map.get(level);
 		} else {
-			listNodes = new ArrayList<Node>();
+			listNodes = new ArrayList<TreeNode>();
 			map.put(level, listNodes);
 		}
 		listNodes.add(root);
@@ -126,16 +128,16 @@ public class VerticalTreePrinting {
 	 *
 	 */
 	class QueueEntry {
-		Node node;
+		TreeNode node;
 		int horizontalDistance;
 
-		QueueEntry(Node node, int horizontalDistance) {
+		QueueEntry(TreeNode node, int horizontalDistance) {
 			this.node = node;
 			this.horizontalDistance = horizontalDistance;
 		}
 	}
 
-	private void fillUpVerticalOrderMap(Node currentNode, int horizontalDistFromRoot,
+	private void fillUpVerticalOrderMap(TreeNode currentNode, int horizontalDistFromRoot,
 			Map<Integer, ArrayList<Integer>> verticalOrderMap) {
 		if (currentNode == null)
 			return;
@@ -174,7 +176,7 @@ public class VerticalTreePrinting {
 		}
 	}
 
-	public void printVerticalOrder(Node root) {
+	public void printVerticalOrder(TreeNode root) {
 		Map<Integer, ArrayList<Integer>> verticalOrderMap = new TreeMap<>();
 
 		fillUpVerticalOrderMap(root, 0, verticalOrderMap);
@@ -194,7 +196,7 @@ public class VerticalTreePrinting {
 
 	public static void main(String args[]) {
 		BinaryTree bt = new BinaryTree();
-		Node head = null;
+		TreeNode head = null;
 		head = bt.addNode(3, head);
 		head = bt.addNode(-6, head);
 		head = bt.addNode(-7, head);

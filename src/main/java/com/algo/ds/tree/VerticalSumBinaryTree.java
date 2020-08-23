@@ -3,18 +3,21 @@ package com.algo.ds.tree;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.algo.common.TreeNode;
+
 public class VerticalSumBinaryTree {
 
 	/**
-	 * Solution 1 : We can do inorder traversal of the given Binary Tree. While traversing the tree, we
-	 * can recursively calculate HDs. We initially pass the horizontal distance as 0 for root. For left
-	 * subtree, we pass the Horizontal Distance as Horizontal distance of root minus 1. For right
-	 * subtree, we pass the Horizontal Distance as Horizontal Distance of root plus 1.
+	 * Solution 1 : We can do inorder traversal of the given Binary Tree. While traversing the tree, we can recursively
+	 * calculate HDs. We initially pass the horizontal distance as 0 for root. For left subtree, we pass the Horizontal
+	 * Distance as Horizontal distance of root minus 1. For right subtree, we pass the Horizontal Distance as Horizontal
+	 * Distance of root plus 1.
 	 * 
 	 * Time Complexity: O(n)
+	 * 
 	 * @param root
 	 */
-	public void verticalSum(Node root) {
+	public void verticalSum(TreeNode root) {
 		if (root == null)
 			return;
 		Map<Integer, Integer> map = new HashMap<>();
@@ -30,7 +33,7 @@ public class VerticalSumBinaryTree {
 	 * @param map
 	 * @param hd
 	 */
-	private void verticalSumUtil(Node root, Map<Integer, Integer> map, int hd) {
+	private void verticalSumUtil(TreeNode root, Map<Integer, Integer> map, int hd) {
 		if (root == null)
 			return;
 		// do inorder traversal
@@ -41,8 +44,7 @@ public class VerticalSumBinaryTree {
 	}
 
 	/**
-	 * Prints vertical sum of different vertical lines in tree. This method mainly uses
-	 * verticalSumDLLUtil().
+	 * Prints vertical sum of different vertical lines in tree. This method mainly uses verticalSumDLLUtil().
 	 */
 	static void verticalSumDLL(TNode root) {
 		// Create a doubly linked list node to
@@ -125,7 +127,5 @@ public class VerticalSumBinaryTree {
 			data = d;
 		}
 	}
-
-
 
 }

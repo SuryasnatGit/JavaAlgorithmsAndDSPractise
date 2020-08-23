@@ -1,7 +1,7 @@
 
-
 package com.algo.ds.tree;
 
+import com.algo.common.TreeNode;
 
 /**
  * Given a binary tree where all the right nodes are either leaf nodes with a sibling (a left node that shares the same
@@ -13,23 +13,23 @@ package com.algo.ds.tree;
  * recursively follow rule for all nodes.
  */
 public class UpsidedownBinaryTree {
-    public Node upsideDownBinaryTree(Node root) {
-        if (root == null) {
-            return null;
-        }
-        return upsideDownBinaryTree(root, null, null);
-    }
+	public TreeNode upsideDownBinaryTree(TreeNode root) {
+		if (root == null) {
+			return null;
+		}
+		return upsideDownBinaryTree(root, null, null);
+	}
 
-    public Node upsideDownBinaryTree(Node root, Node parent, Node rightChild) {
-        if (root == null) {
-            return parent;
-        }
-        Node left = root.left;
-        Node right = root.right;
+	public TreeNode upsideDownBinaryTree(TreeNode root, TreeNode parent, TreeNode rightChild) {
+		if (root == null) {
+			return parent;
+		}
+		TreeNode left = root.left;
+		TreeNode right = root.right;
 
-        root.right = parent;
-        root.left = rightChild;
+		root.right = parent;
+		root.left = rightChild;
 
-        return upsideDownBinaryTree(left, root, right);
-    }
+		return upsideDownBinaryTree(left, root, right);
+	}
 }

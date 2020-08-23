@@ -2,6 +2,8 @@ package com.algo.ds.tree;
 
 import java.util.Stack;
 
+import com.algo.common.TreeNode;
+
 /**
  * Youtube link - https://youtu.be/nzmtCFNae9k Youtube link - https://youtu.be/elQcrJrfObg Youtube link -
  * https://youtu.be/qT65HltK2uE Youtube link - https://youtu.be/ZM-sV9zQPEs
@@ -12,7 +14,7 @@ import java.util.Stack;
  */
 public class TreeTraversals {
 
-	public void inOrder(Node root) {
+	public void inOrder(TreeNode root) {
 		if (root == null) {
 			return;
 		}
@@ -21,7 +23,7 @@ public class TreeTraversals {
 		inOrder(root.right);
 	}
 
-	public void preOrder(Node root) {
+	public void preOrder(TreeNode root) {
 		if (root == null) {
 			return;
 		}
@@ -30,7 +32,7 @@ public class TreeTraversals {
 		preOrder(root.right);
 	}
 
-	public void postOrder(Node root) {
+	public void postOrder(TreeNode root) {
 		if (root == null) {
 			return;
 		}
@@ -44,9 +46,9 @@ public class TreeTraversals {
 	 * 
 	 * @param root
 	 */
-	public void inorderIterative(Node root) {
-		Stack<Node> stack = new Stack<Node>();
-		Node node = root;
+	public void inorderIterative(TreeNode root) {
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		TreeNode node = root;
 		while (true) {
 			if (node != null) {
 				stack.push(node);
@@ -62,8 +64,8 @@ public class TreeTraversals {
 		}
 	}
 
-	public void preOrderIterative(Node root) {
-		Stack<Node> stack = new Stack<Node>();
+	public void preOrderIterative(TreeNode root) {
+		Stack<TreeNode> stack = new Stack<TreeNode>();
 		stack.push(root);
 		while (!stack.isEmpty()) {
 			root = stack.pop();
@@ -77,9 +79,9 @@ public class TreeTraversals {
 		}
 	}
 
-	public void postOrderIterativeTwoStack(Node root) {
-		Stack<Node> stack1 = new Stack<Node>();
-		Stack<Node> stack2 = new Stack<Node>();
+	public void postOrderIterativeTwoStack(TreeNode root) {
+		Stack<TreeNode> stack1 = new Stack<TreeNode>();
+		Stack<TreeNode> stack2 = new Stack<TreeNode>();
 		stack1.push(root);
 		while (!stack1.isEmpty()) {
 			root = stack1.pop();
@@ -96,15 +98,15 @@ public class TreeTraversals {
 		}
 	}
 
-	public void postOrderIterativeOneStack(Node root) {
-		Node current = root;
-		Stack<Node> stack = new Stack<>();
+	public void postOrderIterativeOneStack(TreeNode root) {
+		TreeNode current = root;
+		Stack<TreeNode> stack = new Stack<>();
 		while (current != null || !stack.isEmpty()) {
 			if (current != null) {
 				stack.push(current);
 				current = current.left;
 			} else {
-				Node temp = stack.peek().right;
+				TreeNode temp = stack.peek().right;
 				if (temp == null) {
 					temp = stack.pop();
 					System.out.print(temp.data + " ");
@@ -121,7 +123,7 @@ public class TreeTraversals {
 
 	public static void main(String args[]) {
 		BinaryTree bt = new BinaryTree();
-		Node head = null;
+		TreeNode head = null;
 		head = bt.addNode(10, head);
 		head = bt.addNode(15, head);
 		head = bt.addNode(19, head);

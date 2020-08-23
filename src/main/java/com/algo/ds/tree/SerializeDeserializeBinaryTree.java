@@ -3,6 +3,8 @@ package com.algo.ds.tree;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import com.algo.common.TreeNode;
+
 /**
  * Serialize/Deserialize a binary tree whose data is a number.
  *
@@ -35,12 +37,12 @@ public class SerializeDeserializeBinaryTree {
 	/**
 	 * Serialize tree using level order traversal.
 	 */
-	public String serializeLevelOrder(Node root) {
+	public String serializeLevelOrder(TreeNode root) {
 		if (root == null) {
 			return "";
 		}
 
-		Queue<Node> queue = new LinkedList<>();
+		Queue<TreeNode> queue = new LinkedList<>();
 		queue.offer(root);
 		StringBuffer buff = new StringBuffer();
 		while (!queue.isEmpty()) {
@@ -66,25 +68,25 @@ public class SerializeDeserializeBinaryTree {
 	/**
 	 * Deserialize Tree using level order traversal.
 	 */
-	public Node deserializeLevelOrder(String data) {
+	public TreeNode deserializeLevelOrder(String data) {
 		if (data == null || data.length() == 0) {
 			return null;
 		}
 		String[] input = data.split(",");
-		Queue<Node> queue = new LinkedList<>();
+		Queue<TreeNode> queue = new LinkedList<>();
 		int index = 0;
-		queue.offer(Node.newNode(Integer.parseInt(input[index])));
-		Node root = queue.peek();
+		queue.offer(new TreeNode(Integer.parseInt(input[index])));
+		TreeNode root = queue.peek();
 		index++;
 		while (!queue.isEmpty()) {
-			Node current = queue.poll();
+			TreeNode current = queue.poll();
 			if (index < input.length && !input[index].equals("%")) {
-				current.left = Node.newNode(Integer.parseInt(input[index]));
+				current.left = new TreeNode(Integer.parseInt(input[index]));
 				queue.offer(current.left);
 			}
 			index++;
 			if (index < input.length && !input[index].equals("%")) {
-				current.right = Node.newNode(Integer.parseInt(input[index]));
+				current.right = new TreeNode(Integer.parseInt(input[index]));
 				queue.offer(current.right);
 			}
 			index++;
@@ -96,13 +98,13 @@ public class SerializeDeserializeBinaryTree {
 		SerializeDeserializeBinaryTree sd = new SerializeDeserializeBinaryTree();
 		TreeTraversals tt = new TreeTraversals();
 
-		Node r = Node.newNode(1);
-		r.left = Node.newNode(2);
-		r.left.left = Node.newNode(7);
-		r.left.right = Node.newNode(8);
-		r.right = Node.newNode(3);
-		r.right.left = Node.newNode(4);
-		r.right.right = Node.newNode(5);
+		TreeNode r = new TreeNode(1);
+		r.left = new TreeNode(2);
+		r.left.left = new TreeNode(7);
+		r.left.right = new TreeNode(8);
+		r.right = new TreeNode(3);
+		r.right.left = new TreeNode(4);
+		r.right.right = new TreeNode(5);
 		// String s = sd.serialize(r);
 		// System.out.println(s);
 		//
@@ -116,7 +118,7 @@ public class SerializeDeserializeBinaryTree {
 		System.out.println();
 		String serializedTree = sd.serializeLevelOrder(r);
 		System.out.println("Serialized :" + serializedTree);
-		Node root = sd.deserializeLevelOrder("1,2,3");
+		TreeNode root = sd.deserializeLevelOrder("1,2,3");
 		System.out.println("deserialized ");
 		tt.inOrder(root);
 	}

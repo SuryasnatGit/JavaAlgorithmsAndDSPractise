@@ -7,13 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+import com.algo.common.TreeNode;
+
 /**
  * https://www.techiedelight.com/print-diagonal-traversal-binary-tree/
  */
 public class DiagonalTraversalOfBinaryTree {
 
 	// T - O(n log n) S - O(n)
-	public void diagonal(Node root) {
+	public void diagonal(TreeNode root) {
 		Map<Integer, List<Integer>> map = new HashMap<>();
 		diagonalRecursive(root, 0, map);
 
@@ -22,7 +24,7 @@ public class DiagonalTraversalOfBinaryTree {
 		}
 	}
 
-	private void diagonalRecursive(Node root, int diagonal, Map<Integer, List<Integer>> map) {
+	private void diagonalRecursive(TreeNode root, int diagonal, Map<Integer, List<Integer>> map) {
 		if (root == null)
 			return;
 
@@ -39,13 +41,13 @@ public class DiagonalTraversalOfBinaryTree {
 	}
 
 	// T - O(n) S - O(n)
-	public void diagonalIterative(Node root) {
+	public void diagonalIterative(TreeNode root) {
 		if (root == null)
 			return;
 
-		Node sentinel = Node.newNode(-1);
+		TreeNode sentinel = new TreeNode(-1);
 
-		Queue<Node> queue = new LinkedList<>();
+		Queue<TreeNode> queue = new LinkedList<>();
 		// add first diaginal to queue
 		while (root != null) {
 			queue.add(root);
@@ -56,7 +58,7 @@ public class DiagonalTraversalOfBinaryTree {
 
 		// run till only sentinel is left
 		while (queue.size() != 1) {
-			Node node = queue.poll();
+			TreeNode node = queue.poll();
 			if (node != sentinel) {
 				System.out.print(node.data + " ");
 				node = node.left;
@@ -75,10 +77,10 @@ public class DiagonalTraversalOfBinaryTree {
 	public static void main(String[] args) {
 		DiagonalTraversalOfBinaryTree diag = new DiagonalTraversalOfBinaryTree();
 
-		Node n = Node.newNode(1);
-		n.left = Node.newNode(2);
-		n.right = Node.newNode(3);
-		n.left.right = Node.newNode(4);
+		TreeNode n = new TreeNode(1);
+		n.left = new TreeNode(2);
+		n.right = new TreeNode(3);
+		n.left.right = new TreeNode(4);
 
 		diag.diagonal(n);
 		diag.diagonalIterative(n);

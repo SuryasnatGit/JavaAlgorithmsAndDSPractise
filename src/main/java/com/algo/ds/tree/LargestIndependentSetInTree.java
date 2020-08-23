@@ -12,8 +12,8 @@ public class LargestIndependentSetInTree {
 			return 0;
 		}
 
-		if (root.lis != -1) {
-			return root.lis;
+		if (root.data != -1) {
+			return root.data;
 		}
 		int excl = 0;
 		int left_excl = 0;
@@ -28,7 +28,7 @@ public class LargestIndependentSetInTree {
 		}
 
 		int incl = left_excl + right_excl + root.data;
-		root.lis = incl;
+		root.data = incl;
 
 		return incl > excl ? incl : excl;
 	}

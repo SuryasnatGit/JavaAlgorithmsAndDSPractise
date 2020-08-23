@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.algo.common.TreeNode;
+
 /**
  * http://www.geeksforgeeks.org/check-two-nodes-cousins-binary-tree/
  * 
@@ -18,14 +20,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class CousinNodes {
 
 	// T - O(n)
-	public boolean areCousinNodesRecursive(Node root, int a, int b) {
+	public boolean areCousinNodesRecursive(TreeNode root, int a, int b) {
 		if (root == null)
 			return false;
 
 		return level(root, a, 1) == level(root, b, 1) && !isSibling(root, a, b);
 	}
 
-	private boolean isSibling(Node root, int a, int b) {
+	private boolean isSibling(TreeNode root, int a, int b) {
 		if (root == null)
 			return false;
 
@@ -33,7 +35,7 @@ public class CousinNodes {
 				|| (isSibling(root.left, a, b) || isSibling(root.right, a, b));
 	}
 
-	private int level(Node root, int target, int level) {
+	private int level(TreeNode root, int target, int level) {
 		// base case
 		if (root == null)
 			return 0;
@@ -51,8 +53,8 @@ public class CousinNodes {
 	}
 
 	// T - O(n) S - O(n)
-	public boolean areCousinNodesIterative(Node root, int a, int b) {
-		Queue<Node> queue = new LinkedList<Node>();
+	public boolean areCousinNodesIterative(TreeNode root, int a, int b) {
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
 		queue.add(root);
 
 		int levelSize = 1;
@@ -61,7 +63,7 @@ public class CousinNodes {
 		while (!queue.isEmpty()) {
 			levelSize = 0;
 			while (tempLevelSize > 0) {
-				Node node = queue.poll();
+				TreeNode node = queue.poll();
 				// this is to make sure a and b are not siblings of each other
 				// if they are return false since they cant be cousins
 				if (checkSameParent(node, a, b)) {
@@ -93,7 +95,7 @@ public class CousinNodes {
 		return false;
 	}
 
-	private boolean checkSameParent(Node root, int a, int b) {
+	private boolean checkSameParent(TreeNode root, int a, int b) {
 		if (root.left != null && root.right != null) {
 			if ((root.left.data == a || root.left.data == b) && (root.right.data == a || root.right.data == b)) {
 				return true;
@@ -107,7 +109,7 @@ public class CousinNodes {
 	 * 
 	 */
 	// Function to print all cousins of given node
-	public void printAllCousins(Node root, Node node) {
+	public void printAllCousins(TreeNode root, TreeNode node) {
 		// Using AtomicBoolean as Integer is passed by value in Java
 		AtomicInteger level = new AtomicInteger(0);
 
@@ -119,7 +121,7 @@ public class CousinNodes {
 	}
 
 	// Function to find level of given node x
-	private void findLevel(Node root, Node x, int index, AtomicInteger level) {
+	private void findLevel(TreeNode root, TreeNode x, int index, AtomicInteger level) {
 		// return if tree is empty or level is already found
 		if (root == null || level.get() != 0) {
 			return;
@@ -135,7 +137,7 @@ public class CousinNodes {
 		findLevel(root.right, x, index + 1, level);
 	}
 
-	private void printLevel(Node root, Node node, int level) {
+	private void printLevel(TreeNode root, TreeNode node, int level) {
 		// base case
 		if (root == null) {
 			return;
@@ -156,7 +158,7 @@ public class CousinNodes {
 
 	public static void main(String args[]) {
 		BinaryTree bt = new BinaryTree();
-		Node head = null;
+		TreeNode head = null;
 		head = bt.addNode(10, head);
 		head = bt.addNode(15, head);
 		head = bt.addNode(5, head);

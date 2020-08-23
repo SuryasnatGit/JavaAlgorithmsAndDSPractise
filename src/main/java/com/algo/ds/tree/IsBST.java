@@ -3,44 +3,41 @@ package com.algo.ds.tree;
 import java.util.Deque;
 import java.util.LinkedList;
 
+import com.algo.common.TreeNode;
+
 /**
  * CTCI - 4.5
  * 
  * Youtube link - https://youtu.be/MILxfAbIhrE
  * 
- * Given a binary tree, return true if it is binary search tree else return false. CTCI Ch 4 Problem
- * 4.5
+ * Given a binary tree, return true if it is binary search tree else return false. CTCI Ch 4 Problem 4.5
  * 
- * Solution Keep min, max for every recursion. Initial min and max is very small and very larger
- * number. Check if root.data is in this range. When you go left pass min and root.data and for
- * right pass root.data and max.
+ * Solution Keep min, max for every recursion. Initial min and max is very small and very larger number. Check if
+ * root.data is in this range. When you go left pass min and root.data and for right pass root.data and max.
  * 
  * Time complexity is O(n) since we are looking at all nodes.
  * 
- * Test cases: Null tree 1 or 2 nodes tree Binary tree which is actually BST Binary tree which is
- * not a BST
+ * Test cases: Null tree 1 or 2 nodes tree Binary tree which is actually BST Binary tree which is not a BST
  */
 public class IsBST {
 
 	/**
-	 * Approach 1: A better solution looks at each node only once. The trick is to write a utility
-	 * helper function that traverses down the tree keeping track of the narrowing min and max allowed
-	 * values as it goes, looking at each node only once. The initial values for min and max should be
-	 * INT_MIN and INT_MAX  they narrow from there.
+	 * Approach 1: A better solution looks at each node only once. The trick is to write a utility helper function that
+	 * traverses down the tree keeping track of the narrowing min and max allowed values as it goes, looking at each
+	 * node only once. The initial values for min and max should be INT_MIN and INT_MAX they narrow from there.
 	 * 
 	 * Run on IDE
 	 * 
-	 * Time Complexity: O(n) Auxiliary Space : O(1) if Function Call Stack size is not considered,
-	 * otherwise O(n)
+	 * Time Complexity: O(n) Auxiliary Space : O(1) if Function Call Stack size is not considered, otherwise O(n)
 	 * 
 	 * @param root
 	 * @return
 	 */
-	public boolean isBST(Node root) {
+	public boolean isBST(TreeNode root) {
 		return isBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 
-	private boolean isBST(Node root, int min, int max) {
+	private boolean isBST(TreeNode root, int min, int max) {
 		if (root == null) {
 			return true;
 		}
@@ -56,13 +53,13 @@ public class IsBST {
 	 * @param root
 	 * @return
 	 */
-	public boolean isBSTIterative(Node root) {
+	public boolean isBSTIterative(TreeNode root) {
 		if (root == null) {
 			return true;
 		}
 
-		Deque<Node> stack = new LinkedList<>();
-		Node node = root;
+		Deque<TreeNode> stack = new LinkedList<>();
+		TreeNode node = root;
 		int prev = Integer.MIN_VALUE;
 		int current;
 		while (true) {
@@ -88,20 +85,19 @@ public class IsBST {
 	/**
 	 * Approach 3 - using inorder traversal.
 	 * 
-	 * 1) Do In-Order Traversal of the given tree and store the result in a temp array. 3) Check if the
-	 * temp array is sorted in ascending order, if it is, then the tree is BST.
+	 * 1) Do In-Order Traversal of the given tree and store the result in a temp array. 3) Check if the temp array is
+	 * sorted in ascending order, if it is, then the tree is BST.
 	 * 
 	 * Time Complexity: O(n)
 	 * 
-	 * We can avoid the use of Auxiliary Array. While doing In-Order traversal, we can keep track of
-	 * previously visited node. If the value of the currently visited node is less than the previous
-	 * value, then tree is not BST.
+	 * We can avoid the use of Auxiliary Array. While doing In-Order traversal, we can keep track of previously visited
+	 * node. If the value of the currently visited node is less than the previous value, then tree is not BST.
 	 * 
 	 * @return
 	 */
-	private Node prev = null; // to keep track of previous node in inorder traversal
+	private TreeNode prev = null; // to keep track of previous node in inorder traversal
 
-	public boolean isBST_inorderTraversal(Node root) {
+	public boolean isBST_inorderTraversal(TreeNode root) {
 		if (root != null) {
 			if (!isBST_inorderTraversal(root.left))
 				return false;
@@ -115,7 +111,7 @@ public class IsBST {
 
 	public static void main(String args[]) {
 		BinaryTree bt = new BinaryTree();
-		Node root = null;
+		TreeNode root = null;
 		root = bt.addNode(10, root);
 		root = bt.addNode(15, root);
 		root = bt.addNode(-10, root);

@@ -1,5 +1,7 @@
 package com.algo.ds.tree;
 
+import com.algo.common.TreeNode;
+
 /**
  * Date 03/16/2015
  * 
@@ -19,13 +21,13 @@ package com.algo.ds.tree;
  */
 public class DegenerateBinaryTreeToSortedLL {
 
-	public Node degenerate(Node root) {
+	public TreeNode degenerate(TreeNode root) {
 		if (root == null) {
 			return null;
 		}
 
-		Node left = root.left;
-		Node right = root.right;
+		TreeNode left = root.left;
+		TreeNode right = root.right;
 		root.left = null;
 		root.right = null;
 		left = degenerate(left);
@@ -34,7 +36,7 @@ public class DegenerateBinaryTreeToSortedLL {
 		return merge(left, right);
 	}
 
-	private Node merge(Node root1, Node root2) {
+	private TreeNode merge(TreeNode root1, TreeNode root2) {
 		if (root1 == null) {
 			return root2;
 		}
@@ -51,7 +53,7 @@ public class DegenerateBinaryTreeToSortedLL {
 		}
 	}
 
-	private void printList(Node root) {
+	private void printList(TreeNode root) {
 		while (root != null) {
 			System.out.print(root.data + " ");
 			root = root.right;
@@ -62,7 +64,7 @@ public class DegenerateBinaryTreeToSortedLL {
 		ConstructTreeFromInOrderPreOrder ctf = new ConstructTreeFromInOrderPreOrder();
 		int inorder[] = { 8, 11, 9, 10, 16, 15, 13, 7 };
 		int preorder[] = { 10, 11, 8, 9, 15, 16, 13, 7 };
-		Node root = ctf.createTree(inorder, preorder);
+		TreeNode root = ctf.createTree(inorder, preorder);
 		DegenerateBinaryTreeToSortedLL dbt = new DegenerateBinaryTreeToSortedLL();
 		root = dbt.degenerate(root);
 		dbt.printList(root);

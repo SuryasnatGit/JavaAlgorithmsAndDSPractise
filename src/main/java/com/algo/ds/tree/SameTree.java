@@ -1,5 +1,7 @@
 package com.algo.ds.tree;
 
+import com.algo.common.TreeNode;
+
 /**
  * Youtube link - https://youtu.be/ySDDslG8wws
  * 
@@ -11,7 +13,7 @@ package com.algo.ds.tree;
  */
 public class SameTree {
 
-	public boolean sameTree(Node root1, Node root2) {
+	public boolean sameTree(TreeNode root1, TreeNode root2) {
 		if (root1 == null && root2 == null) {
 			return true;
 		}
@@ -24,13 +26,13 @@ public class SameTree {
 
 	public static void main(String args[]) {
 		BinaryTree bt = new BinaryTree();
-		Node root1 = null;
+		TreeNode root1 = null;
 		root1 = bt.addNode(10, root1);
 		root1 = bt.addNode(20, root1);
 		root1 = bt.addNode(15, root1);
 		root1 = bt.addNode(2, root1);
 
-		Node root2 = null;
+		TreeNode root2 = null;
 		root2 = bt.addNode(10, root2);
 		root2 = bt.addNode(20, root2);
 		root2 = bt.addNode(15, root2);

@@ -13,7 +13,7 @@ import com.algo.common.TreeNode;
 public class PrintAllAncestorsOfGivenNode {
 
 	// T - O(n) S - O(h) where h = height of tree
-	public boolean printAncestors(TreeNode root, int data) {
+	public boolean printAncestorsRecursive(TreeNode root, int data) {
 		if (root == null)
 			return false;
 
@@ -21,11 +21,11 @@ public class PrintAllAncestorsOfGivenNode {
 			return true;
 
 		// search in left sub tree
-		boolean left = printAncestors(root.left, data);
+		boolean left = printAncestorsRecursive(root.left, data);
 
 		boolean right = false;
 		if (!left)
-			right = printAncestors(root.right, data);
+			right = printAncestorsRecursive(root.right, data);
 
 		if (left || right)
 			System.out.println(root.data);
@@ -34,7 +34,7 @@ public class PrintAllAncestorsOfGivenNode {
 	}
 
 	// Iterative function to print all ancestors of given node in a binary tree
-	public void printAncestors(Node root, int node) {
+	public void printAncestorsIterative(TreeNode root, int node) {
 		// Base Case
 		if (root == null)
 			return;
@@ -54,15 +54,15 @@ public class PrintAllAncestorsOfGivenNode {
 
 	// iterative function to set parent nodes for all nodes of binary tree
 	// in given map. The function is similar to iterative pre-order traversal
-	private void setParent(Node root, Map<Integer, Integer> parent) {
+	private void setParent(TreeNode root, Map<Integer, Integer> parent) {
 		// create an empty stack and push root node to it
-		Deque<Node> stack = new ArrayDeque<>();
+		Deque<TreeNode> stack = new ArrayDeque<>();
 		stack.add(root);
 
 		// run till stack is not empty
 		while (!stack.isEmpty()) {
 			// Pop the top item from stack
-			Node curr = stack.poll();
+			TreeNode curr = stack.poll();
 
 			// push its right child to stack and set its parent in the map
 			if (curr.right != null) {
@@ -94,6 +94,6 @@ public class PrintAllAncestorsOfGivenNode {
 		root.right.left = new TreeNode(4);
 		root.right.right = new TreeNode(5);
 
-		pr.printAncestors(root, 5);
+		pr.printAncestorsIterative(root, 5);
 	}
 }

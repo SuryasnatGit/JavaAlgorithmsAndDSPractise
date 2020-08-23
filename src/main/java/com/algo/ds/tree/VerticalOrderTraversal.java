@@ -22,7 +22,7 @@ import com.algo.common.TreeNode;
  * 
  */
 public class VerticalOrderTraversal {
-	public List<List<Integer>> verticalOrder(Node root) {
+	public List<List<Integer>> verticalOrder2Queues(TreeNode root) {
 		if (root == null) {
 			return new ArrayList<>();
 		}
@@ -30,7 +30,7 @@ public class VerticalOrderTraversal {
 		int maxLevel = 0;
 		Map<Integer, List<Integer>> map = new HashMap<>();
 
-		Deque<Node> queue = new LinkedList<>();
+		Deque<TreeNode> queue = new LinkedList<>();
 		Deque<Integer> level = new LinkedList<>();
 
 		queue.offerFirst(root);
@@ -70,7 +70,7 @@ public class VerticalOrderTraversal {
 
 	// As TreeNode and Column matters (Row doesn't matter, since we use level order traversal),
 	// we can build a Java class with these 2 attributes. In this way, we don't need to use 2 queues
-	public List<List<Integer>> verticalOrder(TreeNode root) {
+	public List<List<Integer>> verticalOrder1Queue(TreeNode root) {
 		List<List<Integer>> res = new ArrayList<List<Integer>>();
 
 		if (root == null) {

@@ -3,6 +3,8 @@ package com.algo.ds.tree;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import com.algo.common.TreeNode;
+
 /**
  * Youtube link - https://youtu.be/9PHkM0Jri_4
  * 
@@ -12,17 +14,16 @@ import java.util.Queue;
  * 
  * Test cases:
  * 
- * Empty tree. Tree with only left side. Tree with only right side. Mixed size tree. Full tree.
- * complete tree.
+ * Empty tree. Tree with only left side. Tree with only right side. Mixed size tree. Full tree. complete tree.
  */
 public class LevelOrderTraversal {
 
-	public void levelOrder(Node root) {
+	public void levelOrder(TreeNode root) {
 		if (root == null) {
 			System.out.println("Please enter a valid tree!");
 			return;
 		}
-		Queue<Node> queue = new LinkedList<Node>();
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
 		queue.offer(root);
 		System.out.println();
 		while (queue.size() > 0) {
@@ -40,7 +41,7 @@ public class LevelOrderTraversal {
 	public static void main(String args[]) {
 		LevelOrderTraversal loi = new LevelOrderTraversal();
 		BinaryTree bt = new BinaryTree();
-		Node head = null;
+		TreeNode head = null;
 		head = bt.addNode(10, head);
 		head = bt.addNode(15, head);
 		head = bt.addNode(5, head);

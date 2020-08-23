@@ -8,15 +8,15 @@ import com.algo.ds.stack.LinkedListStack;
 
 public class BinaryTreeUtil<K, V> {
 
-	public TreeNode<K, V> invertBinaryTree_recursive(TreeNode<K, V> node) {
+	public TreeNode invertBinaryTree_recursive(TreeNode node) {
 		if (node != null)
 			recursive(node);
 
 		return node;
 	}
 
-	private void recursive(TreeNode<K, V> root) {
-		TreeNode<K, V> temp = root.left;
+	private void recursive(TreeNode root) {
+		TreeNode temp = root.left;
 		root.left = root.right;
 		root.right = temp;
 
@@ -26,19 +26,19 @@ public class BinaryTreeUtil<K, V> {
 			recursive(root.right);
 	}
 
-	public TreeNode<K, V> invertBinaryTree_iterative(TreeNode<K, V> root) {
-		LinkedList<TreeNode<K, V>> queue = new LinkedList<>();
+	public TreeNode invertBinaryTree_iterative(TreeNode root) {
+		LinkedList<TreeNode> queue = new LinkedList<>();
 		if (root != null)
 			queue.add(root);
 
 		while (!queue.isEmpty()) {
-			TreeNode<K, V> node = queue.poll();
+			TreeNode node = queue.poll();
 			if (node.left != null)
 				queue.add(node.left);
 			if (node.right != null)
 				queue.add(node.right);
 
-			TreeNode<K, V> temp = node.left;
+			TreeNode temp = node.left;
 			node.left = node.right;
 			node.right = temp;
 		}
@@ -61,19 +61,19 @@ public class BinaryTreeUtil<K, V> {
 	 * @param k
 	 * @return
 	 */
-	public int kthSmallestElementinBst(TreeNode<K, V> root, int k) {
-		LinkedListStack<TreeNode<K, V>> stack = new LinkedListStack<>();
-		TreeNode<K, V> p = root;
+	public int kthSmallestElementinBst(TreeNode root, int k) {
+		LinkedListStack<TreeNode> stack = new LinkedListStack<>();
+		TreeNode p = root;
 		int result = 0;
 		while (!stack.isEmpty() || p != null) {
 			if (p != null) {
 				stack.push(p);
 				p = p.left;
 			} else {
-				TreeNode<K, V> temp = (TreeNode<K, V>) stack.pop();
+				TreeNode temp = (TreeNode) stack.pop();
 				k--;
 				if (k == 0) {
-					result = temp.value;
+					result = temp.data;
 					break;
 				}
 				p = temp.right;
@@ -88,21 +88,21 @@ public class BinaryTreeUtil<K, V> {
 	 * @param root
 	 * @return
 	 */
-	public boolean isBSTValid(TreeNode<K, V> root) {
+	public boolean isBSTValid(TreeNode root) {
 		return recursive(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
 	}
 
-	private boolean recursive(TreeNode<K, V> root, int minValue, int maxValue) {
+	private boolean recursive(TreeNode root, int minValue, int maxValue) {
 		// check null
 		if (root == null)
 			return true;
 
 		// boundry conditions
-		if (root.value < minValue || root.value > maxValue)
+		if (root.data < minValue || root.data > maxValue)
 			return false;
 
 		// check the tree recursively
-		return recursive(root.left, minValue, root.value - 1) && recursive(root.right, root.value + 1, maxValue);
+		return recursive(root.left, minValue, root.data - 1) && recursive(root.right, root.data + 1, maxValue);
 	}
 
 	/**
@@ -138,11 +138,11 @@ public class BinaryTreeUtil<K, V> {
 
 	public static void main(String[] args) {
 		BinaryTreeUtil<Integer, Integer> util = new BinaryTreeUtil<>();
-		TreeNode<Integer, Integer> root = new TreeNode<>(1, 1);
-		root.left = new TreeNode<>(2, 2);
-		root.right = new TreeNode<>(3, 3);
-		root.left.left = new TreeNode<>(4, 4);
-		root.left.right = new TreeNode<>(5, 5);
+		TreeNode root = new TreeNode(1);
+		root.left = new TreeNode(2);
+		root.right = new TreeNode(3);
+		root.left.left = new TreeNode(4);
+		root.left.right = new TreeNode(5);
 		// System.out.println(util.kthSmallestElementinBst(root, 4));
 
 		TreeNode n = new TreeNode(1);

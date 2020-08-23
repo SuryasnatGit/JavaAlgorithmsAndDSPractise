@@ -19,14 +19,14 @@ import com.algo.common.TreeNode;
  * https://leetcode.com/problems/path-sum-ii/
  */
 public class PathSum {
-	public List<List<Integer>> pathSum(Node root, int sum) {
+	public List<List<Integer>> pathSum(TreeNode root, int sum) {
 		List<List<Integer>> result = new ArrayList<>();
 		List<Integer> current = new ArrayList<>();
 		pathSumUtil(root, sum, result, current);
 		return result;
 	}
 
-	private void pathSumUtil(Node root, int sum, List<List<Integer>> result, List<Integer> currentPath) {
+	private void pathSumUtil(TreeNode root, int sum, List<List<Integer>> result, List<Integer> currentPath) {
 		if (root == null) {
 			return;
 		}
@@ -139,7 +139,7 @@ public class PathSum {
 	 * @param sum
 	 * @return
 	 */
-	public boolean hasPathSum_recursive(Node root, int sum) {
+	public boolean hasPathSum_recursive(TreeNode root, int sum) {
 		if (root == null) {
 			return false;
 		}
@@ -175,18 +175,18 @@ public class PathSum {
 	 * @param sum
 	 * @return
 	 */
-	public boolean hasPathSum_iterative(Node root, int sum) {
+	public boolean hasPathSum_iterative(TreeNode root, int sum) {
 		// base case
 		if (root == null)
 			return false;
 
-		Stack<Node> nodeStack = new Stack<>(); // stack for tracking nodes
+		Stack<TreeNode> nodeStack = new Stack<>(); // stack for tracking nodes
 		nodeStack.push(root);
 		Stack<Integer> sumStack = new Stack<>(); // stack for tracking the sum
 		sumStack.push(sum - root.data);
 
 		while (!nodeStack.isEmpty()) {
-			Node n = nodeStack.pop();
+			TreeNode n = nodeStack.pop();
 			int currSum = sumStack.pop();
 
 			if (n.left == null && n.right == null && (currSum == 0)) // if child node reached and sum is found
@@ -206,9 +206,9 @@ public class PathSum {
 
 	public static void main(String[] args) {
 		PathSum ps = new PathSum();
-		Node root = Node.newNode(5);
-		root.left = Node.newNode(4);
-		root.right = Node.newNode(8);
+		TreeNode root = new TreeNode(5);
+		root.left = new TreeNode(4);
+		root.right = new TreeNode(8);
 		System.out.println(ps.hasPathSum_iterative(root, 9));
 		System.out.println(ps.hasPathSum_iterative(root, 13));
 		System.out.println(ps.hasPathSum_iterative(root, 10));
