@@ -1,105 +1,56 @@
 package com.ctci.bigo;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
+
+import com.algo.ds.array.FindElementsOccurringNByKTimesTetris.Pair;
 
 /**
- * Given an array of distinct integer values, count the number of pairs of
- * integers that have difference k. For example, given the array {1, 7, 5, 9, 2,
- * 12, 3} and the difference k = 2, there are four pairs with difference 2: (1,
+ * Given an array of distinct integer values, count the number of distinct pairs of integers that have difference k. For
+ * example, given the array {1, 7, 5, 9, 2, 12, 3} and the difference k = 2, there are four pairs with difference 2: (1,
  * 3), (3, 5), (5, 7), (7, 9) .
  * 
  * LeetCode 532 - K-diff Pairs in an Array
  * 
- * @author surya
  *
  */
 public class IntegerPairWithDifferenceK {
 
-	private class Pair {
-		int int1;
-		int int2;
+	public void getPairs_hashing_duplicates(int[] nums, int k) {
+		Set<Integer> set = new HashSet<>();
 
-		public Pair(int int1, int int2) {
-			this.int1 = int1;
-			this.int2 = int2;
-		}
-
-		@Override
-		public String toString() {
-			return "Pair [int1=" + int1 + ", int2=" + int2 + "]";
+		for (int num : nums) {
+			if (set.contains(num - k)) {
+				System.out.println(num + "," + (num - k));
+			}
+			if (set.contains(num + k)) {
+				System.out.println(num + "," + (num + k));
+			}
+			set.add(num);
 		}
 	}
 
-	/**
-	 * complexity - O(N^2). bottleneck is repeated search of other side of pair
-	 * which can be optimized.
-	 * 
-	 * @param arr
-	 * @param k
-	 * @return
-	 */
-	public List<Pair> getPairs_bruteForce(int[] arr, int k) {
-		List<Pair> list = new ArrayList<>();
-		for (int i = 0; i < arr.length; i++) {
-			for (int j = 0; j < arr.length; j++) {
-				if (Math.abs(arr[i] - arr[j]) == k) {
-					Pair p = new Pair(arr[i], arr[j]);
-					list.add(p);
-				}
-			}
-		}
-		return list;
-	}
+	public void getPairs_hashing_distinct(int[] nums, int k) {
+		Arrays.sort(nums);
 
-	/**
-	 * Both step 1(sorting) - O(N log N) and step 2 - binary search is O(N log N).
-	 * So until first step is optimized the complexity will still remain O(N log N)
-	 * 
-	 * @param arr
-	 * @param k
-	 * @return
-	 */
-	public List<Pair> getPairs_sorting(int[] arr, int k) {
-		List<Pair> list = new ArrayList<>();
-		Arrays.sort(arr); // O(N log N)
-		for (int i = 0; i < arr.length; i++) {
-			int other = arr[i] - k;
-			int res = Arrays.binarySearch(arr, other); // O(log N). this gets called N times. so total is O(N log N)
-			if (res >= 0) {
-				Pair p = new Pair(arr[i], other);
-				list.add(p);
-			}
-		}
-		return list;
-	}
+		Set<Integer> set = new HashSet<>();
 
-	/**
-	 * get rid of step 1 (sorting) all together. how to find things quickly in
-	 * unsorted array.. using hash table. overall time complexity - O(N)
-	 * 
-	 * @param arr
-	 * @param k
-	 * @return
-	 */
-	public List<Pair> getPairs_hashTable(int[] arr, int k) {
-		List<Pair> list = new ArrayList<>();
-		Map<Integer, Boolean> map = new HashMap<>();
-		for (int i = 0; i < arr.length; i++) {
-			map.put(arr[i], true);
-		}
-		for (int i = 0; i < arr.length; i++) {
-			if (arr[i] - k > 0 && map.get(arr[i] - k) != null && map.get(arr[i] - k)) {
-				list.add(new Pair(arr[i], arr[i] - k));
+		for (int i = 0; i < nums.length; i++) {
+			// to avoid duplicates
+			while (i + 1 < nums.length && nums[i] == nums[i + 1]) {
+				i++;
 			}
-			if (arr[i] + k > 0 && map.get(arr[i] + k) != null && map.get(arr[i] + k)) {
-				list.add(new Pair(arr[i], arr[i] + k));
+
+			if (set.contains(nums[i] - k)) {
+				System.out.println(nums[i] + "," + (nums[i] - k));
 			}
+			if (set.contains(nums[i] + k)) {
+				System.out.println(nums[i] + "," + (nums[i] + k));
+			}
+			set.add(nums[i]);
 		}
-		return list;
 	}
 
 	/**
@@ -115,6 +66,7 @@ public class IntegerPairWithDifferenceK {
 		}
 
 		Arrays.sort(nums);
+
 		int count = 0;
 		int left = 0;
 		int right = 1;
@@ -162,11 +114,25 @@ public class IntegerPairWithDifferenceK {
 
 	public static void main(String[] args) {
 		IntegerPairWithDifferenceK intk = new IntegerPairWithDifferenceK();
-		int[] arr = { 1, 7, 5, 9, 2, 12, 3 };
-		int k = 2;
-		System.out.println(intk.getPairs_bruteForce(arr, k));
-		System.out.println(intk.getPairs_sorting(arr, k));
-		System.out.println(intk.getPairs_hashTable(arr, k));
+		intk.getPairs_hashing_duplicates(new int[] { 1, 7, 5, 9, 2, 12, 3 }, 2);
+		System.out.println();
+		intk.getPairs_hashing_distinct(new int[] { 1, 7, 5, 9, 2, 12, 3 }, 2);
+		System.out.println();
+		System.out.println(intk.getPairs_slidingWindow(new int[] { 1, 7, 5, 9, 2, 12, 3 }, 2));
+		System.out.println();
+
+		intk.getPairs_hashing_duplicates(new int[] { 3, 1, 4, 1, 5 }, 2);
+		System.out.println();
+		intk.getPairs_hashing_distinct(new int[] { 3, 1, 4, 1, 5 }, 2);
+		System.out.println();
+		System.out.println(intk.getPairs_slidingWindow(new int[] { 3, 1, 4, 1, 5 }, 2));
+		System.out.println();
+
+		intk.getPairs_hashing_duplicates(new int[] { 1, 3, 1, 5, 4 }, 0);
+		System.out.println();
+		intk.getPairs_hashing_distinct(new int[] { 1, 3, 1, 5, 4 }, 0);
+		System.out.println();
+		System.out.println(intk.getPairs_slidingWindow(new int[] { 1, 3, 1, 5, 4 }, 0));
 	}
 
 }

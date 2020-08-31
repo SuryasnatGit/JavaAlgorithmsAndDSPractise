@@ -1,5 +1,6 @@
 package com.designpatterns;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,9 +14,13 @@ import java.util.List;
  * When an object should be able to notify other objects without making assumptions about who these objects are. In
  * other words, you don’t want these objects tightly coupled.
  *
+ * TODO: uml pending
  */
 public class ObserverPattern {
 
+	/**
+	 * implemented by news broadcaster to communicate with observers
+	 */
 	interface Subject {
 		public void registerObserver(Observer ob);
 
@@ -23,22 +28,11 @@ public class ObserverPattern {
 
 		public void notifyObservers();
 
-		public String getSubDetails();
-	}
-
-	interface Observer {
-		public void update(String desc);
-
-		public void subscribe();
-
-		public void unsubscribe();
+		public String getSubjectDetails();
 	}
 
 	/**
 	 * commentary object to update sports commentary
-	 * 
-	 * @author surya
-	 *
 	 */
 	interface Commentary {
 		public void setDesc(String comm);
@@ -50,8 +44,8 @@ public class ObserverPattern {
 		private String description;
 		private String subjectDetails;
 
-		public CommentaryObject(List<Observer> observers, String subDetails) {
-			this.observers = observers;
+		public CommentaryObject(String subDetails) {
+			this.observers = new ArrayList<>();
 			this.subjectDetails = subDetails;
 		}
 
@@ -80,9 +74,21 @@ public class ObserverPattern {
 		}
 
 		@Override
-		public String getSubDetails() {
+		public String getSubjectDetails() {
 			return subjectDetails;
 		}
+	}
+
+	/**
+	 * This interface is implemented by all those classes that are to be updated whenever there is an update from
+	 * CricketData
+	 */
+	interface Observer {
+		public void update(String desc);
+
+		public void subscribe();
+
+		public void unsubscribe();
 	}
 
 	class SMSUser implements Observer {
@@ -103,22 +109,75 @@ public class ObserverPattern {
 		}
 
 		private void display() {
-			System.out.println("Desc :" + desc);
+			System.out.println("SMS Desc :" + desc);
 		}
 
 		@Override
 		public void subscribe() {
-			System.out.println("Subscribing " + userInfo + " to " + subject.getSubDetails());
+			System.out.println("Subscribing " + userInfo + " to " + subject.getSubjectDetails());
 			subject.registerObserver(this);
 			System.out.println("Subscribed successfully");
 		}
 
 		@Override
 		public void unsubscribe() {
-			System.out.println("UnSubscribing " + userInfo + " to " + subject.getSubDetails());
+			System.out.println("UnSubscribing " + userInfo + " to " + subject.getSubjectDetails());
 			subject.unregisterObserver(this);
 			System.out.println("UnSubscribed successfully");
 		}
+	}
+
+	class VoiceUser implements Observer {
+
+		private Subject subject;
+		private String desc;
+		private String userInfo;
+
+		public VoiceUser(Subject sub, String userInfo) {
+			this.subject = sub;
+			this.userInfo = userInfo;
+		}
+
+		@Override
+		public void update(String desc) {
+			this.desc = desc;
+			display();
+		}
+
+		@Override
+		public void subscribe() {
+			System.out.println("Subscribing " + userInfo + " to " + subject.getSubjectDetails());
+			subject.registerObserver(this);
+			System.out.println("Subscribed successfully");
+		}
+
+		@Override
+		public void unsubscribe() {
+			System.out.println("UnSubscribing " + userInfo + " to " + subject.getSubjectDetails());
+			subject.unregisterObserver(this);
+			System.out.println("UnSubscribed successfully");
+		}
+
+		private void display() {
+			System.out.println("Voice Desc :" + desc);
+		}
+
+	}
+
+	public static void main(String[] args) {
+		CommentaryObject sub = new ObserverPattern().new CommentaryObject("weather update");
+
+		SMSUser smsUser = new ObserverPattern().new SMSUser(sub, "smsuser");
+		VoiceUser voiceUser = new ObserverPattern().new VoiceUser(sub, "voiceuser");
+
+		sub.registerObserver(smsUser);
+		sub.registerObserver(voiceUser);
+
+		sub.setDesc("alert. winds rushing at 50MPH");
+
+		sub.unregisterObserver(voiceUser);
+
+		sub.setDesc("warning. things back to normal");
 
 	}
 }
