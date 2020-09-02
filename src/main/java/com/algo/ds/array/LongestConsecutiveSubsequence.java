@@ -1,7 +1,9 @@
 package com.algo.ds.array;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Find longest consecutive subsequence in unsorted array.
@@ -10,15 +12,14 @@ import java.util.Map;
  *
  * Reference: https://leetcode.com/problems/longest-consecutive-sequence/.
  * 
- * Given an unsorted array of integers, find the length of the longest consecutive elements
- * sequence.
+ * Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
  * 
  * Your algorithm should run in O(n) complexity.
  * 
  * Example:
  * 
- * Input: [100, 4, 200, 1, 3, 2] Output: 4 Explanation: The longest consecutive elements sequence is
- * [1, 2, 3, 4]. Therefore its length is 4.
+ * Input: [100, 4, 200, 1, 3, 2] Output: 4 Explanation: The longest consecutive elements sequence is [1, 2, 3, 4].
+ * Therefore its length is 4.
  */
 public class LongestConsecutiveSubsequence {
 	public int longestConsecutive(int[] nums) {
@@ -40,9 +41,37 @@ public class LongestConsecutiveSubsequence {
 		return result;
 	}
 
+	public int longestConsecutive1(int[] nums) {
+		Set<Integer> set = new HashSet<Integer>();
+		for (int num : nums) {
+			set.add(num);
+		}
+
+		int max = 0;
+		for (int num : nums) {
+
+			int down = num - 1; // Going down
+			while (set.contains(down)) {
+				set.remove(down); // This will speed up
+				down--;
+			}
+
+			int up = num + 1; // Going up
+			while (set.contains(up)) {
+				set.remove(up);
+				up++;
+			}
+
+			max = Math.max(max, up - down - 1);
+		}
+
+		return max;
+	}
+
 	public static void main(String args[]) {
 		LongestConsecutiveSubsequence lcs = new LongestConsecutiveSubsequence();
 		int[] input = { 100, 4, 200, 1, 3, 2 };
 		System.out.println(lcs.longestConsecutive(input));
+		System.out.println(lcs.longestConsecutive1(input));
 	}
 }

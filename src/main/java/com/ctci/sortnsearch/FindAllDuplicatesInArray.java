@@ -7,9 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * FindDuplicates:Youhaveanarraywithallthenumbersfrom1toN,whereNisatmost32,000.The array may have duplicate entries and
- * you do not know what N is. With only 4 kilobytes of memory available, how would you print all duplicate elements in
- * the array?
+ * Given an array of integers where each value 1 <= x <= len(array), write a function that finds all the duplicates in
+ * the array.
  * 
  * dups([1, 2, 3]) = []
  * 
@@ -19,7 +18,7 @@ import java.util.Set;
  * 
  * dups([2, 1, 2, 1]) = [1, 2]
  */
-public class FindDuplicates {
+public class FindAllDuplicatesInArray {
 
 	// Return a list of duplicates in the array. To avoid using extra space,
 	// we flag which elements we've seen before by negating the value at
@@ -51,7 +50,7 @@ public class FindDuplicates {
 	}
 
 	public static void main(String[] args) {
-		FindDuplicates fd = new FindDuplicates();
+		FindAllDuplicatesInArray fd = new FindAllDuplicatesInArray();
 		fd.findDuplicates(new int[] { 1, 2, 3 }).forEach(a -> System.out.print(a + " "));
 		System.out.println();
 		fd.findDuplicates(new int[] { 1, 2, 2 }).forEach(a -> System.out.print(a + " "));

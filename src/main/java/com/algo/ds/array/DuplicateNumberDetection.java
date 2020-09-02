@@ -79,7 +79,7 @@ public class DuplicateNumberDetection {
 	}
 
 	/**
-	 * time - O(n) Space - O(1)
+	 * time - O(n) Space - O(1). doesn't work for all cases.
 	 * 
 	 * @param arr
 	 * @return
@@ -95,7 +95,7 @@ public class DuplicateNumberDetection {
 	}
 
 	/**
-	 * time - O(n) Space - O(1)
+	 * time - O(n) Space - O(1) doesn't work for all cases.
 	 * 
 	 * @param A
 	 * @return
@@ -121,11 +121,16 @@ public class DuplicateNumberDetection {
 	}
 
 	public static void main(String args[]) {
-		int[] input = { 1, 2, 3, 4, 5, 2 };
+
 		DuplicateNumberDetection dd = new DuplicateNumberDetection();
-		System.out.println(dd.duplicateNumber(input));
-		System.out.println(dd.findDuplicate(input));
-		System.out.println(dd.findDuplicateUsingSum(input));
-		System.out.println(dd.findDuplicateUsingXOR(input));
+		System.out.println(dd.duplicateNumber(new int[] { 1, 2, 3, 4, 5, 2 }));
+		System.out.println(dd.findDuplicate(new int[] { 1, 2, 3, 4, 5, 2 }));
+		System.out.println(dd.findDuplicateUsingSum(new int[] { 1, 2, 3, 4, 5, 2 }));
+		System.out.println(dd.findDuplicateUsingXOR(new int[] { 1, 2, 3, 4, 5, 2 }));
+
+		System.out.println(dd.duplicateNumber(new int[] { 2, 2, 2, 2, 2 }));
+		System.out.println(dd.findDuplicate(new int[] { 2, 2, 2, 2, 2 }));
+		System.out.println(dd.findDuplicateUsingSum(new int[] { 2, 2, 2, 2, 2 }));
+		System.out.println(dd.findDuplicateUsingXOR(new int[] { 2, 2, 2, 2, 2 }));
 	}
 }
