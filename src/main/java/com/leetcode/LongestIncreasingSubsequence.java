@@ -1,23 +1,20 @@
-package com.algo.dp;
+package com.leetcode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * The Longest Increasing Subsequence (LIS) problem is to find the length of the longest subsequence of a given sequence
- * such that all elements of the subsequence are sorted in increasing order. For example, the length of LIS for {10, 22,
- * 9, 33, 21, 50, 41, 60, 80} is 6 and LIS is {10, 22, 33, 50, 60, 80}.
+ * TAGS: DP, BinarySearch
  * 
- * @author surya
- *
+ * Category: Medium
  */
 public class LongestIncreasingSubsequence {
 
 	public static void main(String[] args) {
 		LongestIncreasingSubsequence lis = new LongestIncreasingSubsequence();
 		int[] nums = { 10, 22, 9, 33, 21, 50, 41, 60, 20, 100 };
-		System.out.println(lis.lis_dp_naive(nums));
+		System.out.println(lis.lis_dp(nums));
 		System.out.println(lis.lis_recursive(nums, 0, nums.length, Integer.MIN_VALUE));
 		System.out.println(lis.lis_binarySearch(nums));
 
@@ -26,6 +23,22 @@ public class LongestIncreasingSubsequence {
 		System.out.println(lis.lis_massum_iterative(A));
 		lis.lis_maxsum_print(A);
 	}
+
+	/*
+	 * Problem 1:
+	 * 
+	 * Given an unsorted array of integers, find the length of longest increasing subsequence.
+	 * 
+	 * Example:
+	 * 
+	 * Input: [10,9,2,5,3,7,101,18] Output: 4 Explanation: The longest increasing subsequence is [2,3,7,101], therefore
+	 * the length is 4.
+	 * 
+	 * Note:
+	 * 
+	 * There may be more than one LIS combination, it is only necessary for you to return the length. Your algorithm
+	 * should run in O(n2) complexity. Follow up: Could you improve it to O(n log n) time complexity?
+	 */
 
 	/**
 	 * Time - Exponential, S - O(1)
@@ -52,7 +65,7 @@ public class LongestIncreasingSubsequence {
 	 * @param nums
 	 * @return
 	 */
-	public int lis_dp_naive(int[] nums) {
+	public int lis_dp(int[] nums) {
 		// base condition
 		if (nums == null || nums.length == 0)
 			return 0;

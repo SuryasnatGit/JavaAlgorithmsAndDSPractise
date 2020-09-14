@@ -7,32 +7,40 @@ import java.util.Queue;
 import java.util.Set;
 
 /**
- * You are given coins of different denominations and a total amount of money amount. Write a function to compute the
- * fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any
- * combination of the coins, return -1.
- * 
- * Example 1:
- * 
- * coins = [1, 2, 5], amount = 11
- * 
- * return 3 (11 = 5 + 5 + 1)
- * 
- * Example 2:
- * 
- * coins = [2], amount = 3
- * 
- * return -1.
- * 
- * Note: You may assume that you have an infinite number of each kind of coin.
+ * Category : Medium
  *
+ * Tags : DP, BFS
+ * 
  */
 public class CoinsChange {
 
-	// T - O(m * n) S - O(m) where m = amount, n = number of coins
-	public int coinChangeBottomUpDP(int[] coins, int amount) {
+	/**
+	 * You are given coins of different denominations and a total amount of money amount. Write a function to compute
+	 * the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any
+	 * combination of the coins, return -1.
+	 * 
+	 * Example 1:
+	 * 
+	 * coins = [1, 2, 5], amount = 11
+	 * 
+	 * return 3 (11 = 5 + 5 + 1)
+	 * 
+	 * Example 2:
+	 * 
+	 * coins = [2], amount = 3
+	 * 
+	 * return -1.
+	 * 
+	 * Note: You may assume that you have an infinite number of each kind of coin.
+	 * 
+	 * T - O(m * n) S - O(m) where m = amount, n = number of coins
+	 *
+	 */
+	public int fewestNumberCoinsForAmountDP(int[] coins, int amount) {
 		// to capture the counts of coins for all values from 0 to given amount
 		int[] hash = new int[amount + 1];
 		Arrays.fill(hash, Integer.MAX_VALUE);
+		hash[0] = 0;
 
 		for (int i = 0; i < coins.length; i++) {
 			if (coins[i] <= amount)
@@ -54,7 +62,7 @@ public class CoinsChange {
 
 	// Approach - https://www.geeksforgeeks.org/coin-change-bfs-approach/
 	// T - O(m * n) S - O(m) where m = amount, n = number of coins
-	public int coinChangeBFS(int[] coins, int amount) {
+	public int fewestNumberCoinsForAmountBFS(int[] coins, int amount) {
 		if (amount == 0) {
 			return 0;
 		}
@@ -183,8 +191,8 @@ public class CoinsChange {
 		CoinsChange cc = new CoinsChange();
 		int[] coins = { 1, 2, 5 };
 		int amount = 11;
-		System.out.println(cc.coinChangeBottomUpDP(coins, amount));
-		System.out.println(cc.coinChangeBFS(coins, amount));
+		System.out.println(cc.fewestNumberCoinsForAmountDP(coins, amount));
+		System.out.println(cc.fewestNumberCoinsForAmountBFS(coins, amount));
 		System.out.println(cc.numberOfCombinationsRecur(coins, 5));
 		System.out.println(cc.numberOfCombinationsDP(coins, 5));
 	}

@@ -4,15 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * https://leetcode.com/problems/count-and-say/solution/
+ * 
  * Given a sequence like 1 11 21 1211 111221 312211 Print nth element of this sequence.
  */
 public class NthElementOfCountNumberSequence {
 
 	public List<Integer> nthElement(int n) {
 		int i = 1;
+
 		List<Integer> current = new ArrayList<>();
 		current.add(1);
+
 		List<Integer> result = new ArrayList<>();
+
 		while (i < n) {
 			int count = 1;
 			int index = 0;

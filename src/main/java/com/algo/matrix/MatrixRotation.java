@@ -1,11 +1,14 @@
 package com.algo.matrix;
 
+import java.util.Arrays;
+
 /**
- * Given an image represented by an NxN matrix, where each pixel in the image is 4 bytes, write a
- * method to rotate the image by 90 degrees. Can you do this in place?
+ * Given an image represented by an NxN matrix, where each pixel in the image is 4 bytes, write a method to rotate the
+ * image by 90 degrees. Can you do this in place?
  * 
  * CTCI - 1.7
  *
+ * Category : Medium
  */
 public class MatrixRotation {
 
@@ -28,43 +31,48 @@ public class MatrixRotation {
 	}
 
 	/**
-	 * for anti clockwise rotation: - transpose of matrix - reverse columns of transpose. Time
-	 * complexity :O(R*C) Space complexity :O(1)
+	 * for anti clockwise rotation: - transpose of matrix - reverse columns of transpose. Time complexity :O(R*C) Space
+	 * complexity :O(1)
 	 * 
 	 * To right rotate, we do following steps.
 	 * 
 	 * Find transpose of matrix. Reverse rows of the transpose.
 	 * 
 	 * 
-	 * 
-	 * @param n
-	 * @param matrix
 	 */
 	public void rotateMatrix_1(int n, int[][] matrix) {
-		transpose(matrix);
-		reverseColumns(matrix);
+		int len = matrix.length;
+		transpose(matrix, len);
+		flipHorizontally(matrix, len);
 	}
 
-	// After transpose we swap elements of
-	// column one by one for finding left
-	// rotation of matrix by 90 degree
-	private void reverseColumns(int arr[][]) {
-		for (int i = 0; i < arr[0].length; i++)
-			for (int j = 0, k = arr[0].length - 1; j < k; j++, k--) {
-				int temp = arr[j][i];
-				arr[j][i] = arr[k][i];
-				arr[k][i] = temp;
+	// Function for do transpose of matrix. after transpose, it will be swap(matrix[i][j], matrix[j][i])
+	private void transpose(int arr[][], int len) {
+		for (int i = 0; i < len; i++) {
+			for (int j = i + 1; j < len; j++) {
+				int temp = arr[i][j];
+				arr[i][j] = arr[j][i];
+				arr[j][i] = temp;
 			}
+		}
 	}
 
-	// Function for do transpose of matrix
-	private void transpose(int arr[][]) {
-		for (int i = 0; i < arr.length; i++)
-			for (int j = i; j < arr[0].length; j++) {
-				int temp = arr[j][i];
-				arr[j][i] = arr[i][j];
-				arr[i][j] = temp;
+	// Then flip the matrix horizontally. (swap(matrix[i][j], matrix[i][matrix.length-1-j])
+	private void flipHorizontally(int arr[][], int len) {
+		for (int i = 0; i < len; i++) {
+			for (int j = 0; j < len / 2; j++) {
+				int temp = arr[i][j];
+				arr[i][j] = arr[i][len - 1 - j];
+				arr[i][len - 1 - j] = temp;
 			}
+		}
+	}
+
+	public static void main(String[] args) {
+		MatrixRotation mr = new MatrixRotation();
+		int[][] matrix = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+		mr.rotateMatrix_1(3, matrix);
+		Arrays.stream(matrix).forEach(a -> System.out.println(Arrays.toString(a)));
 	}
 
 }
