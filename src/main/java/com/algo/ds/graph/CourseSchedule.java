@@ -2,7 +2,6 @@ package com.algo.ds.graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -10,19 +9,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * 
- * https://leetcode.com/problems/course-schedule-ii/
+ * Category : Medium
+ * 
+ * Tags : BFS, DFS
  */
 public class CourseSchedule {
 
 	/*
-	 * There are a total of n courses you have to take, labeled from 0 to n - 1. Some courses may have prerequisites,
-	 * for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1] Given the total
-	 * number of courses and a list of prerequisite pairs, return the ordering of courses you should take to finish all
-	 * courses. There may be multiple correct orders, you just need to return one of them. If it is impossible to finish
-	 * all courses, return an empty array.
+	 * Problem 1 : There are a total of n courses you have to take, labeled from 0 to n - 1. Some courses may have
+	 * prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]
+	 * Given the total number of courses and a list of prerequisite pairs, return the ordering of courses you should
+	 * take to finish all courses. There may be multiple correct orders, you just need to return one of them. If it is
+	 * impossible to finish all courses, return an empty array.
 	 * 
 	 * For example:
 	 * 
@@ -44,7 +46,17 @@ public class CourseSchedule {
 	 *
 	 */
 
-	public int[] findOrderGood(int N, int[][] P) {
+	/**
+	 * The first node in the topological ordering will be the node that doesn't have any incoming edges. Essentially,
+	 * any node that has an in-degree of 0 can start the topologically sorted order. If there are multiple such nodes,
+	 * their relative order doesn't matter and they can appear in any order.
+	 * 
+	 * Our current algorithm is based on this idea. We first process all the nodes/course with 0 in-degree implying no
+	 * prerequisite courses required. If we remove all these courses from the graph, along with their outgoing edges, we
+	 * can find out the courses/nodes that should be processed next. These would again be the nodes with 0 in-degree. We
+	 * can continuously do this until all the courses have been accounted for.
+	 */
+	public int[] findOrderBFS(int N, int[][] P) {
 		Map<Integer, Set<Integer>> courses = new HashMap<Integer, Set<Integer>>();
 		Map<Integer, Integer> degrees = new HashMap<Integer, Integer>();
 		int[] res = new int[N];
@@ -62,19 +74,24 @@ public class CourseSchedule {
 		}
 
 		Queue<Integer> queue = new LinkedList<Integer>();
+		// Adding all vertices with 0 in-degree to the queue.
 		for (int i = 0; i < N; i++) {
 			if (!degrees.containsKey(i)) {
 				queue.offer(i);
 			}
 		}
 
+		// process until queue is empty
 		while (!queue.isEmpty()) {
 			int now = queue.poll();
 			res[index++] = now;
 
+			// reduce in-degree of each neighbor by 1
 			if (courses.containsKey(now)) {
 				for (int next : courses.get(now)) {
 					degrees.put(next, degrees.get(next) - 1);
+
+					// if in-degree of a neighbor becomes 0 add it to the queue
 					if (degrees.get(next) == 0) {
 						queue.offer(next);
 					}
@@ -88,51 +105,7 @@ public class CourseSchedule {
 		return new int[] {}; // No solution!
 	}
 
-	public int[] findOrder2(int numCourses, int[][] prerequisites) {
-		int[] res = new int[numCourses];
-		ArrayList[] graph = new ArrayList[numCourses];
-		int[] degree = new int[numCourses];
-		Queue<Integer> queue = new LinkedList<Integer>();
-		int count = numCourses; // Need to use reversed order
-
-		for (int i = 0; i < numCourses; i++) {
-			graph[i] = new ArrayList<Integer>();
-		}
-
-		for (int i = 0; i < prerequisites.length; i++) {
-			degree[prerequisites[i][1]]++;
-			graph[prerequisites[i][0]].add(prerequisites[i][1]);
-		}
-
-		for (int i = 0; i < degree.length; i++) {
-			if (degree[i] == 0) {
-				queue.offer(i);
-				count--;
-				res[count] = i;
-			}
-		}
-
-		// BFS
-		while (!queue.isEmpty()) {
-			int course = queue.poll();
-			for (int i = 0; i < graph[course].size(); i++) {
-				int pre = (int) graph[course].get(i);
-				degree[pre]--;
-				if (degree[pre] == 0) {
-					queue.offer(pre);
-					count--;
-					res[count] = pre;
-				}
-			}
-		}
-
-		if (count == 0) {
-			return res;
-		}
-		return new int[] {};
-	}
-
-	public int[] findOrder(int numCourses, int[][] prerequisites) {
+	public int[] findOrderDFS(int numCourses, int[][] prerequisites) {
 		boolean[] used = new boolean[numCourses];
 		Neighbors[] graph = new Neighbors[numCourses];
 
@@ -143,7 +116,7 @@ public class CourseSchedule {
 		for (int[] tuple : prerequisites) {
 			graph[tuple[1]].neighbor.add(tuple[0]);
 		}
-		Deque<Integer> stack = new LinkedList<>();
+		Stack<Integer> stack = new Stack<>();
 		boolean[] dfs = new boolean[numCourses];
 
 		for (int i = 0; i < numCourses; i++) {
@@ -155,7 +128,7 @@ public class CourseSchedule {
 		int[] output = new int[numCourses];
 		int index = 0;
 		while (!stack.isEmpty()) {
-			output[index++] = stack.pollFirst();
+			output[index++] = stack.pop();
 		}
 
 		return output;
@@ -165,7 +138,7 @@ public class CourseSchedule {
 		List<Integer> neighbor = new ArrayList<>();
 	}
 
-	private boolean topSort(int course, Neighbors[] graph, boolean[] used, Deque<Integer> stack, boolean[] dfs) {
+	private boolean topSort(int course, Neighbors[] graph, boolean[] used, Stack<Integer> stack, boolean[] dfs) {
 		if (used[course]) {
 			return false;
 		}
@@ -180,7 +153,7 @@ public class CourseSchedule {
 		}
 		dfs[course] = false;
 		used[course] = true;
-		stack.offerFirst(course);
+		stack.push(course);
 		return false;
 	}
 
@@ -329,9 +302,11 @@ public class CourseSchedule {
 
 	public static void main(String[] args) {
 		CourseSchedule cs = new CourseSchedule();
-		int[] res = cs.findOrder(2, new int[][] { { 1, 0 } });
+		int[] res = cs.findOrderDFS(2, new int[][] { { 1, 0 } });
 		System.out.println(Arrays.toString(res));
-		int[] res1 = cs.findOrder(4, new int[][] { { 1, 0 }, { 2, 0 }, { 3, 1 }, { 3, 2 } });
+		int[] res1 = cs.findOrderDFS(4, new int[][] { { 1, 0 }, { 2, 0 }, { 3, 1 }, { 3, 2 } });
 		System.out.println(Arrays.toString(res1));
+
+		System.out.println(Arrays.toString(cs.findOrderBFS(4, new int[][] { { 1, 0 }, { 2, 0 }, { 3, 1 }, { 3, 2 } })));
 	}
 }

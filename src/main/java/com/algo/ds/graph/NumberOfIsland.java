@@ -11,9 +11,9 @@ import java.util.Queue;
  * 
  * Input : mat[][] = {{1, 1, 0, 0, 0}, {0, 1, 0, 0, 1}, {1, 0, 0, 1, 1}, {0, 0, 0, 0, 0}, {1, 0, 1, 0, 1} Output : 5.
  * 
- * This is a variation of the standard problem: Counting the number of connected components in an undirected graph.
- * The problem can be easily solved by applying DFS() on each component. In each DFS() call, a component or a sub-graph
- * is visited. We will call DFS on the next un-visited component. The number of calls to DFS() gives the number of
+ * This is a variation of the standard problem: Counting the number of connected components in an undirected graph. The
+ * problem can be easily solved by applying DFS() on each component. In each DFS() call, a component or a sub-graph is
+ * visited. We will call DFS on the next un-visited component. The number of calls to DFS() gives the number of
  * connected components. BFS can also be used.
  * 
  * Category : Hard
@@ -26,63 +26,44 @@ public class NumberOfIsland {
 	 * @param graph
 	 * @return
 	 */
-	public int numberOfIsland(int[][] graph) {
-		boolean[][] visited = new boolean[graph.length][graph.length];
+	public int numberOfIslandDFS(int[][] graph) {
+		if (graph == null || graph.length == 0) {
+			return 0;
+		}
 
 		int count = 0;
 		for (int i = 0; i < graph.length; i++) {
 			for (int j = 0; j < graph[i].length; j++) {
-				if (visited[i][j] == false && graph[i][j] == 1) {
+				if (graph[i][j] == 1) {
 					count++;
-					DFS(graph, visited, i, j);
+					DFS(graph, i, j);
 				}
 			}
 		}
 		return count;
 	}
 
-	private void DFS(int[][] graph, boolean[][] visited, int i, int j) {
-		if (i < 0 || j < 0 || i == graph.length || j == graph[i].length) {
+	private void DFS(int[][] graph, int i, int j) {
+		if (i < 0 || j < 0 || i == graph.length || j == graph[i].length || graph[i][j] == 0) {
 			return;
 		}
-		visited[i][j] = true;
-		if (graph[i][j] == 0) {
-			return;
-		}
-		DFS(graph, visited, i, j + 1);
-		DFS(graph, visited, i + 1, j);
-		DFS(graph, visited, i + 1, j + 1);
-		DFS(graph, visited, i - 1, j + 1);
+		graph[i][j] = 0;
+
+		DFS(graph, i, j + 1);
+		DFS(graph, i + 1, j);
+		DFS(graph, i, j - 1);
+		DFS(graph, i - 1, j);
 	}
 
 	/**
 	 * Solution 2 - Using BFS
 	 *
 	 */
-	class Pair {
-		int x, y;
+	public void numberOfIslandsBFS(int[][] mat, boolean[][] processed, int i, int j) {
 
-		public Pair(int x, int y) {
-			this.x = x;
-			this.y = y;
-		}
-	}
+		int[] row = { -1, -1, -1, 0, 1, 0, 1, 1 };
+		int[] col = { -1, 1, 0, -1, -1, 1, 0, 1 };
 
-	// Below arrays details all 8 possible movements from a cell
-	// (top, right, bottom, left and 4 diagonal moves)
-	private final int[] row = { -1, -1, -1, 0, 1, 0, 1, 1 };
-	private final int[] col = { -1, 1, 0, -1, -1, 1, 0, 1 };
-
-	// Function to check if it is safe to go to position (x, y)
-	// from current position. The function returns false if (x, y)
-	// is not valid matrix coordinates or (x, y) represents water or
-	// position (x, y) is already processed
-	public boolean isSafe(int[][] mat, int x, int y, boolean[][] processed) {
-		return (x >= 0) && (x < processed.length) && (y >= 0) && (y < processed[0].length)
-				&& (mat[x][y] == 1 && !processed[x][y]);
-	}
-
-	public void BFS(int[][] mat, boolean[][] processed, int i, int j) {
 		// create an empty queue and enqueue source node
 		Queue<Pair> q = new LinkedList<>();
 		q.add(new Pair(i, j));
@@ -113,12 +94,20 @@ public class NumberOfIsland {
 	}
 
 	/**
+	 * Function to check if it is safe to go to position (x, y) from current position. The function returns false if (x,
+	 * y) is not valid matrix coordinates or (x, y) represents water or position (x, y) is already processed
+	 */
+	private boolean isSafe(int[][] mat, int x, int y, boolean[][] processed) {
+		return (x >= 0) && (x < processed.length) && (y >= 0) && (y < processed[0].length)
+				&& (mat[x][y] == 1 && !processed[x][y]);
+	}
+
+	/**
 	 * Solution 3 - Using disjoint sets
 	 * 
 	 * @param args
 	 */
-	// Returns number of islands in a[][]
-	static int countIslands(int a[][]) {
+	public int numberOfIslandsDisjointSets(int a[][]) {
 		int n = a.length;
 		int m = a[0].length;
 
@@ -180,7 +169,7 @@ public class NumberOfIsland {
 	}
 
 	// Class to represent Disjoint Set Data structure
-	public class DisjointUnionSets {
+	class DisjointUnionSets {
 		int[] rank, parent;
 		int n;
 
@@ -257,7 +246,16 @@ public class NumberOfIsland {
 		int matrix[][] = { { 1, 1, 0, 1, 0 }, { 1, 0, 0, 1, 1 }, { 0, 0, 0, 0, 0 }, { 1, 0, 1, 0, 1 },
 				{ 1, 0, 0, 0, 0 } };
 		NumberOfIsland island = new NumberOfIsland();
-		int count = island.numberOfIsland(matrix);
+		int count = island.numberOfIslandDFS(matrix);
 		System.out.println(count);
+	}
+}
+
+class Pair {
+	int x, y;
+
+	public Pair(int x, int y) {
+		this.x = x;
+		this.y = y;
 	}
 }

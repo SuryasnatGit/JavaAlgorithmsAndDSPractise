@@ -7,15 +7,15 @@ package com.algo.string;
  * 
  * Time Complexity: O(n)
  * 
- * 
- * @author Suryasnat
- *
+ * Category : Medium
  */
 public class RunLengthEncoding {
 
-	public String encoding1(String in) {
+	public String encoding1(char[] chars) {
 		String res = "";
 		int sum = 1;
+
+		String in = new String(chars);
 
 		for (int i = 0; i < in.length() - 1; i++) {
 			if (in.charAt(i) == in.charAt(i + 1)) {
@@ -33,18 +33,11 @@ public class RunLengthEncoding {
 
 	public static void main(String args[]) {
 
-		// String str = "A";
-		// char result[] = new char[str.length() * 2];
 		RunLengthEncoding rle = new RunLengthEncoding();
-		// int current = rle.encoding(str.toCharArray(), result);
-		// for (int i = 0; i < current; i++) {
-		// System.out.print(result[i]);
-		// }
-
-		System.out.println(rle.encoding1("a"));
-		System.out.println(rle.encoding1("aaa"));
-		System.out.println(rle.encoding1("aaabbb"));
-		System.out.println(rle.encoding1("aaabccc"));
-		System.out.println(rle.encoding1("wwwwaaadexxxxxx"));
+		// System.out.println(rle.encoding1("a"));
+		// System.out.println(rle.encoding1("aaa"));
+		// System.out.println(rle.encoding1("aaabbb"));
+		System.out.println(rle.encoding1("aabbcc".toCharArray()));
+		// System.out.println(rle.encoding1("wwwwaaadexxxxxx"));
 	}
 }
