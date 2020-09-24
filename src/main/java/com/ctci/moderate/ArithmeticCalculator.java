@@ -48,81 +48,11 @@ public class ArithmeticCalculator {
 		}
 	}
 
-	public Operator parseOperator(char ch) {
-		switch (ch) {
-		case '+':
-			return Operator.ADD;
-		case '-':
-			return Operator.SUBTRACT;
-		case '*':
-			return Operator.MULTIPLY;
-		case '/':
-			return Operator.DIVIDE;
-		}
-		return Operator.BLANK;
-	}
-
-	public List<Term> parseTermSequence(String sequence) {
-		List<Term> result = new ArrayList<>();
-		int offset = 0;
-		while (offset < sequence.length()) {
-			Operator op = Operator.BLANK;
-
-			if (offset > 0) {
-				op = parseOperator(sequence.charAt(offset));
-				if (op == Operator.BLANK)
-					return null;
-				offset++;
-			}
-
-			int num = parseNextNum(sequence, offset);
-			offset += Integer.toString(num).length();
-			Term term = new Term(num, op);
-			result.add(term);
-		}
-
-		return result;
-	}
-
-	private int parseNextNum(String sequence, int offset) {
-		StringBuilder sb = new StringBuilder();
-		while (offset < sequence.length() && Character.isDigit(sequence.charAt(offset))) {
-			sb.append(sequence.charAt(offset));
-			offset++;
-		}
-		return Integer.parseInt(sb.toString());
-	}
-
-	public Term collapseTerm(Term primary, Term secondary) {
-		if (primary == null)
-			return secondary;
-		if (secondary == null)
-			return primary;
-
-		double value = applyOp(primary.getVal(), secondary.getOp(), secondary.getVal());
-		primary.setVal(value);
-		return primary;
-	}
-
-	public double applyOp(double left, Operator op, double right) {
-		if (op == Operator.ADD) {
-			return left + right;
-		} else if (op == Operator.SUBTRACT) {
-			return left - right;
-		} else if (op == Operator.MULTIPLY) {
-			return left * right;
-		} else if (op == Operator.DIVIDE) {
-			return left / right;
-		} else {
-			return right;
-		}
-	}
-
 	/*
 	 * Compute the result of the arithmetic sequence. This works by reading left to right and applying each term to a
 	 * result. When we see a multiplication or division, we instead apply this sequence to a temporary variable.
 	 */
-	public double compute(String sequence) {
+	public double computeCrudeWay(String sequence) {
 		List<Term> terms = parseTermSequence(sequence);
 		if (terms == null)
 			return Integer.MIN_VALUE;
@@ -148,10 +78,80 @@ public class ArithmeticCalculator {
 		return result;
 	}
 
+	private List<Term> parseTermSequence(String sequence) {
+		List<Term> result = new ArrayList<>();
+		int offset = 0;
+		while (offset < sequence.length()) {
+			Operator op = Operator.BLANK;
+
+			if (offset > 0) {
+				op = parseOperator(sequence.charAt(offset));
+				if (op == Operator.BLANK)
+					return null;
+				offset++;
+			}
+
+			int num = parseNextNum(sequence, offset);
+			offset += Integer.toString(num).length();
+			Term term = new Term(num, op);
+			result.add(term);
+		}
+
+		return result;
+	}
+
+	private Term collapseTerm(Term primary, Term secondary) {
+		if (primary == null)
+			return secondary;
+		if (secondary == null)
+			return primary;
+
+		double value = applyOp(primary.getVal(), secondary.getOp(), secondary.getVal());
+		primary.setVal(value);
+		return primary;
+	}
+
+	private double applyOp(double left, Operator op, double right) {
+		if (op == Operator.ADD) {
+			return left + right;
+		} else if (op == Operator.SUBTRACT) {
+			return left - right;
+		} else if (op == Operator.MULTIPLY) {
+			return left * right;
+		} else if (op == Operator.DIVIDE) {
+			return left / right;
+		} else {
+			return right;
+		}
+	}
+
+	private Operator parseOperator(char ch) {
+		switch (ch) {
+		case '+':
+			return Operator.ADD;
+		case '-':
+			return Operator.SUBTRACT;
+		case '*':
+			return Operator.MULTIPLY;
+		case '/':
+			return Operator.DIVIDE;
+		}
+		return Operator.BLANK;
+	}
+
+	private int parseNextNum(String sequence, int offset) {
+		StringBuilder sb = new StringBuilder();
+		while (offset < sequence.length() && Character.isDigit(sequence.charAt(offset))) {
+			sb.append(sequence.charAt(offset));
+			offset++;
+		}
+		return Integer.parseInt(sb.toString());
+	}
+
 	/**
 	 * Solution 2 - using 2 stack approach
 	 */
-	public double compute1(String sequence) {
+	public double computeUsingStack(String sequence) {
 		Stack<Double> numberStack = new Stack<Double>();
 		Stack<Operator> operatorStack = new Stack<Operator>();
 
@@ -188,7 +188,7 @@ public class ArithmeticCalculator {
 	 * Collapse top until priority(futureTop) > priority(top). Collapsing means to pop the top 2 numbers and apply the
 	 * operator popped from the top of the operator stack, and then push that onto the numbers stack.
 	 */
-	public void collapseTop(Operator futureTop, Stack<Double> numberStack, Stack<Operator> operatorStack) {
+	private void collapseTop(Operator futureTop, Stack<Double> numberStack, Stack<Operator> operatorStack) {
 		while (operatorStack.size() >= 1 && numberStack.size() >= 2) {
 			if (priorityOfOperator(futureTop) <= priorityOfOperator(operatorStack.peek())) {
 				double second = numberStack.pop();
@@ -205,7 +205,7 @@ public class ArithmeticCalculator {
 	/*
 	 * Return priority of operator. Mapped so that: addition == subtraction < multiplication == division.
 	 */
-	public int priorityOfOperator(Operator op) {
+	private int priorityOfOperator(Operator op) {
 		switch (op) {
 		case ADD:
 			return 1;
@@ -222,7 +222,7 @@ public class ArithmeticCalculator {
 	}
 
 	/* Return the operator that occurs as offset. */
-	public Operator parseNextOperator(String sequence, int offset) {
+	private Operator parseNextOperator(String sequence, int offset) {
 		if (offset < sequence.length()) {
 			char op = sequence.charAt(offset);
 			switch (op) {
@@ -243,9 +243,8 @@ public class ArithmeticCalculator {
 		ArithmeticCalculator ac = new ArithmeticCalculator();
 
 		String expression = "2*3+5/6*3+15";
-		double result = ac.compute(expression);
-		System.out.println(result);
-		System.out.println(ac.compute1(expression));
+		System.out.println(ac.computeCrudeWay(expression));
+		System.out.println(ac.computeUsingStack(expression));
 	}
 
 }

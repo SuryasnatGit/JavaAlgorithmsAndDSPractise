@@ -8,11 +8,11 @@ import java.util.NoSuchElementException;
  * Implement an iterator for a binary search tree that will iterate the nodes by value in ascending order
  *
  */
-public class BSTIterator<E extends Comparable<E>> implements Iterator<E> {
+public class BinarySearchTreeIterator<E extends Comparable<E>> implements Iterator<E> {
 
 	LinkedList<Node<E>> stack;
 
-	BSTIterator(Node<E> root) {
+	BinarySearchTreeIterator(Node<E> root) {
 		stack = new LinkedList<>();
 		Node<E> node = root;
 		while (node != null) {
@@ -70,6 +70,6 @@ class Node<E extends Comparable<? super E>> implements Iterable<E> {
 	}
 
 	public Iterator<E> iterator() {
-		return new BSTIterator(this);
+		return new BinarySearchTreeIterator(this);
 	}
 }
