@@ -4,7 +4,7 @@ package com.algo.ds.stack;
  * space complexity - O(N) where N is the # of elements in stack. time complexity - O(1)
  * 
  */
-public class ArrayStack<E> implements Stack<E> {
+public class ArrayStack<E> implements MyStack<E> {
 
     private static int capacity = 1000; // default capacity
     private int index = -1;

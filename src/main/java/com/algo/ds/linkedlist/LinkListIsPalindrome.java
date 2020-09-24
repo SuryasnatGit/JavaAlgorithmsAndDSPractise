@@ -1,10 +1,8 @@
 package com.algo.ds.linkedlist;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Stack;
 
-import com.algo.ds.stack.LinkedListStack;
-import com.algo.ds.stack.Stack;
+import com.algo.common.ListNode;
 
 /**
  * http://www.geeksforgeeks.org/function-to-check-if-a-singly-linked-list-is-palindrome/
@@ -27,9 +25,9 @@ public class LinkListIsPalindrome {
 	 * @param head
 	 * @return
 	 */
-	public boolean isPalindrome_usingStack(Node head) {
-		Stack<Integer> stack = new LinkedListStack<>();
-		Node temp = head;
+	public boolean isPalindrome_usingStack(ListNode head) {
+		Stack<Integer> stack = new Stack<>();
+		ListNode temp = head;
 		// 1st pass
 		while (temp != null) {
 			stack.push(temp.data);
@@ -45,22 +43,22 @@ public class LinkListIsPalindrome {
 		return true;
 	}
 
-	// declare pointers to head, slow pointer, fast pointer and second half of list for using this method
-	Node slow, fast, secondHalf;
-
 	/**
 	 * Time Complexity O(n) Auxiliary Space: O(1)
 	 * 
 	 * @param head
 	 * @return
 	 */
-	public boolean isPalindrome_usingReverseMethod(Node head) {
+	private ListNode secondHalf;
+
+	public boolean isPalindrome_usingReverseMethod(ListNode head) {
 		// initially slow and fast point to head
-		slow = head;
-		fast = head;
-		Node prevToSlow = head; // points to a node previous to slow pointer
-		Node midNode = null; // pointer for middle node(this will be null for even number of nodes and not null for odd
-								// number of nodes)
+		ListNode slow = head;
+		ListNode fast = head;
+		ListNode prevToSlow = head; // points to a node previous to slow pointer
+		ListNode midNode = null; // pointer for middle node(this will be null for even number of nodes and not null for
+									// odd
+									// number of nodes)
 		boolean result = true;
 		if (head != null && head.next != null) {
 			// move slow and fast pointers
@@ -99,9 +97,9 @@ public class LinkListIsPalindrome {
 		return result;
 	}
 
-	private boolean compare(Node head1, Node head2) {
-		Node temp1 = head1;
-		Node temp2 = head2;
+	private boolean compare(ListNode head1, ListNode head2) {
+		ListNode temp1 = head1;
+		ListNode temp2 = head2;
 
 		while (temp1 != null && temp2 != null) {
 			if (temp1.data == temp2.data) {
@@ -118,9 +116,9 @@ public class LinkListIsPalindrome {
 	}
 
 	private void reverse() {
-		Node prev = null;
-		Node current = secondHalf;
-		Node next;
+		ListNode prev = null;
+		ListNode current = secondHalf;
+		ListNode next;
 		while (current != null) {
 			next = current.next;
 			current.next = prev;
@@ -130,73 +128,14 @@ public class LinkListIsPalindrome {
 		secondHalf = prev;
 	}
 
-	/**
-	 * Time Complexity: O(n) Auxiliary Space: O(n) if Function Call Stack size is considered, otherwise O(1).
-	 * 
-	 * Use two pointers left and right. Move right and left using recursion and check for following in each recursive
-	 * call. 1) Sub-list is palindrome. 2) Value at current left and right are matching.
-	 * 
-	 * If both above conditions are true then return true.
-	 * 
-	 * The idea is to use function call stack as container. Recursively traverse till the end of list. When we return
-	 * from last NULL, we will be at last node. The last node to be compared with first node of list.
-	 * 
-	 * In order to access first node of list, we need list head to be available in the last call of recursion. Hence we
-	 * pass head also to the recursive function. If they both match we need to compare (2, n-2) nodes. Again when
-	 * recursion falls back to (n-2)nd node, we need reference to 2nd node from head. We advance the head pointer in
-	 * previous call, to refer to next node in the list.
-	 * 
-	 * However, the trick in identifying double pointer. Passing single pointer is as good as pass-by-value, and we will
-	 * pass the same pointer again and again. We need to pass the address of head pointer for reflecting the changes in
-	 * parent recursive calls.
-	 * 
-	 * @param head
-	 * @param end
-	 * @return
-	 */
-	public boolean isPalindrome_recursive(NodeRef head, Node end) {
-		if (end == null) {
-			return true;
-		}
-		boolean r = isPalindrome_recursive(head, end.next);
-		r = r && head.node.data == end.data;
-		head.next();
-		return r;
-	}
-
-	// T - O(n) S - (O(n) in worst case
-	public boolean isPalindrome_hashset(Node head) {
-		Set<Integer> set = new HashSet<>();
-
-		Node curr = head;
-		while (curr != null) {
-			if (set.contains(curr.data)) {
-				set.remove(curr.data);
-			} else {
-				set.add(curr.data);
-			}
-			curr = curr.next;
-		}
-
-		return set.size() == 0 || set.size() == 1;
-	}
-
 	public static void main(String args[]) {
-		LinkList ll = new LinkList();
-		Node head = null;
-		head = ll.addNode(1, head);
-		head = ll.addNode(2, head);
-		head = ll.addNode(3, head);
-		head = ll.addNode(4, head);
-		head = ll.addNode(3, head);
-		head = ll.addNode(2, head);
-		head = ll.addNode(1, head);
-		NodeRef nodeRef = new NodeRef();
-		nodeRef.node = head;
+		SingleLinkedList ll = new SingleLinkedList();
+		ll.addNodeAtFront(1);
+		ll.addNodeAtEnd(0);
+		ll.addNodeAtEnd(0);
+
 		LinkListIsPalindrome llp = new LinkListIsPalindrome();
-		System.out.println(llp.isPalindrome_recursive(nodeRef, head));
-		System.out.println(llp.isPalindrome_usingStack(head));
-		System.out.println(llp.isPalindrome_usingReverseMethod(head));
-		System.out.println(llp.isPalindrome_hashset(head));
+		System.out.println(llp.isPalindrome_usingStack(ll.getHead()));
+		System.out.println(llp.isPalindrome_usingReverseMethod(ll.getHead()));
 	}
 }

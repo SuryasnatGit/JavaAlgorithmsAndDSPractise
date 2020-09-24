@@ -1,7 +1,6 @@
 package com.algo.ds.tree;
 
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.Stack;
 
 import com.algo.common.TreeNode;
 
@@ -22,63 +21,34 @@ import com.algo.common.TreeNode;
 public class IsBST {
 
 	/**
-	 * Approach 1: A better solution looks at each node only once. The trick is to write a utility helper function that
-	 * traverses down the tree keeping track of the narrowing min and max allowed values as it goes, looking at each
-	 * node only once. The initial values for min and max should be INT_MIN and INT_MAX they narrow from there.
-	 * 
-	 * Run on IDE
-	 * 
-	 * Time Complexity: O(n) Auxiliary Space : O(1) if Function Call Stack size is not considered, otherwise O(n)
-	 * 
-	 * @param root
-	 * @return
-	 */
-	public boolean isBST(TreeNode root) {
-		return isBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
-	}
-
-	private boolean isBST(TreeNode root, int min, int max) {
-		if (root == null) {
-			return true;
-		}
-		if (root.data <= min || root.data > max) {
-			return false;
-		}
-		return isBST(root.left, min, root.data - 1) && isBST(root.right, root.data + 1, max);
-	}
-
-	/**
 	 * Approach 2 - iterative way
-	 * 
-	 * @param root
-	 * @return
+	 *
+	 * T - O(n) S - O(n)
 	 */
 	public boolean isBSTIterative(TreeNode root) {
 		if (root == null) {
 			return true;
 		}
 
-		Deque<TreeNode> stack = new LinkedList<>();
+		Stack<TreeNode> stack = new Stack<>();
 		TreeNode node = root;
 		int prev = Integer.MIN_VALUE;
-		int current;
-		while (true) {
-			if (node != null) {
-				stack.addFirst(node);
+
+		while (!stack.isEmpty() || node != null) {
+			while (node != null) {
+				stack.push(node);
 				node = node.left;
-			} else {
-				if (stack.isEmpty()) {
-					break;
-				}
-				node = stack.pollFirst();
-				current = node.data;
-				if (current < prev) {
-					return false;
-				}
-				prev = current;
-				node = node.right;
 			}
+
+			node = stack.pop();
+
+			if (node.data <= prev) {
+				return false;
+			}
+			prev = node.data;
+			node = node.right;
 		}
+
 		return true;
 	}
 
@@ -110,18 +80,21 @@ public class IsBST {
 	}
 
 	public static void main(String args[]) {
-		BinaryTree bt = new BinaryTree();
-		TreeNode root = null;
-		root = bt.addNode(10, root);
-		root = bt.addNode(15, root);
-		root = bt.addNode(-10, root);
-		root = bt.addNode(17, root);
-		root = bt.addNode(20, root);
-		root = bt.addNode(0, root);
+		TreeNode root = new TreeNode(2);
+		root.left = new TreeNode(1);
+		root.right = new TreeNode(3);
+
+		TreeNode root1 = new TreeNode(Integer.MIN_VALUE);
+
+		TreeNode root2 = new TreeNode(1);
+		root2.left = new TreeNode(1);
 
 		IsBST isBST = new IsBST();
-		System.out.println(isBST.isBST(root));
 		System.out.println(isBST.isBSTIterative(root));
+		System.out.println(isBST.isBSTIterative(root1));
+		System.out.println(isBST.isBSTIterative(root2));
 		System.out.println(isBST.isBST_inorderTraversal(root));
+		System.out.println(isBST.isBST_inorderTraversal(root1));
+		System.out.println(isBST.isBST_inorderTraversal(root2));
 	}
 }

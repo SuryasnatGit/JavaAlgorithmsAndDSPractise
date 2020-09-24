@@ -33,7 +33,7 @@ public class LongestPalindromeSubstring {
 	 * @param arr
 	 * @return
 	 */
-	public int longestPalindromeSubstringEasy(char arr[]) {
+	public int longestPalindromeSubstringlength(char arr[]) {
 
 		int longest_substring = 1;
 		int x, y;
@@ -65,6 +65,36 @@ public class LongestPalindromeSubstring {
 		return longest_substring;
 	}
 
+	public String longestPalindromeSubstring(String s) {
+
+		if (s == null || s.length() == 0) {
+			return s;
+		}
+
+		int x = 0, y = 0;
+
+		for (int i = 0; i < s.length(); i++) {
+			int length1 = expandAroundCentre(s, i, i);
+			int length2 = expandAroundCentre(s, i, i + 1);
+			int length = Math.max(length1, length2);
+
+			if (length > y - x) {
+				x = i - (length - 1) / 2;
+				y = i + length / 2;
+			}
+		}
+		return s.substring(x, y + 1);
+	}
+
+	private int expandAroundCentre(String s, int i, int j) {
+		int left = i, right = j;
+		while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+			left--;
+			right++;
+		}
+		return right - left - 1;
+	}
+
 	/**
 	 * Linear time Manacher's algorithm to find longest palindromic substring.
 	 * 
@@ -84,7 +114,7 @@ public class LongestPalindromeSubstring {
 	 * To handle even size palindromes replace input string with one containing $ between every input character and in
 	 * start and end.
 	 */
-	public int longestPalindromicSubstringLinear(char input[]) {
+	public int longestPalindromicSubstringLengthLinear(char input[]) {
 		int index = 0;
 		// preprocess the input to convert it into type abc -> $a$b$c$ to handle even length case.
 		// Total size will be 2*n + 1 of this new array.
@@ -162,8 +192,9 @@ public class LongestPalindromeSubstring {
 
 	public static void main(String args[]) {
 		LongestPalindromeSubstring lps = new LongestPalindromeSubstring();
-		System.out.println(lps.longestPalindromeSubstringEasy("abbababbacd".toCharArray()));
-		System.out.println(lps.longestPalindromicSubstringLinear("abbababbacd".toCharArray()));
+		System.out.println(lps.longestPalindromeSubstringlength("abbababbacd".toCharArray()));
+		System.out.println(lps.longestPalindromicSubstringLengthLinear("abbababbacd".toCharArray()));
+		System.out.println(lps.longestPalindromeSubstring("babad"));
 	}
 
 }

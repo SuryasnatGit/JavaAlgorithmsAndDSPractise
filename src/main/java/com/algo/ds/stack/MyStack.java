@@ -1,7 +1,7 @@
 package com.algo.ds.stack;
 
 
-public interface Stack<E> {
+public interface MyStack<E> {
 
     public void push(E e);
 

@@ -3,7 +3,7 @@ package com.algo.ds.stack;
 import com.algo.ds.linkedlist.SingleLinkedList;
 
 // uses adaptor pattern
-public class LinkedListStack<E> implements Stack<E> {
+public class LinkedListStack<E> implements MyStack<E> {
 
     private SingleLinkedList<E> linkedList;
 

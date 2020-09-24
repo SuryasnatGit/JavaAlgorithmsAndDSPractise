@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 import com.algo.ds.queue.QueueAsArray;
 import com.algo.ds.stack.ArrayStack;
-import com.algo.ds.stack.Stack;;
+import com.algo.ds.stack.MyStack;;
 
 public class MyGraph<K> {
 
@@ -199,7 +199,7 @@ public class MyGraph<K> {
 	 */
 	public void topologicalSort() {
 		// maintain a stack for topological sort
-		Stack<Integer> stack = new ArrayStack<>(numVer);
+		MyStack<Integer> stack = new ArrayStack<>(numVer);
 		// array of isVisited boolean
 		boolean[] isVisited = new boolean[numVer];
 		Arrays.fill(isVisited, false); // initialize it
@@ -216,7 +216,7 @@ public class MyGraph<K> {
 		}
 	}
 
-	private void topologicalSortUtil(int i, Stack<Integer> stack, boolean[] isVisited) {
+	private void topologicalSortUtil(int i, MyStack<Integer> stack, boolean[] isVisited) {
 		// mark the current node as visited
 		isVisited[i] = true;
 
@@ -322,7 +322,7 @@ public class MyGraph<K> {
 	 */
 	public void longestPathInDAG(int sourceVertex) {
 		// maintain a stack for topological sort
-		Stack<Integer> stack = new ArrayStack<>(numVer);
+		MyStack<Integer> stack = new ArrayStack<>(numVer);
 		int[] dist = new int[numVer];
 
 		// array of isVisited boolean

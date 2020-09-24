@@ -79,7 +79,7 @@ public class StackUtility {
 	public boolean isBalanced(String expression) {
 		String opening = "({[";
 		String closing = ")}]";
-		Stack<Character> stack = new LinkedListStack<>();
+		MyStack<Character> stack = new LinkedListStack<>();
 		for (char c : expression.toCharArray()) {
 			if (opening.indexOf(c) != -1) {
 				stack.push(c);
@@ -94,7 +94,7 @@ public class StackUtility {
 	}
 
 	public boolean isHtmlMatched(String html) {
-		Stack<String> stack = new LinkedListStack<>();
+		MyStack<String> stack = new LinkedListStack<>();
 		int start = html.indexOf("<");
 		while (start != -1) {
 			int end = html.indexOf(">", start + 1);
@@ -144,7 +144,7 @@ public class StackUtility {
 	}
 
 	public boolean duplicateParenthesis(String expression) {
-		Stack<Character> stack = new ArrayStack<Character>();
+		MyStack<Character> stack = new ArrayStack<Character>();
 		for (char c : expression.toCharArray()) {
 			if (c != ')') {
 				stack.push(c);
@@ -175,7 +175,7 @@ public class StackUtility {
 	 * @param s
 	 */
 	public void postfixEvaluation(String s) {
-		Stack<Integer> stack = new ArrayStack<Integer>();
+		MyStack<Integer> stack = new ArrayStack<Integer>();
 
 		int r = 0;
 		int l = s.length();

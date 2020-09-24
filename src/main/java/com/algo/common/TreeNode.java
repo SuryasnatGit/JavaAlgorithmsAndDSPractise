@@ -9,6 +9,9 @@ public class TreeNode {
 	public int height;
 	public int size;
 
+	// needed for some problems
+	public TreeNode parent;
+
 	// default constructor
 	public TreeNode() {
 		// TODO Auto-generated constructor stub

@@ -47,59 +47,6 @@ public class LowestCommonAncestorInBinaryTree {
 		return left != null ? left : right;
 	}
 
-	// Using corrective approach
-	private boolean b1;
-	private boolean b2;
-
-	public TreeNode lca_correct(TreeNode root, int n1, int n2) {
-		if (root == null)
-			return null;
-		TreeNode node = lca_util(root, n1, n2);
-		// return true only if both n1 and n2 are present in the tree
-		if (b1 && b2 || b1 && find(node, n2) || b2 && find(node, n1))
-			return node;
-		// else return null
-		return null;
-	}
-
-	/**
-	 * Returns true if key k is present in tree rooted with root
-	 * 
-	 * @param root
-	 * @param k
-	 * @return
-	 */
-	private boolean find(TreeNode root, int k) {
-		if (root == null)
-			return false;
-		// return true if k is present in root or left sub-tree or right sub-tree
-		return (root.data == k || find(root.left, k) || find(root.right, k));
-	}
-
-	private TreeNode lca_util(TreeNode root, int n1, int n2) {
-		if (root == null) {
-			return null;
-		}
-		// If either n1 or n2 matches with root's key, report the presence by setting b1 or b2 as true and
-		// return root (Note that if a key is ancestor of other, then the ancestor key becomes LCA)
-		if (root.data == n1) {
-			b1 = true;
-			return root;
-		}
-		if (root.data == n2) {
-			b2 = true;
-			return root;
-		}
-
-		TreeNode left = lca(root.left, n1, n2);
-		TreeNode right = lca(root.right, n1, n2);
-
-		if (left != null && right != null) {
-			return root;
-		}
-		return left != null ? left : right;
-	}
-
 	/**
 	 * Use a map to keep all ancestors of p and q, where key is a node in the ancestor chain and value is parent of the
 	 * node in key. Given that p and q both will exist in the tree, the LCA must be one of the ancestors of p. Then
@@ -138,6 +85,26 @@ public class LowestCommonAncestorInBinaryTree {
 			if (ancestors.contains(q))
 				return q;
 		}
+		return null;
+	}
+
+	// What if the tree node has parent pointer
+	public TreeNode lowestCommonAncestorWithParentUsingHashMap(TreeNode root, TreeNode p, TreeNode q) {
+		Set<TreeNode> visited = new HashSet<TreeNode>();
+
+		while (p != null) {
+			visited.add(p);
+			p = p.parent;
+		}
+
+		while (q != null) {
+			if (visited.contains(q)) {
+				return q;
+			}
+
+			q = q.parent;
+		}
+
 		return null;
 	}
 
