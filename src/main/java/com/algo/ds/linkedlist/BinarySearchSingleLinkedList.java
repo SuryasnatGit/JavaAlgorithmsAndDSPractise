@@ -1,7 +1,7 @@
 
-
 package com.algo.ds.linkedlist;
 
+import com.algo.common.ListNode;
 
 /**
  * Given a singly linked list and a key, find key using binary search approach. To perform a Binary search based on
@@ -15,44 +15,56 @@ package com.algo.ds.linkedlist;
  * lower half(setting last to middle). The condition to come out is, either element found or entire list is traversed.
  * When entire list is traversed, last points to start i.e. last -> next == start.
  * 
- * @author ctsuser1
  */
 public class BinarySearchSingleLinkedList {
 
-    public Node findMiddleElement(Node start, Node end) {
-        if (start == null)
-            return null;
+	public ListNode binarySearch(ListNode head, int value) {
+		ListNode start = head;
+		ListNode last = null;
 
-        Node slow = start;
-        Node fast = start.next;
+		while (last == null || last.next != start) {
+			ListNode middle = findMiddleElement(start, last);
+			if (middle == null)
+				return null;
+			if (middle.data == value)
+				return middle;
+			else if (middle.data < value)
+				start = middle.next;
+			else
+				last = middle;
+		}
+		return null;
+	}
 
-        while (fast != end) {
-            fast = fast.next;
-            if (fast != end) {
-                slow = slow.next;
-                fast = fast.next;
-            }
-        }
+	private ListNode findMiddleElement(ListNode start, ListNode end) {
+		if (start == null)
+			return null;
 
-        return slow;
-    }
+		ListNode slow = start;
+		ListNode fast = start.next;
 
-    public Node binarySearch(Node head, int value) {
-        Node start = head;
-        Node last = null;
+		while (fast != end) {
+			fast = fast.next;
+			if (fast != end) {
+				slow = slow.next;
+				fast = fast.next;
+			}
+		}
 
-        while (last == null || last.next != start) {
-            Node middle = findMiddleElement(start, last);
-            if (middle == null)
-                return null;
-            if (middle.data == value)
-                return middle;
-            else if (middle.data < value)
-                start = middle.next;
-            else
-                last = middle;
-        }
-        return null;
-    }
+		return slow;
+	}
+
+	public static void main(String[] args) {
+		BinarySearchSingleLinkedList bs = new BinarySearchSingleLinkedList();
+
+		SingleLinkedList sll = new SingleLinkedList();
+		sll.addNode(1);
+		sll.addNode(2);
+		sll.addNode(3);
+		sll.addNode(4);
+
+		System.out.println(bs.binarySearch(sll.getHead(), 3));
+		System.out.println(bs.binarySearch(sll.getHead(), 5));
+	}
 
 }

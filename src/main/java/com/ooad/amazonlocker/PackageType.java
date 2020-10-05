@@ -1,12 +1,12 @@
 package com.ooad.amazonlocker;
 
-public enum LockerSize {
+public enum PackageType {
 
-	SMALL(10), MEDIUM(20), LARGE(50), INVALID(-1);
+	SMALL(5), MEDIUM(15), LARGE(30);
 
 	private int value;
 
-	private LockerSize(int value) {
+	private PackageType(int value) {
 		this.value = value;
 	}
 

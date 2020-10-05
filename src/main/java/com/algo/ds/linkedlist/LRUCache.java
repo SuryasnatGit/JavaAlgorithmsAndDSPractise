@@ -8,6 +8,8 @@ import com.algo.common.ListNode;
 /**
  * http://www.geeksforgeeks.org/implement-lru-cache/
  * 
+ * CTCI : 16.25
+ * 
  * LRU cache stand for Least Recently Used Cache. which evict least recently used entry. As Cache purpose is to provide
  * fast and efficient way of retrieving data. it need to meet certain requirement.
  * 

@@ -1,5 +1,8 @@
 package com.companyprep.amazon;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.algo.common.ListNode;
 
 /**
@@ -38,36 +41,54 @@ import com.algo.common.ListNode;
  */
 public class LinkedListCycle {
 
+	/**
+	 * T - O(n) S - O(n)
+	 */
 	public ListNode detectCycle(ListNode head) {
+		Set<ListNode> set = new HashSet<ListNode>();
 
-		ListNode meet = findMeetingPoint(head);
+		ListNode node = head;
+		while (node != null) {
+			if (set.contains(node)) {
+				return node;
+			}
+			set.add(node);
+			node = node.next;
+		}
+		return null;
+	}
 
-		if (meet == null) {
+	/**
+	 * T - O(n) S - O(1)
+	 * 
+	 * @param head
+	 * @return
+	 */
+	public ListNode detectCycle1(ListNode head) {
+		if (head == null) {
 			return null;
 		}
 
-		ListNode walk1 = head;
-		ListNode walk2 = meet;
-
-		while (walk1 != walk2) {
-			walk1 = walk1.next;
-			walk2 = walk2.next;
-		}
-
-		return walk1;
-	}
-
-	private ListNode findMeetingPoint(ListNode head) {
-		ListNode slow = head;
-		ListNode fast = head;
+		ListNode slow = head, fast = head;
 		while (fast != null && fast.next != null) {
 			slow = slow.next;
 			fast = fast.next.next;
-
-			if (fast == slow)
-				return slow;
+			if (slow == fast) {
+				break;
+			}
 		}
-		return null;
+
+		if (fast == null) {
+			return null;
+		}
+
+		slow = head;
+		while (slow != fast) {
+			slow = slow.next;
+			fast = fast.next;
+		}
+
+		return slow;
 	}
 
 	public static void main(String[] args) {
@@ -77,12 +98,12 @@ public class LinkedListCycle {
 		ListNode n2 = new ListNode(2);
 		ListNode n3 = new ListNode(3);
 		ListNode n4 = new ListNode(4);
-		ListNode n5 = new ListNode(5);
 		n1.next = n2;
 		n2.next = n3;
 		n3.next = n4;
 		n4.next = n3;
 
 		System.out.println(ll.detectCycle(n1));
+		System.out.println(ll.detectCycle1(n1));
 	}
 }
