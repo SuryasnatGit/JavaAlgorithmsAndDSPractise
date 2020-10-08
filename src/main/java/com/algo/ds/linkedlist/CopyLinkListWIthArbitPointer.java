@@ -4,9 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A linked list is given such that each node contains an additional random
- * pointer which could point to any node in the list or null. Return a deep copy
- * of the list.
+ * A linked list is given such that each node contains an additional random pointer which could point to any node in the
+ * list or null. Return a deep copy of the list.
  *
  * https://leetcode.com/problems/copy-list-with-random-pointer/
  */
@@ -19,6 +18,12 @@ public class CopyLinkListWIthArbitPointer {
 		RandomListNode(int x) {
 			this.label = x;
 		}
+
+		@Override
+		public String toString() {
+			return "RandomListNode [label=" + label + "]";
+		}
+
 	}
 
 	/**
@@ -36,7 +41,7 @@ public class CopyLinkListWIthArbitPointer {
 		RandomListNode q = dummy; // pointer to dummy
 
 		// traverse for copying next pointer
-		while (head != null) {
+		while (p != null) {
 			q.next = new RandomListNode(p.label);
 			map.put(p, q.next);
 			q = q.next;
@@ -48,7 +53,7 @@ public class CopyLinkListWIthArbitPointer {
 		q = dummy;
 
 		// traverse for copying random pointer
-		while (head != null) {
+		while (p != null) {
 			q.next.random = map.get(p.random);
 			p = p.next;
 			q = q.next;
@@ -58,8 +63,9 @@ public class CopyLinkListWIthArbitPointer {
 	}
 
 	/**
-	 * Approach 2 - Optimized. But this will modify original structure. Time
-	 * complexity is O(n) Space complexity is O(1)
+	 * Approach 2 - Optimized. But this will modify original structure.
+	 * 
+	 * Time complexity is O(n) Space complexity is O(1)
 	 * 
 	 * @param head
 	 * @return
@@ -100,6 +106,15 @@ public class CopyLinkListWIthArbitPointer {
 		return dummy.next;
 	}
 
+	public void printList(RandomListNode node) {
+		System.out.println();
+		while (node != null) {
+			System.out.print(node.label + "->");
+			node = node.next;
+		}
+		System.out.print("null");
+	}
+
 	public static void main(String args[]) {
 
 		CopyLinkListWIthArbitPointer cll = new CopyLinkListWIthArbitPointer();
@@ -115,8 +130,12 @@ public class CopyLinkListWIthArbitPointer {
 		randomListNode3.next = randomListNode4;
 
 		randomListNode.random = randomListNode1;
-		randomListNode2.random = randomListNode3;
-		randomListNode1.random = randomListNode;
-		cll.copyRandomList(randomListNode);
+		randomListNode2.random = randomListNode;
+		randomListNode1.random = randomListNode3;
+		randomListNode3.random = randomListNode2;
+
+		cll.printList(randomListNode);
+		RandomListNode copyRandomList1 = cll.copyRandomList(randomListNode);
+		cll.printList(copyRandomList1);
 	}
 }
