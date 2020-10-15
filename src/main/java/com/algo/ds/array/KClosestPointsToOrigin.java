@@ -113,6 +113,6 @@ class Point implements Comparable<Point> {
 
 	@Override
 	public String toString() {
-		return "Point [x=" + x + ", y=" + y + ", dist=" + dist + "]";
+		return "Point [x=" + x + ", y=" + y + "]";
 	}
 }

@@ -35,71 +35,70 @@ public class SmallestWindowContaingAllCharacters {
 	// 3- Finally, print the smallest substring containing all characters of string2.
 
 	/**
-	 * Optimized solution
+	 * Optimized solution. T - O(S + T) S - O(S + T)
 	 * 
-	 * @param source
-	 * @param pattern
-	 * @return
 	 */
-	public String minWindow(String source, String pattern) {
+	public String minWindow(String s, String t) {
 
-		// update count map for chars in pattern
-		Map<Character, Integer> countMap = new HashMap<>();
-		for (char ch : pattern.toCharArray()) {
-			Integer val = countMap.get(ch);
-			if (val == null) {
-				val = 0;
-			}
-			countMap.put(ch, val + 1);
+		if (s == null || t == null || s.length() < t.length()) {
+			return "";
+		}
+
+		// update ap for chars in pattern t
+		Map<Character, Integer> charCountMap = new HashMap<>();
+		for (char ch : t.toCharArray()) {
+			charCountMap.put(ch, charCountMap.getOrDefault(ch, 0) + 1);
 		}
 
 		int start = 0;
-		int patternLength = pattern.length();
-		int minWindow = Integer.MAX_VALUE;
+		int minWindowLength = Integer.MAX_VALUE;
 		int minStart = 0;
-		int i = 0;
-		while (i < source.length()) {
-			Integer val = countMap.get(source.charAt(i));
+		int end = 0;
+		int patternLength = t.length();
+
+		while (end < s.length()) {
+			Integer val = charCountMap.get(s.charAt(end));
 			if (val == null) {
-				i++;
+				end++;
 				continue;
 			}
 			if (val > 0) {
-				patternLength--; // shorten t
+				patternLength--;
 			}
-			val--; // reduce count of that char by 1
-			countMap.put(source.charAt(i), val);
+			val--;
+			charCountMap.put(s.charAt(end), val);
 
-			// this means all chars in t are covered. now check the segment length
+			// window found
 			while (patternLength == 0) {
-				if (minWindow > i - start + 1) {
-					minWindow = i - start + 1;
+				// check minimum window
+				if (minWindowLength > (end - start + 1)) {
+					minWindowLength = end - start + 1;
 					minStart = start;
 				}
-				Integer val1 = countMap.get(source.charAt(start));
+
+				Integer val1 = charCountMap.get(s.charAt(start));
 				if (val1 != null) {
 					if (val1 == 0) {
 						break;
 					} else {
 						val1++;
-						countMap.put(source.charAt(start), val1);
+						charCountMap.put(s.charAt(start), val1);
 					}
 				}
 				start++;
 			}
-			i++;
+
+			end++;
 		}
 
-		return minWindow != Integer.MAX_VALUE ? source.substring(minStart, minStart + minWindow) : "";
+		return minWindowLength != Integer.MAX_VALUE ? s.substring(minStart, minStart + minWindowLength) : "";
 	}
 
 	public static void main(String args[]) {
 
-		String str = "appleal";
-		String subString = "al";
 		SmallestWindowContaingAllCharacters swcac = new SmallestWindowContaingAllCharacters();
-		String result = swcac.minWindow(str, subString);
-		System.out.println(result);
+		System.out.println(swcac.minWindow("appleal", "al"));
+		System.out.println(swcac.minWindow("ADOBECODEBANC", "ABC"));
 	}
 
 }
