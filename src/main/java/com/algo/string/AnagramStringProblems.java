@@ -268,6 +268,7 @@ public class AnagramStringProblems {
 		}
 
 		anagramGroupMap.values().forEach(list -> list.forEach(i -> System.out.print(input[i] + ",")));
+		System.out.println();
 	}
 
 	/*
@@ -283,7 +284,78 @@ public class AnagramStringProblems {
 	 * 
 	 * 2) Input: txt[] = "AAABABAA" pat[] = "AABA" Output: Found at Index 0 Found at Index 1 Found at Index 4
 	 * 
+	 * LC 438 : find all anagrams in a string
 	 */
+
+	// Approach 1 - time limit getting exceeded for large inputs in LC
+	public List<Integer> findAnagrams1(String s, String p) {
+
+		List<Integer> result = new ArrayList<>();
+
+		if (s == null || s.length() == 0 || s.length() < p.length()) {
+			return result;
+		}
+
+		for (int i = 0; i < s.length(); i++) {
+			int left = i;
+			int right = left + p.length();
+			if (right <= s.length()) {
+				char[] sChArr = s.substring(left, right).toCharArray();
+				Arrays.sort(sChArr);
+				String sTemp = new String(sChArr);
+				char[] pChArr = p.toCharArray();
+				Arrays.sort(pChArr);
+				String pTemp = new String(pChArr);
+
+				if (sTemp.equals(pTemp)) {
+					result.add(i);
+				}
+			}
+		}
+
+		return result;
+	}
+
+	public List<Integer> findAnagrams2(String s, String p) {
+		List<Integer> result = new ArrayList<>();
+
+		if (s == null || s.length() == 0 || s.length() < p.length()) {
+			return result;
+		}
+
+		int pLen = p.length();
+		Map<Character, Integer> pCharMap = new HashMap<>();
+		Map<Character, Integer> sCharMap = new HashMap<>();
+
+		for (char ch : p.toCharArray()) {
+			pCharMap.put(ch, pCharMap.getOrDefault(ch, 0) + 1);
+		}
+
+		for (int i = 0; i < s.length(); i++) {
+			char ch = s.charAt(i);
+
+			// increment the window by adding 1 letter each time to right side of window
+			sCharMap.put(ch, sCharMap.getOrDefault(ch, 0) + 1);
+
+			// remove 1 letter from left side of window
+			if (i >= pLen) {
+				ch = s.charAt(i - pLen);
+				// update s map
+				if (sCharMap.get(ch) == 1) {
+					sCharMap.remove(ch);
+				} else {
+					sCharMap.put(ch, sCharMap.get(ch) - 1);
+				}
+			}
+
+			if (pCharMap.equals(sCharMap)) {
+				result.add(i - pLen + 1);
+			}
+		}
+
+		return result;
+
+	}
 
 	public static void main(String args[]) throws Exception {
 		char str1[] = "aaabccde".toCharArray();
@@ -296,5 +368,9 @@ public class AnagramStringProblems {
 		String[] strs = { "eat", "tea", "tan", "ate", "nat", "bat" };
 		ana.groupAnagrams_usingHashMap(strs).forEach(a -> System.out.println(a));
 		ana.printAnagramGroupsUsingTrie(strs);
+
+		System.out.println(ana.findAnagrams1("BACDGABCDA", "ABCD"));
+		System.out.println(ana.findAnagrams2("BACDGABCDA", "ABCD"));
+		System.out.println(ana.findAnagrams2("AAAAAAAA", "AAAA"));
 	}
 }
