@@ -18,57 +18,70 @@ import java.util.Arrays;
  */
 public class SearchForARange {
 
-	public int[] searchRange(int[] num, int target) {
-		if (num == null || num.length == 0)
+	// T - O(log n)
+	public int[] searchRange(int[] nums, int target) {
+		if (nums == null || nums.length == 0)
 			return new int[] { -1, -1 };
 
-		int left = binarySearchLeft(num, target);
-		if (left == -1)
-			return new int[] { -1, -1 };
+		int left = 0;
+		int right = nums.length - 1;
 
-		int right = binarySearchRight(num, target, left);
+		while (left <= right) {
 
-		return new int[] { left, right };
-	}
+			// This is responsible to handle when array has all dupes. Quiet simple.
+			if (nums[left] == nums[right] && nums[left] == target) {
+				return new int[] { left, right };
+			}
 
-	private int binarySearchLeft(int[] num, int target) {
-		int left = 0, right = num.length - 1;
-
-		while (left + 1 < right) {
 			int mid = left + (right - left) / 2;
-			if (target <= num[mid]) {
-				right = mid;
+			if (nums[mid] == target) {
+				// When i find the target i expand the window from centre till i get the start and end of the repeated
+				// numbers
+				int start = mid;
+				int end = mid;
+
+				// STart should be greater than zero, its quite obvious right!!
+				while (start >= 0 && nums[start] == target) {
+					start--;
+				}
+				while (end < nums.length && nums[end] == target) {
+					end++;
+				}
+
+				start++;
+				end--;
+				return new int[] { start, end };
+			} else if (target < nums[mid]) {
+				right = mid - 1;
 			} else {
-				left = mid;
+				left = mid + 1;
 			}
 		}
 
-		if (target == num[left])
-			return left;
-		else if (target == num[right])
-			return right;
-		else
-			return -1;
+		return new int[] { -1, -1 };
 	}
 
-	private int binarySearchRight(int[] num, int target, int start) {
-		int left = start, right = num.length - 1;
+	// T - O(n)
+	public int[] searchRange1(int[] nums, int target) {
 
-		while (left + 1 < right) {
-			int mid = left + (right - left) / 2;
-			if (target <= num[mid]) {
-				right = mid;
-			} else {
-				left = mid;
+		int[] result = new int[2];
+		result[0] = -1;
+		result[1] = -1;
+
+		for (int left = 0; left < nums.length; left++) {
+			if (nums[left] == target) {
+				result[0] = left;
+				break;
+			}
+		}
+		for (int right = nums.length - 1; right >= 0; right--) {
+			if (nums[right] == target) {
+				result[1] = right;
+				break;
 			}
 		}
 
-		if (target == num[right])
-			return right;
-		else if (target == num[left])
-			return left;
-		else
-			return -1;
+		return result;
 	}
 
 	public static void main(String[] args) {
@@ -76,7 +89,9 @@ public class SearchForARange {
 		System.out.println(Arrays.toString(se.searchRange(new int[] { 5, 7, 7, 8, 8, 10 }, 8)));
 
 		System.out.println(Arrays.toString(se.searchRange(new int[] { 5, 6, 7, 8, 9, 10 }, 9)));
-
+		//
 		System.out.println(Arrays.toString(se.searchRange(new int[] { 5, 6, 7, 8, 9, 10 }, 90)));
+
+		System.out.println(Arrays.toString(se.searchRange(new int[] { 3, 3, 3 }, 3)));
 	}
 }

@@ -1,8 +1,7 @@
 package com.algo.backtracking;
 
 /**
- * Given a positive integer, find maximum integer possible by doing at-most K swap operations on its
- * digits.
+ * Given a positive integer, find maximum integer possible by doing at-most K swap operations on its digits.
  * 
  * Examples:
  * 
@@ -18,45 +17,59 @@ package com.algo.backtracking;
  * 
  * Input: M = 129814999, K = 4 Output: 999984211
  * 
- * @author surya
+ * Time Complexity: O(N^3), where N is the total number of digits in the input number. For each pair of digits, we spend
+ * up to O(N) time to compare the final sequences.
+ * 
+ * Space Complexity: O(N), we keep each digit in the array.
  *
  */
 public class MaximumNumberInKSwaps {
 
-	int max;
+	private int max = Integer.MIN_VALUE;
 
-	public MaximumNumberInKSwaps() {
-		this.max = Integer.MIN_VALUE;
+	public int maximumSwap(int num) {
+
+		char[] ch = Integer.toString(num).toCharArray();
+		if (ch.length == 1) {
+			return num;
+		}
+
+		maximumSwap(ch, 1);
+
+		return Math.max(num, max);
 	}
 
-	public void findMax(char ch[], int k) {
+	private void maximumSwap(char[] ch, int k) {
 		if (k == 0) {
 			return;
 		}
+
 		for (int i = 0; i < ch.length; i++) {
 			for (int j = i + 1; j < ch.length; j++) {
 				swap(ch, i, j);
+
 				int temp = Integer.parseInt(String.valueOf(ch));
-				if (max < temp) {
-					max = temp;
-				}
-				findMax(ch, k - 1);
+				max = Math.max(temp, max);
+
+				maximumSwap(ch, k - 1);
+				// back track
 				swap(ch, j, i);
 			}
 		}
 	}
 
-	public void swap(char ch[], int i, int j) {
+	private void swap(char[] ch, int i, int j) {
 		char temp = ch[i];
 		ch[i] = ch[j];
 		ch[j] = temp;
 	}
 
 	public static void main(String args[]) {
-		String str = "243";
-		int n = 2;
 		MaximumNumberInKSwaps ks = new MaximumNumberInKSwaps();
-		ks.findMax(str.toCharArray(), n);
-		System.out.println(ks.max + "");
+		System.out.println(ks.maximumSwap(0));
+		System.out.println(ks.maximumSwap(1));
+		System.out.println(ks.maximumSwap(10));
+		System.out.println(ks.maximumSwap(2736));
+		System.out.println(ks.maximumSwap(9973));
 	}
 }

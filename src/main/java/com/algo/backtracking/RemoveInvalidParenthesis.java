@@ -36,7 +36,7 @@ import java.util.Stack;
  */
 public class RemoveInvalidParenthesis {
 
-	public String removeInvalid(String s) {
+	public String minRemoveToMakeValid(String s) {
 		Stack<Integer> stack = new Stack<>();
 		StringBuilder sb = new StringBuilder(s);
 
@@ -97,7 +97,7 @@ public class RemoveInvalidParenthesis {
 		return ans;
 	}
 
-	public void remove(String s, List<String> ans, int last_i, int last_j, char[] par) {
+	private void remove(String s, List<String> ans, int last_i, int last_j, char[] par) {
 
 		int stack = 0, i;
 
@@ -296,7 +296,7 @@ public class RemoveInvalidParenthesis {
 		return ans;
 	}
 
-	public static boolean isValid(String s) {
+	private boolean isValid(String s) {
 		int count = 0;
 		for (int i = 0; i < s.length(); ++i) {
 			char c = s.charAt(i);
@@ -322,10 +322,10 @@ public class RemoveInvalidParenthesis {
 
 	public static void main(String[] args) {
 		RemoveInvalidParenthesis r = new RemoveInvalidParenthesis();
-		// System.out.println(r.removeInvalidParentheses("()())()"));
-		// System.out.println(r.removeInvalidParentheses("(a)())()"));
-		// System.out.println(r.removeInvalidParentheses(")("));
+		System.out.println(r.removeInvalidParentheses("()())()"));
+		System.out.println(r.removeInvalidParentheses1("(a)())()"));
+		System.out.println(r.removeInvalidParentheses2(")("));
 
-		System.out.println(r.removeInvalid("()())()"));
+		System.out.println(r.minRemoveToMakeValid("()())()"));
 	}
 }

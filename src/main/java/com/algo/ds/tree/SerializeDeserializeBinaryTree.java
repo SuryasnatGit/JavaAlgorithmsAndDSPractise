@@ -42,19 +42,22 @@ public class SerializeDeserializeBinaryTree {
 			return "";
 		}
 
+		StringBuffer buff = new StringBuffer();
+
 		Queue<TreeNode> queue = new LinkedList<>();
 		queue.offer(root);
-		StringBuffer buff = new StringBuffer();
+
 		while (!queue.isEmpty()) {
 			root = queue.poll();
 			if (root == null) {
-				buff.append("%");
+				buff.append("null").append(",");
 			} else {
 				buff.append(root.data).append(",");
 				queue.offer(root.left);
 				queue.offer(root.right);
 			}
 		}
+
 		for (int i = buff.length() - 1; i >= 0; i--) {
 			if (buff.charAt(i) == '%' || buff.charAt(i) == ',') {
 				buff.deleteCharAt(i);
@@ -62,6 +65,7 @@ public class SerializeDeserializeBinaryTree {
 				break;
 			}
 		}
+
 		return buff.toString();
 	}
 
@@ -72,25 +76,37 @@ public class SerializeDeserializeBinaryTree {
 		if (data == null || data.length() == 0) {
 			return null;
 		}
+
 		String[] input = data.split(",");
+		if (input == null || input.length == 0) {
+			return null;
+		}
+
 		Queue<TreeNode> queue = new LinkedList<>();
+
 		int index = 0;
 		queue.offer(new TreeNode(Integer.parseInt(input[index])));
 		TreeNode root = queue.peek();
+
 		index++;
+
 		while (!queue.isEmpty()) {
 			TreeNode current = queue.poll();
-			if (index < input.length && !input[index].equals("%")) {
+			if (index < input.length && !input[index].equals("null")) {
 				current.left = new TreeNode(Integer.parseInt(input[index]));
 				queue.offer(current.left);
 			}
+
 			index++;
-			if (index < input.length && !input[index].equals("%")) {
+
+			if (index < input.length && !input[index].equals("null")) {
 				current.right = new TreeNode(Integer.parseInt(input[index]));
 				queue.offer(current.right);
 			}
+
 			index++;
 		}
+
 		return root;
 	}
 
@@ -100,8 +116,8 @@ public class SerializeDeserializeBinaryTree {
 
 		TreeNode r = new TreeNode(1);
 		r.left = new TreeNode(2);
-		r.left.left = new TreeNode(7);
-		r.left.right = new TreeNode(8);
+		r.left.left = null;
+		r.left.right = null;
 		r.right = new TreeNode(3);
 		r.right.left = new TreeNode(4);
 		r.right.right = new TreeNode(5);
@@ -121,5 +137,8 @@ public class SerializeDeserializeBinaryTree {
 		TreeNode root = sd.deserializeLevelOrder("1,2,3");
 		System.out.println("deserialized ");
 		tt.inOrder(root);
+
+		// TreeNode res = sd.deserializeLevelOrder("%%4");
+		// tt.inOrder(res);
 	}
 }
