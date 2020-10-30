@@ -1,9 +1,10 @@
 
-
 package com.algo.ds.linkedlist;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import com.algo.common.ListNode;
 
 public class RemoveDuplicatesFromList {
 
@@ -11,8 +12,8 @@ public class RemoveDuplicatesFromList {
 	 * 
 	 * http://www.geeksforgeeks.org/remove-duplicates-from-a-sorted-linked-list/ <br/>
 	 * 
-	 * For example if the linked list is 11->11->11->21->43->43->60 then removeDuplicates() should
-	 * convert the list to 11->21->43->60.
+	 * For example if the linked list is 11->11->11->21->43->43->60 then removeDuplicates() should convert the list to
+	 * 11->21->43->60.
 	 * 
 	 * Test cases : <br/>
 	 * All duplicates <br/>
@@ -25,33 +26,32 @@ public class RemoveDuplicatesFromList {
 	 * 
 	 * @param head
 	 */
-    public void removeDuplicatesFromSortedList(Node head) {
-        if (head == null) {
-            return;
-        }
-        Node current = head;
-        while (current != null && current.next != null) {
-            if (current.data == current.next.data) {
-                current.next = current.next.next;
-            }
-            else {
-                current = current.next;
-            }
-        }
-    }
+	public void removeDuplicatesFromSortedList(ListNode head) {
+		if (head == null) {
+			return;
+		}
+		ListNode current = head;
+		while (current != null && current.next != null) {
+			if (current.data == current.next.data) {
+				current.next = current.next.next;
+			} else {
+				current = current.next;
+			}
+		}
+	}
 
 	/**
-	 * For example if the linked list is 12->11->12->21->41->43->21 then removeDuplicates() should
-	 * convert the list to 12->11->21->41->43. Outer loop is used to pick the elements one by one and
-	 * inner loop compares the picked element with rest of the elements. time complexity - O(n^2)
+	 * For example if the linked list is 12->11->12->21->41->43->21 then removeDuplicates() should convert the list to
+	 * 12->11->21->41->43. Outer loop is used to pick the elements one by one and inner loop compares the picked element
+	 * with rest of the elements. time complexity - O(n^2)
 	 * 
 	 * 
 	 * @param head
 	 */
-	public void removeDuplicatesFromUnsortedList_using2Loops(Node head) {
+	public void removeDuplicatesFromUnsortedList_using2Loops(ListNode head) {
 		if (head == null)
 			return;
-		Node pointer1, pointer2, duplicate = null;
+		ListNode pointer1, pointer2, duplicate = null;
 		// initially set ptr1 to head
 		pointer1 = head;
 		while (pointer1 != null && pointer1.next != null) { // outer loop
@@ -61,7 +61,7 @@ public class RemoveDuplicatesFromList {
 				if (pointer1.data == pointer2.next.data) {
 					duplicate = pointer2.next;
 					pointer2.next = pointer2.next.next;
-					System.gc();// this removes the duplicate node
+					System.gc();// this removes the duplicate ListNode
 				} else {
 					pointer2 = pointer2.next;
 				}
@@ -74,14 +74,15 @@ public class RemoveDuplicatesFromList {
 
 	/**
 	 * Time Complexity: O(n) on average (assuming that hash table access time is O(1) on average).
+	 * 
 	 * @param head
 	 */
-	public void removeDuplicatesFromUnsortedList_usingHashing(Node head) {
+	public void removeDuplicatesFromUnsortedList_usingHashing(ListNode head) {
 		if (head == null)
 			return;
 		Set<Integer> set = new HashSet<>();
-		Node current = head;
-		Node previous = null;
+		ListNode current = head;
+		ListNode previous = null;
 		while (current != null) {
 			int value = current.data;
 			if (set.contains(value)) {
@@ -95,8 +96,8 @@ public class RemoveDuplicatesFromList {
 	}
 
 	/**
-	 * Given a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct
-	 * numbers from the original list.
+	 * Given a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the
+	 * original list.
 	 * 
 	 * Example 1:
 	 * 
@@ -108,14 +109,14 @@ public class RemoveDuplicatesFromList {
 	 * 
 	 * @param head
 	 */
-	public Node removeAllDuplicates_recursive(Node head) {
+	public ListNode removeAllDuplicates_recursive(ListNode head) {
 		if (head == null || head.next == null)
 			return head;
 		if (head.data == head.next.data) {
 			while (head.next != null && head.data == head.next.data) {
 				head = head.next;
 			}
-			head = removeAllDuplicates_recursive(head.next);
+			removeAllDuplicates_recursive(head.next);
 		} else {
 			head.next = removeAllDuplicates_recursive(head.next);
 		}
@@ -128,22 +129,23 @@ public class RemoveDuplicatesFromList {
 	 * @param head
 	 * @return
 	 */
-	public Node removeAllDuplicates_2pointer(Node head) {
-		if(head== null || head.next == null) return head;
-		
-		// dummy node
-		Node dummy = Node.newNode(0);
+	public ListNode removeAllDuplicates_2pointer(ListNode head) {
+		if (head == null || head.next == null)
+			return head;
+
+		// dummy ListNode
+		ListNode dummy = new ListNode(0);
 		dummy.next = head;
-		
-		Node prev = dummy;
-		Node curr = head;
-		Node next;
-		while(curr != null && curr.next != null) {
+
+		ListNode prev = dummy;
+		ListNode curr = head;
+		ListNode next;
+		while (curr != null && curr.next != null) {
 			next = curr.next;
 			while (next != null && curr.data == next.data) {
 				next = next.next;
 			}
-			
+
 			if (next != curr.next) {
 				prev.next = next;
 			} else {
@@ -154,41 +156,41 @@ public class RemoveDuplicatesFromList {
 		return dummy.next;
 	}
 
-    public static void main(String args[]) {
-        LinkList ll = new LinkList();
-        Node head = null;
-        head = ll.addNode(1, head);
-        head = ll.addNode(1, head);
-        head = ll.addNode(1, head);
-        head = ll.addNode(4, head);
-        head = ll.addNode(4, head);
-        head = ll.addNode(5, head);
-        head = ll.addNode(6, head);
-        head = ll.addNode(6, head);
-        head = ll.addNode(6, head);
-        RemoveDuplicatesFromList rds = new RemoveDuplicatesFromList();
-        rds.removeDuplicatesFromSortedList(head);
-        ll.printList(head);
+	public static void main(String args[]) {
+		SingleLinkedList ll = new SingleLinkedList();
 
-		Node head1 = null;
-		head1 = ll.addNode(1, head1);
-		head1 = ll.addNode(2, head1);
-		head1 = ll.addNode(2, head1);
-		head1 = ll.addNode(3, head1);
-		head1 = ll.addNode(4, head1);
-//		head1 = rds.removeAllDuplicates_2pointer(head1); // sol 1
-//		rds.removeAllDuplicates(head1); // sol 2
-		head1 = rds.removeAllDuplicates_recursive(head1); // sol 3
-		ll.printList(head1);
+		ll.addNode(1);
+		ll.addNode(1);
+		ll.addNode(1);
+		ll.addNode(4);
+		ll.addNode(4);
+		ll.addNode(5);
+		ll.addNode(6);
+		ll.addNode(6);
+		ll.addNode(6);
 
-		Node head2 = null;
-		head2 = ll.addNode(1, head2);
-		head2 = ll.addNode(4, head2);
-		head2 = ll.addNode(2, head2);
-		head2 = ll.addNode(4, head2);
-		head2 = ll.addNode(3, head2);
-		rds.removeDuplicatesFromUnsortedList_using2Loops(head2); // sol 1
-//		rds.removeDuplicatesFromUnsortedList_usingHashing(head2); // sol 2
-		ll.printList(head2);
-    }
+		RemoveDuplicatesFromList rds = new RemoveDuplicatesFromList();
+		rds.removeDuplicatesFromSortedList(ll.getHead());
+		ll.displayList();
+
+		ll.addNode(11);
+		ll.addNode(21);
+		ll.addNode(21);
+		ll.addNode(31);
+		ll.addNode(41);
+		// rds.removeAllDuplicates_2pointer(head1); // sol 1
+		// rds.removeAllDuplicates(head1); // sol 2
+		rds.removeAllDuplicates_recursive(ll.getHead()); // sol 3
+		ll.displayList();
+
+		ll.addNode(12);
+		ll.addNode(42);
+		ll.addNode(22);
+		ll.addNode(42);
+		ll.addNode(32);
+
+		rds.removeDuplicatesFromUnsortedList_using2Loops(ll.getHead()); // sol 1
+		// rds.removeDuplicatesFromUnsortedList_usingHashing(head2); // sol 2
+		ll.displayList();
+	}
 }

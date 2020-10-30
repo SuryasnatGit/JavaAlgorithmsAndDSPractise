@@ -18,6 +18,10 @@ public class SingleLinkedList {
 		return head;
 	}
 
+	public void addNode(int d) {
+		addNodeAtFront(d);
+	}
+
 	public void addNodeAtFront(int d) {
 		ListNode node = new ListNode(d);
 		node.next = head;
@@ -40,6 +44,15 @@ public class SingleLinkedList {
 	}
 
 	public void displayList() {
+		ListNode current = head;
+		while (current != null) {
+			System.out.print(current.getData() + " -> ");
+			current = current.next;
+		}
+		System.out.print("null");
+	}
+
+	public void displayList(ListNode head) {
 		ListNode current = head;
 		while (current != null) {
 			System.out.print(current.getData() + " -> ");
@@ -78,6 +91,15 @@ public class SingleLinkedList {
 			previous.next = current.next;
 
 		return current;
+	}
+
+	public int size(ListNode head) {
+		ListNode node = head;
+		int count = 0;
+		while (node != null) {
+			count++;
+		}
+		return count;
 	}
 
 	public static void main(String[] args) {

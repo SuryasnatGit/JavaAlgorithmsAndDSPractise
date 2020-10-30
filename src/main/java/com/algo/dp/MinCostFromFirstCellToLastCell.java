@@ -20,7 +20,7 @@ public class MinCostFromFirstCellToLastCell {
 	}
 
 	// T - O(m * n) S - O(m * n)
-	public int findMinCost_iter(int[][] matrix) {
+	public int findMinCostDP(int[][] matrix) {
 		int r = matrix.length;
 		int c = matrix[0].length;
 
@@ -49,11 +49,38 @@ public class MinCostFromFirstCellToLastCell {
 		return cost[r - 1][c - 1];
 	}
 
+	// T - O(m * n) S - O(1)
+	public int findMinCostDPOptimal(int[][] matrix) {
+		int r = matrix.length;
+		int c = matrix[0].length;
+
+		for (int i = 0; i < r; i++) {
+			for (int j = 0; j < c; j++) {
+				// fill first row (there is only one way to reach any cell in the first row, that is from its adjacent
+				// left cell)
+				if (i == 0 && j > 0) {
+					matrix[0][j] += matrix[0][j - 1];
+				} else if (i > 0 && j == 0) {
+					// fill first column (there is only one way to reach any cell in the first column, that is from its
+					// adjacent top cell)
+					matrix[i][0] += matrix[i - 1][0];
+				} else if (i > 0 && j > 0) {
+					// fill rest of the matrix (there are two way to reach any cell in the rest of the matrix, that is
+					// from its adjacent left cell or adjacent top cell)
+					matrix[i][j] += Integer.min(matrix[i - 1][j], matrix[i][j - 1]);
+				}
+			}
+		}
+
+		return matrix[r - 1][c - 1];
+	}
+
 	public static void main(String[] args) {
 		MinCostFromFirstCellToLastCell min = new MinCostFromFirstCellToLastCell();
 		int[][] matrix = { { 4, 7, 8, 6, 4 }, { 6, 7, 3, 9, 2 }, { 3, 8, 1, 2, 4 }, { 7, 1, 7, 3, 7 },
 				{ 2, 9, 8, 9, 3 } };
 		System.out.println(min.findMinCost_rec(matrix, matrix.length, matrix[0].length));
-		System.out.println(min.findMinCost_iter(matrix));
+		System.out.println(min.findMinCostDP(matrix));
+		System.out.println(min.findMinCostDPOptimal(matrix));
 	}
 }
