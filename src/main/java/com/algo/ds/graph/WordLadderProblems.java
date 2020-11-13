@@ -165,6 +165,90 @@ public class WordLadderProblems {
 	}
 
 	/**
+	 * A gene string can be represented by an 8-character long string, with choices from "A", "C", "G", "T".
+	 * 
+	 * Suppose we need to investigate about a mutation (mutation from "start" to "end"), where ONE mutation is defined
+	 * as ONE single character changed in the gene string.
+	 * 
+	 * For example, "AACCGGTT" -> "AACCGGTA" is 1 mutation.
+	 * 
+	 * Also, there is a given gene "bank", which records all the valid gene mutations. A gene must be in the bank to
+	 * make it a valid gene string.
+	 * 
+	 * Now, given 3 things - start, end, bank, your task is to determine what is the minimum number of mutations needed
+	 * to mutate from "start" to "end". If there is no such a mutation, return -1.
+	 * 
+	 * Note:
+	 * 
+	 * Starting point is assumed to be valid, so it might not be included in the bank. If multiple mutations are needed,
+	 * all mutations during in the sequence must be valid. You may assume start and end string is not the same.
+	 * 
+	 * Example 1:
+	 * 
+	 * start: "AACCGGTT" end: "AACCGGTA" bank: ["AACCGGTA"]
+	 * 
+	 * return: 1
+	 * 
+	 * Example 2:
+	 * 
+	 * start: "AACCGGTT" end: "AAACGGTA" bank: ["AACCGGTA", "AACCGCTA", "AAACGGTA"]
+	 * 
+	 * return: 2
+	 * 
+	 * Example 3:
+	 * 
+	 * start: "AAAAACCC" end: "AACCCCCC" bank: ["AAAACCCC", "AAACCCCC", "AACCCCCC"]
+	 * 
+	 * return: 3
+	 * 
+	 */
+	public int minMutation(String start, String end, String[] bank) {
+		if (bank == null || bank.length == 0)
+			return -1;
+		Set<String> set = new HashSet<>();
+		for (String b : bank)
+			set.add(b);
+
+		int mutations = 0;
+		char[] choices = new char[] { 'A', 'C', 'G', 'T' };
+
+		Queue<String> queue = new LinkedList<>();
+		queue.add(start);
+
+		while (!queue.isEmpty()) {
+			int siz = queue.size();
+			mutations++;
+			// go over all neighbors/level nodes
+			while (siz-- > 0) {
+				// test all possible mutations
+				StringBuilder curr = new StringBuilder(queue.remove());
+				for (int i = 0; i < curr.length(); i++) {
+					char original = curr.charAt(i);
+					for (char choice : choices) {
+						// String newCurr = curr.substring(0,i) + choice + curr.substring(i+1);
+						curr.setCharAt(i, choice);
+						String newCurr = curr.toString();
+						if (set.contains(newCurr)) {
+							if (newCurr.equals(end)) {
+								return mutations;
+							}
+
+							queue.add(newCurr);
+							set.remove(newCurr); // mark as visited
+						}
+
+						curr.setCharAt(i, original);
+					}
+
+				}
+
+			}
+		}
+
+		return -1;
+	}
+
+	/**
 	 * Given two words (beginWord and endWord), and a dictionary's word list, find all shortest transformation
 	 * sequence(s) from beginWord to endWord, such that: Only one letter can be changed at a time. Each intermediate
 	 * word must exist in the word list.

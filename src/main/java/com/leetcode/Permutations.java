@@ -1,7 +1,10 @@
 package com.leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Given a collection of distinct integers, return all possible permutations.
@@ -43,6 +46,63 @@ public class Permutations {
 		int temp = nums[i];
 		nums[i] = nums[j];
 		nums[j] = temp;
+	}
+
+	public List<List<Integer>> getPermutation(int[] arr) {
+		Set<List<Integer>> resSet = new HashSet<List<Integer>>();
+		List<List<Integer>> res = new ArrayList<List<Integer>>();
+		List<Integer> list = new ArrayList<Integer>();
+		Set<Integer> visited = new HashSet<Integer>();
+
+		Arrays.sort(arr); // If using Set, no need to sort
+		helperWithDuplicates(res, list, arr, visited);
+
+		for (List<Integer> aList : res) {
+			for (int val : aList) {
+				System.out.print(val + "--");
+			}
+			System.out.println();
+		}
+
+		return res;
+	}
+
+	// What if there is duplicate?
+	void helperWithDuplicates(Set<List<Integer>> res, List<Integer> list, int[] arr, Set<Integer> visited) {
+		if (list.size() == arr.length) {
+			res.add(new ArrayList<Integer>(list));
+			return;
+		}
+
+		for (int i = 0; i < arr.length; i++) {
+			if (visited.contains(i)) {
+				continue;
+			}
+			visited.add(i);
+			list.add(arr[i]);
+			helperWithDuplicates(res, list, arr, visited);
+			list.remove(list.size() - 1);
+			visited.remove(i);
+		}
+	}
+
+	// What if Set is not allowed. You need to figure out the duplicates
+	void helperWithDuplicates(List<List<Integer>> res, List<Integer> list, int[] arr, Set<Integer> visited) {
+		if (list.size() == arr.length) {
+			res.add(new ArrayList<Integer>(list));
+			return;
+		}
+
+		for (int i = 0; i < arr.length; i++) {
+			if (visited.contains(i) || (i != 0 && arr[i] == arr[i - 1] && !visited.contains(i - 1))) {
+				continue;
+			}
+			visited.add(i);
+			list.add(arr[i]);
+			helperWithDuplicates(res, list, arr, visited);
+			list.remove(list.size() - 1);
+			visited.remove(i);
+		}
 	}
 
 	public static void main(String[] args) {

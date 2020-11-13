@@ -129,10 +129,6 @@ public class IPAddressValidationProblems {
 		return "Neither";
 	}
 
-	private boolean validHexChar(char c) {
-		return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
-	}
-
 	private boolean validDecSection(String v) {
 		if (v.length() > 3 || v.length() == 0) {
 			return false;
@@ -165,29 +161,30 @@ public class IPAddressValidationProblems {
 			return false;
 		}
 
-		boolean nonZeroExist = false;
 		for (int i = 0; i < str.length(); i++) {
 			char c = str.charAt(i);
 			if (!validHexChar(c)) {
 				return false;
 			}
-
-			// Both are valid, so no need to check this.
-			// if (c == '0') {
-			// if (!nonZeroExist && i != 0) { // 00ab is false. 0abc is true. 0 is true. ab00 is true. a00b is true
-			// return false;
-			// }
-			// } else {
-			// nonZeroExist = true;
-			// }
 		}
 
 		return true;
+	}
+
+	private boolean validHexChar(char c) {
+		return (c >= '0' && c <= '9') || (c >= 'a' && c <= 'f') || (c >= 'A' && c <= 'F');
 	}
 
 	public static void main(String[] args) {
 		IPAddressValidationProblems ip = new IPAddressValidationProblems();
 		List<String> res = ip.restoreIPAddress("2552511135");
 		res.forEach(a -> System.out.println(a));
+
+		System.out.println(ip.validIPAddress("172.16.254.1"));
+		System.out.println(ip.validIPAddress("2001:0db8:85a3:0:0:8A2E:0370:7334"));
+		System.out.println(ip.validIPAddress("256.256.256.256"));
+		System.out.println(ip.validIPAddress("2001:0db8:85a3:0:0:8A2E:0370:7334:"));
+		System.out.println(ip.validIPAddress("1e1.4.5.6"));
+		System.out.println(ip.validIPAddress("12..33.4"));
 	}
 }

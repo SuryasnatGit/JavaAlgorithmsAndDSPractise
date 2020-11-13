@@ -51,6 +51,55 @@ public class FrequencyOfEachElementInSortedArray {
 		System.out.println(count);
 	}
 
+	/**
+	 * Count frequency of each element in large list
+	 * 
+	 * @param arr
+	 * @return
+	 */
+	public Map<Integer, Integer> count(int[] arr) {
+		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+		for (int i = 0; i < arr.length;) {
+			int curVal = arr[i];
+
+			int radix = 0;
+			int pos = (int) (i + Math.pow(2, radix));
+			while (pos < arr.length && arr[pos] == curVal) { // Jump, O(log(N))
+				radix++;
+				pos = (int) (i + Math.pow(2, radix));
+			}
+
+			int left = i;
+			int right = (pos < arr.length) ? pos : arr.length - 1;
+
+			// Binary search to find the right border of curVal
+			int rightBorder = binarySearch(arr, left, right, curVal);
+
+			map.put(curVal, rightBorder - left + 1);
+			i = rightBorder + 1;
+		}
+
+		return map;
+	}
+
+	private int binarySearch(int[] arr, int left, int right, int curVal) {
+		while (left + 1 < right) {
+			int mid = left + (right - left) / 2;
+
+			if (arr[mid] == curVal) {
+				left = mid;
+			} else {
+				right = mid;
+			}
+		}
+
+		if (arr[right] == curVal) {
+			return right;
+		}
+		return left;
+	}
+
 	public static void main(String[] args) {
 		FrequencyOfEachElementInSortedArray fr = new FrequencyOfEachElementInSortedArray();
 		int[] arr = { 2, 2, 2, 4, 4, 4, 5, 5, 6, 8, 8, 9 };

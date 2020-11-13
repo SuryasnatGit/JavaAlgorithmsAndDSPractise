@@ -31,6 +31,31 @@ import java.util.Stack;
  * 
  * Finally we have this formula: T(n) = n x C(n, n) + (n-1) x C(n, n-1) + ... + 1 x C(n, 1) = n x 2^(n-1).
  * 
+ * Other notes:
+ * 
+ * The remove parenthese asked by fb only needs one correct answer, not all, so it's OK to go through O(n). If you want
+ * to find all, it's impossible to get O(n).
+ *
+ * 2. balance parentheses in a string example: "(a)()" -> "(a)()" "((bc)" -> "(bc)" ")))a((" -> "a" "(a(b)" ->"(ab)" or
+ * "a(b)"
+ * 
+ * Note: Balance means to change the unpaired parentheses in the original string into paired form. If there are multiple
+ * possible results, such as the last case above, we only need to output a pair of results. So this simplifies the
+ * difficulty of the problem. Feeling: Traverse the string, use a stack to store the index of each open parenthesis,
+ * which is the index of'(', and perform a pop operation whenever a closed parenthesis is encountered. Pay attention to
+ * two unbalanced situations: 1. There is an extra')': The corresponding situation is that the stack is empty, but a')'
+ * is encountered. 2. There is an extra'(': The corresponding situation is the end of the traversal, the stack is not
+ * empty
+ * 
+ * Solve these two situations For java, we need to convert string to char array to do it, because string is immutable in
+ * java.
+ * 
+ * follow-up: Q: Analyze complexity, and ask how to do it without stack? A: After thinking for a while, I feel that it
+ * is feasible to use two-pointer, one finger, one finger tail, head index search'(', if found, move tail index
+ * search')'. Although the interviewer didn't say anything, his reaction was a little surprised at first, indicating
+ * that he was preparing another solution in his mind. Here are the great gods
+ * 
+ * 
  * Category : Hard
  *
  */

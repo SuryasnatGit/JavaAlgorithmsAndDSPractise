@@ -1,7 +1,10 @@
 package com.algo.ds.tree;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
+import java.util.Stack;
 
 import com.algo.common.TreeNode;
 
@@ -37,7 +40,7 @@ public class SerializeDeserializeBinaryTree {
 	/**
 	 * Serialize tree using level order traversal.
 	 */
-	public String serializeLevelOrder(TreeNode root) {
+	public String serializeBinaryTree(TreeNode root) {
 		if (root == null) {
 			return "";
 		}
@@ -72,7 +75,7 @@ public class SerializeDeserializeBinaryTree {
 	/**
 	 * Deserialize Tree using level order traversal.
 	 */
-	public TreeNode deserializeLevelOrder(String data) {
+	public TreeNode deserializeBinaryTree(String data) {
 		if (data == null || data.length() == 0) {
 			return null;
 		}
@@ -110,6 +113,70 @@ public class SerializeDeserializeBinaryTree {
 		return root;
 	}
 
+	// Nary tree
+	public String serializeNAryTree(Node root) {
+		if (root == null) {
+			return "";
+		}
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("(");
+		sb.append(root.val);
+		for (Node child : root.children) { // 有孩子就往里加，没有就(5)
+			sb.append(serializeNAryTree(child));
+		}
+		sb.append(")");
+
+		return sb.toString();
+	}
+
+	public Node deserializeNAryTree(String s) {
+		Node root = null;
+		Node parent = null;
+		Stack<Node> stack = new Stack<Node>();
+		int pos = 0;
+
+		while (pos < s.length()) {
+			char c = s.charAt(pos);
+
+			if (c == '(') {
+				pos++; // Next must be a number
+
+				Node node = new Node(s.charAt(pos) - '0');
+				if (root == null) {
+					root = node; // Will come here only once
+				}
+				if (parent != null) {
+					parent.children.add(node);
+				}
+
+				parent = node;
+				stack.push(node); // 记录一下
+			} else if (c == ')') {
+				stack.pop(); // 弹出来
+
+				if (!stack.isEmpty()) {
+					parent = stack.peek(); // Change parent node, 1 level above
+				}
+			}
+
+			pos++;
+		}
+
+		return root;
+	}
+
+	static class Node {
+		int val;
+		List<Node> children;
+
+		Node(int val) {
+			this.val = val;
+			this.children = new ArrayList<Node>();
+		}
+	}
+
 	public static void main(String args[]) {
 		SerializeDeserializeBinaryTree sd = new SerializeDeserializeBinaryTree();
 		TreeTraversals tt = new TreeTraversals();
@@ -132,9 +199,9 @@ public class SerializeDeserializeBinaryTree {
 
 		// tt.inOrder(node);
 		System.out.println();
-		String serializedTree = sd.serializeLevelOrder(r);
+		String serializedTree = sd.serializeBinaryTree(r);
 		System.out.println("Serialized :" + serializedTree);
-		TreeNode root = sd.deserializeLevelOrder("1,2,3");
+		TreeNode root = sd.deserializeBinaryTree("1,2,3");
 		System.out.println("deserialized ");
 		tt.inOrder(root);
 

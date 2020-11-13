@@ -1,5 +1,7 @@
 package com.algo.dp;
 
+import java.util.Iterator;
+
 /**
  * Given two strings str1 and str2 and below operations that can performed on str1. Find minimum number of edits
  * (operations) required to convert str1 to str2
@@ -89,5 +91,92 @@ public class EditDistanceProblem {
 			}
 		}
 		return solution[s1.length()][s2.length()];
+	}
+
+	/**
+	 * Problem 2:One edit distance problem
+	 */
+	// This is one edit distance
+	public boolean isOneEditDistance(String s, String t) {
+		if (s == null || t == null) {
+			return false;
+		}
+
+		if (s.length() == t.length()) {
+			return change(s, t);
+		} else {
+			if (Math.abs(s.length() - t.length()) > 1) {
+				return false;
+			}
+			return add(s, t);
+		}
+	}
+
+	private boolean add(String s, String t) {
+		if (s.length() < t.length()) {
+			return add(t, s);
+		}
+
+		int pos1 = 0, pos2 = 0;
+		while (pos1 < s.length() && pos2 < t.length()) {
+			if (s.charAt(pos1) != t.charAt(pos2)) {
+				return s.substring(pos1 + 1).equals(t.substring(pos2));
+			}
+			pos1++;
+			pos2++;
+		}
+
+		return true;
+	}
+
+	private boolean change(String s, String t) {
+		boolean found = false;
+
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) != t.charAt(i)) {
+				if (found) {
+					return false;
+				}
+				found = true;
+			}
+		}
+
+		return found;
+	}
+
+	// For the above "One Edit Distance", what if input is a stream
+
+	/**
+	 * The second question is a variant of "one edit distance", but in fact this question is a bit difficult. The input
+	 * is not given two strings, but two custom interfaces, which only have the next() method. When next() returns 0, it
+	 * is end. My approach is to implement another peek() method, and then I am a little confused when calling these two
+	 * methods. In the end, I almost didn’t finish writing, but I still finished writing. The interviewer said Is work
+	 * 
+	 * 3 scenarios, 1. Once unequal is found, all the following must be equal. 2. If s is long, throw away S and compare
+	 * them one by one 3. If t is long, throw away T, then compare one by one
+	 */
+
+	public boolean isOneEditDistance(Iterator<Character> s, Iterator<Character> t) {
+		if (s == null || t == null) {
+			return false;
+		}
+
+		boolean findUnequal = false;
+
+		while (s.hasNext() && t.hasNext()) {
+			char c1 = s.next();
+			char c2 = t.next();
+
+			if (c1 == c2) {
+				continue;
+			} else {
+				if (findUnequal) {
+					return false;
+				}
+				findUnequal = true;
+			}
+		}
+
+		return findUnequal;
 	}
 }

@@ -14,22 +14,15 @@ import com.algo.common.TreeNode;
  */
 public class UpsidedownBinaryTree {
 	public TreeNode upsideDownBinaryTree(TreeNode root) {
-		if (root == null) {
-			return null;
+		if (root == null || (root.left == null && root.right == null)) { // only root.left == null?
+			return root;
 		}
-		return upsideDownBinaryTree(root, null, null);
+		TreeNode newRoot = upsideDownBinaryTree(root.left);
+		root.left.left = root.right;
+		root.left.right = root;
+		root.left = null;
+		root.right = null;
+		return newRoot;
 	}
 
-	public TreeNode upsideDownBinaryTree(TreeNode root, TreeNode parent, TreeNode rightChild) {
-		if (root == null) {
-			return parent;
-		}
-		TreeNode left = root.left;
-		TreeNode right = root.right;
-
-		root.right = parent;
-		root.left = rightChild;
-
-		return upsideDownBinaryTree(left, root, right);
-	}
 }
