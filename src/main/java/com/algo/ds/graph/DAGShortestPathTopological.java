@@ -1,62 +1,43 @@
 package com.algo.ds.graph;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
 
 /**
  * http://www.geeksforgeeks.org/shortest-path-for-directed-acyclic-graphs/
  * 
- * Given a Weighted Directed Acyclic Graph and a source vertex in the graph, find the shortest paths
- * from given source to all other vertices.
+ * Given a Weighted Directed Acyclic Graph and a source vertex in the graph, find the shortest paths from given source
+ * to all other vertices.
  * 
- * We initialize distances to all vertices as infinite and distance to source as 0, then we find a
- * topological sorting of the graph. Topological Sorting of a graph represents a linear ordering of
- * the graph (See below, figure (b) is a linear representation of figure (a) ). Once we have
- * topological order (or linear representation), we one by one process all vertices in topological
- * order. For every vertex being processed, we update distances of its adjacent using distance of
- * current vertex.
+ * We initialize distances to all vertices as infinite and distance to source as 0, then we find a topological sorting
+ * of the graph. Topological Sorting of a graph represents a linear ordering of the graph (See below, figure (b) is a
+ * linear representation of figure (a) ). Once we have topological order (or linear representation), we one by one
+ * process all vertices in topological order. For every vertex being processed, we update distances of its adjacent
+ * using distance of current vertex.
  * 
- * Time complexity of topological sorting is O(V+E). After finding topological order, the algorithm
- * process all vertices and for every vertex, it runs a loop for all adjacent vertices. Total
- * adjacent vertices in a graph is O(E). So the inner loop runs O(V+E) times. Therefore, overall
- * time complexity of this algorithm is O(V+E).
+ * Time complexity of topological sorting is O(V+E). After finding topological order, the algorithm process all vertices
+ * and for every vertex, it runs a loop for all adjacent vertices. Total adjacent vertices in a graph is O(E). So the
+ * inner loop runs O(V+E) times. Therefore, overall time complexity of this algorithm is O(V+E).
  * 
  */
 public class DAGShortestPathTopological<T> {
 
 	private int V;
-	private LinkedList<AdjListNode> adj[];
-
-	static final int INF = Integer.MAX_VALUE;
-
-	class AdjListNode {
-		private int v;
-		private int weight;
-
-		AdjListNode(int _v, int _w) {
-			v = _v;
-			weight = _w;
-		}
-
-		int getV() {
-			return v;
-		}
-
-		int getWeight() {
-			return weight;
-		}
-	}
+	private List<AdjListNode> adj[];
+	private int INF = Integer.MAX_VALUE;
 
 	public DAGShortestPathTopological(int v) {
-		V = v;
-		adj = new LinkedList[V];
+		this.V = v;
+		this.adj = new ArrayList[V];
 		for (int i = 0; i < v; ++i)
 			adj[i] = new LinkedList<AdjListNode>();
 	}
 
-	void shortestPath(int s) {
-		Stack stack = new Stack();
+	public void shortestPath(int s) {
+		Stack<Integer> stack = new Stack<>();
 		int dist[] = new int[V];
 
 		// Mark all the vertices as not visited
@@ -102,10 +83,9 @@ public class DAGShortestPathTopological<T> {
 		}
 	}
 
-	void topologicalSortUtil(int v, Boolean visited[], Stack stack) {
+	private void topologicalSortUtil(int v, Boolean visited[], Stack<Integer> stack) {
 		// Mark the current node as visited.
 		visited[v] = true;
-		Integer i;
 
 		// Recur for all the vertices adjacent to this vertex
 		Iterator<AdjListNode> it = adj[v].iterator();
@@ -115,26 +95,42 @@ public class DAGShortestPathTopological<T> {
 				topologicalSortUtil(node.getV(), visited, stack);
 		}
 		// Push current vertex to stack which stores result
-		stack.push(new Integer(v));
+		stack.push(v);
 	}
 
-
-    
-    public static void main(String args[]){
-        Graph<Integer> graph = new Graph<Integer>(true);
-        graph.addEdge(1, 2,4);
-        graph.addEdge(2, 3,3);
-        graph.addEdge(2, 4,2);
-        graph.addEdge(1, 3,2);
-        graph.addEdge(3, 5,1);
-        graph.addEdge(4, 5,5);
-        graph.addEdge(5, 6,2);
-        graph.addEdge(4, 7,3);
+	public static void main(String args[]) {
+		Graph<Integer> graph = new Graph<Integer>(true);
+		graph.addEdge(1, 2, 4);
+		graph.addEdge(2, 3, 3);
+		graph.addEdge(2, 4, 2);
+		graph.addEdge(1, 3, 2);
+		graph.addEdge(3, 5, 1);
+		graph.addEdge(4, 5, 5);
+		graph.addEdge(5, 6, 2);
+		graph.addEdge(4, 7, 3);
 
 		// DAGShortestPathTopological<Integer> shortestPath = new DAGShortestPathTopological<Integer>();
 		// Map<Vertex<Integer>,Integer> distance = shortestPath.shortestPath(graph,
 		// graph.getAllVertex().iterator().next());
 		// System.out.print(distance);
-        
-    }
+
+	}
+}
+
+class AdjListNode {
+	private int v;
+	private int weight;
+
+	AdjListNode(int _v, int _w) {
+		v = _v;
+		weight = _w;
+	}
+
+	int getV() {
+		return v;
+	}
+
+	int getWeight() {
+		return weight;
+	}
 }

@@ -1,5 +1,7 @@
 package com.algo.ds.linkedlist;
 
+import com.algo.common.ListNode;
+
 /**
  * http://www.geeksforgeeks.org/sum-of-two-linked-lists/<br/>
  * Test case.. <br/>
@@ -12,17 +14,17 @@ package com.algo.ds.linkedlist;
  * Steps: Following are the steps. <br/>
  * 1) Calculate sizes of given two linked lists. <br/>
  * 
- * 2) If sizes are same, then calculate sum using recursion. Hold all nodes in recursion call stack
- * till the rightmost node, calculate sum of rightmost nodes and forward carry to left side.<br/>
+ * 2) If sizes are same, then calculate sum using recursion. Hold all nodes in recursion call stack till the rightmost
+ * node, calculate sum of rightmost nodes and forward carry to left side.<br/>
  * 
  * 3) If size is not same, then follow below steps: .<br/>
  * a) Calculate difference of sizes of two linked lists. Let the difference be diff .<br/>
  * 
- * b) Move diff nodes ahead in the bigger linked list. Now use step 2 to calculate sum of smaller
- * list and right sub-list (of same size) of larger list. Also, store the carry of this sum. .<br/>
+ * b) Move diff nodes ahead in the bigger linked list. Now use step 2 to calculate sum of smaller list and right
+ * sub-list (of same size) of larger list. Also, store the carry of this sum. .<br/>
  * 
- * c) Calculate sum of the carry (calculated in previous step) with the remaining left sub-list of
- * larger list. Nodes of this sum are added at the beginning of sum list obtained previous step.
+ * c) Calculate sum of the carry (calculated in previous step) with the remaining left sub-list of larger list. Nodes of
+ * this sum are added at the beginning of sum list obtained previous step.
  * 
  * <n/> Time Complexity: O(m+n) where m and n are the sizes of given two linked lists.
  * 
@@ -33,22 +35,24 @@ public class AddNumberRepresentedByLinkList {
 	private int carry = 0;
 
 	/**
-	 * Input: First List: 5->6->3 // represents number 563 Second List: 8->4->2 // represents number 842
-	 * Output Resultant list: 1->4->0->5 // represents number 1405
+	 * Input: First List: 5->6->3 // represents number 563 Second List: 8->4->2 // represents number 842 Output
+	 * Resultant list: 1->4->0->5 // represents number 1405
 	 * 
 	 * @param head1
 	 * @param head2
 	 * @return
 	 */
-	public Node add_forwordOrder(Node head1, Node head2) {
+	public ListNode add_forwordOrder(ListNode head1, ListNode head2) {
 		if (head1 == null || head2 == null) {
 			throw new IllegalArgumentException();
 		}
-		LinkList ll = new LinkList();
+
+		SingleLinkedList ll = new SingleLinkedList();
 		int size1 = ll.size(head1);
 		int size2 = ll.size(head2);
-		Node larger = null;
-		Node smaller = null;
+
+		ListNode larger = null;
+		ListNode smaller = null;
 		if (size1 >= size2) {
 			larger = head1;
 			smaller = head2;
@@ -57,19 +61,22 @@ public class AddNumberRepresentedByLinkList {
 			smaller = head1;
 		}
 		int diff = Math.abs(size1 - size2);
-		Node largerStart = larger;
+
+		ListNode largerStart = larger;
 		while (diff > 0) {
 			largerStart = largerStart.next;
 			diff--;
 		}
-		Node result = addWithCarry(largerStart, smaller);
-		Node result1 = addRemaining(larger, largerStart);
+
+		ListNode result = addWithCarry(largerStart, smaller);
+		ListNode result1 = addRemaining(larger, largerStart);
 		if (carry != 0) {
-			Node top = Node.newNode(carry);
-			result1 = ll.addAtFront(top, result1);
+			ListNode top = new ListNode(carry);
+			result1 = ll.addNode(carry);
 		}
+
 		if (result1 != null) {
-			Node tail = result1;
+			ListNode tail = result1;
 			while (tail.next != null) {
 				tail = tail.next;
 			}
@@ -79,11 +86,11 @@ public class AddNumberRepresentedByLinkList {
 		return result;
 	}
 
-	private Node addWithCarry(Node head1, Node head2) {
+	private ListNode addWithCarry(ListNode head1, ListNode head2) {
 		if (head1 == null) {
 			return null;
 		}
-		Node result = Node.newNode(0);
+		ListNode result = new ListNode(0);
 		result.next = addWithCarry(head1.next, head2.next);
 		int r = head1.data + head2.data + carry;
 		result.data = r % 10;
@@ -91,9 +98,9 @@ public class AddNumberRepresentedByLinkList {
 		return result;
 	}
 
-	private Node addRemaining(Node start, Node stop) {
+	private ListNode addRemaining(ListNode start, ListNode stop) {
 		if (start != stop) {
-			Node result = Node.newNode(0);
+			ListNode result = new ListNode(0);
 			result.next = addRemaining(start.next, stop);
 			result.data = (start.data + carry) % 10;
 			carry = (start.data + carry) / 10;
@@ -104,31 +111,30 @@ public class AddNumberRepresentedByLinkList {
 	}
 
 	/**
-	 * Given two numbers represented by two lists, write a function that returns sum list. The sum list
-	 * is list representation of addition of two input numbers.
+	 * Given two numbers represented by two lists, write a function that returns sum list. The sum list is list
+	 * representation of addition of two input numbers.
 	 * 
 	 * Example 1
 	 * 
-	 * Input: First List: 5->6->3 // represents number 365 Second List: 8->4->2 // represents number 248
-	 * Output Resultant list: 3->1->6 // represents number 613 Example 2
+	 * Input: First List: 5->6->3 // represents number 365 Second List: 8->4->2 // represents number 248 Output
+	 * Resultant list: 3->1->6 // represents number 613 Example 2
 	 * 
-	 * Input: First List: 7->5->9->4->6 // represents number 64957 Second List: 8->4 // represents
-	 * number 48 Output Resultant list: 5->0->0->5->6 // represents number 65005.
+	 * Input: First List: 7->5->9->4->6 // represents number 64957 Second List: 8->4 // represents number 48 Output
+	 * Resultant list: 5->0->0->5->6 // represents number 65005.
 	 * 
-	 * Soln: Traverse both lists. One by one pick nodes of both lists and add the values. If sum is more
-	 * than 10 then make carry as 1 and reduce sum. If one list has more elements than the other then
-	 * consider remaining values of this list as 0.
+	 * Soln: Traverse both lists. One by one pick nodes of both lists and add the values. If sum is more than 10 then
+	 * make carry as 1 and reduce sum. If one list has more elements than the other then consider remaining values of
+	 * this list as 0.
 	 * 
-	 * Time Complexity: O(m + n) where m and n are number of nodes in first and second lists
-	 * respectively.
+	 * Time Complexity: O(m + n) where m and n are number of nodes in first and second lists respectively.
 	 * 
 	 * @return
 	 */
-	public Node add_reverseOrder(Node first, Node second) {
+	public ListNode add_reverseOrder(ListNode first, ListNode second) {
 		/* Adds contents of two linked lists and return the head node of resultant list */
-		Node res = null; // res is head node of the resultant list
-		Node prev = null;
-		Node temp = null;
+		ListNode res = null; // res is head node of the resultant list
+		ListNode prev = null;
+		ListNode temp = null;
 		int carry = 0, sum;
 
 		while (first != null || second != null) // while both lists exist
@@ -147,7 +153,7 @@ public class AddNumberRepresentedByLinkList {
 			sum = sum % 10;
 
 			// Create a new node with sum as data
-			temp = Node.newNode(sum);
+			temp = new ListNode(sum);
 
 			// if this is the first node then set it as head of
 			// the resultant list
@@ -171,26 +177,52 @@ public class AddNumberRepresentedByLinkList {
 		}
 
 		if (carry > 0) {
-			temp.next = Node.newNode(carry);
+			temp.next = new ListNode(carry);
 		}
 
 		// return head of the resultant list
 		return res;
 	}
 
+	private void displayList(ListNode head) {
+		ListNode node = head;
+		StringBuilder sb = new StringBuilder();
+		while (node != null) {
+			sb.append(node.getData() + "->");
+		}
+		sb.append("null");
+		System.out.println(sb.toString());
+	}
+
+	/**
+	 * add 2 huge numbers represented by linked list. Each linked list element represents a 4 digit number:
+	 * 
+	 * linked list1 : 8798 -> 8765 -> 1243 -> 9856 -> 8888 -> 0914
+	 * 
+	 * linked list 2: 8710 -> 5634 -> 1276 -> 8123 -> 1354 -> 9876
+	 * 
+	 * output: ................-> ............. ..-> 7980->0243 -> 0790
+	 * 
+	 */
+	public ListNode formListFrom2BigNumbers(ListNode a, ListNode b) {
+
+	}
+
 	public static void main(String args[]) {
-		LinkList ll = new LinkList();
-		Node head = null;
-		head = ll.addNode(9, head);
-		head = ll.addNode(4, head);
-		ll.printList(head);
-		Node head1 = null;
-		head1 = ll.addNode(9, head1);
-		head1 = ll.addNode(1, head1);
-		head1 = ll.addNode(2, head1);
-		ll.printList(head1);
 		AddNumberRepresentedByLinkList anr = new AddNumberRepresentedByLinkList();
-		Node result = anr.add_forwordOrder(head, head1);
-		ll.printList(result);
+
+		SingleLinkedList ll = new SingleLinkedList();
+		ll.addNode(9);
+		ll.addNode(4);
+		anr.displayList(ll.getHead());
+
+		SingleLinkedList ll1 = new SingleLinkedList();
+		ll1.addNode(9);
+		ll1.addNode(1);
+		ll1.addNode(2);
+		anr.displayList(ll1.getHead());
+
+		ListNode result = anr.add_forwordOrder(ll.getHead(), ll1.getHead());
+		anr.displayList(result);
 	}
 }

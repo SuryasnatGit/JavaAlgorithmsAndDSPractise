@@ -45,11 +45,11 @@ public class AddGreaterValueNodeToEveryNode {
 	public static void main(String args[]) {
 		BinaryTree bt = new BinaryTree();
 		TreeNode root = null;
-		root = bt.addNode(10, root);
-		root = bt.addNode(5, root);
-		root = bt.addNode(20, root);
-		root = bt.addNode(15, root);
-		root = bt.addNode(25, root);
+		bt.insert(10);
+		bt.insert(5);
+		bt.insert(20);
+		bt.insert(15);
+		bt.insert(25);
 		AddGreaterValueNodeToEveryNode agv = new AddGreaterValueNodeToEveryNode();
 		IntegerRef ir = new IntegerRef();
 		ir.val = 0;

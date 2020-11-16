@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.algo.common.ListNode;
 
+import sun.awt.image.ImageWatched.Link;
+
 public class MiscellaneousLinkedListProblems {
 
 	/**
@@ -594,92 +596,6 @@ public class MiscellaneousLinkedListProblems {
 			current = temp;
 		}
 		return copy;
-	}
-
-	/**
-	 * Given a singly linked list, group all odd nodes together followed by the even nodes. Please note here we are
-	 * talking about the node position and not the value in the nodes.
-	 * 
-	 * The program should run in O(1) space complexity and O(n) time complexity. where n is number of nodes
-	 * 
-	 * @param head
-	 * @return
-	 */
-	public ListNode rearrangeOddEvenListByPosition(ListNode head) {
-		if (head == null)
-			return head;
-
-		ListNode result = head;
-		ListNode p1 = head;
-		ListNode p2 = head.next;
-		ListNode connectLink = head.next;
-
-		while (p1 != null && p2 != null) {
-			if (p2.next == null)
-				break;
-
-			p1.next = p2.next;
-			p1 = p1.next; // combines odds
-
-			p2.next = p1.next;
-			p2 = p2.next; // combines even
-		}
-		// System.out.println(p1.toString());
-		// System.out.println(p2.toString());
-		p1.next = connectLink; // combines eveens to odds
-		return result;
-	}
-
-	/**
-	 * https://www.techiedelight.com/rearrange-linked-list-separating-odd-nodes-even/
-	 * 
-	 * @return
-	 */
-	public ListNode rearrangeOddEvenListByValue(ListNode head) {
-		ListNode odd = null, oddTail = null;
-		ListNode even = null, evenTail = null;
-		ListNode curr = head;
-
-		while (curr != null) {
-			if ((curr.data & 1) != 0) // current node is odd
-			{
-				// handle head for first odd node
-				if (odd == null) {
-					odd = oddTail = curr;
-				} else {
-					oddTail.next = curr;
-					oddTail = oddTail.next;
-				}
-			} else // current node is even
-			{
-				// handle head for first even node
-				if (even == null) {
-					even = evenTail = curr;
-				} else {
-					evenTail.next = curr;
-					evenTail = curr;
-				}
-			}
-			curr = curr.next;
-		}
-
-		// if list contains at-least one even node
-		if (even != null) {
-			head = even;
-			evenTail.next = odd;
-		}
-		// special case - list contains all odd nodes
-		else {
-			head = odd;
-		}
-
-		// null to terminate the list,
-		// else it will go in infinite loop
-		if (oddTail != null) {
-			oddTail.next = null;
-		}
-
-		return head;
 	}
 
 	/**

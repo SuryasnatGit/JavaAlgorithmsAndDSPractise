@@ -2,6 +2,7 @@ package com.algo.ds.tree;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 import com.algo.common.TreeNode;
 
@@ -35,6 +36,29 @@ public class LevelOrderTraversal {
 			if (root.right != null) {
 				queue.offer(root.right);
 			}
+		}
+	}
+
+	public void reverseLevelOrderTraversal(TreeNode root) {
+		if (root == null) {
+			return;
+		}
+		Queue<TreeNode> q = new LinkedList<>();
+		Stack<TreeNode> s = new Stack<>();
+
+		q.offer(root);
+		while (!q.isEmpty()) {
+			root = q.poll();
+			if (root.right != null) {
+				q.offer(root.right);
+			}
+			if (root.left != null) {
+				q.offer(root.left);
+			}
+			s.push(root);
+		}
+		while (!s.isEmpty()) {
+			System.out.print(s.pop().data + " ");
 		}
 	}
 

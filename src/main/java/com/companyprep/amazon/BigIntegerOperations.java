@@ -10,6 +10,10 @@ public class BigIntegerOperations {
 
 		int[] res = new int[m + n];
 
+		if ((m == 1 && num1[0] == 0) || (n == 1 && num2[0] == 0)) {
+			return new int[] { 0 };
+		}
+
 		for (int i = m - 1; i >= 0; i--) {
 			for (int j = n - 1; j >= 0; j--) {
 				int mul = num1[i] * num2[j];
@@ -102,6 +106,10 @@ public class BigIntegerOperations {
 		BigIntegerOperations bio = new BigIntegerOperations();
 		System.out.println(Arrays.toString(bio.bigIntMultiple(new int[] { 7 }, new int[] { 8 })));
 		System.out.println(Arrays.toString(bio.bigIntMultiple(new int[] { 7, 8, 9 }, new int[] { 8, 9, 7 })));
+		System.out.println(Arrays.toString(bio.bigIntMultiple(new int[] { 2 }, new int[] { 3 }))); // this does not
+																									// work.. refer
+																									// leetcode solution
+		System.out.println(Arrays.toString(bio.bigIntMultiple(new int[] { 0 }, new int[] { 0 })));
 	}
 
 }

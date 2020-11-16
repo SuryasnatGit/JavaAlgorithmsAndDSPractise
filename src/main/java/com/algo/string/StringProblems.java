@@ -292,7 +292,7 @@ public class StringProblems {
 			for (String sb : ssb) {
 				String s = sa + sb;
 				// System.out.println(s);
-				if (isPalindrome(s) && s.length() >= maxLength) {
+				if (isPalindromeIterative(s) && s.length() >= maxLength) {
 					maxLength = s.length();
 					res.add(s);
 				}
@@ -314,32 +314,6 @@ public class StringProblems {
 		});
 		// System.out.println(res);
 		System.out.println((!res.isEmpty() && res.get(0) != null) ? res.get(0) : -1);
-	}
-
-	private boolean isPalindrome(String s) {
-		int l = s.length();
-		// empty string considered as palindrome
-		if (l == 0)
-			return true;
-
-		return isPalindromeRec(s, 0, l - 1);
-	}
-
-	private boolean isPalindromeRec(String s, int start, int end) {
-		// if there is only 1 char
-		if (start == end)
-			return true;
-
-		// if first and last char do not match
-		if (s.charAt(start) != s.charAt(end))
-			return false;
-
-		// if there are more then 2 characters check if middle substring is also
-		// palindrome or not.
-		if (start < end + 1)
-			return isPalindromeRec(s, start + 1, end - 1);
-
-		return true;
 	}
 
 	/**
@@ -646,37 +620,6 @@ public class StringProblems {
 			count[c]--;
 			if (count[c] < 0)
 				return false;
-		}
-		return true;
-	}
-
-	/**
-	 * Given two strings s and t, determine if they are isomorphic. Two strings are isomorphic if the characters in s
-	 * can be replaced to get t.
-	 * 
-	 * For example,"egg" and "add" are isomorphic, "foo" and "bar" are not. complexity - O(n)
-	 * 
-	 * @param s1
-	 * @param s2
-	 * @return
-	 */
-	public boolean isIsomorphicStrings(String s1, String s2) {
-		if (s1 == null || s2 == null)
-			return false;
-		if (s1.length() != s2.length())
-			return false;
-		Map<Character, Character> charMap = new HashMap<>();
-		for (int i = 0; i < s1.length(); i++) {
-			char ch1 = s1.charAt(i);
-			char ch2 = s2.charAt(i);
-			if (charMap.containsKey(ch1)) {
-				if (!charMap.get(ch1).equals(ch2))
-					return false;
-			} else {
-				if (charMap.containsValue(ch2))
-					return false;
-				charMap.put(ch1, ch2);
-			}
 		}
 		return true;
 	}
@@ -1149,61 +1092,6 @@ public class StringProblems {
 		}
 
 		return sb.toString().length() > input.length() ? input : sb.toString();
-	}
-
-	/**
-	 * Rotating to the left by n is the same as rotating to the right by length-n. time and space complexity - O(N)
-	 * 
-	 * @param input
-	 * @param d
-	 * @return
-	 */
-	public String leftRotation(String input, int d) {
-		int n = input.length();
-		if (d > n)
-			d %= n;
-		char[] ch = new char[n];
-		for (int i = 0; i < n; i++) {
-			ch[(i + (n - d)) % n] = input.charAt(i);
-		}
-		return new String(ch);
-	}
-
-	public String rightRotation(String input, int d) {
-		int n = input.length();
-		if (d > n)
-			d %= n;
-		char[] ch = new char[n];
-		for (int i = 0; i < n; i++) {
-			ch[(i + d) % n] = input.charAt(i);
-		}
-		return new String(ch);
-	}
-
-	/**
-	 * Assume you have a method isSubstring which checks if one word is a substring of another. Given two strings, s1
-	 * and s2, write code to check if s2 is a rotation of s1 using only one call to isSubstring (e.g., waterbottle is a
-	 * rotation of erbottlewat ).
-	 * 
-	 * We ask what the rotation point is. If a string is broken down into x and y, so thst xy = s1 and yx = s2, then yx
-	 * is a substring of xyxy. i.e s2 is always a substring of s1s1.
-	 * 
-	 * The runtime of this varies based on the runtime of isSubString. But if you assume that isSubstring runs in O(A+B)
-	 * time (on strings of length A and B), then the runtime of isRotation is O( N) .
-	 * 
-	 * CTCI - 1.9
-	 */
-	public boolean stringRotation(String s1, String s2) {
-		int len1 = s1.length();
-		if (len1 == s2.length() && len1 > 0) {
-			String s1s1 = s1 + s1;
-			return isSubString(s1s1, s2);
-		}
-		return false;
-	}
-
-	private boolean isSubString(String s1, String s2) {
-		return s1.contains(s2);
 	}
 
 	/**

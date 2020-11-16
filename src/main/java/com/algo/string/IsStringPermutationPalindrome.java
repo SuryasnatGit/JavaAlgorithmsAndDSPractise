@@ -14,7 +14,7 @@ import java.util.Set;
  * CTCI - 1.4
  *
  */
-public class PalindromePermutation {
+public class IsStringPermutationPalindrome {
 
 	/**
 	 * Brute force - If a string with an even length is a palindrome, every character in the string must
@@ -225,7 +225,7 @@ public class PalindromePermutation {
 	}
 
 	public static void main(String[] args) {
-		PalindromePermutation p = new PalindromePermutation();
+		IsStringPermutationPalindrome p = new IsStringPermutationPalindrome();
 		System.out.println(p.canPermutatePalindrome1("table"));
 		System.out.println(p.canPermutatePalindrome1("abba"));
 		System.out.println(p.canPermutatePalindrome2("table"));

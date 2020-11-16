@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
  *
  * @param <E>
  */
-public class ArrayList<E> implements List<E> {
+public class ArrayList<E> {
 
 	private E[] data;
 	private int size;
@@ -25,23 +25,19 @@ public class ArrayList<E> implements List<E> {
 		size = 0;
 	}
 
-	@Override
 	public int size() {
 		return size;
 	}
 
-	@Override
 	public boolean isEmpty() {
 		return size == 0;
 	}
 
-	@Override
 	public E get(int i) {
 		checkRange(i, size);
 		return data[i];
 	}
 
-	@Override
 	public E set(int i, E element) {
 		checkRange(i, size);
 		E temp = data[i];
@@ -49,7 +45,6 @@ public class ArrayList<E> implements List<E> {
 		return temp;
 	}
 
-	@Override
 	public boolean add(E element) {
 		if (size == data.length) {
 			// throw new IllegalStateException("Array full");
@@ -60,7 +55,6 @@ public class ArrayList<E> implements List<E> {
 		return true;
 	}
 
-	@Override
 	public void add(int i, E element) {
 		checkRange(i, size + 1);
 		if (size == data.length) {
@@ -74,7 +68,6 @@ public class ArrayList<E> implements List<E> {
 		size++;
 	}
 
-	@Override
 	public E remove(int i) {
 		checkRange(i, size);
 		E temp = data[i];
@@ -146,12 +139,12 @@ public class ArrayList<E> implements List<E> {
 			al.add(i);
 		}
 		System.out.println(al.toString());
-		
+
 		for (Iterator<Integer> iterator = al.iterator(); iterator.hasNext();) {
 			Integer next = iterator.next();
 			System.out.println(next);
 		}
-		
+
 		System.out.println(al.remove(20));
 		System.out.println(al.get(15));
 
