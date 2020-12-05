@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Given an array S of n integers, there are elements a, b, c, and d in S such that a + b + c + d =
- * target? Find all unique quadruplets in the array which gives the sum of target.
+ * Given an array S of n integers, there are elements a, b, c, and d in S such that a + b + c + d = target? Find all
+ * unique quadruplets in the array which gives the sum of target.
  *
  * Time complexity O(n^3) Space complexity O(1).
  * 
@@ -18,38 +18,52 @@ import java.util.List;
  * A solution set is: [ [-1, 0, 0, 1], [-2, -1, 1, 2], [-2, 0, 0, 2] ]
  *
  * Reference https://leetcode.com/problems/4sum/
+ * 
+ * Category : Hard
  */
 public class FourSum {
 
 	public List<List<Integer>> fourSum_1(int[] nums, int target) {
 		int k = 4;
 		List<List<Integer>> list = new ArrayList<>();
+
 		if (nums.length < k)
 			return list;
+
 		Arrays.sort(nums);
 		list = kSum(k, nums, target);
+
 		return list;
 	}
 
 	private List<List<Integer>> kSum(int k, int[] nums, int target) {
 		List<List<Integer>> list = new ArrayList<>();
-		if (nums.length < k)
+
+		if (nums.length < k) {
 			return list;
+		}
+
 		if (k == 2) {
 			int lo = 0, hi = nums.length - 1;
 			while (lo < hi) {
 				if (nums[lo] + nums[hi] == target) {
 					list.add(new ArrayList<>(Arrays.asList(nums[lo], nums[hi])));
-					while (lo < hi && nums[lo] == nums[lo + 1])
+
+					while (lo < hi && nums[lo] == nums[lo + 1]) {
 						lo++;
-					while (lo < hi && nums[hi] == nums[hi - 1])
+					}
+
+					while (lo < hi && nums[hi] == nums[hi - 1]) {
 						hi--;
+					}
+
 					lo++;
 					hi--;
-				} else if (nums[lo] + nums[hi] < target)
+				} else if (nums[lo] + nums[hi] < target) {
 					lo++;
-				else
+				} else {
 					hi--;
+				}
 			}
 		} else {
 			for (int i = 0; i < nums.length - k + 1; i++) {

@@ -4,6 +4,8 @@ package com.algo.ds.array;
  * https://www.techiedelight.com/maximum-profit-earned-buying-and-selling-shares/
  * 
  * There can be several variations to the above problem.
+ * 
+ * Category : Hard
  */
 public class BuySellStockProfit {
 
@@ -13,19 +15,57 @@ public class BuySellStockProfit {
 	 * 
 	 * https://www.techiedelight.com/find-maximum-difference-between-two-elements-array/
 	 * 
+	 * https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+	 * 
 	 * T - O(n) S - O(1)
 	 */
-	public int maxProfitStocksOneTransaction(int arr[]) {
-		int minPrice = arr[0];
+	public int maxProfitStocksOneTransaction(int[] prices) {
+		if (prices == null || prices.length == 0) {
+			return 0;
+		}
+
 		int maxProfit = 0;
-		for (int i = 1; i < arr.length; i++) {
-			if (arr[i] - minPrice > maxProfit) {
-				maxProfit = arr[i] - minPrice;
-			}
-			if (arr[i] < minPrice) {
-				minPrice = arr[i];
+		int minPrice = prices[0];
+
+		for (int i = 1; i < prices.length; i++) {
+			if (prices[i] > minPrice) {
+				int profit = prices[i] - minPrice;
+				maxProfit = Math.max(profit, maxProfit);
+			} else {
+				minPrice = prices[i];
 			}
 		}
+
+		return maxProfit;
+	}
+
+	/**
+	 * https://www.techiedelight.com/maximum-profit-earned-buying-and-selling-shares/
+	 * 
+	 * https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/
+	 * 
+	 * T - O(n) S - O(1)
+	 */
+	public int maxProfitStocksAnyTransaction(int[] prices) {
+		if (prices == null || prices.length == 0) {
+			return 0;
+		}
+
+		int maxProfit = 0;
+		int minIndex = 0;
+
+		for (int i = 1; i < prices.length; i++) {
+			// update local minimum if decreasing seq is found
+			if (prices[i] < prices[i - 1]) {
+				minIndex = i;
+			}
+
+			// previous <= current > next
+			if (prices[i - 1] <= prices[i] && (i + 1 == prices.length || prices[i + 1] < prices[i])) {
+				maxProfit += (prices[i] - prices[minIndex]);
+			}
+		}
+
 		return maxProfit;
 	}
 
@@ -150,36 +190,6 @@ public class BuySellStockProfit {
 	}
 
 	/**
-	 * https://www.techiedelight.com/maximum-profit-earned-buying-and-selling-shares/
-	 * 
-	 * T - O(n) S - O(1)
-	 */
-	public int maxProfitStocksAnyTransaction(int[] price) {
-		// store maximum profit gained
-		int profit = 0;
-
-		// initialize local minimum to first element's index
-		int j = 0;
-
-		// start from second element
-		for (int i = 1; i < price.length; i++) {
-			// update local minimum if decreasing sequence is found
-			if (price[i - 1] > price[i]) {
-				j = i;
-			}
-
-			// sell shares if current element is peak
-			// i.e. (previous <= current > next)
-			if (price[i - 1] <= price[i] && (i + 1 == price.length || price[i] > price[i + 1])) {
-				profit += (price[i] - price[j]);
-				System.out.printf("Buy on day %d and sell on day %d\n", j + 1, i + 1);
-			}
-		}
-
-		return profit;
-	}
-
-	/**
 	 * https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/
 	 * 
 	 */
@@ -225,13 +235,15 @@ public class BuySellStockProfit {
 
 		System.out.println(bss.maxProfitStocksOneTransaction(new int[] { 2, 7, 9, 5, 1, 3, 5 }));
 
+		System.out.println(bss.maxProfitStocksAnyTransaction(new int[] { 2, 7, 9, 5, 1, 3, 6 }));
+
+		System.out.println(bss.maxProfitStocksAnyTransaction(new int[] { 7, 1, 5, 3, 6, 4 }));
+
 		System.out.println(bss.maxProfitStocksTwoTransaction(new int[] { 2, 7, 9, 5, 1, 3, 5 }));
 
 		System.out.println(bss.maxProfitStocksKTransaction(new int[] { 2, 7, 9, 5, 1, 3, 6 }, 3));
 
 		System.out.println(bss.maxProfitStocksKTransactionOptimized(new int[] { 2, 7, 9, 5, 1, 3, 6 }, 3));
-
-		System.out.println(bss.maxProfitStocksAnyTransaction(new int[] { 2, 7, 9, 5, 1, 3, 6 }));
 
 		System.out.println(bss.maxProfitStocksWithTransactionFee(new int[] { 1, 3, 2, 8, 4, 9 }, 2));
 

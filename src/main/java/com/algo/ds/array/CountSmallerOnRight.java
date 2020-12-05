@@ -51,23 +51,32 @@ public class CountSmallerOnRight {
 	public List<Integer> countSmaller_binarySearch(int[] nums) {
 		Integer[] ans = new Integer[nums.length];
 		List<Integer> sorted = new ArrayList<Integer>();
+
 		for (int i = nums.length - 1; i >= 0; i--) {
 			int index = findIndex(sorted, nums[i]);
 			ans[i] = index;
 			sorted.add(index, nums[i]);
 		}
+
 		return Arrays.asList(ans);
 	}
 
 	private int findIndex(List<Integer> sorted, int target) {
-		if (sorted.size() == 0)
+		if (sorted.size() == 0) {
 			return 0;
+		}
+
 		int start = 0;
 		int end = sorted.size() - 1;
-		if (sorted.get(end) < target)
+
+		if (sorted.get(end) < target) {
 			return end + 1;
-		if (sorted.get(start) >= target)
+		}
+
+		if (sorted.get(start) >= target) {
 			return 0;
+		}
+
 		while (start + 1 < end) {
 			int mid = start + (end - start) / 2;
 			if (sorted.get(mid) < target) {
@@ -76,8 +85,11 @@ public class CountSmallerOnRight {
 				end = mid;
 			}
 		}
-		if (sorted.get(start) >= target)
+
+		if (sorted.get(start) >= target) {
 			return start;
+		}
+
 		return end;
 	}
 
@@ -95,6 +107,22 @@ public class CountSmallerOnRight {
 	 * 
 	 * Time Complexity = O(n log n) Space Complexity = O(n)
 	 */
+	public List<Integer> countSmaller_usingBinarySearchTree(int[] nums) {
+		LinkedList<Integer> result = new LinkedList<>();
+
+		if (nums.length == 0)
+			return result;
+
+		result.add(0);
+
+		TreeNode root = new TreeNode(nums[nums.length - 1]);
+		for (int i = nums.length - 2; i >= 0; i--) {
+			result.addFirst(insert(root, nums[i]));
+		}
+
+		return result;
+	}
+
 	private class TreeNode {
 		int val, leftchildren;
 		TreeNode left, right;
@@ -127,22 +155,6 @@ public class CountSmallerOnRight {
 			}
 		}
 		return count;
-	}
-
-	public List<Integer> countSmaller_usingBinarySearchTree(int[] nums) {
-		LinkedList<Integer> result = new LinkedList<>();
-
-		if (nums.length == 0)
-			return result;
-
-		result.add(0);
-
-		TreeNode root = new TreeNode(nums[nums.length - 1]);
-		for (int i = nums.length - 2; i >= 0; i--) {
-			result.addFirst(insert(root, nums[i]));
-		}
-
-		return result;
 	}
 
 	public static void main(String args[]) {

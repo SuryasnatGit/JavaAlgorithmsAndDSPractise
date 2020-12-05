@@ -19,7 +19,7 @@ import java.util.List;
  *
  * https://leetcode.com/problems/additive-number/
  * 
- * Priority : Medium
+ * Category : Medium
  */
 public class AdditiveNumber {
 
@@ -35,25 +35,31 @@ public class AdditiveNumber {
 		if (num.length() < 3) {
 			return false;
 		}
+
 		for (int i = 0; i <= num.length() / 2; i++) {
 			// leading 0 is invalid
 			if (num.charAt(0) == '0' && i > 0) {
 				break;
 			}
+
 			// BigInteger is used to prevent integer overflow
 			BigInteger x1 = new BigInteger(num.substring(0, i + 1));
+
 			// make sure remaining size is at least size of first and second integer.
 			for (int j = i + 1; Math.max(i, j - (i + 1)) <= num.length() - j; j++) {
 				// leading 0 is invalid
 				if (num.charAt(i + 1) == '0' && j > i + 1) {
 					break;
 				}
+
 				BigInteger x2 = new BigInteger(num.substring(i + 1, j + 1));
+
 				if (isValid(num, j + 1, x1, x2)) {
 					return true;
 				}
 			}
 		}
+
 		return false;
 	}
 
@@ -61,39 +67,55 @@ public class AdditiveNumber {
 		if (start == num.length()) {
 			return true;
 		}
+
 		BigInteger x3 = x1.add(x2);
+
 		// if num starts with x3 from offset start means x3 is found. So look for next number.
 		return num.startsWith(x3.toString(), start) && isValid(num, start + x3.toString().length(), x2, x3);
 	}
 
+	// T - O(n ^ 2)
 	public boolean isAdditiveNumberIterative(String num) {
 		int n = num.length();
-		for (int i = 1; i <= n / 2; ++i)// for substring index i(first num) starts at 1
-			for (int j = 1; Math.max(j, i) <= n - i - j; ++j)// if rest of string can contain the sum
-				if (isValid(i, j, num))
+
+		for (int i = 1; i <= n / 2; i++) {// for substring index i(first num) starts at 1
+			for (int j = 1; Math.max(i, j) <= n - i - j; j++) {// if rest of string can contain the sum
+				if (isValid(i, j, num)) {
 					return true;
+				}
+			}
+		}
+
 		return false;
 	}
 
 	private boolean isValid(int i, int j, String num) {
 		// numbers in additive sequence cannot have leading zeros
-		if (num.charAt(0) == '0' && i > 1)
+		if (num.charAt(0) == '0' && i > 1) {
 			return false;
-		if (num.charAt(i) == '0' && j > 1)
+		}
+
+		if (num.charAt(i) == '0' && j > 1) {
 			return false;
+		}
 
 		String sum;
+
 		// extract x1 and x2, i & j are length of first and 2nd num
 		BigInteger x1 = new BigInteger(num.substring(0, i));
 		BigInteger x2 = new BigInteger(num.substring(i, i + j));
+
 		for (int start = i + j; start != num.length(); start += sum.length()) {
 			x2 = x2.add(x1);
 			x1 = x2.subtract(x1);
 			sum = x2.toString();
+
 			// check if the number string contains the sum starting at the specified offset(start)
-			if (!num.startsWith(sum, start))
+			if (!num.startsWith(sum, start)) {
 				return false;
+			}
 		}
+
 		return true;
 	}
 
@@ -201,6 +223,7 @@ public class AdditiveNumber {
 		System.out.println(an.isAdditiveNumberRecursive("112358"));
 		System.out.println(an.isAdditiveNumberIterative("112358"));
 		System.out.println(an.isAdditiveNumberRecursive("991100102"));
+		System.out.println(an.isAdditiveNumberIterative("991100102"));
 		// System.out.println(an.getAdditiveNumberSequence("112358"));
 	}
 }

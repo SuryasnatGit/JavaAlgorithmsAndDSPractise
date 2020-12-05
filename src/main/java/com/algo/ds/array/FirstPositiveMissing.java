@@ -29,7 +29,9 @@ public class FirstPositiveMissing {
 		// 1 is subtracted because index start at 0 and positive number start at 1
 		for (int i = positiveStartIndex; i < nums.length; i++) {
 			int index = Math.abs(nums[i]) + positiveStartIndex - 1;
-			if (index < nums.length) {
+
+			// check boundry conditions as well.
+			if (index > Integer.MIN_VALUE && index < Integer.MAX_VALUE && Math.abs(index) < nums.length) {
 				nums[index] = -Math.abs(nums[index]);
 			}
 		}
@@ -70,5 +72,7 @@ public class FirstPositiveMissing {
 		System.out.println(pos.firstMissingPositive(new int[] { -1, -2, 100, 101 }));
 		System.out.println(pos.firstMissingPositive(new int[] { 1, 2, 0 }));
 		System.out.println(pos.firstMissingPositive(new int[] { 7, 8, 9, 11, 12 }));
+		System.out.println(pos
+				.firstMissingPositive(new int[] { 2147483647, 2147483646, 2147483645, 3, 2, 1, -1, 0, -2147483648 }));
 	}
 }

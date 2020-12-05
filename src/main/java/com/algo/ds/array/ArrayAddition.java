@@ -10,21 +10,25 @@ public class ArrayAddition {
 		int j = arr2.length - 1;
 		int r = 0;
 		l--; // last index of result array
+
 		while (i >= 0 && j >= 0) {
 			r = arr1[i--] + arr2[j--] + c;
 			c = r / 10;
 			result[l--] = r % 10;
 		}
+
 		while (i >= 0) {
 			r = arr1[i--] + c;
 			c = r / 10;
 			result[l--] = r % 10;
 		}
+
 		while (j >= 0) {
 			r = arr2[j--] + c;
 			c = r / 10;
 			result[l--] = r % 10;
 		}
+
 		if (c != 0) {
 			int[] newResult = new int[result.length + 1];
 			for (int t = newResult.length - 1; t > 0; t--) {
@@ -33,6 +37,7 @@ public class ArrayAddition {
 			newResult[0] = c;
 			return newResult;
 		}
+
 		return result;
 	}
 

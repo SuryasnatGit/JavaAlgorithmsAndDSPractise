@@ -1,5 +1,7 @@
 package com.algo.ds.array;
 
+import java.util.Arrays;
+
 /**
  * https://www.techiedelight.com/smallest-window-sorting-which-make-array-sorted/
  *
@@ -12,60 +14,84 @@ package com.algo.ds.array;
  * 2) If the input array is [0, 1, 15, 25, 6, 7, 30, 40, 50], your program should be able to find that the subarray lies
  * between the indexes 2 and 5.
  * 
- * Complexity - O(n)
+ * https://leetcode.com/problems/shortest-unsorted-continuous-subarray/
+ * 
+ * Category : Medium
  */
 public class MinimumSortedWhichSortsEntireArray {
 
-	public int minLength(int arr[]) {
-		int i = 0;
-		while (i < arr.length - 1 && arr[i] < arr[i + 1]) {
-			i++;
-		}
-		if (i == arr.length - 1) {
-			return 0;
-		}
-		int j = arr.length - 1;
-		while (j > 0 && arr[j] > arr[j - 1]) {
-			j--;
+	// T - O(n log n) S - O(n)
+	public int findUnsortedSubarray(int[] nums) {
+		int[] temp = nums.clone();
+		Arrays.sort(temp);
+
+		int min = nums.length;
+		int max = 0;
+		for (int i = 0; i < nums.length; i++) {
+			if (nums[i] != temp[i]) {
+				min = Math.min(min, i);
+				max = Math.max(max, i);
+			}
 		}
 
-		System.out.println("The smallest window lies between index " + i + " and " + j);
+		return max - min >= 0 ? max - min + 1 : 0;
+	}
 
-		int max = Integer.MIN_VALUE;
+	// T - O(n) S - O(1)
+	public int findUnsortedSubarray1(int nums[]) {
 		int min = Integer.MAX_VALUE;
-		for (int k = i; k <= j; k++) {
-			if (max < arr[k]) {
-				max = arr[k];
+		int max = Integer.MIN_VALUE;
+
+		boolean flag = false;
+		for (int i = 1; i < nums.length; i++) {
+			if (nums[i] < nums[i - 1]) {
+				flag = true;
 			}
-			if (min > arr[k]) {
-				min = arr[k];
+			if (flag) {
+				min = Math.min(min, nums[i]);
 			}
-		}
-		int x = i - 1;
-		while (x >= 0) {
-			if (min > arr[x]) {
-				break;
-			}
-			x--;
 		}
 
-		int y = j + 1;
-		while (y < arr.length) {
-			if (max < arr[y]) {
+		// reset flag
+		flag = false;
+		for (int i = nums.length - 2; i >= 0; i--) {
+			if (nums[i] > nums[i + 1]) {
+				flag = true;
+			}
+			if (flag) {
+				max = Math.max(max, nums[i]);
+			}
+		}
+
+		int left, right;
+		for (left = 0; left < nums.length; left++) {
+			if (min < nums[left]) {
 				break;
 			}
-			y++;
 		}
-		return y - x - 2 + 1;
+
+		for (right = nums.length - 1; right >= 0; right--) {
+			if (max > nums[right]) {
+				break;
+			}
+		}
+
+		return (right - left >= 0) ? right - left + 1 : 0;
 	}
 
 	public static void main(String args[]) {
-		int arr[] = { 4, 5, 10, 21, 18, 23, 7, 8, 19, 34, 38 };
-		int arr1[] = { 4, 5, 6, 12, 11, 15 };
-		int arr2[] = { 1, 3, 7, 2, 5, 6, 4, 8 }; // doesn't work for this.
+
 		MinimumSortedWhichSortsEntireArray msw = new MinimumSortedWhichSortsEntireArray();
-		System.out.println(msw.minLength(arr1));
-		System.out.println(msw.minLength(arr2));
+
+		System.out.println(msw.findUnsortedSubarray(new int[] { 4, 5, 6, 12, 11, 15 }));
+		System.out.println(msw.findUnsortedSubarray(new int[] { 1, 3, 7, 2, 5, 6, 4, 8 }));
+		System.out.println(msw.findUnsortedSubarray(new int[] { 4, 5, 10, 21, 18, 23, 7, 8, 19, 34, 38 }));
+		System.out.println(msw.findUnsortedSubarray(new int[] { 1, 2, 3, 3, 3 }));
+
+		System.out.println(msw.findUnsortedSubarray1(new int[] { 4, 5, 6, 12, 11, 15 }));
+		System.out.println(msw.findUnsortedSubarray1(new int[] { 1, 3, 7, 2, 5, 6, 4, 8 }));
+		System.out.println(msw.findUnsortedSubarray1(new int[] { 4, 5, 10, 21, 18, 23, 7, 8, 19, 34, 38 }));
+		System.out.println(msw.findUnsortedSubarray1(new int[] { 1, 2, 3, 3, 3 }));
 	}
 
 }

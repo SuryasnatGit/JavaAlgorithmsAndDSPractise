@@ -16,6 +16,9 @@ import java.util.List;
  * 
  * arr={1 1 0 1 1 0 0 1 1 1 } m=2 output={1 1 0 1 1 1 1 1 1 1} position=5,6
  * 
+ * Category : Medium
+ * 
+ * Tags : Sliding Window
  */
 public class Flip0sMaximum1s {
 
