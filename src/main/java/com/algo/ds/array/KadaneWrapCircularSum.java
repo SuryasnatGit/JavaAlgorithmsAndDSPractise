@@ -42,17 +42,14 @@ public class KadaneWrapCircularSum {
 		return Integer.max(originalKadaneSum, negativeKadaneSum + arraySum);
 	}
 
-	private int kadaneSum(int[] arr) {
-		int maxEndingHere = 0;
-		int maxSoFar = 0;
+	private int kadaneSum(int[] nums) {
+		int maxSoFar = nums[0];
+		int maxEndingHere = nums[0];
 
-		for (int i = 0; i < arr.length; i++) {
-			maxEndingHere += arr[i];
-			// if max ending here is negative then reset to 0
-			maxEndingHere = Integer.max(maxEndingHere, 0);
-			maxSoFar = Integer.max(maxSoFar, maxEndingHere);
+		for (int i = 1; i < nums.length; i++) {
+			maxEndingHere = Math.max(maxEndingHere + nums[i], nums[i]);
+			maxSoFar = Math.max(maxSoFar, maxEndingHere);
 		}
-
 		return maxSoFar;
 	}
 

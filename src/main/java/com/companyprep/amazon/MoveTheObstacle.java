@@ -56,38 +56,36 @@ public class MoveTheObstacle {
 		}
 	}
 
-	public int minDistCovered(int[][] grid) {
-		Queue<Cell> queue = new LinkedList<>();
+	public int mininumDistanceCovered(int[][] grid) {
+		// visited array
 		boolean[][] visited = new boolean[grid.length][grid[0].length];
-		visited[0][0] = true; // start from top left corner
+		visited[0][0] = true; // starting point
+
+		int[] xDir = { 1, -1, 0, 0 };
+		int[] yDir = { 0, 0, 1, -1 };
+
+		Queue<Cell> queue = new LinkedList<Cell>();
 		queue.add(new Cell(0, 0, 0));
 
 		while (!queue.isEmpty()) {
 			Cell cell = queue.poll();
+			// mark node as visited
 			visited[cell.x][cell.y] = true;
 
-			if (grid[cell.x][cell.y] == 9) { // found result
+			if (grid[cell.x][cell.y] == 9) {
 				return cell.dist;
 			}
 
-			// check top
-			if (cell.x - 1 > 0 && grid[cell.x - 1][cell.y] != 0 && !visited[cell.x - 1][cell.y]) {
-				queue.add(new Cell(cell.x - 1, cell.y, cell.dist + 1));
-			}
-
-			// check bottom
-			if (cell.x + 1 < grid.length && grid[cell.x + 1][cell.y] != 0 && !visited[cell.x + 1][cell.y]) {
-				queue.add(new Cell(cell.x + 1, cell.y, cell.dist + 1));
-			}
-
-			// check left
-			if (cell.y - 1 > 0 && grid[cell.x][cell.y - 1] != 0 && !visited[cell.x][cell.y - 1]) {
-				queue.add(new Cell(cell.x, cell.y - 1, cell.dist + 1));
-			}
-
-			// check right
-			if (cell.y + 1 < grid[0].length && grid[cell.x][cell.y + 1] != 0 && !visited[cell.x][cell.y + 1]) {
-				queue.add(new Cell(cell.x, cell.y + 1, cell.dist + 1));
+			// try all 4 directions
+			for (int i = 0; i < 4; i++) {
+				int newX = cell.x + xDir[i];
+				int newY = cell.y + yDir[i];
+				// check boundary conditions. the grid[x][y] condition is imp as if we check for == 1 then 9 will be
+				// omitted and it will never encounter the obstacle
+				if (newX >= 0 && newX < grid.length && newY >= 0 && newY < grid[0].length && grid[newX][newY] != 0
+						&& !visited[newX][newY]) {
+					queue.add(new Cell(newX, newY, cell.dist + 1));
+				}
 			}
 		}
 
@@ -96,7 +94,8 @@ public class MoveTheObstacle {
 
 	public static void main(String[] args) {
 		MoveTheObstacle m = new MoveTheObstacle();
-		int[][] grid = new int[][] { { 1, 0, 0 }, { 1, 9, 0 }, { 1, 0, 1 } };
-		System.out.println(m.minDistCovered(grid));
+		System.out.println(m.mininumDistanceCovered(new int[][] { { 1, 0, 0 }, { 1, 9, 0 }, { 1, 0, 1 } }));
+
+		System.out.println(m.mininumDistanceCovered(new int[][] { { 1, 0, 0 }, { 1, 1, 0 }, { 0, 1, 9 } }));
 	}
 }

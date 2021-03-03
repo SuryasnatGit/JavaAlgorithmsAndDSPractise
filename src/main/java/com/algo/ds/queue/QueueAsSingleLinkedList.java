@@ -1,6 +1,6 @@
 package com.algo.ds.queue;
 
-public class QueueAsSingleLinkedList implements Queue<Object> {
+public class QueueAsSingleLinkedList implements MyQueue<Object> {
 
 	private Node first;
 	private Node last;

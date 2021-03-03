@@ -9,11 +9,11 @@ import java.util.Stack;
  *
  * @param <T>
  */
-public class MyQueue<T> {
+public class QueueUsing2Stacks<T> {
 
 	Stack<T> stackNewest, stackOldest;
 
-	public MyQueue() {
+	public QueueUsing2Stacks() {
 		stackNewest = new Stack<T>();
 		stackOldest = new Stack<T>();
 	}

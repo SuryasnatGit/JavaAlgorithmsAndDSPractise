@@ -3,52 +3,39 @@ package com.algo.ds.array;
 import java.util.Arrays;
 
 /**
- * https://www.geeksforgeeks.org/count-frequencies-elements-array-o1-extra-space-time/
+ * Given an unsorted array of n integers which can contain integers from 1 to n. Some elements can be repeated multiple
+ * times and some other elements can be absent from the array. Count frequency of all elements that are present and
+ * print the missing elements.
  * 
  * Category : Hard
  *
  */
 public class FrequencyOfEachElementInUnsortedArray {
 
-	// T - O(n) S - O(1)
+	// T - O(n) S - O(n)
 	public void findCounts1(int[] arr) {
-		System.out.println("Original array :" + Arrays.toString(arr));
+		int len = arr.length;
+		int[] hash = new int[len];
 
-		int i = 0;
-		int n = arr.length;
-
-		while (i < n) {
-			// if value is < 0 then continue
-			if (arr[i] <= 0) {
-				i++;
-				continue;
-			}
-
-			// for example, index of 5 is 5-1 = 4
-			int elemIndex = arr[i] - 1;
-
-			if (arr[elemIndex] > 0) {
-				arr[i] = arr[elemIndex];
-				arr[elemIndex] = -1;
-			} else {
-				// decrement further
-				arr[elemIndex]--;
-				arr[i] = 0;
-				i++;
-			}
+		for (int i = 0; i < len; i++) {
+			hash[arr[i] - 1]++;
 		}
 
-		System.out.println("After conversion :" + Arrays.toString(arr));
-		for (int c = 0; c < n; c++) {
-			System.out.println("Element " + (c + 1) + " occurs " + Math.abs(arr[c]) + " times");
+		for (int i = 0; i < len; i++) {
+			System.out.print(i + 1 + " -> " + hash[i]);
+			System.out.println();
 		}
 	}
 
+	/**
+	 * idea is to traverse the given array, use elements as an index and store their counts at the index. T - O(n) S -
+	 * O(1)
+	 */
 	public void findCounts2(int[] arr) {
 		System.out.println("Original array :" + Arrays.toString(arr));
 		int n = arr.length;
 
-		// decrement each element by 1
+		// decrement each element by 1, so array elements are now in range of 0 to n-1
 		for (int i = 0; i < n; i++) {
 			arr[i] = arr[i] - 1;
 		}

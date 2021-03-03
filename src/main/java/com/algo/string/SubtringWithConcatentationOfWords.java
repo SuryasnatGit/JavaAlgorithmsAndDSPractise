@@ -1,9 +1,12 @@
 package com.algo.string;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * References https://leetcode.com/problems/substring-with-concatenation-of-all-words/
@@ -24,7 +27,7 @@ import java.util.Map;
  */
 public class SubtringWithConcatentationOfWords {
 
-	public List<Integer> findSubstring(String s, String[] words) {
+	public List<Integer> findSubstringOptimized(String s, String[] words) {
 
 		Map<String, Integer> actual = new HashMap<>();
 		Map<String, Integer> used = new HashMap<>();
@@ -84,10 +87,59 @@ public class SubtringWithConcatentationOfWords {
 		}
 	}
 
+	public ArrayList<Integer> findSubstring(String a, final List<String> b) {
+
+		ArrayList<Integer> res = new ArrayList<Integer>();
+
+		if (a.length() < b.size() * b.get(0).length()) {
+			return res;
+		}
+
+		Set<String> dict = getAllCombinations(b);
+		for (int i = 0; i <= a.length() - b.size() * b.get(0).length(); i++) {
+			String sub = a.substring(i, i + b.size() * b.get(0).length());
+			if (dict.contains(sub)) {
+				res.add(i);
+			}
+		}
+
+		return res;
+	}
+
+	private Set<String> getAllCombinations(List<String> b) {
+		Set<String> set = new HashSet<String>();
+		Set<Integer> visited = new HashSet<Integer>();
+
+		helper(set, visited, b, "");
+		return set;
+	}
+
+	private void helper(Set<String> res, Set<Integer> visited, List<String> b, String s) {
+		if (s.length() == b.size() * b.get(0).length()) {
+			res.add(s);
+			return;
+		}
+
+		if (s.length() > b.size() * b.get(0).length()) {
+			return;
+		}
+
+		for (int i = 0; i < b.size(); i++) {
+			if (visited.contains(i)) {
+				continue;
+			}
+			visited.add(i);
+			helper(res, visited, b, s + b.get(i));
+			visited.remove(i);
+		}
+	}
+
 	public static void main(String[] args) {
 		SubtringWithConcatentationOfWords s = new SubtringWithConcatentationOfWords();
-		System.out.println(s.findSubstring("barfoothefoobarman", new String[] { "foo", "bar" }));
-		System.out
-				.println(s.findSubstring("wordgoodgoodgoodbestword", new String[] { "word", "good", "best", "word" }));
+		System.out.println(s.findSubstringOptimized("barfoothefoobarman", new String[] { "foo", "bar" }));
+		System.out.println(
+				s.findSubstringOptimized("wordgoodgoodgoodbestword", new String[] { "word", "good", "best", "word" }));
+		System.out.println(s.findSubstring("barfoothefoobarman", Arrays.asList("foo", "bar")));
+		System.out.println(s.findSubstring("wordgoodgoodgoodbestword", Arrays.asList("word", "good", "best", "word")));
 	}
 }

@@ -39,7 +39,6 @@ public class CountInversionInArray {
 	}
 
 	/**
-	 * NOT WORKING!!
 	 * 
 	 * Method 2 - Using merge sort. time complexity - O(n log n). space complexity - O(n)
 	 * 
@@ -89,10 +88,6 @@ public class CountInversionInArray {
 		while (j <= end)
 			temp[k++] = arr[j++];
 
-		// reset arr
-		for (i = start; i <= end; i++) {
-			arr[i++] = temp[k++];
-		}
 		return invCount;
 	}
 

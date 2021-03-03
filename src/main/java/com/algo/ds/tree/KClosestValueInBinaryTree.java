@@ -1,7 +1,9 @@
 package com.algo.ds.tree;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Stack;
 
 import com.algo.common.TreeNode;
@@ -20,13 +22,60 @@ import com.algo.common.TreeNode;
  */
 public class KClosestValueInBinaryTree {
 
+	// Disregard the fact that it is a BST, just preorder traversal all. O(N * logK)
 	public List<Integer> closestKValues(TreeNode root, double target, int k) {
+		PriorityQueue<TreeNode> heap = new PriorityQueue<TreeNode>(k, new Comparator<TreeNode>() {
+			public int compare(TreeNode node1, TreeNode node2) {
+				double diff1 = Math.abs(node1.data - target);
+				double diff2 = Math.abs(node2.data - target);
+
+				// Max heap
+				return (int) (diff2 - diff1);
+			}
+		});
+
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		stack.push(root);
+
+		while (!stack.isEmpty()) {
+			TreeNode now = stack.pop();
+
+			if (heap.size() < k) {
+				heap.offer(now);
+			} else {
+				double diff = Math.abs(now.data - target);
+				double peek = Math.abs(heap.peek().data - target);
+
+				if (peek > diff) {
+					heap.poll();
+					heap.offer(now);
+				}
+			}
+
+			if (now.right != null) {
+				stack.push(now.right);
+			}
+
+			if (now.left != null) {
+				stack.push(now.left);
+			}
+		}
+
+		List<Integer> res = new ArrayList<Integer>();
+		while (!heap.isEmpty()) {
+			res.add(heap.poll().data);
+		}
+
+		return res;
+	}
+
+	public List<Integer> closestKValues1(TreeNode root, double target, int k) {
 		if (root == null || k == 0) {
 			return new ArrayList<>();
 		}
 
-		Stack<TreeNode> predecessor = new Stack();
-		Stack<TreeNode> successor = new Stack();
+		Stack<TreeNode> predecessor = new Stack<>();
+		Stack<TreeNode> successor = new Stack<>();
 
 		double closestDiff = Double.MAX_VALUE;
 		TreeNode closestDiffNode = null;

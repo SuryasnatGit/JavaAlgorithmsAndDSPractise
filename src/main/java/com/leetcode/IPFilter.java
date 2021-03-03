@@ -20,6 +20,7 @@ import java.util.List;
  * 
  * This takes 2 * 2^32 bit = ~1GB -> fits in RAM.
  * 
+ * TODO : understand more and write test cases.
  */
 public class IPFilter {
 	long[] map; // mark all ip that showed up

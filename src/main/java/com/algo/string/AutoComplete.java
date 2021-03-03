@@ -15,18 +15,20 @@ import java.util.Map;
  * prefix: "b" ‑> "bcd"
  * 
  * Complexity - Hard
+ * 
+ * Tags : Trie
  */
 public class AutoComplete {
 
 	// Trie node class
-	private class Node {
+	private class TrieNode {
 		String prefix;
-		Map<Character, Node> children;
+		Map<Character, TrieNode> children;
 
 		// Does this node represent the last character in a word?
 		boolean isWord;
 
-		private Node(String prefix) {
+		private TrieNode(String prefix) {
 			this.prefix = prefix;
 			this.children = new HashMap<>();
 		}
@@ -38,11 +40,11 @@ public class AutoComplete {
 	}
 
 	// The trie
-	private Node trie;
+	private TrieNode trie;
 
 	// Construct the trie from the dictionary
 	public AutoComplete(String[] dict) {
-		trie = new Node("");
+		trie = new TrieNode("");
 		for (String s : dict)
 			insertWord(s);
 	}
@@ -51,10 +53,10 @@ public class AutoComplete {
 	private void insertWord(String s) {
 		// Iterate through each character in the string. If the character is not
 		// already in the trie then add it
-		Node curr = trie;
+		TrieNode curr = trie;
 		for (int i = 0; i < s.length(); i++) {
 			if (!curr.children.containsKey(s.charAt(i))) {
-				curr.children.put(s.charAt(i), new Node(s.substring(0, i + 1)));
+				curr.children.put(s.charAt(i), new TrieNode(s.substring(0, i + 1)));
 			}
 			curr = curr.children.get(s.charAt(i));
 			if (i == s.length() - 1)
@@ -67,7 +69,7 @@ public class AutoComplete {
 		List<String> results = new ArrayList<>();
 
 		// Iterate to the end of the prefix
-		Node curr = trie;
+		TrieNode curr = trie;
 		for (char c : pre.toCharArray()) {
 			if (curr.children.containsKey(c)) {
 				curr = curr.children.get(c);
@@ -82,7 +84,7 @@ public class AutoComplete {
 	}
 
 	// Recursively find every child word
-	private void findAllChildWords(Node n, List<String> results) {
+	private void findAllChildWords(TrieNode n, List<String> results) {
 		if (n.isWord) {
 			results.add(n.prefix);
 		}

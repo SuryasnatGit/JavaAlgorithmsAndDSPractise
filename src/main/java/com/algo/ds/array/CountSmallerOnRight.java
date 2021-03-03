@@ -124,12 +124,12 @@ public class CountSmallerOnRight {
 	}
 
 	private class TreeNode {
-		int val, leftchildren;
+		int val, countOfLeftChildren;
 		TreeNode left, right;
 
 		public TreeNode(int v) {
 			val = v;
-			leftchildren = 0;
+			countOfLeftChildren = 0;
 		}
 	}
 
@@ -137,7 +137,7 @@ public class CountSmallerOnRight {
 		int count = 0;
 		while (true) {
 			if (val <= root.val) {
-				root.leftchildren++;
+				root.countOfLeftChildren++;
 				if (root.left != null)
 					root = root.left;
 				else {
@@ -145,7 +145,7 @@ public class CountSmallerOnRight {
 					break;
 				}
 			} else {
-				count += root.leftchildren + 1;
+				count += root.countOfLeftChildren + 1;
 				if (root.right != null)
 					root = root.right;
 				else {

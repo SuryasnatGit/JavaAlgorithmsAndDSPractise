@@ -23,55 +23,43 @@ import java.util.List;
  */
 public class AdditiveNumber {
 
-	/**
-	 * The idea is quite straight forward. Generate the first and second of the sequence, check if the rest of the
-	 * string match the sum recursively. i and j are length of the first and second number. i should in the range of [0,
-	 * n/2]. The length of their sum should>= max(i,j)
-	 * 
-	 * @param num
-	 * @return
-	 */
-	public boolean isAdditiveNumberRecursive(String num) {
-		if (num.length() < 3) {
-			return false;
-		}
-
-		for (int i = 0; i <= num.length() / 2; i++) {
-			// leading 0 is invalid
-			if (num.charAt(0) == '0' && i > 0) {
-				break;
-			}
-
-			// BigInteger is used to prevent integer overflow
-			BigInteger x1 = new BigInteger(num.substring(0, i + 1));
-
-			// make sure remaining size is at least size of first and second integer.
-			for (int j = i + 1; Math.max(i, j - (i + 1)) <= num.length() - j; j++) {
-				// leading 0 is invalid
-				if (num.charAt(i + 1) == '0' && j > i + 1) {
-					break;
-				}
-
-				BigInteger x2 = new BigInteger(num.substring(i + 1, j + 1));
-
-				if (isValid(num, j + 1, x1, x2)) {
+	public boolean isAdditiveNumber(String num) {
+		for (int i = 1; i < num.length(); i++) {
+			for (int j = i + 1; j < num.length() - i + 1; j++) {
+				String first = num.substring(0, i);
+				String second = num.substring(i, j);
+				if (isValid(j, first, second, num)) {
 					return true;
 				}
 			}
 		}
-
 		return false;
 	}
 
-	private boolean isValid(String num, int start, BigInteger x1, BigInteger x2) {
+	private boolean isValid(int start, String first, String second, String num) {
 		if (start == num.length()) {
 			return true;
 		}
 
-		BigInteger x3 = x1.add(x2);
+		// check for leading zero
+		if ((first.startsWith("0") && first.length() > 1) || (second.startsWith("0") && second.length() > 1)) {
+			return false;
+		}
 
-		// if num starts with x3 from offset start means x3 is found. So look for next number.
-		return num.startsWith(x3.toString(), start) && isValid(num, start + x3.toString().length(), x2, x3);
+		BigInteger one = new BigInteger(first);
+		BigInteger two = new BigInteger(second);
+		BigInteger sum = one.add(two);
+		String sumStr = sum.toString();
+
+		if (sumStr.length() + start > num.length()) {
+			return false;
+		}
+
+		if (!num.substring(start, sumStr.length() + start).equals(sumStr)) {
+			return false;
+		}
+
+		return isValid(sumStr.length() + start, second, sumStr, num);
 	}
 
 	// T - O(n ^ 2)
@@ -220,10 +208,13 @@ public class AdditiveNumber {
 
 	public static void main(String[] args) {
 		AdditiveNumber an = new AdditiveNumber();
-		System.out.println(an.isAdditiveNumberRecursive("112358"));
 		System.out.println(an.isAdditiveNumberIterative("112358"));
-		System.out.println(an.isAdditiveNumberRecursive("991100102"));
 		System.out.println(an.isAdditiveNumberIterative("991100102"));
 		// System.out.println(an.getAdditiveNumberSequence("112358"));
+
+		System.out.println(an.isAdditiveNumber("112358"));
+		// System.out.println(an.isAdditiveNumber("112358"));
+		System.out.println(an.isAdditiveNumber("991100102"));
+		// System.out.println(an.isAdditiveNumber("991100102"));
 	}
 }

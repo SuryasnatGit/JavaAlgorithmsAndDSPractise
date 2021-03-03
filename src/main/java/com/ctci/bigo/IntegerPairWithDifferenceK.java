@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.algo.ds.array.FindElementsOccurringNByKTimesTetris.Pair;
+import com.algo.ds.array.FindElementsOccurringMoreThanNByKTimes.Pair;
 
 /**
  * Given an array of distinct integer values, count the number of distinct pairs of integers that have difference k. For

@@ -41,4 +41,25 @@ package com.companyprep.amazon;
  */
 public class ShopkeeperSale {
 
+	public void printTotalCost(int[] arr) {
+		int cost = 0;
+
+		int[] temp = new int[arr.length];
+
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = i + 1; j < arr.length; j++) {
+				if (arr[i] > arr[j]) {
+					temp[i] = arr[j];
+					break;
+				}
+			}
+		}
+
+		System.out.println(cost);
+	}
+
+	public static void main(String[] args) {
+		ShopkeeperSale ss = new ShopkeeperSale();
+		ss.printTotalCost(new int[] { 2, 3, 1, 2, 4, 2 });
+	}
 }

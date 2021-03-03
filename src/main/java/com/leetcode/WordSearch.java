@@ -7,6 +7,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Category : Medium
+ * 
+ * Tags : dfs, backtracking
+ *
+ */
 public class WordSearch {
 
 	public static void main(String[] args) {
@@ -23,26 +29,52 @@ public class WordSearch {
 
 	}
 
-	// Problem 1
+	/**
+	 * Problem 1: Given an m x n board and a word, find if the word exists in the grid.
+	 * 
+	 * The word can be constructed from letters of sequentially adjacent cells, where "adjacent" cells are horizontally
+	 * or vertically neighboring. The same letter cell may not be used more than once.
+	 * 
+	 * Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED" Output: true
+	 * 
+	 * Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCB" Output: false
+	 * 
+	 * Time Complexity: O(N * 3^L ) where N is the number of cells in the board and L is the length of the word to be
+	 * matched.
+	 * 
+	 * For the backtracking function, initially we could have at most 4 directions to explore, but further the choices
+	 * are reduced into 3 (since we won't go back to where we come from). As a result, the execution trace after the
+	 * first step could be visualized as a 3-ary tree, each of the branches represent a potential exploration in the
+	 * corresponding direction. Therefore, in the worst case, the total number of invocation would be the number of
+	 * nodes in a full 3-nary tree, which is about 3^L .
+	 * 
+	 * We iterate through the board for backtracking, i.e. there could be N times invocation for the backtracking
+	 * function in the worst case.
+	 * 
+	 * Space Complexity: O(L) where L is the length of the word to be matched.
+	 * 
+	 * The main consumption of the memory lies in the recursion call of the backtracking function. The maximum length of
+	 * the call stack would be the length of the word. Therefore, the space complexity of the algorithm is O(L)
+	 */
 
 	private int[][] directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
-	private int m = -1;
-	private int n = -1;
+	private int rows = -1;
+	private int cols = -1;
 
 	public boolean isWordExist(char[][] board, String word) {
 		Set<Integer> visited = new HashSet<Integer>();
 
-		m = board.length;
-		n = board[0].length;
-		for (int i = 0; i < m; i++) {
-			for (int j = 0; j < n; j++) {
-				if (board[i][j] == word.charAt(0)) {
-					visited.add(i * n + j);
-					boolean res = dfs(board, word, i, j, visited, 1);
+		rows = board.length;
+		cols = board[0].length;
+		for (int row = 0; row < rows; row++) {
+			for (int col = 0; col < cols; col++) {
+				if (board[row][col] == word.charAt(0)) {
+					visited.add(row * cols + col);
+					boolean res = dfs(board, word, row, col, visited, 1);
 					if (res) {
 						return true;
 					}
-					visited.remove(i * n + j);
+					visited.remove(row * cols + col);
 				}
 			}
 		}
@@ -50,17 +82,18 @@ public class WordSearch {
 		return false;
 	}
 
-	private boolean dfs(char[][] board, String word, int i, int j, Set<Integer> visited, int pos) {
+	private boolean dfs(char[][] board, String word, int row, int col, Set<Integer> visited, int pos) {
 		if (pos == word.length()) {
 			return true;
 		}
 
 		for (int[] dir : directions) {
-			int x = i + dir[0];
-			int y = j + dir[1];
-			int newId = x * n + y;
+			int x = row + dir[0];
+			int y = col + dir[1];
+			int newId = x * cols + y;
 
-			if (x >= 0 && x < m && y >= 0 && y < n && board[x][y] == word.charAt(pos) && !visited.contains(newId)) {
+			if (x >= 0 && x < rows && y >= 0 && y < cols && board[x][y] == word.charAt(pos)
+					&& !visited.contains(newId)) {
 				visited.add(newId);
 				boolean res = dfs(board, word, x, y, visited, pos + 1);
 				if (res) {
@@ -128,7 +161,7 @@ public class WordSearch {
 			for (int[] dir : directions) {
 				int x = i + dir[0];
 				int y = j + dir[1];
-				int id = x * n + y;
+				int id = x * cols + y;
 
 				if (x >= 0 && x < board.length && y >= 0 && y < board[0].length && !visited.contains(id)) {
 					visited.add(id);
@@ -211,21 +244,21 @@ public class WordSearch {
 
 	// Problem 3
 	public List<List<int[]>> findWordsWithPath(char[][] board, String word) {
-		m = board.length;
-		n = board[0].length;
+		rows = board.length;
+		cols = board[0].length;
 
 		List<List<int[]>> res = new ArrayList<List<int[]>>();
 		List<int[]> list = new ArrayList<int[]>();
 		Set<Integer> visited = new HashSet<Integer>();
 
-		for (int i = 0; i < m; i++) {
-			for (int j = 0; j < n; j++) {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
 				if (board[i][j] == word.charAt(0)) {
-					visited.add(i * n + j);
+					visited.add(i * cols + j);
 					list.add(new int[] { i, j });
 					helper(res, list, board, visited, word, 1, i, j);
 					list.remove(list.size() - 1);
-					visited.remove(i * n + j);
+					visited.remove(i * cols + j);
 				}
 			}
 		}
@@ -243,9 +276,10 @@ public class WordSearch {
 		for (int[] dir : directions) {
 			int x = i + dir[0];
 			int y = j + dir[1];
-			int newId = x * n + y;
+			int newId = x * cols + y;
 
-			if (x >= 0 && x < m && y >= 0 && y < n && board[x][y] == word.charAt(pos) && !visited.contains(newId)) {
+			if (x >= 0 && x < rows && y >= 0 && y < cols && board[x][y] == word.charAt(pos)
+					&& !visited.contains(newId)) {
 				visited.add(newId);
 				list.add(new int[] { x, y });
 				helper(res, list, board, visited, word, pos + 1, x, y);

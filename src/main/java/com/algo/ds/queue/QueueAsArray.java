@@ -10,7 +10,7 @@ import java.util.Arrays;
  * All operations have O(1) time
  *
  */
-public class QueueAsArray implements Queue<Integer> {
+public class QueueAsArray implements MyQueue<Integer> {
 
 	private int capacity;
 	private int[] arr;

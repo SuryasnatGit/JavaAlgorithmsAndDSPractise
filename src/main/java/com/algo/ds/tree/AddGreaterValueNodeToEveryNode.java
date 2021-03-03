@@ -1,5 +1,7 @@
 package com.algo.ds.tree;
 
+import java.util.Stack;
+
 import com.algo.common.TreeNode;
 
 /**
@@ -42,6 +44,27 @@ public class AddGreaterValueNodeToEveryNode {
 		add(root.left, ref);
 	}
 
+	public TreeNode convertBST(TreeNode root) {
+		BSTIterator it = new BSTIterator(root);
+		helper(it);
+		return root;
+	}
+
+	int helper(BSTIterator it) {
+		if (it.hasNext()) {
+			TreeNode node = it.getNext();
+			// int originalVal = node.val;
+			int res = helper(it);
+			// node.val = originalVal + res;
+			node.data = node.data + res;
+			return node.data;
+		} else {
+			// node.val is still node.val
+			// node.val = 0;
+			return 0;
+		}
+	}
+
 	public static void main(String args[]) {
 		BinaryTree bt = new BinaryTree();
 		TreeNode root = null;
@@ -56,5 +79,33 @@ public class AddGreaterValueNodeToEveryNode {
 		agv.add(root, ir);
 		TreeTraversals tt = new TreeTraversals();
 		tt.inOrder(root);
+	}
+}
+
+class BSTIterator {
+	Stack<TreeNode> stack = new Stack<TreeNode>();
+	TreeNode cur = null;
+
+	BSTIterator(TreeNode node) {
+		cur = node;
+	}
+
+	TreeNode getNext() {
+		while (cur != null) {
+			stack.push(cur);
+			cur = cur.left;
+		}
+
+		TreeNode node = stack.pop();
+		cur = node.right;
+
+		return node;
+	}
+
+	boolean hasNext() {
+		if (cur == null && stack.isEmpty()) {
+			return false;
+		}
+		return true;
 	}
 }

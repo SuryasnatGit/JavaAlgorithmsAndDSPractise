@@ -1,6 +1,6 @@
 package com.algo.ds.queue;
 
-public interface Queue<E> {
+public interface MyQueue<E> {
 
 	/**
 	 * Adds element to rear of queue

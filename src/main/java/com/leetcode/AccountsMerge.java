@@ -1,8 +1,9 @@
 package com.leetcode;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ import java.util.Map;
  * 
  * Tags : Union-Find, DFS
  * 
- * TODO : Revisit
+ * TODO: understand properly.
  */
 public class AccountsMerge {
 
@@ -45,78 +46,75 @@ public class AccountsMerge {
 	 * @return
 	 */
 	public List<List<String>> accountsMerge(List<List<String>> accounts) {
-		// email, indexes
-		Map<String, List<Integer>> map = new HashMap<String, List<Integer>>();
+		UnionFind dsu = new UnionFind();
 
-		for (int i = 0; i < accounts.size(); i++) {
-			for (String s : accounts.get(i)) {
-				if (!map.containsKey(s)) {
-					map.put(s, new ArrayList<Integer>());
+		Map<String, String> emailToName = new HashMap<>();
+		Map<String, Integer> emailToID = new HashMap<>();
+
+		int id = 0;
+		for (List<String> account : accounts) {
+			String name = "";
+			for (String email : account) {
+				// first string is name
+				if (name == "") {
+					name = email;
+					continue;
 				}
-				map.get(s).add(i);
+				emailToName.put(email, name);
+				if (!emailToID.containsKey(email)) {
+					emailToID.put(email, id++);
+				}
+
+				dsu.union(emailToID.get(account.get(1)), emailToID.get(email));
 			}
 		}
 
-		UnionFind uf = new UnionFind(accounts.size());
-
-		for (List<Integer> group : map.values()) {
-			for (int i = 1; i < group.size(); i++) {
-				uf.union(group.get(i), group.get(i - 1));
-			}
+		Map<Integer, List<String>> ans = new HashMap<>();
+		for (String email : emailToName.keySet()) {
+			int index = dsu.find(emailToID.get(email));
+			ans.computeIfAbsent(index, x -> new ArrayList<>()).add(email);
 		}
 
-		return uf.findGroup();
+		for (List<String> component : ans.values()) {
+			Collections.sort(component);
+			component.add(0, emailToName.get(component.get(0)));
+		}
+
+		return new ArrayList<>(ans.values());
+	}
+
+	public static void main(String[] args) {
+		AccountsMerge am = new AccountsMerge();
+		List<List<String>> accounts = new ArrayList<>();
+		accounts.add(Arrays.asList("John", "johnsmith@mail.com", "john00@mail.com"));
+		accounts.add(Arrays.asList("John", "johnnybravo@mail.com"));
+		accounts.add(Arrays.asList("Mary", "mary@mail.com"));
+
+		System.out.println(am.accountsMerge(accounts));
 	}
 }
 
 class UnionFind {
 
-	private int[] parent = null;
+	int[] parent;
 
-	public UnionFind(int size) {
-		parent = new int[size];
-
-		for (int i = 0; i < parent.length; i++) {
+	public UnionFind() {
+		parent = new int[10001];
+		for (int i = 0; i <= 10000; ++i) {
 			parent[i] = i;
 		}
 	}
 
-	public void union(int i, int j) {
-		int p1 = find(i);
-		int p2 = find(j);
-
-		if (p1 != p2) {
-			parent[p1] = p2;
+	public int find(int x) {
+		if (parent[x] != x) {
+			parent[x] = find(parent[x]);
 		}
+
+		return parent[x];
 	}
 
-	public int find(int i) {
-		while (parent[i] != i) {
-			parent[i] = parent[parent[i]];
-			i = parent[i];
-		}
-		return i;
+	public void union(int x, int y) {
+		parent[find(x)] = find(y);
 	}
 
-	public List<List<String>> findGroup() {
-		List<List<String>> res = new ArrayList<>();
-		List<Integer>[] groups = new List[parent.length];
-
-		for (int i = 0; i < parent.length; i++) {
-			int pos = find(i);
-			if (groups[pos] == null) {
-				groups[pos] = new HashSet<Integer>();
-			}
-
-			groups[pos].add(i);
-		}
-
-		for (List<Integer> set : groups) {
-			if (set != null) {
-				res.add(set);
-			}
-		}
-
-		return res;
-	}
 }

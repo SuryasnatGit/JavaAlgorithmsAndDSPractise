@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Stack;
 
 /**
@@ -73,14 +74,162 @@ public class MergeIntervals {
 		return result;
 	}
 
+	public List<Interval> merge(List<Interval> intervals) {
+
+		List<Interval> res = new ArrayList<Interval>();
+		if (intervals.size() == 0) {
+			return res;
+		}
+
+		PriorityQueue<Interval> heap = new PriorityQueue<Interval>(new IntervalComparator());
+		for (int i = 0; i < intervals.size(); i++) {
+			heap.offer(intervals.get(i));
+		}
+
+		Interval cur = heap.poll();
+		while (!heap.isEmpty()) {
+			Interval next = heap.poll();
+			if (next.start <= cur.end) { // Overlap
+				// No need to offer back
+				cur = new Interval(cur.start, Math.max(cur.end, next.end));
+			} else { // Gap
+				res.add(cur);
+				cur = next;
+			}
+		}
+
+		res.add(cur);
+
+		return res;
+	}
+
 	class Interval {
-		private int start;
-		private int end;
+		int start;
+		int end;
 
 		public Interval(int s, int e) {
 			this.start = s;
 			this.end = e;
 		}
+	}
+
+	class IntervalComparator implements Comparator<Interval> {
+
+		public int compare(Interval i1, Interval i2) {
+			if (i1.start == i2.start) {
+				return i1.end - i2.end;
+			}
+			return i1.start - i2.start;
+		}
+	}
+
+	/**
+	 * 
+	 * Interval List A: <1,3> <5,7> B: <4,6>. Output intersection <5,6> Output Union <1,7> The requirement is to merge
+	 * if the end of the previous interval is the start-1 of the latter
+	 * 
+	 * Maintain double pointers, but the most important principle is to compare two pointers but only move one pointer
+	 * at a time
+	 * 
+	 * New: a variant of merge interval, merge the overlap interval in the two lists
+	 * 
+	 */
+	// 可以用bucket sort的思想
+	// 先把list 自己merge好，保证没有overlap
+	List<Interval> intersection(List<Interval> A, List<Interval> B) {
+		List<Interval> res = new ArrayList<Interval>();
+		int pos1 = 0;
+		int pos2 = 0;
+
+		while (pos1 < A.size() && pos2 < B.size()) {
+			Interval in1 = A.get(pos1);
+			Interval in2 = B.get(pos2);
+
+			if (in1.end < in2.start) {
+				pos1++;
+			} else if (in2.end < in1.start) {
+				pos2++;
+			} else {
+				Interval in = new Interval(Math.max(in1.start, in2.start), Math.min(in1.end, in2.end));
+				res.add(in);
+
+				// Move the one which ends earlier. Great!!! 还是有问题啊
+				if (in1.end < in2.end) {
+					pos1++;
+				} else {
+					pos2++;
+				}
+			}
+		}
+
+		for (Interval in : res) {
+			System.out.println(in.start + "==" + in.end);
+		}
+
+		return res;
+	}
+
+	List<Interval> union(List<Interval> A, List<Interval> B) {
+		List<Interval> res = new ArrayList<Interval>();
+		int pos1 = 1;
+		int pos2 = 0;
+
+		res.add(A.get(0));
+		while (pos1 < A.size() && pos2 < B.size()) {
+			Interval in1 = A.get(pos1);
+			Interval in2 = B.get(pos2);
+			Interval prev = res.get(res.size() - 1);
+
+			// Use only 1 each time
+			if (in1.start < in2.start) {
+				if (prev.end + 1 < in1.start) {
+					res.add(in1);
+					pos1++;
+				} else {
+					prev.end = Math.max(prev.end, in1.end);
+					pos1++;
+				}
+			} else {
+				if (prev.end + 1 < in2.start) {
+					res.add(in2);
+					pos2++;
+				} else {
+					prev.end = Math.max(prev.end, in2.end);
+					pos2++;
+				}
+			}
+		}
+
+		// Merge res and whichever left, A or B
+		while (pos1 < A.size()) {
+			Interval prev = res.get(res.size() - 1);
+			Interval now = A.get(pos1);
+
+			if (prev.end + 1 >= now.start) {
+				prev.end = now.end;
+			} else {
+				res.add(now);
+			}
+			pos1++;
+		}
+
+		while (pos2 < B.size()) {
+			Interval prev = res.get(res.size() - 1);
+			Interval now = B.get(pos2);
+
+			if (prev.end + 1 >= now.start) {
+				prev.end = now.end;
+			} else {
+				res.add(now);
+			}
+			pos2++;
+		}
+
+		for (Interval in : res) {
+			System.out.println(in.start + "==" + in.end);
+		}
+
+		return res;
 	}
 
 	public static void main(String[] args) {

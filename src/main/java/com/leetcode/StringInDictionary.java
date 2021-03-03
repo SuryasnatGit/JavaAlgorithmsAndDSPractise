@@ -6,6 +6,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Tags : Trie
+ *
+ */
 public class StringInDictionary {
 
 	List<String> find(String source, Set<String> dict) {
@@ -47,50 +51,50 @@ public class StringInDictionary {
 
 		StringInDictionary sid = new StringInDictionary();
 		sid.find(source, dict).forEach(a -> System.out.println(a));
-		;
-	}
-}
 
-class TrieNode {
-	TrieNode[] children = new TrieNode[26];
-	boolean hasWord = false;
-
-	void insert(String s, int pos) {
-		if (pos == s.length()) {
-			this.hasWord = true;
-			return;
-		}
-
-		int index = s.charAt(pos) - 'a';
-		if (this.children[index] == null) {
-			this.children[index] = new TrieNode();
-		}
-
-		this.children[index].insert(s, pos + 1);
 	}
 
-	TrieNode search(String s, int pos) {
-		if (pos == s.length()) {
-			return this;
+	private class TrieNode {
+		TrieNode[] children = new TrieNode[26];
+		boolean hasWord = false;
+
+		void insert(String s, int pos) {
+			if (pos == s.length()) {
+				this.hasWord = true;
+				return;
+			}
+
+			int index = s.charAt(pos) - 'a';
+			if (this.children[index] == null) {
+				this.children[index] = new TrieNode();
+			}
+
+			this.children[index].insert(s, pos + 1);
 		}
 
-		int index = s.charAt(pos) - 'a';
-		if (this.children[index] == null) {
-			return null;
+		TrieNode search(String s, int pos) {
+			if (pos == s.length()) {
+				return this;
+			}
+
+			int index = s.charAt(pos) - 'a';
+			if (this.children[index] == null) {
+				return null;
+			}
+
+			return this.children[index].search(s, pos + 1);
 		}
 
-		return this.children[index].search(s, pos + 1);
-	}
+		boolean startsWith(String s, int pos) {
+			TrieNode node = search(s, pos);
 
-	boolean startsWith(String s, int pos) {
-		TrieNode node = search(s, pos);
+			return node == null ? false : true;
+		}
 
-		return node == null ? false : true;
-	}
+		boolean contains(String s, int pos) {
+			TrieNode node = search(s, pos);
 
-	boolean contains(String s, int pos) {
-		TrieNode node = search(s, pos);
-
-		return node == null || !node.hasWord ? false : true;
+			return node == null || !node.hasWord ? false : true;
+		}
 	}
 }

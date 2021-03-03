@@ -8,7 +8,7 @@ import java.util.Arrays;
  * @author Suryasnat
  *
  */
-public class QueueAsArray1 implements Queue<Integer> {
+public class QueueAsArray1 implements MyQueue<Integer> {
 
 	private int capacity;
 	private int[] arr;

@@ -1,8 +1,9 @@
 package com.algo.ds.linkedlist;
 
+import com.algo.common.ListNode;
+
 /**
- * Date 10/10/2016 Given a list, rotate the list to the right by k places, where
- * k is non-negative.
+ * Date 10/10/2016 Given a list, rotate the list to the right by k places, where k is non-negative.
  * 
  * Given 1->2->3->4->5->NULL and k = 2,
  * 
@@ -13,12 +14,13 @@ package com.algo.ds.linkedlist;
  * https://leetcode.com/problems/rotate-list/
  */
 public class RotateList {
-	public Node rotateRight(Node head, int k) {
+	public ListNode rotateRight(ListNode head, int k) {
 		if (head == null || k == 0) {
 			return head;
 		}
-		Node slow = head;
-		Node fast = head;
+
+		ListNode slow = head;
+		ListNode fast = head;
 		int i = 0;
 		while (i < k && fast != null) {
 			fast = fast.next;
@@ -28,34 +30,35 @@ public class RotateList {
 		if (fast == null) {
 			return rotateRight(head, k % i);
 		}
+
 		while (fast.next != null) {
 			fast = fast.next;
 			slow = slow.next;
 		}
-		Node next = slow.next;
+
+		ListNode next = slow.next;
 		slow.next = null;
 		fast.next = head;
+
 		return next;
 	}
 
 	/**
-	 * To rotate the linked list counter clockwise, we need to 1. change next of kth
-	 * node to NULL, 2. next of last node to previous head node, 3. and finally
-	 * change head to (k+1)th node. So we need to get hold of three nodes: kth node,
-	 * (k+1)th node and last node. Traverse the list from beginning and stop at kth
-	 * node. Store pointer to kth node. We can get (k+1)th node using kthNode->next.
-	 * Keep traversing till end and store pointer to last node also. Finally, change
-	 * pointers as stated above.
+	 * To rotate the linked list counter clockwise, we need to 1. change next of kth ListNode to NULL, 2. next of last
+	 * ListNode to previous head ListNode, 3. and finally change head to (k+1)th ListNode. So we need to get hold of
+	 * three nodes: kth ListNode, (k+1)th ListNode and last ListNode. Traverse the list from beginning and stop at kth
+	 * ListNode. Store pointer to kth ListNode. We can get (k+1)th ListNode using kthNode->next. Keep traversing till
+	 * end and store pointer to last ListNode also. Finally, change pointers as stated above.
 	 * 
 	 * @return
 	 */
-	public Node rorateLeft(Node head, int k) {
+	public ListNode rotateLeft(ListNode head, int k) {
 		if (head == null || k == 0)
 			return head;
 
-		// navigate to kth node
+		// navigate to kth ListNode
 		int count = 1;
-		Node current = head;
+		ListNode current = head;
 		while (count < k && current != null) {
 			current = current.next;
 			count++;
@@ -66,37 +69,54 @@ public class RotateList {
 		if (current == null)
 			return head;
 
-		// store kth node
-		Node kthNode = current;
+		// store kth ListNode
+		ListNode kthNode = current;
 
-		// navigate to last node
+		// navigate to last ListNode
 		while (current.next != null)
 			current = current.next;
 
-		// point last node next to current head
+		// point last ListNode next to current head
 		current.next = head;
 
-		// make next of kth node as new head
+		// make next of kth ListNode as new head
 		head = kthNode.next;
 
-		// point next of kth node to null
+		// point next of kth ListNode to null
 		kthNode.next = null;
 
 		return head;
 	}
-	
+
 	public static void main(String[] args) {
-		LinkList ll = new LinkList();
-		Node head = null;
-		head = ll.addNode(1, head);
-		head = ll.addNode(2, head);
-		head = ll.addNode(3, head);
-		head = ll.addNode(4, head);
-		head = ll.addNode(5, head);
-		head = ll.addNode(6, head);
-		ll.printList(head);
+		SingleLinkedList sll = new SingleLinkedList();
+
+		sll.addNodeAtEnd(1);
+		sll.addNodeAtEnd(2);
+		sll.addNodeAtEnd(3);
+		sll.addNodeAtEnd(4);
+		sll.addNodeAtEnd(5);
+		sll.addNodeAtEnd(6);
+
+		sll.displayList(sll.getHead());
 		RotateList rl = new RotateList();
-		head = rl.rorateLeft(head, 4);
-		ll.printList(head);
+
+		ListNode node = rl.rotateRight(sll.getHead(), 4);
+		System.out.println();
+
+		sll.displayList(node);
+
+		System.out.println();
+
+		SingleLinkedList sll1 = new SingleLinkedList();
+
+		sll1.addNodeAtEnd(1);
+		sll1.addNodeAtEnd(2);
+		sll1.addNodeAtEnd(3);
+		sll1.addNodeAtEnd(4);
+		sll1.addNodeAtEnd(5);
+		sll1.addNodeAtEnd(6);
+		ListNode node1 = rl.rotateLeft(sll1.getHead(), 4);
+		sll.displayList(node1);
 	}
 }

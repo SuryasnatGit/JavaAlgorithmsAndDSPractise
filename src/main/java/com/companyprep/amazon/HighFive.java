@@ -1,5 +1,6 @@
 package com.companyprep.amazon;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +47,15 @@ public class HighFive {
 		}
 
 		return result;
+	}
+
+	public static void main(String[] args) {
+		HighFive hf = new HighFive();
+
+		List<Record> records = Arrays.asList(new Record(1, 91), new Record(1, 92), new Record(2, 93), new Record(2, 99),
+				new Record(2, 98), new Record(2, 97), new Record(1, 60), new Record(1, 58), new Record(2, 100),
+				new Record(1, 61));
+		System.out.println(hf.average(records, 3));
 	}
 }
 

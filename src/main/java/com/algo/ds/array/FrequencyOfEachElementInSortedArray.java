@@ -43,12 +43,22 @@ public class FrequencyOfEachElementInSortedArray {
 				count.put(arr[left], count.get(arr[left]) + (right - left + 1));
 
 				left = right + 1;
-				right = arr.length - 1;
+				right = arr.length - 1; // reset to original
 			} else {
-				right = (left + right) / 2;
+				right = (left + right) / 2; // binary search approach, split by half
 			}
 		}
 		System.out.println(count);
+	}
+
+	public void findFrequency(int[] arr) {
+		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+
+		for (int i = 0; i < arr.length; i++) {
+			map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
+		}
+
+		System.out.println(map);
 	}
 
 	/**
@@ -57,7 +67,7 @@ public class FrequencyOfEachElementInSortedArray {
 	 * @param arr
 	 * @return
 	 */
-	public Map<Integer, Integer> count(int[] arr) {
+	public void findFrequencyBinarySearch(int[] arr) {
 		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
 
 		for (int i = 0; i < arr.length;) {
@@ -80,7 +90,7 @@ public class FrequencyOfEachElementInSortedArray {
 			i = rightBorder + 1;
 		}
 
-		return map;
+		System.out.println(map);
 	}
 
 	private int binarySearch(int[] arr, int left, int right, int curVal) {
@@ -105,5 +115,7 @@ public class FrequencyOfEachElementInSortedArray {
 		int[] arr = { 2, 2, 2, 4, 4, 4, 5, 5, 6, 8, 8, 9 };
 		fr.findFrequencyRecursive(arr);
 		fr.findFrequencyIterative(arr);
+		fr.findFrequencyBinarySearch(arr);
+		fr.findFrequency(arr);
 	}
 }
