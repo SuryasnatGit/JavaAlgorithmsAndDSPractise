@@ -14,7 +14,7 @@ public class MyGraph<K> {
 	private Vertex[] vertexArray;
 	private int[][] adjMatrix;
 	private int numVer;
-	private ArrayStack stack;
+	private ArrayStack<Integer> stack;
 	private QueueAsArray queue;
 	// array of linked lists for adjacency list
 	private LinkedList<Integer>[] adjList;
@@ -23,26 +23,34 @@ public class MyGraph<K> {
 
 	public MyGraph(int n) {
 		vertexArray = new MyGraph.Vertex[MAX_VERTEX];
+
 		adjMatrix = new int[MAX_VERTEX][MAX_VERTEX];
-		numVer = n;
-		for (int i = 0; i < MAX_VERTEX; i++)
-			for (int j = 0; j < MAX_VERTEX; j++)
+		for (int i = 0; i < MAX_VERTEX; i++) {
+			for (int j = 0; j < MAX_VERTEX; j++) {
 				adjMatrix[i][j] = 0; // initialize
-		stack = new ArrayStack(MAX_VERTEX);
-		queue = new QueueAsArray(MAX_VERTEX);
+			}
+		}
+
+		numVer = n;
+
 		// for adjacency list
 		adjList = new LinkedList[numVer];
-		for (int i = 0; i < numVer; i++)
+		for (int i = 0; i < numVer; i++) {
 			adjList[i] = new LinkedList<Integer>();
+		}
 
 		// adj list for longest distance
 		adjListLP = new LinkedList[numVer];
-		for (int i = 0; i < numVer; i++)
+		for (int i = 0; i < numVer; i++) {
 			adjListLP[i] = new LinkedList<AdjListNode>();
+		}
+
+		stack = new ArrayStack<Integer>(MAX_VERTEX);
+		queue = new QueueAsArray(MAX_VERTEX);
 	}
 
-	public void addVertex(char l) {
-		vertexArray[numVer++] = new Vertex(l);
+	public void addVertex(int num) {
+		vertexArray[numVer++] = new Vertex(num);
 	}
 
 	public void addEdge(int start, int end) {
@@ -51,7 +59,7 @@ public class MyGraph<K> {
 	}
 
 	public void displayVertex(int j) {
-		System.out.println(vertexArray[j].label);
+		System.out.println(vertexArray[j].num);
 	}
 
 	/**
@@ -66,24 +74,24 @@ public class MyGraph<K> {
 	public void dfs_adjacencyMatrix() {
 		vertexArray[0].wasVisited = true; // start with the root
 		displayVertex(0); // display
-		stack.push((char) 0); // push it onto the stack
+		stack.push(0); // push it onto the stack
 
 		while (!stack.isEmpty()) {// until stack empty
 			// find the first unvisited adjacent vertex
-			int d = findAdjUnvisitedVertex((int) stack.top());
-			if (d == -1)
+			int d = findAdjUnvisitedVertex(stack.top());
+			if (d == -1) {
 				stack.pop();
-			else {
+			} else {
 				vertexArray[d].wasVisited = true;
 				displayVertex(d);
-				stack.push((char) d);
+				stack.push(d);
 			}
 		}
 
 		// after all the vertex have been visited, reset them
-		for (int i = 0; i < numVer; i++)
+		for (int i = 0; i < numVer; i++) {
 			vertexArray[i].wasVisited = false;
-
+		}
 	}
 
 	/**
@@ -107,8 +115,9 @@ public class MyGraph<K> {
 		// recursion for all vertices adjacent to this vertex
 		for (Iterator<Integer> iterator = adjList[v].listIterator(); iterator.hasNext();) {
 			int n = iterator.next();
-			if (!visited[n])
+			if (!visited[n]) {
 				dfs_adjacencyList(n, visited);
+			}
 		}
 	}
 
@@ -173,7 +182,7 @@ public class MyGraph<K> {
 
 	public void minimumSpanningTree() {
 		vertexArray[0].wasVisited = true; // start at 0, mark it and push it.
-		stack.push((char) 0);
+		stack.push(0);
 
 		while (!stack.isEmpty()) {
 			int currentVertex = (int) stack.top(); // current vertex.
@@ -182,7 +191,7 @@ public class MyGraph<K> {
 				stack.pop();
 			else {
 				vertexArray[v2].wasVisited = true;
-				stack.push((char) v2);
+				stack.push(v2);
 
 				displayVertex(currentVertex);
 				displayVertex(v2);
@@ -407,7 +416,6 @@ public class MyGraph<K> {
 	}
 
 	class Vertex {
-		public char[] label;
 		int num;
 		boolean wasVisited;
 

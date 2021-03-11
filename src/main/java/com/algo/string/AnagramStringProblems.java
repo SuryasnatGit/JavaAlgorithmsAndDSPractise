@@ -72,9 +72,11 @@ public class AnagramStringProblems {
 		int index = 0;
 		int curLen = 0;
 		Map<Character, Integer> count = new HashMap<Character, Integer>();
-		for (int i = 0; i < str1.length; i++) {
-			incrementCount(str1[i], count);
+
+		for (char ch : str1) {
+			count.put(ch, count.getOrDefault(ch, 0) + 1);
 		}
+
 		Map<Character, Integer> currentCount = new HashMap<Character, Integer>();
 		Map<Character, Integer> pos = new HashMap<Character, Integer>();
 		while (index < str2.length) {
@@ -117,15 +119,6 @@ public class AnagramStringProblems {
 			}
 		}
 		return false;
-	}
-
-	private void incrementCount(char ch, Map<Character, Integer> count) {
-		if (count.containsKey(ch)) {
-			int c = count.get(ch);
-			count.put(ch, c + 1);
-		} else {
-			count.put(ch, 1);
-		}
 	}
 
 	/**
@@ -287,36 +280,7 @@ public class AnagramStringProblems {
 	 * LC 438 : find all anagrams in a string
 	 */
 
-	// Approach 1 - time limit getting exceeded for large inputs in LC
-	public List<Integer> findAnagrams1(String s, String p) {
-
-		List<Integer> result = new ArrayList<>();
-
-		if (s == null || s.length() == 0 || s.length() < p.length()) {
-			return result;
-		}
-
-		for (int i = 0; i < s.length(); i++) {
-			int left = i;
-			int right = left + p.length();
-			if (right <= s.length()) {
-				char[] sChArr = s.substring(left, right).toCharArray();
-				Arrays.sort(sChArr);
-				String sTemp = new String(sChArr);
-				char[] pChArr = p.toCharArray();
-				Arrays.sort(pChArr);
-				String pTemp = new String(pChArr);
-
-				if (sTemp.equals(pTemp)) {
-					result.add(i);
-				}
-			}
-		}
-
-		return result;
-	}
-
-	public List<Integer> findAnagrams2(String s, String p) {
+	public List<Integer> findAnagrams(String s, String p) {
 		List<Integer> result = new ArrayList<>();
 
 		if (s == null || s.length() == 0 || s.length() < p.length()) {
@@ -369,8 +333,7 @@ public class AnagramStringProblems {
 		ana.groupAnagrams_usingHashMap(strs).forEach(a -> System.out.println(a));
 		ana.printAnagramGroupsUsingTrie(strs);
 
-		System.out.println(ana.findAnagrams1("BACDGABCDA", "ABCD"));
-		System.out.println(ana.findAnagrams2("BACDGABCDA", "ABCD"));
-		System.out.println(ana.findAnagrams2("AAAAAAAA", "AAAA"));
+		System.out.println(ana.findAnagrams("BACDGABCDA", "ABCD"));
+		System.out.println(ana.findAnagrams("AAAAAAAA", "AAAA"));
 	}
 }

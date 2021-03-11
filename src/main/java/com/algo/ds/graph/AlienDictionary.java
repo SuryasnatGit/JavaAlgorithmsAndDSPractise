@@ -1,12 +1,10 @@
 package com.algo.ds.graph;
 
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * There is a new alien language which uses the latin alphabet. However, the order among letters are unknown to you. You
@@ -22,6 +20,9 @@ import java.util.Set;
  * Similarly we can find other orders.
  * 
  * Input: words[] = {"caa", "aaa", "aab"} Output: Order of characters is 'c', 'a', 'b'
+ * 
+ * Time complexity: Say the number of characters in the dictionary (including duplicates) is n. Building the graph takes
+ * O(n). Topological sort takes O(V + E). V <= n. E also can't be larger than n. So the overall time complexity is O(n).
  * 
  * Category : Hard
  * 
@@ -52,8 +53,11 @@ public class AlienDictionary {
 	 */
 	public String alienOrder_usingTopologicalSort(String[] words) {
 		Set<Character> allCharacters = new HashSet<>();
-		Map<Character, Set<Character>> graph = buildGraph(words, new HashMap<>(), allCharacters);
-		Deque<Character> stack = new LinkedList<>();
+
+		// step 1 - build the graph
+		Map<Character, Set<Character>> graph = buildGraph(words, allCharacters);
+
+		Stack<Character> stack = new Stack<>();
 		Set<Character> visited = new HashSet<>();
 		Set<Character> dfs = new HashSet<>();
 
@@ -65,95 +69,52 @@ public class AlienDictionary {
 
 		StringBuffer buff = new StringBuffer();
 		while (!stack.isEmpty()) {
-			buff.append(stack.pollFirst());
+			buff.append(stack.pop());
 		}
+
 		return buff.toString();
-	}
-
-	private boolean topSortUtil(char vertex, Deque<Character> stack, Set<Character> visited, Set<Character> dfs,
-			Map<Character, Set<Character>> graph) {
-		if (visited.contains(vertex)) {
-			return false;
-		}
-		visited.add(vertex);
-		dfs.add(vertex);
-		Set<Character> set = graph.get(vertex);
-		if (set != null) {
-			for (char neighbor : set) {
-				if (dfs.contains(neighbor)) {
-					return true;
-				}
-				if (topSortUtil(neighbor, stack, visited, dfs, graph)) {
-					return true;
-				}
-			}
-		}
-		dfs.remove(vertex);
-		stack.offerFirst(vertex);
-		return false;
-	}
-
-	public String alienOrder1(String words[]) {
-		Map<Character, Integer> degree = new HashMap<>();
-		Map<Character, Set<Character>> graph = buildGraph(words, degree, new HashSet<>());
-
-		Queue<Character> zeroDegreeNodes = new LinkedList<>();
-		for (Map.Entry<Character, Integer> entry : degree.entrySet()) {
-			if (entry.getValue() == 0) {
-				zeroDegreeNodes.offer(entry.getKey());
-			}
-		}
-
-		StringBuilder result = new StringBuilder();
-
-		while (!zeroDegreeNodes.isEmpty()) {
-			char vertex = zeroDegreeNodes.poll();
-			result.append(vertex);
-			Set<Character> neighbors = graph.get(vertex);
-			if (neighbors != null) {
-				for (char neighbor : graph.get(vertex)) {
-					int count = degree.get(neighbor);
-					count--;
-					if (count == 0) {
-						zeroDegreeNodes.offer(neighbor);
-					} else {
-						degree.put(neighbor, count);
-					}
-				}
-			}
-			graph.remove(vertex);
-		}
-
-		return graph.size() > 0 ? "" : result.toString();
 	}
 
 	/**
 	 * degree is only used for BFS. Not for DFS.
 	 */
-	private Map<Character, Set<Character>> buildGraph(String words[], Map<Character, Integer> degree,
-			Set<Character> allCharacters) {
+	private Map<Character, Set<Character>> buildGraph(String words[], Set<Character> allCharacters) {
+
+		Map<Character, Integer> degree = new HashMap<Character, Integer>();
+
 		getAllChars(words, degree, allCharacters);
+
 		Set<Character> all = new HashSet<>(allCharacters);
 		Map<Character, Set<Character>> graph = new HashMap<>();
+
 		for (int i = 0; i < words.length - 1; i++) {
+
+			String currentWord = words[i];
 			String nextWord = words[i + 1];
-			for (int k = 0; k < Math.min(words[i].length(), nextWord.length()); k++) {
-				if (words[i].charAt(k) != nextWord.charAt((k))) {
-					all.remove(words[i].charAt(k));
-					Set<Character> set = graph.get(words[i].charAt(k));
+
+			for (int k = 0; k < Math.min(currentWord.length(), nextWord.length()); k++) {
+
+				char currChar = currentWord.charAt(k);
+				char nextChar = nextWord.charAt(k);
+
+				if (currChar != nextChar) {
+					all.remove(currChar);
+					Set<Character> set = graph.get(currChar);
 					if (set == null) {
 						set = new HashSet<>();
-						graph.put(words[i].charAt(k), set);
+						graph.put(currChar, set);
 					}
-					set.add(nextWord.charAt(k));
-					degree.compute(nextWord.charAt(k), (key, count) -> count + 1);
+					set.add(nextChar);
+					degree.compute(nextChar, (key, count) -> count + 1);
 					break;
 				}
 			}
 		}
+
 		for (char ch : all) {
 			graph.put(ch, null);
 		}
+
 		return graph;
 	}
 
@@ -166,20 +127,41 @@ public class AlienDictionary {
 		}
 	}
 
+	private boolean topSortUtil(char vertex, Stack<Character> stack, Set<Character> visited, Set<Character> dfs,
+			Map<Character, Set<Character>> graph) {
+
+		if (visited.contains(vertex)) {
+			return false;
+		}
+
+		visited.add(vertex);
+		dfs.add(vertex);
+
+		Set<Character> neighbors = graph.get(vertex);
+		if (neighbors != null) {
+			for (char neighbor : neighbors) {
+				if (dfs.contains(neighbor)) {
+					return true;
+				}
+				if (topSortUtil(neighbor, stack, visited, dfs, graph)) {
+					return true;
+				}
+			}
+		}
+
+		dfs.remove(vertex);
+		stack.push(vertex);
+
+		return false;
+	}
+
 	public static void main(String args[]) {
 		AlienDictionary ad = new AlienDictionary();
-		String[] words1 = { "zy", "zx" };
-		String[] words = { "wrt", "wrf", "er", "ett", "rftt" };
-		String[] words2 = { "wrtkj", "wrt" };
-		String result = ad.alienOrder1(words2);
-		System.out.println(result);
-		System.out.println(ad.alienOrder_usingTopologicalSort(words1));
-		System.out.println(ad.alienOrder_usingTopologicalSort(words));
 
-		// w -> e
-		// e -> r
-		// t -> f
-		// r -> t
-		//
+		System.out.println(ad.alienOrder_usingTopologicalSort(new String[] { "zy", "zx" }));
+
+		System.out.println(ad.alienOrder_usingTopologicalSort(new String[] { "wrt", "wrf", "er", "ett", "rftt" }));
+
+		System.out.println(ad.alienOrder_usingTopologicalSort(new String[] { "wrtkj", "wrt" }));
 	}
 }
