@@ -1,11 +1,10 @@
 package com.algo.ds.tree;
 
 import java.util.ArrayList;
-import java.util.Deque;
-import java.util.HashMap;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 
 import com.algo.common.TreeNode;
@@ -22,107 +21,94 @@ import com.algo.common.TreeNode;
  * 
  */
 public class VerticalOrderTraversal {
-	public List<List<Integer>> verticalOrder2Queues(TreeNode root) {
+
+	private List<Triplet<Integer, Integer, Integer>> nodeList = new ArrayList<>();
+
+	public List<List<Integer>> verticalTraversal(TreeNode root) {
+
+		List<List<Integer>> output = new ArrayList<>();
 		if (root == null) {
-			return new ArrayList<>();
-		}
-		int minLevel = 0;
-		int maxLevel = 0;
-		Map<Integer, List<Integer>> map = new HashMap<>();
-
-		Deque<TreeNode> queue = new LinkedList<>();
-		Deque<Integer> level = new LinkedList<>();
-
-		queue.offerFirst(root);
-		level.offerFirst(0);
-
-		while (!queue.isEmpty()) {
-			root = queue.pollFirst();
-			int verticalLevel = level.pollFirst();
-			minLevel = Math.min(minLevel, verticalLevel);
-			maxLevel = Math.max(maxLevel, verticalLevel);
-
-			List<Integer> r = map.get(verticalLevel);
-			if (r == null) {
-				r = new ArrayList<>();
-				map.put(verticalLevel, r);
-			}
-			r.add(root.data);
-
-			if (root.left != null) {
-				queue.offerLast(root.left);
-				level.offerLast(verticalLevel - 1);
-			}
-
-			if (root.right != null) {
-				queue.offerLast(root.right);
-				level.offerLast(verticalLevel + 1);
-			}
+			return output;
 		}
 
-		List<List<Integer>> result = new ArrayList<>();
-		for (int i = minLevel; i <= maxLevel; i++) {
-			List<Integer> r = map.get(i);
-			result.add(r);
+		// step 1). BFS traversal
+		BFS(root);
+
+		// step 2). sort the global list by <column, row, value>
+		Collections.sort(this.nodeList, new Comparator<Triplet<Integer, Integer, Integer>>() {
+			@Override
+			public int compare(Triplet<Integer, Integer, Integer> t1, Triplet<Integer, Integer, Integer> t2) {
+				if (t1.first.equals(t2.first))
+					if (t1.second.equals(t2.second))
+						return t1.third - t2.third;
+					else
+						return t1.second - t2.second;
+				else
+					return t1.first - t2.first;
+			}
+		});
+
+		// step 3). extract the values, partitioned by the column index.
+		List<Integer> currColumn = new ArrayList<>();
+		Integer currColumnIndex = this.nodeList.get(0).first;
+
+		for (Triplet<Integer, Integer, Integer> triplet : this.nodeList) {
+			Integer column = triplet.first, value = triplet.third;
+			if (column == currColumnIndex) {
+				currColumn.add(value);
+			} else {
+				output.add(currColumn);
+				currColumnIndex = column;
+				currColumn = new ArrayList<>();
+				currColumn.add(value);
+			}
 		}
-		return result;
+		output.add(currColumn);
+
+		return output;
 	}
 
-	// As TreeNode and Column matters (Row doesn't matter, since we use level order traversal),
-	// we can build a Java class with these 2 attributes. In this way, we don't need to use 2 queues
-	public List<List<Integer>> verticalOrder1Queue(TreeNode root) {
-		List<List<Integer>> res = new ArrayList<List<Integer>>();
+	private void BFS(TreeNode root) {
+		Queue<Triplet<TreeNode, Integer, Integer>> queue = new LinkedList<>();
+		int row = 0, column = 0;
 
-		if (root == null) {
-			return res;
-		}
+		queue.offer(new Triplet<>(root, row, column));
 
-		Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
-		// This Queue contains both node and col
-		Queue<TreeColumnNode> queue = new LinkedList<TreeColumnNode>();
-		queue.offer(new TreeColumnNode(root, 0));
-
-		// 记录一下两头
-		int min = 0, max = 0;
-
-		// Level order traversal
 		while (!queue.isEmpty()) {
-			TreeColumnNode cNode = queue.poll();
-			TreeNode node = cNode.node;
-			int col = cNode.col;
+			Triplet<TreeNode, Integer, Integer> triplet = queue.poll();
+			root = triplet.first;
+			row = triplet.second;
+			column = triplet.third;
 
-			if (!map.containsKey(col)) {
-				map.put(col, new ArrayList<Integer>());
-			}
-			map.get(col).add(node.data);
-
-			if (node.left != null) {
-				TreeColumnNode leftCNode = new TreeColumnNode(node.left, col - 1);
-				queue.offer(leftCNode);
-				min = Math.min(min, col - 1);
-			}
-
-			if (node.right != null) {
-				TreeColumnNode rightCNode = new TreeColumnNode(node.right, col + 1);
-				queue.offer(rightCNode);
-				max = Math.max(max, col + 1);
+			if (root != null) {
+				this.nodeList.add(new Triplet<>(column, row, root.data));
+				queue.offer(new Triplet<>(root.left, row + 1, column - 1));
+				queue.offer(new Triplet<>(root.right, row + 1, column + 1));
 			}
 		}
-
-		for (int col = min; col <= max; col++) {
-			res.add(map.get(col));
-		}
-
-		return res;
 	}
 
-	class TreeColumnNode {
-		TreeNode node;
-		int col;
+	public static void main(String[] args) {
+		VerticalOrderTraversal vot = new VerticalOrderTraversal();
 
-		public TreeColumnNode(TreeNode node, int col) {
-			this.col = col;
-			this.node = node;
-		}
+		TreeNode root = new TreeNode(3);
+		root.left = new TreeNode(9);
+		root.right = new TreeNode(20);
+		root.right.left = new TreeNode(15);
+		root.right.right = new TreeNode(7);
+
+		System.out.println(vot.verticalTraversal(root));
+	}
+}
+
+class Triplet<F, S, T> {
+	public final F first;
+	public final S second;
+	public final T third;
+
+	public Triplet(F first, S second, T third) {
+		this.first = first;
+		this.second = second;
+		this.third = third;
 	}
 }

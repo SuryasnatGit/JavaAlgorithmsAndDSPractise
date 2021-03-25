@@ -83,6 +83,8 @@ public class CycleInDirectedGraph {
 	/*
 	 * Solution 2 - https://www.geeksforgeeks.org/detect-cycle-in-a-directed-graph-using-bfs/
 	 * 
+	 * DFS approach - https://www.geeksforgeeks.org/detect-cycle-in-a-graph/
+	 * 
 	 * TODO
 	 */
 
