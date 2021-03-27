@@ -78,7 +78,7 @@ public class MathOperations {
 		}
 	}
 
-	int divide(int a, int b) throws java.lang.ArithmeticException {
+	public int divide(int a, int b) throws java.lang.ArithmeticException {
 		if (b == a) {
 			throw new java.lang.ArithmeticException("ERROR");
 		}

@@ -155,6 +155,56 @@ public class AlienDictionary {
 		return false;
 	}
 
+	/**
+	 * In an alien language, surprisingly they also use english lowercase letters, but possibly in a different order.
+	 * The order of the alphabet is some permutation of lowercase letters.
+	 * 
+	 * Given a sequence of words written in the alien language, and the order of the alphabet, return true if and only
+	 * if the given words are sorted lexicographicaly in this alien language.
+	 * 
+	 * Example 1:
+	 * 
+	 * Input: words = ["hello","leetcode"], order = "hlabcdefgijkmnopqrstuvwxyz" Output: true Explanation: As 'h' comes
+	 * before 'l' in this language, then the sequence is sorted. Example 2:
+	 * 
+	 * Input: words = ["word","world","row"], order = "worldabcefghijkmnpqstuvxyz" Output: false Explanation: As 'd'
+	 * comes after 'l' in this language, then words[0] > words[1], hence the sequence is unsorted. Example 3:
+	 * 
+	 * Input: words = ["apple","app"], order = "abcdefghijklmnopqrstuvwxyz" Output: false Explanation: The first three
+	 * characters "app" match, and the second string is shorter (in size.) According to lexicographical rules "apple" >
+	 * "app", because 'l' > '∅', where '∅' is defined as the blank character which is less than any other character
+	 * (More info).
+	 */
+	public boolean isAlienSorted(String[] words, String order) {
+		// compare adjacent words
+		// for each pair, if corresponding letters are not equal, see if in order
+		for (int i = 0; i < words.length - 1; i++) {
+			// check if two adjacent words are in order
+			if (!compareWords(words[i], words[i + 1], order)) {
+				// if not, break loop and return false
+				return false;
+			}
+		}
+		// if we have reached this point, no pairs were unsorted, and by transitive property the whole array is sorted
+		return true;
+
+	}
+
+	// return true if the words are sorted according to given order, false if not
+	private boolean compareWords(String word1, String word2, String order) {
+		int length = Math.min(word1.length(), word2.length());
+		for (int i = 0; i < length; i++) {
+			if (word1.charAt(i) != word2.charAt(i)) {
+				// this number compares the positions of the letters in question in the order array
+				int cmp = order.indexOf(word2.charAt(i)) - order.indexOf(word1.charAt(i));
+				return cmp > 0;
+			}
+		}
+		// by this point, all corresponding letters have been found to be equal
+		// if the second word is equal or greater in length than the first word, the pair is sorted
+		return word2.length() >= word1.length();
+	}
+
 	public static void main(String args[]) {
 		AlienDictionary ad = new AlienDictionary();
 
@@ -163,5 +213,21 @@ public class AlienDictionary {
 		System.out.println(ad.alienOrder_usingTopologicalSort(new String[] { "wrt", "wrf", "er", "ett", "rftt" }));
 
 		System.out.println(ad.alienOrder_usingTopologicalSort(new String[] { "wrtkj", "wrt" }));
+
+		String[] words1 = { "zy", "zx" };
+		String[] words = { "wrt", "wrf", "er", "ett", "rftt" };
+		String[] words2 = { "wrtkj", "wrt" };
+
+		System.out.println(ad.alienOrder_usingTopologicalSort(words1));
+		System.out.println(ad.alienOrder_usingTopologicalSort(words));
+
+		// w -> e
+		// e -> r
+		// t -> f
+		// r -> t
+		//
+		System.out.println(ad.isAlienSorted(new String[] { "hello", "leetcode" }, "hlabcdefgijkmnopqrstuvwxyz"));
+		System.out.println(ad.isAlienSorted(new String[] { "word", "world", "row" }, "worldabcefghijkmnpqstuvxyz"));
+		System.out.println(ad.isAlienSorted(new String[] { "apple", "app" }, "abcdefghijklmnopqrstuvwxyz"));
 	}
 }
