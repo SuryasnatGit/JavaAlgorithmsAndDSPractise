@@ -1,14 +1,12 @@
 package com.leetcode;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**
- * Category : Medium
+ * Category : Hard
  * 
  * Tags : dfs, backtracking
  *
@@ -19,13 +17,16 @@ public class WordSearch {
 		char[][] board = { { 'o', 'a', 'a', 'n' }, { 'e', 't', 'a', 'e' }, { 'i', 'h', 'o', 'r' },
 				{ 'i', 'f', 'l', 'v' } };
 
-		String[] words = { "oath", "pea", "eat", "rain" };
+		String[] words = { "oath", "pea", "eat", "rain", "hf" };
 
 		WordSearch ws = new WordSearch();
 		System.out.println(ws.isWordExist(board, "pea"));
 		System.out.println(ws.isWordExist(board, "eat"));
-		ws.findWords(board, words).forEach(a -> System.out.print(a + " "));
+
+		ws.findAllWordsInBoardDFS(board, words).forEach(a -> System.out.print(a + " , "));
 		// List<List<int[]>> res = ws2.findWords(board, words);
+
+		ws.findWordsWithPath(board, "oath").forEach(a -> System.out.println(a));
 
 	}
 
@@ -69,12 +70,13 @@ public class WordSearch {
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < cols; col++) {
 				if (board[row][col] == word.charAt(0)) {
-					visited.add(row * cols + col);
+					int cellIndex = row * cols + col;
+					visited.add(cellIndex);
 					boolean res = dfs(board, word, row, col, visited, 1);
 					if (res) {
 						return true;
 					}
-					visited.remove(row * cols + col);
+					visited.remove(cellIndex);
 				}
 			}
 		}
@@ -90,23 +92,22 @@ public class WordSearch {
 		for (int[] dir : directions) {
 			int x = row + dir[0];
 			int y = col + dir[1];
-			int newId = x * cols + y;
+			int newCellIndex = x * cols + y;
 
 			if (x >= 0 && x < rows && y >= 0 && y < cols && board[x][y] == word.charAt(pos)
-					&& !visited.contains(newId)) {
-				visited.add(newId);
+					&& !visited.contains(newCellIndex)) {
+				visited.add(newCellIndex);
 				boolean res = dfs(board, word, x, y, visited, pos + 1);
 				if (res) {
 					return true;
 				}
-				visited.remove(newId);
+				visited.remove(newCellIndex);
 			}
 		}
 
 		return false;
 	}
 
-	// Problem 2 - find words using trie approach
 	/**
 	 * 
 	 * Given a 2D board and a list of words from the dictionary, find all words in the board.
@@ -120,126 +121,48 @@ public class WordSearch {
 	 * 
 	 * Given a dictionary and a string array, find out all the characters that may appear in the string to form the
 	 * words in the dictionary, that is, the string array is a 2-dimensional char matrix, and each character can go in
-	 * eight directions. DFS solved it and asked why not BFS
+	 * eight directions. DFS solved it and asked why not BFS.
+	 * 
+	 * T - O(w * n) S - O(n) w = number of words, n = number of total chars in grid
 	 */
-	public List<String> findWords(char[][] board, String[] words) {
-		int m = board.length;
-		int n = board[0].length;
-
-		TrieNode root = new TrieNode();
-
-		for (String word : words) {
-			root.insert(word, 0);
-		}
-
+	public List<String> findAllWordsInBoardDFS(char[][] board, String[] words) {
+		// create a list to store valid words
+		List<String> result = new ArrayList<>();
+		// set to mark visited cells
 		Set<Integer> visited = new HashSet<Integer>();
-		List<String> res = new ArrayList<String>();
+		rows = board.length;
+		cols = board[0].length;
 
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				visited.add(i * n + j);
-				dfs(board, res, i, j, root, visited);
-				visited.remove(i * n + j);
-			}
-		}
+		// loop through all the words
+		for (String word : words) {
 
-		return res;
-	}
+			// perform a sequential search
+			for (int row = 0; row < rows; row++) {
 
-	private void dfs(char[][] board, List<String> res, int i, int j, TrieNode root, Set<Integer> visited) {
-		if (root == null) {
-			return;
-		}
+				boolean found = false;
 
-		if (root.hasWord) {
-			if (!res.contains(root.str)) {
-				res.add(root.str);
-			}
-		}
+				for (int col = 0; col < cols; col++) {
 
-		if (root.children.containsKey(board[i][j])) { // This is the start point
-			for (int[] dir : directions) {
-				int x = i + dir[0];
-				int y = j + dir[1];
-				int id = x * cols + y;
+					int newCellIndex = row * cols + col;
+					visited.add(newCellIndex);
 
-				if (x >= 0 && x < board.length && y >= 0 && y < board[0].length && !visited.contains(id)) {
-					visited.add(id);
-					dfs(board, res, x, y, root.children.get(board[i][j]), visited);
-					visited.remove(id);
+					if (board[row][col] == word.charAt(0) && dfs(board, word, row, col, visited, 1)) {
+						result.add(word);
+						found = true;
+						break;
+					}
+
+					visited.remove(newCellIndex);
+				}
+
+				// if the word was found, break from the loop
+				if (found == true) {
+					break;
 				}
 			}
 		}
-	}
 
-	class TrieNode {
-		Map<Character, TrieNode> children = null;
-		boolean hasWord = false;
-		String str;
-
-		TrieNode() {
-			this.children = new HashMap<Character, TrieNode>();
-		}
-
-		void insert(String word, int pos) {
-			if (pos == word.length()) {
-				this.hasWord = true;
-				this.str = word;
-				return;
-			}
-
-			char key = word.charAt(pos);
-			TrieNode node = children.get(key);
-
-			if (node == null) {
-				children.put(key, new TrieNode());
-			}
-
-			children.get(key).insert(word, pos + 1);
-		}
-
-		TrieNode search(String word, int pos) {
-			if (pos == word.length()) {
-				return this;
-			}
-
-			int key = word.charAt(pos);
-			TrieNode node = children.get(key);
-
-			if (node == null) {
-				return null;
-			}
-
-			return children.get(key).search(word, pos + 1);
-		}
-
-		boolean hasWord(String word) {
-			TrieNode node = search(word, 0);
-			return node != null && node.hasWord;
-		}
-
-		// To solve following question, 如果一个长字符串中有字典中的单词，替换
-		TrieNode containsPrefix(String word, int pos) { // Word is in sentence
-			if (pos == word.length()) {
-				if (this.hasWord) {
-					return this;
-				}
-				return null; // Return itself, nothing to replace
-			}
-
-			int key = word.charAt(pos);
-			TrieNode node = this.children.get(key);
-
-			if (node == null) {
-				return null; // Nothing to replace
-			}
-
-			if (node.hasWord) {
-				return node; // Once find a prefix, just return
-			}
-
-			return children.get(key).search(word, pos + 1);
-		}
+		return result;
 	}
 
 	// Problem 3

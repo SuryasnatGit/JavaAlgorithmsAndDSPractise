@@ -31,11 +31,10 @@ import java.util.Map;
  * Intuition : Draw an edge between two emails if they occur in the same account. The problem comes down to finding
  * connected components of this graph.
  * 
- * Category : Medium
+ * Category : Hard
  * 
  * Tags : Union-Find, DFS
  * 
- * TODO: understand properly.
  */
 public class AccountsMerge {
 
@@ -65,6 +64,7 @@ public class AccountsMerge {
 					emailToID.put(email, id++);
 				}
 
+				// joining y email to x email subset
 				dsu.union(emailToID.get(account.get(1)), emailToID.get(email));
 			}
 		}
@@ -89,6 +89,7 @@ public class AccountsMerge {
 		accounts.add(Arrays.asList("John", "johnsmith@mail.com", "john00@mail.com"));
 		accounts.add(Arrays.asList("John", "johnnybravo@mail.com"));
 		accounts.add(Arrays.asList("Mary", "mary@mail.com"));
+		accounts.add(Arrays.asList("John", "johnsmith@mail.com", "john_newyork@mail.com"));
 
 		System.out.println(am.accountsMerge(accounts));
 	}
@@ -96,6 +97,7 @@ public class AccountsMerge {
 
 class UnionFind {
 
+	// subset array
 	int[] parent;
 
 	public UnionFind() {
@@ -105,6 +107,7 @@ class UnionFind {
 		}
 	}
 
+	// determine which subset a particular element is in
 	public int find(int x) {
 		if (parent[x] != x) {
 			parent[x] = find(parent[x]);
@@ -113,6 +116,7 @@ class UnionFind {
 		return parent[x];
 	}
 
+	// join 2 subsets into a single set
 	public void union(int x, int y) {
 		parent[find(x)] = find(y);
 	}

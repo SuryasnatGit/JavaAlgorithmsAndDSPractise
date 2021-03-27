@@ -35,48 +35,49 @@ public class SubArraySumProblems {
 			}
 		}
 
-		return length == Integer.MAX_VALUE ? 0 : length;
+		return length == Integer.MAX_VALUE ? -1 : length;
 	}
 
-	// T - O(N LogN)
-	public int smallestSubarraySumLength1(int[] nums, int s) {
-		int[] sum = new int[nums.length + 1];
-		sum[0] = 0;
+	// T - O(N LogN) S - O(N).
+	// TODO: not working need to check.
+	public int smallestSubarraySumLength1(int[] arr, int sum) {
+		// Stores the frequency of prefix sums in the array
+		Map<Integer, Integer> mp = new HashMap<Integer, Integer>();
 
-		for (int i = 1; i < sum.length; i++) {
-			sum[i] = sum[i - 1] + nums[i - 1];
+		mp.put(arr[0], 0);
+
+		for (int i = 1; i < arr.length; i++) {
+			arr[i] = arr[i] + arr[i - 1];
+			mp.put(arr[i], i);
 		}
 
-		int res = Integer.MAX_VALUE;
-		for (int i = 0; i < sum.length; i++) {
-			int index = binarySearch(sum, sum[i] + s, i); // From i, find the first bigger than sum[i] + s
-			if (index == -1) {
-				break;
-			}
-			res = Math.min(res, index - i);
-		}
+		// Initialize len as Integer.MAX_VALUE
+		int len = Integer.MAX_VALUE;
 
-		return res == Integer.MAX_VALUE ? 0 : res;
-	}
-
-	private int binarySearch(int[] sum, int target, int start) {
-		int end = sum.length - 1;
-		while (start + 1 < end) {
-			int mid = (start + end) / 2;
-			if (sum[mid] >= target) {
-				end = mid;
+		for (int i = 0; i < arr.length; i++) {
+			// If sum of array till i-th index is less than K
+			if (arr[i] < sum) {
+				// No possible subarray exists till i-th index
+				continue;
 			} else {
-				start = mid;
+
+				// Find the exceeded value
+				int x = sum - arr[i];
+
+				// If exceeded value is zero
+				if (x == 0) {
+					len = Math.min(len, i);
+				}
+
+				if (mp.containsValue(x)) {
+					continue;
+				} else {
+					len = Math.min(len, i);
+				}
 			}
 		}
 
-		if (sum[start] >= target) {
-			return start;
-		} else if (sum[end] >= target) {
-			return end;
-		} else {
-			return -1;
-		}
+		return len == Integer.MAX_VALUE ? -1 : len;
 	}
 
 	/**
@@ -341,7 +342,8 @@ public class SubArraySumProblems {
 
 	public static void main(String[] args) {
 		SubArraySumProblems sf = new SubArraySumProblems();
-		System.out.println(sf.numberOfSubarraysWithZeroSum(new int[] { 2, -2, 3, 0, 4, -7 }));
+		System.out.println(
+				"numberOfSubarraysWithZeroSum :" + sf.numberOfSubarraysWithZeroSum(new int[] { 2, -2, 3, 0, 4, -7 }));
 		sf.printallSubarraysWithZeroSum(new int[] { 2, -2, 3, 0, 4, -7 });
 
 		sf.checkSubArrayWithGivenSumExists(new int[] { -3, -1, -5, 8 }, -4);
@@ -350,15 +352,19 @@ public class SubArraySumProblems {
 		sf.checkSubArrayWithGivenSumExists(new int[] { -3, -1, -5, 8 }, -8);
 		sf.checkSubArrayWithGivenSumExists(new int[] { 3, -1, -5, 8 }, 5);
 
-		System.out.println(sf.numberOfSubArraysWithKSum(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 0));
+		System.out.println("numberOfSubArraysWithKSum :"
+				+ sf.numberOfSubArraysWithKSum(new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, 0));
 
-		System.out.println(sf.smallestSubarraySumLength(new int[] { 2, 3, 1, 2, 4, 3 }, 7));
-		System.out.println(sf.smallestSubarraySumLength(new int[] { 1, 1 }, 3));
-		System.out.println(sf.smallestSubarraySumLength1(new int[] { 2, 3, 1, 2, 4, 3 }, 7));
-		System.out.println(sf.smallestSubarraySumLength1(new int[] { 1, 1 }, 3));
+		System.out.println(
+				"smallestSubarraySumLength :" + sf.smallestSubarraySumLength(new int[] { 2, 3, 1, 2, 4, 3 }, 7));
+		System.out.println("smallestSubarraySumLength :" + sf.smallestSubarraySumLength(new int[] { 1, 1 }, 3));
+		System.out.println(
+				"smallestSubarraySumLength1 :" + sf.smallestSubarraySumLength1(new int[] { 2, 3, 1, 2, 4, 3 }, 7));
+		System.out.println("smallestSubarraySumLength1 :" + sf.smallestSubarraySumLength1(new int[] { 1, 1 }, 3));
 
-		System.out.println(sf.maximumSumSubArray(new int[] { 2, 1, -3, 4, -1, 2, 1, -5, 4 }));
-		System.out.println(sf.maximumSumSubArray1(new int[] { 2, 1, -3, 4, -1, 2, 1, -5, 4 }));
+		System.out.println("maximumSumSubArray :" + sf.maximumSumSubArray(new int[] { 2, 1, -3, 4, -1, 2, 1, -5, 4 }));
+		System.out
+				.println("maximumSumSubArray1 :" + sf.maximumSumSubArray1(new int[] { 2, 1, -3, 4, -1, 2, 1, -5, 4 }));
 		sf.printMaximumSumSubArray(new int[] { 2, 1, -3, 4, -1, 2, 1, -5, 4 });
 	}
 }

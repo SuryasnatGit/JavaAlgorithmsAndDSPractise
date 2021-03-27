@@ -1,5 +1,6 @@
 package com.leetcode;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -21,9 +22,13 @@ import java.util.PriorityQueue;
  * 
  * Explanation:
  * 
- * Window position Max --------------- ----- [1 3 -1] -3 5 3 6 7 3 1 [3 -1 -3] 5 3 6 7 3 1 3 [-1 -3 5] 3 6 7 5 1 3 -1
- * [-3 5 3] 6 7 5 1 3 -1 -3 [5 3 6] 7 6 1 3 -1 -3 5 [3 6 7] 7
- * 
+ * Window position Max --------------- ----- <br/>
+ * [1 3 -1] -3 5 3 6 7 ==> 3 <br/>
+ * 1 [3 -1 -3] 5 3 6 7 ==> 3 <br/>
+ * 1 3 [-1 -3 5] 3 6 7 ==> 5 <br/>
+ * 1 3 -1 [-3 5 3] 6 7 ==> 5 <br/>
+ * 1 3 -1 -3 [5 3 6] 7 ==> 6 <br/>
+ * 1 3 -1 -3 5 [3 6 7] ==> 7
  * 
  * Constraints:
  * 
@@ -46,35 +51,9 @@ import java.util.PriorityQueue;
  */
 public class SlidingWIndowMaximum {
 
-	public int[] maxSlidingWindowHeap(int[] nums, int k) {
-		if (nums == null || nums.length == 0 || nums.length < k) {
-			return new int[] {};
-		}
-
-		int[] res = new int[nums.length - k + 1];
-		int index = 0; // 单独用一个index计数 方便省事儿
-
-		PriorityQueue<Integer> heap = new PriorityQueue<Integer>(k, new Comparator<Integer>() {
-			public int compare(Integer val1, Integer val2) {
-				return val2 - val1;
-			}
-		});
-
-		for (int i = 0; i < k; i++) {
-			heap.offer(nums[i]);
-		}
-		res[index++] = heap.peek(); // 在外边就添加进去
-
-		for (int i = k; i < nums.length; i++) { // N * (K + log(K))
-			int old = nums[i - k];
-			heap.remove(old);
-
-			heap.offer(nums[i]);
-
-			res[index++] = heap.peek();
-		}
-
-		return res;
+	public static void main(String[] args) {
+		SlidingWIndowMaximum sl = new SlidingWIndowMaximum();
+		System.out.println(Arrays.toString(sl.maxSlidingWindowHeapCleaner(new int[] { 1, 3, -1, -3, 5, 3, 6, 7 }, 3)));
 	}
 
 	public int[] maxSlidingWindowHeapCleaner(int[] nums, int k) {
@@ -92,7 +71,7 @@ public class SlidingWIndowMaximum {
 
 		for (int i = 0; i < nums.length; i++) { // N * (K + log(K))
 			if (i - k >= 0) { // from k
-				heap.remove(nums[i - k]);
+				heap.remove(nums[i - k]);// because it will slide to right so remove first element in sliding window
 			}
 			heap.offer(nums[i]);
 
@@ -104,8 +83,8 @@ public class SlidingWIndowMaximum {
 		return res;
 	}
 
-	// O(N) 的方法很好，得记住
-	// O(N) 有点像histogram， trapping rain water 维护一个单调递减数列
+	// O(N) method is very good, you have to remember
+	// O(N) is a bit like histogram, trapping rain water maintains a monotonically decreasing sequence
 	public int[] maxSlidingWindow(int[] nums, int k) {
 		if (nums == null || nums.length == 0 || nums.length < k) {
 			return new int[] {};

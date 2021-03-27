@@ -6,10 +6,14 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 /**
- * 面我的是一个西人大哥。这轮考数据结构设计，time travel table。接口呀，合法输入值啊，返回值啊什么的都得跟面试官讨论。 不过具体功能如下： 输入： "key1" time1 "val1" // 插入一条记录 输入：
- * “key1“ time2 ”val2" // 插入一条记录 输入： “key1" time2 "val3" // 把key1的time2记录的值从val2改成val3 输入： “key1" time6 "val4" // 插入一条记录
- * 输入： “key1” time1 // 取出记录，val1 输入： “key1” time2 // 取出记录，val3 输入： “key1” time4 // 取出记录，val3，取出第一个时间戳比现在时间小的值 输入： “key1”
- * time0 // 取一个不存在时间戳小于等于输入值的，返回null 我用了hashmap+treeMap解决问题。
+ * The person facing me is a Westerner eldest brother. This round of test data structure design, time travel table.
+ * Interfaces, legal input values, return values, etc. have to be discussed with the interviewer. But the specific
+ * functions are as follows: Input: "key1" time1 "val1" // Insert a record Input: "Key1" time2 "val2" // Insert a record
+ * Input: "key1" time2 "val3" // Change the value of the time2 record of key1 from val2 to val3 Input: "key1" time6
+ * "val4" // Insert a record Input: "key1" time1 // Take out the record, val1 Input: "key1" time2 // Take out the
+ * record, val3 Input: "key1" time4 // Take out the record, val3, take out the value of the first timestamp that is less
+ * than the current time Input: "key1" time0 // Take a non-existent timestamp less than or equal to the input value, and
+ * return null. I used hashmap+treeMap to solve the problem.
  * 
  */
 public class TimeTravelTable {

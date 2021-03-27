@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Stack;
 
 public class ShortestSubarrayWithHighestFrequencyWords {
 
@@ -16,7 +15,8 @@ public class ShortestSubarrayWithHighestFrequencyWords {
 	}
 
 	/**
-	 * 给一个数组，返回带有最高频重复数字的最短sub array 比如 数组 [1, 2, 3, 2, 2, 1, 4, 1] 1和 2出现的频率都是 3次， 但是需要你返回 [2,3,2,2] 这个 子区间
+	 * For an array, return the shortest sub array with the most frequent repeated numbers. For example, array [1, 2, 3,
+	 * 2, 2, 1, 4, 1] 1 and 2 appear 3 times, but you need to return [2,3,2,2] this subrange
 	 */
 	int[] findSubarray(int[] arr) {
 		Map<Integer, Node> map = new HashMap<Integer, Node>();
@@ -70,39 +70,4 @@ public class ShortestSubarrayWithHighestFrequencyWords {
 		List<TreeNode> children = new ArrayList<TreeNode>();
 	}
 
-	/*
-	 * 2. 给一个n-nery tree 和它的一个copy，参数传进来的是一个原树上的某的node，让你返回copy tree对应的node：
-	 * 
-	 * 这个题，我开始以为是clone graph类似的那个题，他们说的不是很清楚，我开始以为是返回1-1映射的node；后来澄清才发现不是 Tree中的value不是unique, 不能单纯比较value 同时进行BFS,
-	 * Level order traversal 或者别的也都行，只要同时进行就行
-	 * 
-	 * 我开始也是同样的思路去 traverse tree, 但是面试官提示有更简单的记录路径的方法，然后原路返回即可找到。最后的代码实现了这个建议
-	 */
-	TreeNode findNodeInCopy(TreeNode root1, TreeNode root2, TreeNode toFind) {
-		Stack<TreeNode> stack1 = new Stack<TreeNode>();
-		stack1.push(root1);
-
-		Stack<TreeNode> stack2 = new Stack<TreeNode>();
-		stack2.push(root1);
-
-		while (!stack1.isEmpty()) {
-			TreeNode node1 = stack1.pop();
-			TreeNode node2 = stack2.pop();
-
-			if (node1 == toFind) {
-				return node2;
-			}
-
-			List<TreeNode> list1 = node1.children;
-			for (int i = list1.size() - 1; i >= 0; i--) {
-				stack1.push(list1.get(i));
-			}
-			List<TreeNode> list2 = node2.children;
-			for (int i = list2.size() - 1; i >= 0; i--) {
-				stack2.push(list2.get(i));
-			}
-		}
-
-		return null;
-	}
 }

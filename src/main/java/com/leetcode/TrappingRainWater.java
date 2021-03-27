@@ -9,6 +9,14 @@ import java.util.Stack;
  */
 public class TrappingRainWater {
 
+	public static void main(String[] args) {
+		TrappingRainWater trap = new TrappingRainWater();
+		System.out.println(trap.trap(new int[] { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 }));
+		System.out.println(trap.trap2(new int[] { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 }));
+		System.out.println(
+				trap.trapRainWater(new int[][] { { 1, 4, 3, 1, 3, 2 }, { 3, 2, 1, 3, 2, 4 }, { 2, 3, 3, 2, 3, 1 } }));
+	}
+
 	/**
 	 * Problem 1 - Given n non-negative integers representing an elevation map where the width of each bar is 1, compute
 	 * how much water it is able to trap after raining.
@@ -84,6 +92,8 @@ public class TrappingRainWater {
 	 * Given the following 3x6 height map: [ [1,4,3,1,3,2], [3,2,1,3,2,4], [2,3,3,2,3,1] ]
 	 * 
 	 * Return 4.
+	 * 
+	 * TODO: understand clearly
 	 */
 	class Cell implements Comparable<Cell> {
 		int x, y, h;

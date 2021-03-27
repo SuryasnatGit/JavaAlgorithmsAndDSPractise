@@ -41,10 +41,22 @@ public class SingleElementInSortedArray {
 		return nums[right];
 	}
 
+	public int singleNonDuplicate1(int[] nums) {
+		int res = 0;
+		for (int num : nums) {
+			res ^= num;
+		}
+		return res;
+	}
+
 	public static void main(String[] args) {
 		SingleElementInSortedArray sl = new SingleElementInSortedArray();
 		System.out.println(sl.singleNonDuplicate(new int[] { 1, 1, 2, 3, 3, 4, 4, 8, 8 }));
 		System.out.println(sl.singleNonDuplicate(new int[] { 3, 3, 7, 7, 10, 11, 11 }));
 		System.out.println(sl.singleNonDuplicate(new int[] { 1, 2, 2, 3, 3 }));
+
+		System.out.println(sl.singleNonDuplicate1(new int[] { 1, 1, 2, 3, 3, 4, 4, 8, 8 }));
+		System.out.println(sl.singleNonDuplicate1(new int[] { 3, 3, 7, 7, 10, 11, 11 }));
+		System.out.println(sl.singleNonDuplicate1(new int[] { 1, 2, 2, 3, 3 }));
 	}
 }

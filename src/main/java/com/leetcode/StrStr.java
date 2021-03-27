@@ -1,5 +1,9 @@
 package com.leetcode;
 
+/**
+ * Category : Hard
+ *
+ */
 public class StrStr {
 
 	/**
@@ -9,7 +13,7 @@ public class StrStr {
 	 * @param pattern
 	 * @return
 	 */
-	public int strStr(String input, String pattern) {
+	public int strStrNaive(String input, String pattern) {
 		for (int i = 0;; i++) {
 			for (int j = 0;; j++) {
 				if (j == pattern.length())
@@ -61,12 +65,32 @@ public class StrStr {
 	 * this, we pre-process pattern and prepare an integer array lps[] that tells us the count of characters to be
 	 * skipped
 	 * 
+	 * KMP algorithm preprocesses pat[] and constructs an auxiliary lps[] of size m (same as size of pattern) which is
+	 * used to skip characters while matching.
+	 * 
+	 * name lps indicates longest proper prefix which is also suffix.. A proper prefix is prefix with whole string not
+	 * allowed. For example, prefixes of “ABC” are “”, “A”, “AB” and “ABC”. Proper prefixes are “”, “A” and “AB”.
+	 * Suffixes of the string are “”, “C”, “BC” and “ABC”.
+	 * 
+	 * We search for lps in sub-patterns. More clearly we focus on sub-strings of patterns that are either prefix and
+	 * suffix.
+	 * 
+	 * For each sub-pattern pat[0..i] where i = 0 to m-1, lps[i] stores length of the maximum matching proper prefix
+	 * which is also a suffix of the sub-pattern pat[0..i].
+	 * 
+	 * lps[i] = the longest proper prefix of pat[0..i] which is also a suffix of pat[0..i].
+	 * 
+	 * Note : lps[i] could also be defined as longest prefix which is also proper suffix. We need to use properly at one
+	 * place to make sure that the whole substring is not considered.
+	 * 
+	 * 
+	 * 
 	 * @param source
 	 * @param pattern
 	 * @return
 	 */
-	public int strStr2(String source, String pattern) {
-		int[] arr = getKMP(pattern);
+	public int strStrKMP(String source, String pattern) {
+		int[] lps = computeLPSArray(pattern);
 
 		int pos1 = 0;
 		int pos2 = 0;
@@ -78,7 +102,7 @@ public class StrStr {
 				if (pos2 == 0) {
 					pos1++;
 				} else {
-					pos2 = arr[pos2 - 1];
+					pos2 = lps[pos2 - 1];
 				}
 			}
 		}
@@ -86,38 +110,46 @@ public class StrStr {
 		return pos2 == pattern.length() ? pos1 - pos2 : -1;
 	}
 
-	private int[] getKMP(String pattern) {
-		int[] arr = new int[pattern.length()];
+	private int[] computeLPSArray(String pattern) {
+		int[] lps = new int[pattern.length()];
 		int pos = 0;
 
+		// index starts from 1 because first element of lps is always 0
 		for (int i = 1; i < pattern.length();) {
 			if (pattern.charAt(i) == pattern.charAt(pos)) {
-				arr[i] = pos + 1; // Plus One!
+				lps[i] = pos + 1; // Plus One!
 				pos++;
 				i++;
 			} else {
 				if (pos == 0) {
-					arr[i] = 0;
+					lps[i] = 0;
 					i++;
 				} else {
-					pos = arr[pos - 1];
+					pos = lps[pos - 1];
 				}
 			}
 		}
 
-		return arr;
+		return lps;
 	}
 
 	public static void main(String[] args) {
 		StrStr str = new StrStr();
-		System.out.println(str.strStr("needle in haystack", "needle"));
-		System.out.println(str.strStr("needle in haystack", "in"));
-		System.out.println(str.strStr2("needle in haystack", "in"));
-		System.out.println(str.strStr("needle in haystack", "needle needle in haystack"));
-		System.out.println(str.strStr("needle in haystack", "man"));
-		System.out.println(str.strStr("needle in haystack", ""));
-		System.out.println(str.strStr("", "needle"));
-		System.out.println(str.strStr("", ""));
+		System.out.println(str.strStrNaive("needle in haystack", "needle"));
+		System.out.println(str.strStrNaive("needle in haystack", "in"));
+		System.out.println(str.strStrNaive("needle in haystack", "needle needle in haystack"));
+		System.out.println(str.strStrNaive("needle in haystack", "man"));
+		System.out.println(str.strStrNaive("needle in haystack", ""));
+		System.out.println(str.strStrNaive("", "needle"));
+		System.out.println(str.strStrNaive("", ""));
+		System.out.println();
+		System.out.println(str.strStrKMP("needle in haystack", "needle"));
+		System.out.println(str.strStrKMP("needle in haystack", "in"));
+		System.out.println(str.strStrKMP("needle in haystack", "needle needle in haystack"));
+		System.out.println(str.strStrKMP("needle in haystack", "man"));
+		System.out.println(str.strStrKMP("needle in haystack", ""));
+		System.out.println(str.strStrKMP("", "needle"));
+		System.out.println(str.strStrKMP("", ""));
 	}
 
 }
