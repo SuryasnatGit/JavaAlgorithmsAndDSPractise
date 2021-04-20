@@ -34,23 +34,25 @@ public class BSTSearch {
 	}
 
 	public static void main(String args[]) {
-		BinaryTree bt = new BinaryTree();
-		TreeNode root = null;
-		root = bt.addNode(10, root);
-		root = bt.addNode(20, root);
-		root = bt.addNode(-10, root);
-		root = bt.addNode(15, root);
-		root = bt.addNode(0, root);
-		root = bt.addNode(21, root);
-		root = bt.addNode(-1, root);
+		BinarySearchTree bt = new BinarySearchTree();
+
+		bt.insert(10);
+		bt.insert(20);
+		bt.insert(-10);
+		bt.insert(15);
+		bt.insert(0);
+		bt.insert(21);
+		bt.insert(-1);
+
 		BSTSearch bstSearch = new BSTSearch();
-		TreeNode result = bstSearch.search(root, 21);
-		assert result.data == 21;
 
-		result = bstSearch.search(root, -1);
-		assert result.data == 21;
+		TreeNode result = bstSearch.search(bt.getRoot(), 21);
+		System.out.println(result.data);
 
-		result = bstSearch.search(root, 11);
-		assert result == null;
+		result = bstSearch.search(bt.getRoot(), -1);
+		System.out.println(result.data);
+
+		result = bstSearch.search(bt.getRoot(), 11);
+		System.out.println(result != null ? result.data : null);
 	}
 }

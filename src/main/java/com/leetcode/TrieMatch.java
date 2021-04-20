@@ -32,6 +32,9 @@ package com.leetcode;
  * after * to search in the current layer. If it fails, because * can match any number of characters, then the current
  * layer CHILDREN that is not NULL is recursive, and then the character after * is searched in the next layer
  * 
+ * Category : Hard
+ * 
+ * Tags : Trie
  */
 public class TrieMatch {
 
@@ -77,7 +80,7 @@ class TrieNode {
 			return this;
 		}
 
-		if (word.charAt(pos) == '*') {
+		if (word.charAt(pos) == '*') { // search all children of this node
 			for (TrieNode child : this.children) {
 				if (child != null) {
 					TrieNode node = child.search(word, pos + 1);
@@ -87,7 +90,7 @@ class TrieNode {
 				}
 			}
 		} else {
-			TrieNode child = this.children[word.charAt(pos) - 'a'];
+			TrieNode child = this.children[word.charAt(pos) - 'a']; // search the next child
 			if (child == null) {
 				return null;
 			} else {

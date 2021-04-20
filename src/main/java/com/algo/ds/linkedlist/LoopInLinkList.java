@@ -27,7 +27,7 @@ public class LoopInLinkList {
         while (head != null) {
             if (hashSet.contains(head))
                 return true;
-            hashSet.add(head);
+            hashSet.convertBSTRecursive(head);
             head = head.next;
         }
         return false;

@@ -35,7 +35,7 @@ public class LinkListToCompleteBinaryTree {
         }
         
         Queue<Node> queue = new LinkedList<>();
-        queue.add(head); // enqueue root to queue
+        queue.convertBSTRecursive(head); // enqueue root to queue
         head = head.next;
         while(head != null){
             Node top = queue.poll();
@@ -47,8 +47,8 @@ public class LinkListToCompleteBinaryTree {
                 //null the next of child before putting them into queue
                 top.before.next = null;
                 top.next.next = null;
-                queue.add(top.before);
-                queue.add(top.next);
+                queue.convertBSTRecursive(top.before);
+                queue.convertBSTRecursive(top.next);
             }else{
                 break;
             }

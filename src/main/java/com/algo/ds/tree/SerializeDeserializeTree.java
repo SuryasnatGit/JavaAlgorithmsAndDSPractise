@@ -35,7 +35,7 @@ import com.algo.common.TreeNode;
  * Note: Do not use class member/global/static variables to store states. Your serialize and deserialize algorithms
  * should be stateless.
  */
-public class SerializeDeserializeBinaryTree {
+public class SerializeDeserializeTree {
 
 	/**
 	 * Serialize tree using level order traversal.
@@ -343,7 +343,7 @@ public class SerializeDeserializeBinaryTree {
 	}
 
 	public static void main(String args[]) {
-		SerializeDeserializeBinaryTree sd = new SerializeDeserializeBinaryTree();
+		SerializeDeserializeTree sd = new SerializeDeserializeTree();
 		TreeTraversals tt = new TreeTraversals();
 
 		TreeNode r = new TreeNode(1);

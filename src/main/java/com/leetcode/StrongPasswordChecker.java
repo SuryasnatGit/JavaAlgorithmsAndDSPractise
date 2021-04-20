@@ -22,20 +22,31 @@ public class StrongPasswordChecker {
 	public int strongPasswordChecker(String s) {
 		int res = 0, n = s.length(), lower = 1, upper = 1, digit = 1;
 		int[] v = new int[n];
+
 		for (int i = 0; i < n;) {
-			if (s.charAt(i) >= 'a' && s.charAt(i) <= 'z')
+			if (s.charAt(i) >= 'a' && s.charAt(i) <= 'z') {
 				lower = 0; // lowercase letter found
-			if (s.charAt(i) >= 'A' && s.charAt(i) <= 'Z')
+			}
+
+			if (s.charAt(i) >= 'A' && s.charAt(i) <= 'Z') {
 				upper = 0; // uppercase letter found
-			if (s.charAt(i) >= '0' && s.charAt(i) <= '9')
+			}
+
+			if (s.charAt(i) >= '0' && s.charAt(i) <= '9') {
 				digit = 0; // digit found
+			}
+
 			int start = i;
-			while (i < n && s.charAt(i) == s.charAt(start))
+
+			while (i < n && s.charAt(i) == s.charAt(start)) {
 				i++;
+			}
+
 			v[start] = i - start; // number of repetition
 		}
 
 		int missType = lower + upper + digit; // the type of letter that doesn't exists
+
 		/*
 		 * if n is smaller than 6, we have to insert the diff (6-n) if diff is smaller than 3 (the # of letter types),
 		 * we need to insert missType e.g. aaaaa, we must add uppercase and digit anyway, even if diff=1
@@ -53,8 +64,10 @@ public class StrongPasswordChecker {
 			 * to make 8 = 3m+2, where m = 2
 			 */
 			for (int i = 0; i < n && over > 0; i++) {
-				if (v[i] < 3)
+				if (v[i] < 3) {
 					continue;
+				}
+
 				if (v[i] % 3 == 0) { // e.g. 9 a's, need to remove 1
 					v[i] -= 1;
 					over -= 1; // already removed one;
@@ -62,8 +75,10 @@ public class StrongPasswordChecker {
 			}
 
 			for (int i = 0; i < n && over > 0; i++) {
-				if (v[i] < 3)
+				if (v[i] < 3) {
 					continue;
+				}
+
 				if (v[i] % 3 == 1) { // e.g. 7 a's, need to remove 2 to become 3*1+2=5
 					v[i] -= Math.min(2, over);
 					over -= 2;
@@ -86,9 +101,12 @@ public class StrongPasswordChecker {
 					v[i] -= over; // do not need to remove v[i] if <=2
 					over -= needToRemove;
 				}
-				if (v[i] >= 3)
+
+				if (v[i] >= 3) {
 					replace += v[i] / 3; // at least replace m
+				}
 			}
+
 			// System.out.println(missType + " " + replace);
 			res += Math.max(missType, replace);
 		}

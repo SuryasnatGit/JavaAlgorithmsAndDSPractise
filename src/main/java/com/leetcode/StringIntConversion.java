@@ -64,9 +64,9 @@ package com.leetcode;
  *
  * Category : Medium
  */
-public class AsciiToInt {
+public class StringIntConversion {
 
-	public int asciiToInt(String input) {
+	public int stringToInt(String input) {
 		System.out.println("input :" + input);
 		if (input == null || input.trim().length() < 1) {
 			return 0;
@@ -76,10 +76,10 @@ public class AsciiToInt {
 		}
 
 		// check negative or positive
-		char flag = '+';
+		boolean isNegative = false;
 		int i = 0;
 		if (input.charAt(0) == '-') {
-			flag = '-';
+			isNegative = true;
 			i++;
 		} else if (input.charAt(0) == '+') {
 			i++;
@@ -93,25 +93,54 @@ public class AsciiToInt {
 		}
 
 		// check sign
-		if (flag == '-')
+		if (isNegative) {
 			res = -res;
+		}
 
 		// check int limits
-		if (res > Integer.MAX_VALUE)
+		if (res > Integer.MAX_VALUE) {
 			return Integer.MAX_VALUE;
-		else if (res < Integer.MIN_VALUE)
+		} else if (res < Integer.MIN_VALUE) {
 			return Integer.MIN_VALUE;
+		}
 
 		return (int) res;
 	}
 
+	public String intToString(int num) {
+		boolean isNegative = false;
+
+		if (num < 0) {
+			isNegative = true;
+		}
+
+		StringBuilder sb = new StringBuilder();
+		while (num != 0) {
+			char c = (char) (Math.abs(num % 10) + '0');
+			sb.append(c);
+			num /= 10;
+		}
+
+		if (isNegative) {
+			sb.append('-');
+		}
+
+		sb.reverse();
+
+		return sb.toString();
+	}
+
 	public static void main(String[] args) {
-		AsciiToInt as = new AsciiToInt();
-		System.out.println(as.asciiToInt("42"));
-		System.out.println(as.asciiToInt("   -42"));
-		System.out.println(as.asciiToInt("4193 with words"));
-		System.out.println(as.asciiToInt("words and 987"));
-		System.out.println(as.asciiToInt("-91283472332"));
-		System.out.println(as.asciiToInt(" "));
+		StringIntConversion as = new StringIntConversion();
+
+		System.out.println(as.stringToInt("42"));
+		System.out.println(as.stringToInt("   -42"));
+		System.out.println(as.stringToInt("4193 with words"));
+		System.out.println(as.stringToInt("words and 987"));
+		System.out.println(as.stringToInt("-91283472332"));
+		System.out.println(as.stringToInt(" "));
+
+		System.out.println(as.intToString(500));
+		System.out.println(as.intToString(-500));
 	}
 }

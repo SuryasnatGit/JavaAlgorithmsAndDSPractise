@@ -18,7 +18,7 @@ public class MatrixRotation {
 	 * @param n
 	 * @param matrix
 	 */
-	public void rotateMatrix(int n, int[][] matrix) {
+	public void rotateMatrixAntiClockwise(int n, int[][] matrix) {
 		for (int i = 0; i < n / 2; i++) {
 			for (int j = i; j < n - i - 1; j++) {
 				int temp = matrix[i][j];
@@ -28,10 +28,12 @@ public class MatrixRotation {
 				matrix[n - 1 - j][i] = temp;// moves from top to left
 			}
 		}
+
+		Arrays.stream(matrix).forEach(a -> System.out.println(Arrays.toString(a)));
 	}
 
 	/**
-	 * for anti clockwise rotation: - transpose of matrix - reverse columns of transpose. Time complexity :O(R*C) Space
+	 * for clockwise rotation: - transpose of matrix - reverse columns of transpose. Time complexity :O(R*C) Space
 	 * complexity :O(1)
 	 * 
 	 * To right rotate, we do following steps.
@@ -40,10 +42,12 @@ public class MatrixRotation {
 	 * 
 	 * 
 	 */
-	public void rotateMatrix_1(int n, int[][] matrix) {
+	public void rotateMatrixClockwise(int n, int[][] matrix) {
 		int len = matrix.length;
 		transpose(matrix, len);
 		flipHorizontally(matrix, len);
+
+		Arrays.stream(matrix).forEach(a -> System.out.println(Arrays.toString(a)));
 	}
 
 	// Function for do transpose of matrix. after transpose, it will be swap(matrix[i][j], matrix[j][i])
@@ -70,9 +74,10 @@ public class MatrixRotation {
 
 	public static void main(String[] args) {
 		MatrixRotation mr = new MatrixRotation();
-		int[][] matrix = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-		mr.rotateMatrix_1(3, matrix);
-		Arrays.stream(matrix).forEach(a -> System.out.println(Arrays.toString(a)));
+		mr.rotateMatrixAntiClockwise(3, new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } });
+		System.out.println();
+		mr.rotateMatrixClockwise(3, new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } });
+
 	}
 
 }

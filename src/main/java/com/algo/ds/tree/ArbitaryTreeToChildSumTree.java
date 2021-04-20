@@ -7,6 +7,8 @@ import com.algo.common.TreeNode;
  * 
  * Time Complexity: O(n^2), Worst case complexity is for a skewed tree such that nodes are in decreasing order from root
  * to leaf.
+ * 
+ * Category : Hard
  */
 public class ArbitaryTreeToChildSumTree {
 
@@ -25,11 +27,13 @@ public class ArbitaryTreeToChildSumTree {
 
 		int sum1 = toChildSumTree(root.left);
 		int sum2 = toChildSumTree(root.right);
+
 		if (root.data < sum1 + sum2) {
 			root.data = sum1 + sum2;
 		} else if (root.data > sum1 + sum2) {
 			incrementChild(root, root.data - sum1 - sum2);
 		}
+
 		return root.data;
 	}
 
@@ -37,6 +41,7 @@ public class ArbitaryTreeToChildSumTree {
 		if (root == null || (root.left == null && root.right == null)) {
 			return;
 		}
+
 		if (root.left != null) {
 			root.left.data = root.left.data + increment;
 			incrementChild(root.left, increment);
@@ -48,18 +53,21 @@ public class ArbitaryTreeToChildSumTree {
 
 	public static void main(String args[]) {
 		ArbitaryTreeToChildSumTree att = new ArbitaryTreeToChildSumTree();
-		BinaryTree bt = new BinaryTree();
-		TreeNode head = null;
-		head = bt.addNode(10, head);
-		head = bt.addNode(15, head);
-		head = bt.addNode(5, head);
-		head = bt.addNode(7, head);
-		head = bt.addNode(19, head);
-		head = bt.addNode(20, head);
-		head = bt.addNode(-1, head);
-		att.childSumTree(head);
 		TreeTraversals tt = new TreeTraversals();
-		tt.inOrder(head);
+
+		TreeNode root = new TreeNode(10);
+		root.left = new TreeNode(15);
+		root.left.left = new TreeNode(5);
+		root.left.right = new TreeNode(7);
+		root.right = new TreeNode(19);
+		root.right.left = new TreeNode(20);
+		root.right.right = new TreeNode(-1);
+
+		tt.inOrder(root);
+
+		att.childSumTree(root);
+		System.out.println();
+		tt.inOrder(root);
 	}
 
 }

@@ -3,8 +3,11 @@ package com.leetcode;
 import java.util.Arrays;
 
 /**
- * rotated array很简单啊，就是比如1秒钟限制3个request. 我维护一个long int array 长度为3，里面存着最近3个request的访问时间戳，一个指针指向这3个中第一个进来的request。
- * 有新的请求，我就检查指针指向的request是不是已经是1秒以前的，如果是则请求成功，新请求的时间戳覆盖指针指向。然后指针+1再mod，就rotated了。
+ * The rotated array is very simple, that is, for example, 1 second to limit 3 requests. I maintain a long int array
+ * with a length of 3, which stores the access timestamps of the last 3 requests, and a pointer points to the first one
+ * of these 3 requests. request. If there is a new request, I will check whether the request pointed to by the pointer
+ * is 1 second ago. If it is, the request is successful, and the timestamp of the new request overwrites the pointer.
+ * Then the pointer +1 and then mod, it is rotated.
  *
  */
 public class RateLimiter {
@@ -19,7 +22,7 @@ public class RateLimiter {
 	}
 
 	boolean query(int timestamp) {
-		if (arr[pos] == -1) { // 还没满呢，继续往前推进
+		if (arr[pos] == -1) { // It’s not full yet, keep going
 			arr[pos] = timestamp;
 			pos = (pos + 1) % arr.length;
 			return true;

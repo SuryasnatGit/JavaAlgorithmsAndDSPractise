@@ -24,7 +24,7 @@ public class BinaryToNaryTree {
 		}
 	}
 
-	Node binaryToNaryTree(TreeNode root, int N) {
+	public Node binaryToNaryTree(TreeNode root, int N) {
 		Queue<TreeNode> queue = new LinkedList<TreeNode>();
 		queue.offer(root);
 		List<TreeNode> list = new ArrayList<TreeNode>();

@@ -18,8 +18,8 @@ public class BinaryTree {
 		return root == null;
 	}
 
-	public TreeNode insert(int data) {
-		return insert(root, data);
+	public void insert(int data) {
+		insert(root, data);
 	}
 
 	// method to insert data recursively
@@ -70,6 +70,10 @@ public class BinaryTree {
 		}
 
 		return false;
+	}
+
+	public TreeNode getRoot() {
+		return root;
 	}
 
 	public static void main(String args[]) {
