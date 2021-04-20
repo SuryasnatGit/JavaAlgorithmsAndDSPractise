@@ -1,5 +1,9 @@
 package com.algo.ds.tree;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.algo.common.TreeNode;
 
 /**
@@ -19,11 +23,15 @@ import com.algo.common.TreeNode;
  * left child of n2 and right child of n1 is isomorphic to right child of n2. b) Left child of n1 is isomorphic to right
  * child of n2 and right child of n1 is isomorphic to left child of n2.
  * 
- * Time Complexity: The above solution does a traversal of both trees. So time complexity is O(min(m,n)*2) or
- * O(min(m,n)) where m and n are number of nodes in given trees.
+ * 
  */
 public class TreeIsomorphism {
 
+	/**
+	 * Time Complexity: The above solution does a traversal of both trees. So time complexity is O(min(m,n)*2) or
+	 * O(min(m,n)) where m and n are number of nodes in given trees.
+	 * 
+	 */
 	public boolean areIsomorphicTrees(TreeNode root1, TreeNode root2) {
 		// Both roots are NULL, trees isomorphic by definition
 		if (root1 == null && root2 == null) {
@@ -39,6 +47,21 @@ public class TreeIsomorphism {
 				&& areIsomorphicTrees(root1.right, root2.right))
 				|| (areIsomorphicTrees(root1.left, root2.right) && areIsomorphicTrees(root1.right, root2.left)));
 
+	}
+
+	/**
+	 * The idea is to find out the canonical form of both the trees and comparing them. The leaf node will return “()”
+	 * to its subsequent upper levels
+	 * 
+	 * https://www.geeksforgeeks.org/isomorphism-in-n-ary-trees/?ref=rp
+	 * 
+	 * TODO : to check later and complete.
+	 * 
+	 */
+	private Map<TreeNode, List<TreeNode>> nAryTree = new HashMap<TreeNode, List<TreeNode>>();
+
+	public boolean areIsomorphicNAryTree(TreeNode root1, TreeNode root2) {
+		return false;
 	}
 
 	public static void main(String args[]) {

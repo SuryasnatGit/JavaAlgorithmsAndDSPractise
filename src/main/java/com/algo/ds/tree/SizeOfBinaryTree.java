@@ -1,9 +1,12 @@
 package com.algo.ds.tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import com.algo.common.TreeNode;
 
 /**
- * Given a root of binary tree, return size of binar tree
+ * Given a root of binary tree, return size of binary tree
  * 
  * Solution: Recursively find size of left side, right side and add one to them and return that to calling function.
  * 
@@ -13,24 +16,59 @@ import com.algo.common.TreeNode;
  */
 public class SizeOfBinaryTree {
 
-	public int size(TreeNode root) {
+	/**
+	 * 
+	 * Recursive way.
+	 */
+	public int size1(TreeNode root) {
 		if (root == null) {
 			return 0;
 		}
-		return size(root.left) + size(root.right) + 1;
+
+		return size1(root.left) + size1(root.right) + 1;
+	}
+
+	/**
+	 * Iterative way
+	 * 
+	 */
+	public int size2(TreeNode root) {
+		if (root == null) {
+			return 0;
+		}
+
+		Queue<TreeNode> queue = new LinkedList<TreeNode>();
+		queue.add(root);
+
+		int num = 0;
+		while (!queue.isEmpty()) {
+			TreeNode node = queue.poll();
+
+			if (node.left != null) {
+				queue.add(node.left);
+			}
+
+			if (node.right != null) {
+				queue.add(node.right);
+			}
+
+			num++;
+		}
+
+		return num;
 	}
 
 	public static void main(String args[]) {
-		BinaryTree bt = new BinaryTree();
-		TreeNode head = null;
-		head = bt.addNode(10, head);
-		head = bt.addNode(15, head);
-		head = bt.addNode(5, head);
-		head = bt.addNode(7, head);
-		head = bt.addNode(19, head);
-		head = bt.addNode(20, head);
-		head = bt.addNode(-1, head);
+		TreeNode head = new TreeNode(10);
+		head.left = new TreeNode(15);
+		head.right = new TreeNode(5);
+		head.left.left = new TreeNode(7);
+		head.left.right = new TreeNode(19);
+		head.right.left = new TreeNode(20);
+		// head.right.right = new TreeNode(-1);
+
 		SizeOfBinaryTree sbt = new SizeOfBinaryTree();
-		System.out.println(sbt.size(head));
+		System.out.println(sbt.size1(head));
+		System.out.println(sbt.size2(head));
 	}
 }

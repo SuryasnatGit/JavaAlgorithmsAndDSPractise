@@ -26,4 +26,10 @@ public class SortedArrayToBST {
 		n.right = toBST(nums, mid + 1, high);
 		return n;
 	}
+
+	public static void main(String[] args) {
+		SortedArrayToBST so = new SortedArrayToBST();
+		TreeNode node = so.sortedArrayToBST(new int[] { 1, 2, 3, 4, 5 });
+		new TreeTraversals().inOrder(node);
+	}
 }
