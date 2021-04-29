@@ -1,5 +1,9 @@
 package com.companyprep;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 /**
  * A shopkeeper has a sale to complete and has arranged the items being sold in a list. Starting from the left, the shop
  * keeper rings up each item at its full price less the price of the first lower or equally priced item to its right. If
@@ -36,26 +40,28 @@ package com.companyprep;
  * 
  * 0 3 4
  * 
- * TODO :
+ * Category : Medium
  *
  */
 public class ShopkeeperSale {
 
-	public void printTotalCost(int[] arr) {
-		int cost = 0;
-
-		int[] temp = new int[arr.length];
-
-		for (int i = 0; i < arr.length; i++) {
-			for (int j = i + 1; j < arr.length; j++) {
-				if (arr[i] > arr[j]) {
-					temp[i] = arr[j];
-					break;
-				}
+	public void printTotalCost(int[] prices) {
+		int total = 0;
+		Stack<Integer> s = new Stack<>();
+		for (int i = 0; i < prices.length; i++) {
+			while (!s.isEmpty() && prices[s.peek()] >= prices[i]) {
+				total += prices[s.pop()] - prices[i];
 			}
+			s.push(i);
 		}
-
-		System.out.println(cost);
+		List<Integer> res = new ArrayList<>();
+		while (!s.isEmpty()) {
+			int idx = s.pop();
+			total += prices[idx];
+			res.add(0, idx);
+		}
+		System.out.println(total);
+		System.out.println(res);
 	}
 
 	public static void main(String[] args) {

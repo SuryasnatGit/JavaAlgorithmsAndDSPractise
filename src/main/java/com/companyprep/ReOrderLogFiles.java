@@ -179,7 +179,7 @@ public class ReOrderLogFiles {
 		}
 	}
 
-	// Solution 2 - Using Priority Queue
+	// Solution 2 - Using Priority Queue. T - O(n) + O(n log n) S - O(n)
 	public List<String> reorderLogFiles(List<String> logLines) {
 		if (logLines.size() < 2)
 			return logLines;
@@ -192,19 +192,21 @@ public class ReOrderLogFiles {
 				int ind1 = o1.indexOf(" ");
 				int ind2 = o2.indexOf(" ");
 				int val = o1.substring(ind1 + 1).compareTo(o2.substring(ind2 + 1));
-				if (val != 0)
+				if (val != 0) {
 					return val;
-				else
+				} else {
 					return o1.substring(0, ind1).compareTo(o2.substring(0, ind2));
+				}
 			}
 		});
 
 		for (String s : logLines) {
 			int ind = s.indexOf(" ");
-			if (Character.isDigit(s.charAt(ind + 1)))
+			if (Character.isDigit(s.charAt(ind + 1))) {
 				numbers.offer(s);
-			else
+			} else {
 				letters.offer(s);
+			}
 		}
 
 		List<String> result = new ArrayList<>();
