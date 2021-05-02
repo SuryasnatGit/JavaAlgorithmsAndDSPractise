@@ -31,38 +31,65 @@ import java.util.List;
  * Explanation: There are one critical connections: 1. Between server 3 and 4 If the connection [3, 4] breaks, then the
  * network will be disconnected since servers 3 and 4 cannot communicate with the rest of the network. Remaining three
  * connections are not critical.
+ * 
+ * Category : Hard
  *
  */
 public class DataCentreCriticalConnection {
 
-	List<List<Integer>> result = new ArrayList<>();
-	int rank = 0;
+	private List<List<Integer>> result = new ArrayList<>();
+	private int rank = 0;
+
+	// All the connections within a CYCLE is NOT critical path.
+	// Apply Tarjan's algorithm
+	// Time: O(n + e) - vertices and edges
+	// Space: O(n)
+	public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
+		List<Integer>[] graph = buildGraph(n, connections);
+
+		int[] low = new int[n];
+		int[] discover = new int[n];
+		Arrays.fill(low, -1);
+		Arrays.fill(discover, -1);
+
+		dfs(0, -1, low, discover, graph);
+
+		return result;
+	}
 
 	private List<Integer>[] buildGraph(int n, List<List<Integer>> connections) {
 		List<Integer>[] graph = new ArrayList[n];
+
 		for (List<Integer> connection : connections) {
 			int u = connection.get(0);
 			int v = connection.get(1);
 			if (graph[u] == null) {
-				graph[u] = new ArrayList<>();
+				graph[u] = new ArrayList<Integer>();
 			}
 			if (graph[v] == null) {
-				graph[v] = new ArrayList<>();
+				graph[v] = new ArrayList<Integer>();
 			}
 			graph[u].add(v);
 			graph[v].add(u);
 		}
+
 		return graph;
 	}
 
 	private void dfs(int u, int parent, int[] low, int[] discover, List<Integer>[] graph) {
-		if (discover[u] != -1)
+
+		if (discover[u] != -1) {
 			return;
+		}
 
 		discover[u] = low[u] = rank++;
+
 		for (Integer neighbour : graph[u]) {
-			if (neighbour == parent)
+
+			if (neighbour == parent) {
 				continue;
+			}
+
 			dfs(neighbour, u, low, discover, graph);
 
 			if (discover[u] < low[neighbour]) {
@@ -71,21 +98,6 @@ public class DataCentreCriticalConnection {
 				low[u] = Math.min(low[u], low[neighbour]);
 			}
 		}
-	}
-
-	// All the connections within a CYCLE is NOT critical path.
-	// Apply Tarjan's algorithm
-	// Time: O(n + e) - vertices and edges
-	// Space: O(n)
-	public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
-		List<Integer>[] graph = buildGraph(n, connections);
-		int[] low = new int[n];
-		int[] discover = new int[n];
-		Arrays.fill(low, -1);
-		Arrays.fill(discover, -1);
-
-		dfs(0, -1, low, discover, graph);
-		return result;
 	}
 
 	// Solution 2

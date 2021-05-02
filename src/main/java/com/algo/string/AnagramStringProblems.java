@@ -13,6 +13,26 @@ import java.util.Map;
  */
 public class AnagramStringProblems {
 
+	public boolean isAnagram(String s, String t) {
+		int[] chars = new int[256]; // ascii
+
+		for (char ch : s.toCharArray()) {
+			chars[ch - 'a']++;
+		}
+
+		for (char ch : t.toCharArray()) {
+			chars[ch - 'a']--;
+		}
+
+		for (int n : chars) {
+			if (n != 0) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	/**
 	 * Method 1- brute force. <br/>
 	 * Get all substrings of str2(O(N^2)). for each substring of str2, check if its an anagram(O(M)). total complexity -
@@ -335,5 +355,7 @@ public class AnagramStringProblems {
 
 		System.out.println(ana.findAnagrams("BACDGABCDA", "ABCD"));
 		System.out.println(ana.findAnagrams("AAAAAAAA", "AAAA"));
+
+		System.out.println(ana.isAnagram("anagram", "nagaram"));
 	}
 }

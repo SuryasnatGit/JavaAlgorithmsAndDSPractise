@@ -1,9 +1,6 @@
 package com.companyprep;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * You're a new Amazon Software Development Engineer (SDE). You're reading through your team's code and find an old
@@ -78,8 +75,6 @@ import java.util.List;
  * Swap index 1 with 3 to form the sorted array [1, 2, 5, 4].<br/>
  * Swap index 2 with 3 to form the sorted array [1, 2, 4, 5].<br/>
  * 
- * TODO: logic not working. check further.
- * 
  * Category: Hard
  */
 public class AlgorithmSwap {
@@ -89,31 +84,18 @@ public class AlgorithmSwap {
 
 		int len = array.length;
 		int count = 0;
-		boolean swapped = false;
 
-		List<Point> list = new ArrayList<Point>();
+		for (int i = 0; i < len - 1; i++) {
+			boolean swapped = false;
 
-		for (int i = 0; i < len; i++) {
-			swapped = false;
-			for (int j = 0; j < len - 1; j++) {
-				if (array[j] > array[j + 1]) {
-					// dont swap just yet. collect the indices
-					Point p = new Point(j, j + 1);
-					list.add(p);
+			for (int j = i + 1; j < len; j++) {
+				if (array[i] > array[j]) {
+					swap(array, i, j);
+					System.out.println("Swap :" + Arrays.toString(array));
+					swapped = true;
+					count++;
 				}
 			}
-
-			Collections.sort(list);
-			if (!list.isEmpty()) {
-				Point p = list.get(0);
-				swap(array, p.x, p.y);
-				swapped = true;
-				count++;
-
-				System.out.println("Swap ->" + Arrays.toString(array));
-			}
-			// clear list
-			list.clear();
 
 			// IF no two elements were swapped by inner loop, then break
 			if (!swapped) {
@@ -128,27 +110,6 @@ public class AlgorithmSwap {
 		int temp = array[i];
 		array[i] = array[j];
 		array[j] = temp;
-	}
-
-	class Point implements Comparable<Point> {
-
-		int x;
-		int y;
-
-		public Point(int i, int j) {
-			this.x = i;
-			this.y = j;
-		}
-
-		@Override
-		public int compareTo(Point o) {
-			if (this.x < o.x || this.x == o.x && this.y < o.y) {
-				return -1;
-			} else if (this.x == o.x && this.y == o.y) {
-				return 0;
-			}
-			return 1;
-		}
 	}
 
 	public static void main(String[] args) {

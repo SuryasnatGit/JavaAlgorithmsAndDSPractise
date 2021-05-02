@@ -48,18 +48,22 @@ public class ShopkeeperSale {
 	public void printTotalCost(int[] prices) {
 		int total = 0;
 		Stack<Integer> s = new Stack<>();
+
 		for (int i = 0; i < prices.length; i++) {
 			while (!s.isEmpty() && prices[s.peek()] >= prices[i]) {
 				total += prices[s.pop()] - prices[i];
 			}
 			s.push(i);
 		}
+
 		List<Integer> res = new ArrayList<>();
+
 		while (!s.isEmpty()) {
-			int idx = s.pop();
-			total += prices[idx];
-			res.add(0, idx);
+			int index = s.pop();
+			total += prices[index];
+			res.add(0, index);
 		}
+
 		System.out.println(total);
 		System.out.println(res);
 	}
@@ -67,5 +71,7 @@ public class ShopkeeperSale {
 	public static void main(String[] args) {
 		ShopkeeperSale ss = new ShopkeeperSale();
 		ss.printTotalCost(new int[] { 2, 3, 1, 2, 4, 2 });
+		ss.printTotalCost(new int[] { 5, 1, 3, 4, 6, 2 });
+		ss.printTotalCost(new int[] { 1, 3, 3, 2, 5 });
 	}
 }

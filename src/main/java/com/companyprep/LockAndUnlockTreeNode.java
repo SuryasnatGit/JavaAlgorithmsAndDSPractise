@@ -21,6 +21,7 @@ import java.util.List;
  * Lock()- O(log n) <br/>
  * unLock()- O(log n)
  * 
+ * Category : Hard
  *
  */
 public class LockAndUnlockTreeNode {
