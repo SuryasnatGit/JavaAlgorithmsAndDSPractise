@@ -7,6 +7,8 @@ import com.algo.common.TreeNode;
  * http://www.geeksforgeeks.org/vertex-cover-problem-set-2-dynamic-programming-solution-tree/
  * http://en.wikipedia.org/wiki/Vertex_cover Using lis to store the cover data Test cases: null root Only left child
  * Only right child Tree with only one child at every node
+ * 
+ * TODO : result not correct
  */
 public class VertexCoverBinaryTreeDP {
 
@@ -19,13 +21,14 @@ public class VertexCoverBinaryTreeDP {
 			return 0;
 		}
 		// store result
-		if (root.data != -1) {
+		if (root.data != 0) {
 			return root.data;
 		}
 		// if root is included
 		int inclRoot = 1 + cover(root.left) + cover(root.right);
-		int exclRoot = 0;
+
 		// if root is not included
+		int exclRoot = 0;
 		if (root.left != null) {
 			exclRoot += (1 + cover(root.left.left) + cover(root.left.right));
 		}
@@ -37,22 +40,16 @@ public class VertexCoverBinaryTreeDP {
 	}
 
 	public static void main(String args[]) {
-		BinaryTree bt = new BinaryTree();
-		TreeNode root = null;
-		root = bt.addNode(10, root);
-		root = bt.addNode(0, root);
-		root = bt.addNode(-5, root);
-		root = bt.addNode(5, root);
-		root = bt.addNode(7, root);
-		root = bt.addNode(3, root);
-		root = bt.addNode(30, root);
-		root = bt.addNode(40, root);
-		root = bt.addNode(25, root);
-		root = bt.addNode(46, root);
-		root = bt.addNode(-8, root);
-		root = bt.addNode(-2, root);
-		root = bt.addNode(-1, root);
-		root = bt.addNode(28, root);
+
+		TreeNode root = new TreeNode(10);
+		root.left = new TreeNode(20);
+		root.right = new TreeNode(30);
+		root.left.left = new TreeNode(40);
+		root.left.right = new TreeNode(50);
+		root.left.right.left = new TreeNode(70);
+		root.left.right.right = new TreeNode(80);
+		root.right.right = new TreeNode(60);
+
 		VertexCoverBinaryTreeDP vc = new VertexCoverBinaryTreeDP();
 		System.out.println(vc.cover(root));
 	}

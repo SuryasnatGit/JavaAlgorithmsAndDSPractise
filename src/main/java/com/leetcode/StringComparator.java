@@ -1,5 +1,9 @@
 package com.leetcode;
 
+/**
+ * Category : Medium
+ *
+ */
 public class StringComparator {
 
 	public int compare(String s1, String s2) {

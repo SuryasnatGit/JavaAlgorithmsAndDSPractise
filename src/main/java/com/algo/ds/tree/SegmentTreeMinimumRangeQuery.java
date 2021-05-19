@@ -1,29 +1,27 @@
 package com.algo.ds.tree;
 
 /**
- * Date 08/22/2015
- * 
- * @author Tushar Roy
- * 
- *         A segment tree is a tree data structure for storing intervals, or segments. It allows for faster querying
- *         (e.g sum or min) in these intervals. Lazy propagation is useful when there are high number of updates in the
- *         input array.
- * 
- *         Write a program to support mininmum range query createSegmentTree(int arr[]) - create segment tree query(int
- *         segment[], int startRange, int endRange) - returns minimum between startRange and endRange update(int
- *         input[], int segment[], int indexToBeUpdated, int newVal) - updates input and segmentTree with newVal at
- *         index indexToBeUpdated; updateRange(int input[], int segment[], int lowRange, int highRange, int delta) -
- *         updates all the values in given range by adding delta to them queryLazy(int segment[], int startRange, int
- *         endRange) - query based off lazy propagation
  *
- *         Time complexity to create segment tree is O(n) since new array will be at max 4n size Space complexity to
- *         create segment tree is O(n) since new array will be at max 4n size Time complexity to search in segment tree
- *         is O(logn) since you would at max travel 4 depths Time complexity to update in segment tree is O(logn) Time
- *         complexity to update range in segment tree is O(range)
+ * A segment tree is a tree data structure for storing intervals, or segments. It allows for faster querying (e.g sum or
+ * min) in these intervals. Lazy propagation is useful when there are high number of updates in the input array.
  * 
- *         References http://www.geeksforgeeks.org/segment-tree-set-1-sum-of-given-range/
- *         http://www.geeksforgeeks.org/segment-tree-set-1-range-minimum-query/
- *         https://www.topcoder.com/community/data-science/data-science-tutorials/range-minimum-query-and-lowest-common-ancestor/
+ * Write a program to support mininmum range query createSegmentTree(int arr[]) - create segment tree query(int
+ * segment[], int startRange, int endRange) - returns minimum between startRange and endRange update(int input[], int
+ * segment[], int indexToBeUpdated, int newVal) - updates input and segmentTree with newVal at index indexToBeUpdated;
+ * updateRange(int input[], int segment[], int lowRange, int highRange, int delta) - updates all the values in given
+ * range by adding delta to them queryLazy(int segment[], int startRange, int endRange) - query based off lazy
+ * propagation
+ *
+ * Time complexity to create segment tree is O(n) since new array will be at max 4n size Space complexity to create
+ * segment tree is O(n) since new array will be at max 4n size Time complexity to search in segment tree is O(logn)
+ * since you would at max travel 4 depths Time complexity to update in segment tree is O(logn) Time complexity to update
+ * range in segment tree is O(range)
+ * 
+ * References http://www.geeksforgeeks.org/segment-tree-set-1-sum-of-given-range/
+ * http://www.geeksforgeeks.org/segment-tree-set-1-range-minimum-query/
+ * https://www.topcoder.com/community/data-science/data-science-tutorials/range-minimum-query-and-lowest-common-ancestor/
+ * 
+ * TODO : to understand more clearly
  */
 public class SegmentTreeMinimumRangeQuery {
 

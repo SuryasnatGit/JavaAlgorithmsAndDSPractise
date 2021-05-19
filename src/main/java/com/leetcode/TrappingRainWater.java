@@ -1,20 +1,18 @@
 package com.leetcode;
 
 import java.util.PriorityQueue;
-import java.util.Stack;
 
 /**
  *
- *
+ * Category : Hard
  */
 public class TrappingRainWater {
 
 	public static void main(String[] args) {
 		TrappingRainWater trap = new TrappingRainWater();
-		System.out.println(trap.trap(new int[] { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 }));
-		System.out.println(trap.trap2(new int[] { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 }));
-		System.out.println(
-				trap.trapRainWater(new int[][] { { 1, 4, 3, 1, 3, 2 }, { 3, 2, 1, 3, 2, 4 }, { 2, 3, 3, 2, 3, 1 } }));
+		System.out.println(trap.trapRainWater(new int[] { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 }));
+		System.out.println(trap.trapRainWaterIn2DMap(
+				new int[][] { { 1, 4, 3, 1, 3, 2 }, { 3, 2, 1, 3, 2, 4 }, { 2, 3, 3, 2, 3, 1 } }));
 	}
 
 	/**
@@ -27,33 +25,8 @@ public class TrappingRainWater {
 	 * (blue section) are being trapped.
 	 * 
 	 */
-	public int trap(int[] height) {
-		if (height == null || height.length == 0) {
-			return 0;
-		}
-
-		// What is stored in the Stack is decreasing, and when it encounters a large number, it starts to calculate
-		Stack<Integer> stack = new Stack<Integer>();
-		int vol = 0;
-		for (int i = 0; i < height.length; i++) {
-			while (!stack.isEmpty() && height[i] > height[stack.peek()]) {
-				int mid = stack.pop();
-				// current is i
-				if (!stack.isEmpty()) { // Make sure that the left side is blocked. Use i-mid-1 for the width directly,
-										// don’t consider the leftmost side, because the water is leaking
-					int pre = stack.peek();
-					vol += ((i - pre - 1) * (Math.min(height[i], height[pre]) - height[mid]));
-				}
-
-			}
-			stack.push(i);
-		}
-
-		return vol;
-	}
-
 	// Two pointers
-	public int trap2(int[] height) {
+	public int trapRainWater(int[] height) {
 		if (height == null || height.length == 0) {
 			return 0;
 		}
@@ -95,21 +68,7 @@ public class TrappingRainWater {
 	 * 
 	 * TODO: understand clearly
 	 */
-	class Cell implements Comparable<Cell> {
-		int x, y, h;
-
-		Cell(int x, int y, int h) {
-			this.x = x;
-			this.y = y;
-			this.h = h;
-		}
-
-		public int compareTo(Cell another) {
-			return this.h - another.h;
-		}
-	}
-
-	public int trapRainWater(int[][] heightMap) {
+	public int trapRainWaterIn2DMap(int[][] heightMap) {
 		int rows = heightMap.length;
 		int cols = heightMap[0].length;
 
@@ -151,5 +110,19 @@ public class TrappingRainWater {
 		}
 
 		return sum;
+	}
+
+	class Cell implements Comparable<Cell> {
+		int x, y, h;
+
+		Cell(int x, int y, int h) {
+			this.x = x;
+			this.y = y;
+			this.h = h;
+		}
+
+		public int compareTo(Cell another) {
+			return this.h - another.h;
+		}
 	}
 }

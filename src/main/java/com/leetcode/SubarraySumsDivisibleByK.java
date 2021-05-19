@@ -1,8 +1,7 @@
 package com.leetcode;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * https://leetcode.com/problems/subarray-sums-divisible-by-k/
@@ -25,14 +24,12 @@ public class SubarraySumsDivisibleByK {
 	public static void main(String[] args) {
 		SubarraySumsDivisibleByK kSub = new SubarraySumsDivisibleByK();
 
-		int k = 3;
-		int[] arr = { 1, 2, 3, 4, 1 };
-
-		System.out.println(kSub.countKSubsequence2(k, arr));
-		System.out.println(kSub.countKSubsequence(k, arr));
+		System.out.println(kSub.subarraysDivByK1(5, new int[] { 4, 5, 0, -2, -3, 1 }));
+		System.out.println(kSub.subarraysDivByK2(5, new int[] { 4, 5, 0, -2, -3, 1 }));
 	}
 
-	int countKSubsequence2(int k, int[] arr) {
+	// T - O(n^2) S - O(1) TLE on LC
+	public int subarraysDivByK1(int k, int[] arr) {
 		int count = 0;
 
 		for (int i = 0; i < arr.length; i++) { // Start Point
@@ -49,42 +46,28 @@ public class SubarraySumsDivisibleByK {
 		return count;
 	}
 
-	List<Integer> countKSubsequence(int k, int[] arr) {
-		List<Integer> res = new ArrayList<Integer>();
-		LinkedList<Integer> list = new LinkedList<Integer>();
-		int len = arr.length;
-
-		if (k > len) {
-			return res;
-		}
-
-		int count = 0;
-		int i = 0;
-		int sum = 0;
-		// Add first k elements to list
-		while (i < k) {
-			list.addLast(arr[i]);
-			sum += arr[i];
-			i++;
-		}
-
-		while (i < len) {
-			if (sum % k == 0) {
-				count++;
-				res.add(i - k);
+	/**
+	 * Better solution: Idea is whenever we encounter same remainder at two different points, the sum off elements
+	 * between the two points will be divisible by K
+	 * 
+	 * T - O(N) S - O(N)
+	 */
+	public int subarraysDivByK2(int K, int[] arr) {
+		Map<Integer, Integer> map = new HashMap<>();
+		map.put(0, 1);
+		int currSum = 0;
+		int cnt = 0;
+		int remainder = 0;
+		for (int i = 0; i < arr.length; i++) {
+			currSum += arr[i];
+			remainder = currSum % K;
+			while (remainder < 0)
+				remainder += K;
+			if (map.containsKey(remainder)) {
+				cnt += map.get(remainder);
 			}
-			int toRemove = list.getFirst();
-			sum -= toRemove;
-			list.removeFirst();
-
-			int toAdd = arr[i];
-			sum += toAdd;
-			list.addLast(toAdd);
-
-			i++;
+			map.put(remainder, map.getOrDefault(remainder, 0) + 1);
 		}
-
-		System.out.println(count);
-		return res;
+		return cnt;
 	}
 }

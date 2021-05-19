@@ -3,8 +3,12 @@ package com.hackerrank;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
@@ -27,9 +31,37 @@ public class Algorithms {
 		// System.out.println(algo.rearrangeDuplicates(input));
 		// algo.extraLongFactorials(50);
 		// algo.extraLongFactorials(100);
-		System.out.println(algo.appendAndDelete("hackerhappy", "hackerrank", 9));
-		System.out.println(algo.appendAndDelete("aba", "aba", 7));
-		System.out.println(algo.appendAndDelete("ashley", "ash", 200));
+		// System.out.println(algo.appendAndDelete("hackerhappy", "hackerrank", 9));
+		// System.out.println(algo.appendAndDelete("aba", "aba", 7));
+		// System.out.println(algo.appendAndDelete("ashley", "ash", 200));
+
+		List<Integer> ql1 = Arrays.asList(1, 5);
+		List<Integer> ql2 = Arrays.asList(1, 6);
+		List<Integer> ql3 = Arrays.asList(3, 2);
+		List<Integer> ql4 = Arrays.asList(1, 10);
+		List<Integer> ql5 = Arrays.asList(1, 10);
+		List<Integer> ql6 = Arrays.asList(1, 6);
+		List<Integer> ql7 = Arrays.asList(2, 5);
+		List<Integer> ql8 = Arrays.asList(3, 2);
+
+		List<List<Integer>> res = new ArrayList<List<Integer>>();
+		res.add(ql1);
+		res.add(ql2);
+		res.add(ql3);
+		res.add(ql4);
+		res.add(ql5);
+		res.add(ql6);
+		res.add(ql7);
+		res.add(ql8);
+
+		// System.out.println(algo.freqQuery(res));
+
+		// System.out.println(algo.countTriplets(LongStream.of(1, 4, 16, 64).boxed().collect(Collectors.toList()), 4));
+		// System.out.println(algo.countTriplets(LongStream.of(1, 2, 2, 4).boxed().collect(Collectors.toList()), 2));
+		// System.out.println(algo.countTriplets(LongStream.of(1, 1, 1, 1).boxed().collect(Collectors.toList()), 1));
+
+		System.out.println(algo.sherlockAndAnagrams("abba"));
+		System.out.println(algo.sherlockAndAnagrams("kkkk"));
 	}
 
 	/**
@@ -301,6 +333,187 @@ public class Algorithms {
 			}
 		}
 		return false;
+	}
+
+	// Complete the freqQuery function below.
+	/**
+	 * You are given queries. Each query is of the form two integers described below: - 1 x: Insert x in your data
+	 * structure. - 2 y: Delete one occurence of y from your data structure, if present. - 3 z: Check if any integer is
+	 * present whose frequency is exactly . If yes, print 1 else 0.
+	 * 
+	 * The queries are given in the form of a 2-D array of size q where queries[i][0] contains the operation, and
+	 * queries[i][1] contains the data element.
+	 * 
+	 * Example: queries[(1,1)(2,2)(3,2)(1,1)(1,1)(2,1)(3,2)]
+	 * 
+	 * The results of each operation are:
+	 * 
+	 * <br/>
+	 * Operation Array Output <br/>
+	 * (1,1) [1] <br/>
+	 * (2,2) [1] <br/>
+	 * (3,2) 0 <br/>
+	 * (1,1) [1,1] <br/>
+	 * (1,1) [1,1,1] <br/>
+	 * (2,1) [1,1] <br/>
+	 * (3,2) 1
+	 * 
+	 * Return an array with the output:[0,1]
+	 * 
+	 * @param queries
+	 * @return
+	 */
+	public List<Integer> freqQuery(List<List<Integer>> queries) {
+
+		// 1st map between value and frequency of occurrences
+		Map<Integer, Integer> valueCountMap = new HashMap<>();
+		// 2nd array to keep track of frequencies
+		int[] frequencies = new int[queries.size() + 1];
+
+		List<Integer> result = new ArrayList<>();
+
+		for (List<Integer> query : queries) {
+			int type = query.get(0);
+			int value = query.get(1);
+			System.out.println("Type :" + type + " Value :" + value);
+
+			if (type == 1) {
+				// add
+				int count = valueCountMap.getOrDefault(value, 0);
+				valueCountMap.put(value, count + 1);
+
+				// process frequencies
+				frequencies[count]--;
+				frequencies[count + 1]++;
+
+			} else if (type == 2) {
+				// remove
+				if (valueCountMap.containsKey(value)) {
+					int count = valueCountMap.get(value);
+					if (count > 0) {
+						valueCountMap.put(value, count - 1);
+
+						// process frequencies
+						frequencies[count]--;
+						frequencies[count - 1]++;
+
+					} else {
+						valueCountMap.remove(value);
+					}
+				}
+			} else if (type == 3) {
+				if (value >= frequencies.length) {
+					result.add(0); // out of bounds
+				} else {
+					result.add(frequencies[value] > 0 ? 1 : 0);
+				}
+			}
+
+			System.out.println("VC map : " + valueCountMap);
+			System.out.println();
+		}
+
+		return result;
+	}
+
+	/**
+	 * You are given an array and you need to find number of tripets of indices (i,j,k) such that the elements at those
+	 * indices are in geometric progression for a given common ratio r and i<j<k.
+	 * 
+	 * Example: arr=[1,4,16,64] r = 4
+	 * 
+	 * There are 1,4,6 and 4,16,64 at indices 0,1,2 and 1,2,3. Return 2
+	 * 
+	 * Function Description
+	 * 
+	 * Complete the countTriplets function in the editor below.
+	 * 
+	 * countTriplets has the following parameter(s):
+	 * 
+	 * int arr[n]: an array of integers
+	 * 
+	 * int r: the common ratio
+	 * 
+	 * Returns
+	 * 
+	 * int: the number of triplets
+	 * 
+	 * Input Format
+	 * 
+	 * The first line contains two space-separated integers n and r, the size of arr and the common ratio. The next line
+	 * contains n space-separated integers arr[i]
+	 * 
+	 * TODO: understand properly
+	 */
+	// Complete the countTriplets function below.
+	public long countTriplets(List<Long> arr, long r) {
+
+		Map<Long, Long> potential = new HashMap<>();
+		Map<Long, Long> counter = new HashMap<>();
+		long count = 0;
+		for (int i = 0; i < arr.size(); i++) {
+			long a = arr.get(i);
+			long key = a / r;
+
+			if (counter.containsKey(key) && a % r == 0) {
+				count += counter.get(key);
+			}
+
+			if (potential.containsKey(key) && a % r == 0) {
+				long c = potential.get(key);
+				counter.put(a, counter.getOrDefault(a, 0L) + c);
+			}
+
+			potential.put(a, potential.getOrDefault(a, 0L) + 1); // Every number can be the start of a triplet.
+		}
+		return count;
+	}
+
+	/**
+	 * Two strings are anagrams of each other if the letters of one string can be rearranged to form the other string.
+	 * Given a string, find the number of pairs of substrings of the string that are anagrams of each other.
+	 * 
+	 * Example: s = mom
+	 * 
+	 * The list of all anagrammatic pairs m,m and mo,om is at positions 0,2 and 0,1 and 1,2 respectively.
+	 * 
+	 * Function Description
+	 * 
+	 * Complete the function sherlockAndAnagrams in the editor below.
+	 */
+	public int sherlockAndAnagrams(String s) {
+
+		List<String> subStrings = new ArrayList<String>();
+
+		int count = 0;
+
+		// find all substrings
+		for (int i = 0; i < s.length(); i++) {
+			for (int j = i + 1; j <= s.length(); j++) {
+				String ss = s.substring(i, j);
+				char[] chArr = ss.toCharArray();
+				// subStrings.add(new String(chArr));
+
+				Arrays.sort(chArr);
+				String sortedStr = new String(chArr);
+				subStrings.add(sortedStr);
+			}
+		}
+
+		System.out.println(subStrings);
+		Collections.sort(subStrings);
+		System.out.println(subStrings);
+
+		for (int i = 0; i < subStrings.size(); i++) {
+			for (int j = i + 1; j < subStrings.size(); j++) {
+				if (subStrings.get(i).equals(subStrings.get(j))) {
+					count++;
+				}
+			}
+		}
+
+		return count;
+
 	}
 
 }

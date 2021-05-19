@@ -20,25 +20,10 @@ import java.util.List;
  * the following input:
  * 
  * [1,2,3] [4,5,6,7] [8,9] It should return [1,4,8,2,5,9,3,6,7].
+ * 
+ * Category : Medium
  *
  */
-/*
- * public class ZigZagIterator {
- * 
- * List<Integer> v1 = null; List<Integer> v2 = null; int pos1 = 0; int pos2 = 0; boolean isFirst = true;
- * 
- * public ZigZagIterator(List<Integer> v1, List<Integer> v2) { this.v1 = v1; this.v2 = v2; this.pos1 = 0; this.pos2 = 0;
- * }
- * 
- * public int next() { int res = -1; if (isFirst) { if (pos1 < v1.size()) { res = v1.get(pos1++); } else { res =
- * v2.get(pos2++); } } else { if (pos2 < v2.size()) { res = v2.get(pos2++); } else { res = v1.get(pos1++); } }
- * 
- * isFirst = !isFirst; return res; }
- * 
- * public boolean hasNext() { if (pos1 < v1.size() || pos2 < v2.size()) { return true; } return false; } }
- */
-
-// Extend to K
 class ZigZagIteratorK {
 
 	private List<Iterator<Integer>> iterators = null;

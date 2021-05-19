@@ -7,21 +7,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.algo.common.TreeNode;
 
 /**
- * Date 11/01/2015
  * 
- * @author Tushar
+ * Encode and decode binary tree using succinct encoding technique
  *
- *         Encode and decode binary tree using succinct encoding technique
- *
- *         References - http://www.geeksforgeeks.org/succinct-encoding-of-binary-tree/
- *         https://en.wikipedia.org/wiki/Binary_tree#Succinct_encodings
+ * References - http://www.geeksforgeeks.org/succinct-encoding-of-binary-tree/
+ * https://en.wikipedia.org/wiki/Binary_tree#Succinct_encodings
+ * 
+ * TODO : need to understand
+ * 
+ * Category : Hard
  */
 public class SuccinctTree {
-
-	public static class Result {
-		List<Integer> binaryRep = new ArrayList<>();
-		List<Integer> actualData = new ArrayList<>();
-	}
 
 	public Result encode(TreeNode root) {
 		Result r = new Result();
@@ -61,30 +57,35 @@ public class SuccinctTree {
 		return root;
 	}
 
+	class Result {
+		List<Integer> binaryRep = new ArrayList<>();
+		List<Integer> actualData = new ArrayList<>();
+	}
+
 	public static void main(String args[]) {
-		TreeNode root = null;
-		BinaryTree bt = new BinaryTree();
-		root = bt.addNode(10, root);
-		root = bt.addNode(-10, root);
-		root = bt.addNode(20, root);
-		root = bt.addNode(15, root);
-		root = bt.addNode(-7, root);
-		root = bt.addNode(22, root);
-		root = bt.addNode(-4, root);
-		root = bt.addNode(12, root);
+		TreeNode head = new TreeNode(3);
+		head.left = new TreeNode(3);
+		head.right = new TreeNode(-6);
+		head.left.left = new TreeNode(-7);
+		head.left.right = new TreeNode(2);
+		head.right.left = new TreeNode(9);
+		head.right.right = new TreeNode(6);
+		head.right.right.left = new TreeNode(11);
+		head.right.right.right = new TreeNode(13);
+
 		System.out.println("Before decoding");
 		TreeTraversals tt = new TreeTraversals();
-		tt.inOrder(root);
+		tt.inOrder(head);
 		System.out.println();
-		tt.preOrder(root);
+		tt.preOrder(head);
 		System.out.println();
 		SuccinctTree st = new SuccinctTree();
-		Result r = st.encode(root);
-		root = st.decode(r);
+		Result r = st.encode(head);
+		head = st.decode(r);
 		System.out.println("After decoding");
-		tt.inOrder(root);
+		tt.inOrder(head);
 		System.out.println();
-		tt.preOrder(root);
+		tt.preOrder(head);
 	}
 
 }

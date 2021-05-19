@@ -1,7 +1,6 @@
 package com.leetcode;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,10 +36,7 @@ public class UberEatsProblem {
 			}
 
 			Map<String, Integer> foodCountMap = map.get(restaurant);
-			if (!foodCountMap.containsKey(food)) {
-				foodCountMap.put(food, 1);
-			}
-			foodCountMap.put(food, foodCountMap.get(food) + 1);
+			foodCountMap.put(food, foodCountMap.getOrDefault(food, 0) + 1);
 			map.put(restaurant, foodCountMap);
 		}
 	}
@@ -55,7 +51,7 @@ public class UberEatsProblem {
 			String restaurant = entry.getKey();
 			Map<String, Integer> foodMap = entry.getValue();
 
-			PriorityQueue<FoodCount> pq = new PriorityQueue<>(new FoodCountComparator());
+			PriorityQueue<FoodCount> pq = new PriorityQueue<>((fc1, fc2) -> fc2.count - fc1.count);
 			for (Map.Entry<String, Integer> foodMapEntry : foodMap.entrySet()) {
 				pq.add(new FoodCount(foodMapEntry.getKey(), foodMapEntry.getValue()));
 			}
@@ -107,13 +103,4 @@ class FoodCount {
 		this.food = f;
 		this.count = c;
 	}
-}
-
-class FoodCountComparator implements Comparator<FoodCount> {
-
-	@Override
-	public int compare(FoodCount o1, FoodCount o2) {
-		return o2.count - o1.count;
-	}
-
 }

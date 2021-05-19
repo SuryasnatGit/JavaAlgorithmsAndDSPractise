@@ -23,6 +23,8 @@ import com.algo.common.TreeNode;
  * line.
  * 
  * Time space complexity for all above algorithm is O(n).
+ * 
+ * Category : Medium
  */
 public class TreeTraversalLevelByLevel {
 
@@ -63,45 +65,19 @@ public class TreeTraversalLevelByLevel {
 	}
 
 	/**
-	 * Use one queue and delimiter to print level by level
-	 */
-	public void levelByLevelOneQueueUsingDelimiter(TreeNode root) {
-		if (root == null) {
-			return;
-		}
-		Queue<TreeNode> q = new LinkedList<TreeNode>();
-		q.offer(root);
-		q.offer(null);
-		while (!q.isEmpty()) {
-			root = q.poll();
-			if (root != null) {
-				System.out.print(root.data + " ");
-				if (root.left != null) {
-					q.offer(root.left);
-				}
-				if (root.right != null) {
-					q.offer(root.right);
-				}
-			} else {
-				if (!q.isEmpty()) {
-					System.out.println();
-					q.offer(null);
-				}
-			}
-		}
-	}
-
-	/**
-	 * Use one queue and count to print level by level
+	 * Optimized: Use one queue and count to print level by level
 	 */
 	public void levelByLevelOneQueueUsingCount(TreeNode root) {
 		if (root == null) {
 			return;
 		}
-		Queue<TreeNode> q = new LinkedList<TreeNode>();
+
 		int levelCount = 1;
 		int currentCount = 0;
+
+		Queue<TreeNode> q = new LinkedList<TreeNode>();
 		q.offer(root);
+
 		while (!q.isEmpty()) {
 			while (levelCount > 0) {
 				root = q.poll();
@@ -116,6 +92,7 @@ public class TreeTraversalLevelByLevel {
 				}
 				levelCount--;
 			}
+
 			System.out.println();
 			levelCount = currentCount;
 			currentCount = 0;
@@ -124,24 +101,20 @@ public class TreeTraversalLevelByLevel {
 
 	public static void main(String args[]) {
 		TreeTraversalLevelByLevel tt = new TreeTraversalLevelByLevel();
-		BinaryTree bt = new BinaryTree();
-		TreeNode root = null;
-		root = bt.addNode(10, root);
-		root = bt.addNode(20, root);
-		root = bt.addNode(30, root);
-		root = bt.addNode(15, root);
-		root = bt.addNode(-10, root);
-		root = bt.addNode(0, root);
-		root = bt.addNode(5, root);
-		root = bt.addNode(-5, root);
-		root = bt.addNode(-15, root);
-		root = bt.addNode(27, root);
-		root = bt.addNode(35, root);
+
+		TreeNode head = new TreeNode(3);
+		head.left = new TreeNode(3);
+		head.right = new TreeNode(-6);
+		head.left.left = new TreeNode(-7);
+		head.left.right = new TreeNode(2);
+		head.right.left = new TreeNode(9);
+		head.right.right = new TreeNode(6);
+		head.right.right.left = new TreeNode(11);
+		head.right.right.right = new TreeNode(13);
+
 		System.out.println("1. Two queue technique");
-		tt.levelByLevelTwoQueue(root);
-		System.out.println("\n2. One queue and delimiter");
-		tt.levelByLevelOneQueueUsingDelimiter(root);
+		tt.levelByLevelTwoQueue(head);
 		System.out.println("\n\n3. One queue and count");
-		tt.levelByLevelOneQueueUsingCount(root);
+		tt.levelByLevelOneQueueUsingCount(head);
 	}
 }

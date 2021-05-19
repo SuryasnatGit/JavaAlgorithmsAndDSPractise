@@ -58,7 +58,7 @@ public class TreeTraversals {
 					break;
 				}
 				node = stack.pop();
-				System.out.println(node.data);
+				System.out.print(node.data + " ");
 				node = node.right;
 			}
 		}
@@ -122,17 +122,18 @@ public class TreeTraversals {
 	}
 
 	public static void main(String args[]) {
-		BinaryTree bt = new BinaryTree();
-		TreeNode head = null;
-		head = bt.addNode(10, head);
-		head = bt.addNode(15, head);
-		head = bt.addNode(19, head);
-		head = bt.addNode(17, head);
-		head = bt.addNode(11, head);
 
-		head = bt.addNode(-11, head);
+		TreeNode head = new TreeNode(10);
+		head.left = new TreeNode(15);
+		head.right = new TreeNode(19);
+		head.left.left = new TreeNode(17);
+		head.left.right = new TreeNode(11);
 
 		TreeTraversals tt = new TreeTraversals();
+		tt.inorderIterative(head);
+		System.out.println();
+		tt.preOrderIterative(head);
+		System.out.println();
 		tt.postOrder(head);
 		System.out.println();
 		tt.postOrderIterativeTwoStack(head);

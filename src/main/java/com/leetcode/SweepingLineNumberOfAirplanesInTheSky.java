@@ -20,6 +20,18 @@ import java.util.Map;
  * 1.2 find the point which have the maximum overlap of intervals
  */
 public class SweepingLineNumberOfAirplanesInTheSky {
+
+	public static void main(String[] args) {
+		SweepingLineNumberOfAirplanesInTheSky sw = new SweepingLineNumberOfAirplanesInTheSky();
+		List<Interval> list = new ArrayList<Interval>();
+		list.add(new Interval(1, 10));
+		list.add(new Interval(2, 3));
+		list.add(new Interval(5, 8));
+		list.add(new Interval(4, 7));
+
+		System.out.println(sw.countOfAirplanes(list));
+	}
+
 	// O(M * N)
 	public int countOfAirplanes(List<Interval> airplanes) {
 		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
@@ -27,12 +39,7 @@ public class SweepingLineNumberOfAirplanesInTheSky {
 
 		for (Interval in : airplanes) {
 			for (int i = in.start; i < in.end; i++) {
-				if (map.containsKey(i)) {
-					map.put(i, map.get(i) + 1);
-				} else {
-					map.put(i, 1);
-				}
-
+				map.put(i, map.getOrDefault(i, 0) + 1);
 				res = Math.max(res, map.get(i));
 			}
 		}
@@ -88,8 +95,13 @@ public class SweepingLineNumberOfAirplanesInTheSky {
 		}
 	}
 
-	class Interval {
+	static class Interval {
 		int start;
 		int end;
+
+		public Interval(int s, int e) {
+			this.start = s;
+			this.end = e;
+		}
 	}
 }
