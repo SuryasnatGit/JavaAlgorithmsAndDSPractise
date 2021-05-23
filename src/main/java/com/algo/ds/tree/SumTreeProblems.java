@@ -13,6 +13,7 @@ class Count {
  * right subtree. An empty tree is SumTree if sum of an empty tree can be considered as 0. A leaf node is also
  * considered as SumTree.
  * 
+ * Category : Hard
  */
 public class SumTreeProblems {
 
