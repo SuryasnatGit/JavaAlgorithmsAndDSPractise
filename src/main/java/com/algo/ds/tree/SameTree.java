@@ -20,6 +20,7 @@ public class SameTree {
 	 * Using recursion : T - O(N) since each node is visited exactly once. S - O(log(N)) in the best case of completely
 	 * balanced tree and O(N) in the worst case of completely unbalanced tree, to keep a recursion stack
 	 * 
+	 * Accepted LC solution
 	 */
 	public boolean sameTree1(TreeNode root1, TreeNode root2) {
 		if (root1 == null && root2 == null) {
@@ -33,8 +34,7 @@ public class SameTree {
 	}
 
 	/**
-	 * Using iteration : T - O(N) since each node is visited exactly once. S - O(log(N)) in the best case of completely
-	 * balanced tree and O(N) in the worst case of completely unbalanced tree, to keep a recursion stack
+	 * Using iteration :
 	 * 
 	 */
 	public boolean sameTree2(TreeNode root1, TreeNode root2) {
@@ -63,8 +63,8 @@ public class SameTree {
 				return false;
 
 			// Remove front nodes from queues
-			q1.remove();
-			q2.remove();
+			q1.poll();
+			q2.poll();
 
 			/* Enqueue left children of both nodes */
 			if (n1.left != null && n2.left != null) {
@@ -102,5 +102,7 @@ public class SameTree {
 
 		SameTree st = new SameTree();
 		System.out.println(st.sameTree1(root1, root2));
+
+		System.out.println(st.sameTree2(root1, root2));
 	}
 }

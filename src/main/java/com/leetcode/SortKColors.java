@@ -46,13 +46,15 @@ public class SortKColors {
 				nums[index++] = entry.getKey();
 			}
 		}
+
+		System.out.println(Arrays.toString(nums));
 	}
 
 	public void sortKColors1Pass(int[] nums, int k) {
 		int left = 0;
 		int right = nums.length - 1;
 		int minColor = 0;
-		int maxColor = k - 1; // depends on what the input is. if colors start with 0 or 1
+		int maxColor = k;
 
 		while (minColor < maxColor) {
 			for (int i = left; i <= right; i++) {
@@ -68,6 +70,8 @@ public class SortKColors {
 			minColor++;
 			maxColor--;
 		}
+
+		System.out.println(Arrays.toString(nums));
 	}
 
 	private void swap(int[] nums, int i, int j) {
@@ -78,15 +82,11 @@ public class SortKColors {
 
 	public static void main(String args[]) {
 		SortKColors sc = new SortKColors();
-		int[] nums = new int[] { 2, 3, 4, 1, 2, 3, 4, 5, 7, 2, 5, 2, 6, 2, 7, 5, 4, 2, 3, 4, 5 };
-		sc.sortKColors1Pass(nums, 7);
-		System.out.println(Arrays.toString(nums));
-		int[] nums1 = new int[] { 2, 0, 2, 1, 1, 0 };
-		sc.sortKColors2Pass(nums1, 3);
-		System.out.println(Arrays.toString(nums1));
 
-		int[] nums2 = new int[] { 2, 0, 2, 1, 1, 0 };
-		sc.sortKColors1Pass(nums2, 3);
-		System.out.println(Arrays.toString(nums2));
+		sc.sortKColors2Pass(new int[] { 2, 3, 4, 1, 2, 3, 4, 5, 7, 2, 5, 2, 6, 2, 7, 5, 4, 2, 3, 4, 5 }, 7);
+		sc.sortKColors1Pass(new int[] { 2, 3, 4, 1, 2, 3, 4, 5, 7, 2, 5, 2, 6, 2, 7, 5, 4, 2, 3, 4, 5 }, 7);
+
+		sc.sortKColors2Pass(new int[] { 2, 0, 2, 1, 1, 0 }, 3);
+		sc.sortKColors1Pass(new int[] { 2, 0, 2, 1, 1, 0 }, 3);
 	}
 }
