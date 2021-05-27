@@ -38,7 +38,7 @@ public class LargestBSTInBinaryTree {
 	 */
 	public int largestBSTSize(TreeNode root) {
 		if (isBST.isBST(root)) {
-			return sizeBT.size(root);
+			return sizeBT.size1(root);
 		} else {
 			return Math.max(largestBSTSize(root.left), largestBSTSize(root.right));
 		}

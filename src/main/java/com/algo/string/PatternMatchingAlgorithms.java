@@ -1,6 +1,8 @@
 package com.algo.string;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,7 +12,7 @@ import java.util.Map;
  * @author surya
  *
  */
-public class PatternMatcher {
+public class PatternMatchingAlgorithms {
 
 	/**
 	 * worst case running time - O(m * n)
@@ -119,10 +121,80 @@ public class PatternMatcher {
 		return fail;
 	}
 
+	/**
+	 * Z algorithm to pattern matching
+	 *
+	 * Time complexity - O(n + m) Space complexity - O(n + m)
+	 *
+	 * http://www.geeksforgeeks.org/z-algorithm-linear-time-pattern-searching-algorithm/
+	 * http://www.utdallas.edu/~besp/demo/John2010/z-algorithm.htm
+	 * 
+	 * Returns list of all indices where pattern is found in text.
+	 */
+	public List<Integer> matchPattern(char text[], char pattern[]) {
+		char newString[] = new char[text.length + pattern.length + 1];
+		int i = 0;
+		for (char ch : pattern) {
+			newString[i] = ch;
+			i++;
+		}
+		newString[i] = '$';
+		i++;
+		for (char ch : text) {
+			newString[i] = ch;
+			i++;
+		}
+		List<Integer> result = new ArrayList<>();
+		int Z[] = calculateZ(newString);
+
+		for (i = 0; i < Z.length; i++) {
+			if (Z[i] == pattern.length) {
+				result.add(i - pattern.length - 1);
+			}
+		}
+		return result;
+	}
+
+	private int[] calculateZ(char input[]) {
+		int Z[] = new int[input.length];
+		int left = 0;
+		int right = 0;
+		for (int k = 1; k < input.length; k++) {
+			if (k > right) {
+				left = right = k;
+				while (right < input.length && input[right] == input[right - left]) {
+					right++;
+				}
+				Z[k] = right - left;
+				right--;
+			} else {
+				// we are operating inside box
+				int k1 = k - left;
+				// if value does not stretches till right bound then just copy it.
+				if (Z[k1] < right - k + 1) {
+					Z[k] = Z[k1];
+				} else { // otherwise try to see if there are more matches.
+					left = k;
+					while (right < input.length && input[right] == input[right - left]) {
+						right++;
+					}
+					Z[k] = right - left;
+					right--;
+				}
+			}
+		}
+		return Z;
+	}
+
 	public static void main(String[] args) {
-		PatternMatcher pm = new PatternMatcher();
+		PatternMatchingAlgorithms pm = new PatternMatchingAlgorithms();
 		pm.bruteForce("Suryasnat".toCharArray(), "yas".toCharArray());
 		System.out.println(pm.boyerMooreAlgo("apple".toCharArray(), "pl".toCharArray()));
 		System.out.println(pm.KNPAlgorithm("apple".toCharArray(), "la".toCharArray()));
+
+		String text = "aaabcxyzaaaabczaaczabbaaaaaabc";
+		String pattern = "aaabc";
+		List<Integer> result = pm.matchPattern(text.toCharArray(), pattern.toCharArray());
+		result.forEach(System.out::println);
 	}
 }

@@ -7,7 +7,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Category : Medium
+ *
+ */
 public class IsomorphicStringProblems {
+
+	public static void main(String[] args) {
+		IsomorphicStringProblems iso = new IsomorphicStringProblems();
+
+		System.out.println(iso.isIsomorphicStrings("egg", "add"));
+		System.out.println(iso.isIsomorphicStrings("egg", "ads"));
+
+		System.out.println(iso.groupIsomorphicStrings(new String[] { "foo", "gjk", "pkk" }));
+	}
 
 	/**
 	 * Given two strings s and t, determine if they are isomorphic. Two strings are isomorphic if the characters in s
@@ -43,7 +56,7 @@ public class IsomorphicStringProblems {
 		return true;
 	}
 
-	// Another follow up, Follow up: 如果是三个String 怎么做. 下边的方法可以解决
+	// Another follow up, Follow up: What if it is three Strings. The following method can be solved
 	// follow up
 	// transfer word into same isomorphic pattern
 	// every word start with 'a', every time meet a new letter
@@ -52,7 +65,7 @@ public class IsomorphicStringProblems {
 	// ex. foo -> abb
 	// ex. gjk -> abc
 	// ex. pkk -> abb
-	public List<List<String>> findIsomorphic(String[] input) {
+	public List<List<String>> groupIsomorphicStrings(String[] input) {
 		List<List<String>> res = new ArrayList<List<String>>();
 		Map<String, Set<String>> map = new HashMap<String, Set<String>>();
 
@@ -70,18 +83,13 @@ public class IsomorphicStringProblems {
 			List<String> list = new ArrayList<String>();
 			list.addAll(set);
 			res.add(list);
-
-			for (String s : set) {
-				System.out.print(s + "==");
-			}
-			System.out.println();
 		}
 
 		return res;
 	}
 
 	// The methodology is very similar to Group Anagram
-	String transform(String str) {
+	private String transform(String str) {
 		Map<Character, Character> map = new HashMap<Character, Character>();
 		char now = 'a';
 		StringBuilder sb = new StringBuilder();

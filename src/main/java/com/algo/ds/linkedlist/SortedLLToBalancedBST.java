@@ -11,7 +11,7 @@ public class SortedLLToBalancedBST {
 
 	public Node toBalancedBST(Node head) {
 		LinkList ll = new LinkList();
-		int size = ll.size(head);
+		int size = ll.size1(head);
 		NodeRef headRef = new NodeRef();
 		headRef.node = head;
 		return toBalancedBST(headRef, size);

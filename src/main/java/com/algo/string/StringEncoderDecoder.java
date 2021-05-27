@@ -1,17 +1,14 @@
 package com.algo.string;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
- * Date 04/06/2016
- * 
- * @author Tushar Roy
+ * Design an algorithm to encode a list of strings to a string. The encoded string is then sent over the network and is
+ * decoded back to the original list of strings.
  *
- *         Design an algorithm to encode a list of strings to a string. The encoded string is then sent over the network
- *         and is decoded back to the original list of strings.
- *
- *         Reference https://leetcode.com/problems/encode-and-decode-strings/
+ * Reference https://leetcode.com/problems/encode-and-decode-strings/
  */
 public class StringEncoderDecoder {
 
@@ -36,6 +33,17 @@ public class StringEncoderDecoder {
 		return buff.toString();
 	}
 
+	// Decodes a single string to a list of strings.
+	public List<String> decode(String s) {
+		List<String> result = new ArrayList<>();
+		while (s.length() != 0) {
+			int size = toSize(s.substring(0, 4));
+			result.add(s.substring(4, size + 4));
+			s = s.substring(size + 4);
+		}
+		return result;
+	}
+
 	private int toSize(String str) {
 		int val = 0;
 		for (int i = str.length() - 1; i > 0; i--) {
@@ -46,14 +54,10 @@ public class StringEncoderDecoder {
 		return val;
 	}
 
-	// Decodes a single string to a list of strings.
-	public List<String> decode(String s) {
-		List<String> result = new ArrayList<>();
-		while (s.length() != 0) {
-			int size = toSize(s.substring(0, 4));
-			result.add(s.substring(4, size + 4));
-			s = s.substring(size + 4);
-		}
-		return result;
+	public static void main(String[] args) {
+		StringEncoderDecoder sed = new StringEncoderDecoder();
+		String encode = sed.encode(Arrays.asList("surya", "sai"));
+		System.out.println(encode);
+		System.out.println(sed.decode(encode));
 	}
 }

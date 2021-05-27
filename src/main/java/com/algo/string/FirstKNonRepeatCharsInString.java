@@ -10,6 +10,8 @@ import java.util.PriorityQueue;
  * https://www.techiedelight.com/first-k-non-repeating-characters-string/
  *
  * T - O(n log n) S - O(n)
+ * 
+ * Category : Medium
  */
 public class FirstKNonRepeatCharsInString {
 

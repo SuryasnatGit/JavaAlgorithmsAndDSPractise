@@ -24,6 +24,18 @@ import com.algo.common.TreeNode;
  */
 public class TwoSum {
 
+	public boolean sumOfTwo(int[] a, int[] b, int v) {
+		Arrays.sort(b);
+
+		for (int aNum : a) {
+			if (Arrays.binarySearch(b, v - aNum) >= 0) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	/**
 	 * O(n2) runtime, O(1) space Brute force: The brute force approach is simple. Loop through each element x and find
 	 * if there is another value that equals to target x. As finding another value requires looping through the rest of
@@ -176,69 +188,57 @@ public class TwoSum {
 
 		return result;
 	}
-	
+
 	/**
-	 * Given a Binary Search Tree and a target number, return true if there exist two elements in the BST such that their sum is equal to the given target.
-
-Example 1:
-Input: 
-    5
-   / \
-  3   6
- / \   \
-2   4   7
-
-Target = 9
-
-Output: True
-Example 2:
-Input: 
-    5
-   / \
-  3   6
- / \   \
-2   4   7
-
-Target = 28
-
-Output: False
+	 * Given a Binary Search Tree and a target number, return true if there exist two elements in the BST such that
+	 * their sum is equal to the given target.
+	 * 
+	 * Example 1: Input: 5 / \ 3 6 / \ \ 2 4 7
+	 * 
+	 * Target = 9
+	 * 
+	 * Output: True Example 2: Input: 5 / \ 3 6 / \ \ 2 4 7
+	 * 
+	 * Target = 28
+	 * 
+	 * Output: False
 	 */
 	public boolean findTarget(TreeNode root, int k) {
-        TreeNode cur = root;
-        return helper(root, cur, k);
-    }
-    
-    boolean helper(TreeNode root, TreeNode cur, int k) {
-        if (cur == null) {
-            return false;
-        }
-        
-        int toFind = k - cur.data;
-        
-        if (isInBST(root, toFind, cur)) {
-            return true;
-        } else {
-            return helper(root, cur.left, k) || helper(root, cur.right, k);
-        }
-    }
-    
-    boolean isInBST(TreeNode root, int target, TreeNode source) {
-        TreeNode cur = root;
-        
-        while (cur != null) {
-            if (cur.data == target && source != cur) {
-                return true;
-            }
-            
-            if (cur.data < target) {
-                cur = cur.right;
-            } else {
-                cur = cur.left;
-            }
-        }
-        
-        return false;
-    }
+		TreeNode cur = root;
+		return helper(root, cur, k);
+	}
+
+	boolean helper(TreeNode root, TreeNode cur, int k) {
+		if (cur == null) {
+			return false;
+		}
+
+		int toFind = k - cur.data;
+
+		if (isInBST(root, toFind, cur)) {
+			return true;
+		} else {
+			return helper(root, cur.left, k) || helper(root, cur.right, k);
+		}
+	}
+
+	boolean isInBST(TreeNode root, int target, TreeNode source) {
+		TreeNode cur = root;
+
+		while (cur != null) {
+			if (cur.data == target && source != cur) {
+				return true;
+			}
+
+			if (cur.data < target) {
+				cur = cur.right;
+			} else {
+				cur = cur.left;
+			}
+		}
+
+		return false;
+	}
 
 	public static void main(String[] args) {
 		int[] a = new int[] { 2, 7, 11, 15 };
@@ -252,6 +252,8 @@ Output: False
 		Arrays.stream(two.twoSum_2pointers(a, 17)).forEach(i -> System.out.print(i + " "));
 		System.out.println();
 		two.twoSumContainingDuplicates(new int[] { 1, 5, 2, 4, 2, 7, 4 }, 6).forEach(l -> System.out.println(l));
+
+		System.out.println(two.sumOfTwo(new int[] { 1, 2, 3 }, new int[] { 10, 20, 30, 40 }, 50));
 	}
 
 }

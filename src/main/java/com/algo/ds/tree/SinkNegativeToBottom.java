@@ -3,7 +3,10 @@ package com.algo.ds.tree;
 import com.algo.common.TreeNode;
 
 /**
- * http://www.careercup.com/question?id=5344154741637120
+ * Given a binary tree containing many zero nodes, sink nodes having zero value to the bottom of the sub-tree rooted at
+ * that node. In other words, the output binary tree should not contain any node having zero value that is parent of
+ * node having non-zero value.
+ * 
  * 
  * Sink Zero in Binary Tree. Swap zero value of a node with non-zero value of one of its descendants so that no node
  * with value zero could be parent of node with non-zero
