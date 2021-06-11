@@ -12,6 +12,14 @@ import java.util.HashMap;
  * Let R be the ratio between the key range and the range of the hash function. If R is so large there is only one
  * bucket, we have a regular heap. If R is one, it is a direct mapped array.
  * 
+ * O(logN) Push -> Sift Up
+ * 
+ * O(logN) Pop -> Sift Down
+ * 
+ * O(1) Top
+ * 
+ * O(logN) Delete
+ * 
  * Category : Hard
  *
  */
@@ -38,7 +46,7 @@ public class HashHeap {
 		}
 	}
 
-	public HashHeap(String mod) { // 传入min 表示最小堆，max 表示最大堆
+	public HashHeap(String mod) { // Incoming min means the minimum heap, max means the maximum heap
 		// TODO Auto-generated constructor stub
 		heap = new ArrayList<Integer>();
 		mode = mod;

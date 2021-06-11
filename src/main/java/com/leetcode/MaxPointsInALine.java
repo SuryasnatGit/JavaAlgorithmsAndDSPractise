@@ -3,18 +3,35 @@ package com.leetcode;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO : understand
+/**
+ * Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane, return the maximum number of
+ * points that lie on the same straight line.
+ * 
+ * https://leetcode.com/problems/max-points-on-a-line/
+ * 
+ * TODO : understand
+ * 
+ * Category : Hard
+ *
+ */
 public class MaxPointsInALine {
 
 	public int maxPoints(Point[] points) {
+
 		if (points.length <= 2) {
 			return points.length;
 		}
+
 		int res = Integer.MIN_VALUE;
+
 		for (int i = 0; i < points.length; i++) {
+
 			Map<Integer, Map<Integer, Integer>> map = new HashMap<Integer, Map<Integer, Integer>>();
+
 			int overlap = 0, max = 0;
+
 			for (int j = i + 1; j < points.length; j++) {
+
 				int x = points[i].x - points[j].x;
 				int y = points[i].y - points[j].y;
 
@@ -22,6 +39,7 @@ public class MaxPointsInALine {
 					overlap++;
 					continue;
 				}
+
 				// Calculate the greatest common factor and divide X and Y by the greatest common factor. In fact, the
 				// only fraction representing the slope is found. The decimal is not accurate. If the fraction is not
 				// reduced, it cannot be represented unique

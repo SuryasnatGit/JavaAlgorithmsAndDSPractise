@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * design a data structure which suport
+ * design a data structure which support
  * 
  * insert(key, value).
  * 
@@ -12,12 +12,14 @@ import java.util.Map;
  * 
  * update(key, value)
  * 
- * max() // 取出这个data structure 中最大的元素..
+ * max() // Take out the largest element in this data structure...
  * 
- * 所有的操作都是用O(1).
+ * All operations are in O(1).
+ * 
+ * TODO : to analyse and complete.
  *
  */
-public class AllO1 {
+public class AllO1TimeDataStructure {
 
 	public static void main(String[] args) {
 
@@ -57,7 +59,7 @@ public class AllO1 {
 		Node node1 = map1.get(key);
 		Node node2 = map2.get(key);
 
-		map1.remove(key); // 不行啊，不能只delete他自己，别的node的最大值可能依赖他
+		map1.remove(key); // No, you can’t just delete himself, the maximum value of other nodes may depend on him
 		map2.remove(key);
 	}
 
@@ -78,7 +80,8 @@ public class AllO1 {
 	}
 
 	/*
-	 * design 一个hashHeap. 具体的scenario 忘了， 好像是一堆task, 每个 task 有一个priority， 当需要update 一个task 的priority 的时候， 用 hashHeap
-	 * 来access 某一个element, 然后重新siftUp or siftDown, 来维持整个堆的特性。
+	 * Design a hashHeap. Forget the specific scenario, it seems to be a bunch of tasks, each task has a priority, when
+	 * you need to update the priority of a task, use hashHeap To access a certain element, and then re-siftUp or
+	 * siftDown, to maintain the characteristics of the entire heap.
 	 */
 }

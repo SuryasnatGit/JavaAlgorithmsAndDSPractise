@@ -4,6 +4,8 @@ import com.algo.common.TreeNode;
 
 /**
  * Category : Medium
+ * 
+ * Tags : DP
  *
  */
 public class HouseRobber {

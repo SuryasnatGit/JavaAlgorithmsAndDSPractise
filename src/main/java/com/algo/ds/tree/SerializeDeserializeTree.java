@@ -189,11 +189,7 @@ public class SerializeDeserializeTree {
 	 * Example: Input: "4(2(3)(1))(6(5))" Output: return the tree root node representing the following tree:
 	 * 
 	 * 
-       4
-     /   \
-    2     6
-   / \   / 
-  3   1 5   
+	 * 4 / \ 2 6 / \ / 3 1 5
 	 * 
 	 * Note: There will only be '(', ')', '-' and '0' ~ '9' in the input string. An empty tree is represented by ""
 	 * instead of "()".
@@ -351,8 +347,8 @@ public class SerializeDeserializeTree {
 		r.left.left = null;
 		r.left.right = null;
 		r.right = new TreeNode(3);
-		r.right.left = new TreeNode(4);
-		r.right.right = new TreeNode(5);
+		// r.right.left = new TreeNode(4);
+		// r.right.right = new TreeNode(5);
 		// String s = sd.serialize(r);
 		// System.out.println(s);
 		//

@@ -1,11 +1,15 @@
 package com.algo.ds.array;
 
+/**
+ * Category : Medium
+ *
+ */
 public class JumpGame {
 
 	/**
-	 * Given an array of non-negative integers, you are initially positioned at the first index of the
-	 * array. Each element in the array represents your maximum jump length at that position. Determine
-	 * if you are able to reach the last index.
+	 * Given an array of non-negative integers, you are initially positioned at the first index of the array. Each
+	 * element in the array represents your maximum jump length at that position. Determine if you are able to reach the
+	 * last index.
 	 *
 	 * Time complexity O(n) Space complexity O(1)
 	 *
@@ -13,12 +17,11 @@ public class JumpGame {
 	 * 
 	 * Example 1:
 	 * 
-	 * Input: [2,3,1,1,4] Output: true Explanation: Jump 1 step from index 0 to 1, then 3 steps to the
-	 * last index. <br/>
+	 * Input: [2,3,1,1,4] Output: true Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index. <br/>
 	 * Example 2:
 	 * 
-	 * Input: [3,2,1,0,4] Output: false Explanation: You will always arrive at index 3 no matter what.
-	 * Its maximum jump length is 0, which makes it impossible to reach the last index.
+	 * Input: [3,2,1,0,4] Output: false Explanation: You will always arrive at index 3 no matter what. Its maximum jump
+	 * length is 0, which makes it impossible to reach the last index.
 	 */
 	public boolean canJump(int[] nums) {
 		int jump = 0;
@@ -30,12 +33,12 @@ public class JumpGame {
 	}
 
 	/**
-	 * Given an array of non-negative integers, you are initially positioned at the first index of the
-	 * array. Each element in the array represents your maximum jump length at that position. Your goal
-	 * is to reach the last index in the minimum number of jumps.
+	 * Given an array of non-negative integers, you are initially positioned at the first index of the array. Each
+	 * element in the array represents your maximum jump length at that position. Your goal is to reach the last index
+	 * in the minimum number of jumps.
 	 *
-	 * Input: [2,3,1,1,4] Output: 2 Explanation: The minimum number of jumps to reach the last index is
-	 * 2. Jump 1 step from index 0 to 1, then 3 steps to the last index.
+	 * Input: [2,3,1,1,4] Output: 2 Explanation: The minimum number of jumps to reach the last index is 2. Jump 1 step
+	 * from index 0 to 1, then 3 steps to the last index.
 	 * 
 	 * Time complexity O(n) Space complexity O(1)
 	 *
@@ -56,10 +59,9 @@ public class JumpGame {
 	}
 
 	/**
-	 * A naive approach is to start from the first element and recursively call for all the elements
-	 * reachable from first element. The minimum number of jumps to reach end from first can be
-	 * calculated using minimum number of jumps needed to reach end from the elements reachable from
-	 * first.
+	 * A naive approach is to start from the first element and recursively call for all the elements reachable from
+	 * first element. The minimum number of jumps to reach end from first can be calculated using minimum number of
+	 * jumps needed to reach end from the elements reachable from first.
 	 * 
 	 * minJumps(start, end) = Min ( minJumps(k, end) ) for all k reachable from start
 	 * 
@@ -90,8 +92,8 @@ public class JumpGame {
 	}
 
 	/**
-	 * In this method, we build a jumps[] array from left to right such that jumps[i] indicates the
-	 * minimum number of jumps needed to reach arr[i] from arr[0]. Finally, we return jumps[n-1].
+	 * In this method, we build a jumps[] array from left to right such that jumps[i] indicates the minimum number of
+	 * jumps needed to reach arr[i] from arr[0]. Finally, we return jumps[n-1].
 	 * 
 	 * Time Complexity: O(n^2)
 	 * 

@@ -9,22 +9,26 @@ import java.util.PriorityQueue;
 import java.util.Stack;
 
 /**
- * Given a collection of intervals, merge all overlapping intervals.
  * 
- * Example 1:
- * 
- * Input: intervals = [[1,3],[2,6],[8,10],[15,18]] Output: [[1,6],[8,10],[15,18]] Explanation: Since intervals [1,3] and
- * [2,6] overlaps, merge them into [1,6].
- * 
- * Example 2:
- * 
- * Input: intervals = [[1,4],[4,5]] Output: [[1,5]] Explanation: Intervals [1,4] and [4,5] are considered overlapping.
- *
- * Category : Medium
+ * Category : Hard
  * 
  */
 public class MergeIntervals {
 
+	/**
+	 * Problem 1 : Given a collection of intervals, merge all overlapping intervals.
+	 * 
+	 * Example 1:
+	 * 
+	 * Input: intervals = [[1,3],[2,6],[8,10],[15,18]] Output: [[1,6],[8,10],[15,18]] Explanation: Since intervals [1,3]
+	 * and [2,6] overlaps, merge them into [1,6].
+	 * 
+	 * Example 2:
+	 * 
+	 * Input: intervals = [[1,4],[4,5]] Output: [[1,5]] Explanation: Intervals [1,4] and [4,5] are considered
+	 * overlapping.
+	 * 
+	 */
 	public int[][] merge(int[][] intervals) {
 		if (intervals == null || intervals.length == 0) {
 			return new int[0][0];
@@ -36,6 +40,7 @@ public class MergeIntervals {
 			Interval i = new Interval(interval[0], interval[1]);
 			intervalList.add(i);
 		}
+
 		Collections.sort(intervalList, new Comparator<Interval>() {
 			@Override
 			public int compare(Interval o1, Interval o2) {
@@ -134,8 +139,7 @@ public class MergeIntervals {
 	 * New: a variant of merge interval, merge the overlap interval in the two lists
 	 * 
 	 */
-	// 可以用bucket sort的思想
-	// 先把list 自己merge好，保证没有overlap
+	// You can use the bucket sort idea First merge the list by yourself to ensure that there is no overlap
 	List<Interval> intersection(List<Interval> A, List<Interval> B) {
 		List<Interval> res = new ArrayList<Interval>();
 		int pos1 = 0;
@@ -153,7 +157,7 @@ public class MergeIntervals {
 				Interval in = new Interval(Math.max(in1.start, in2.start), Math.min(in1.end, in2.end));
 				res.add(in);
 
-				// Move the one which ends earlier. Great!!! 还是有问题啊
+				// Move the one which ends earlier. Great!!! There is still a problem
 				if (in1.end < in2.end) {
 					pos1++;
 				} else {
@@ -230,6 +234,112 @@ public class MergeIntervals {
 		}
 
 		return res;
+	}
+
+	/**
+	 * Problem 2 :
+	 * 
+	 * Merge Intervals wrote two functions addInterval, getTotalBusyTime. Write two different implementations to analyze
+	 * trade off (basically it is determined based on the frequency of calling the two functions)
+	 * 
+	 * (1) LinkedList is inserted so that start remains in order after each insertion and keeps all nodes disconnected
+	 * while calculating total busy. O(N) add time and O(1) get time
+	 * 
+	 * (2) Binary search tree. That is map, treemap. Keep the order after insertion, O(logN) add O(N) get time
+	 * 
+	 * follow up If you need to remove interval, which way?
+	 */
+
+	// Solution 1 : time complexity: call O(n), get O(1)
+	private Node head = new Node(0, 0);
+	private int totalLength = 0;
+
+	public void add(int start, int end) {
+		if (start >= end) {
+			return;
+		}
+		Node mover = head.next;
+		Node prev = head;
+		while (mover != null) {
+			if (end < mover.start) {
+				Node node = new Node(start, end);
+				mover.pre.next = node;
+				node.pre = mover.pre;
+				node.next = mover;
+				mover.pre = node;
+				totalLength += end - start;
+				break;
+			} else if (start > mover.end) {
+				prev = mover;
+				mover = mover.next;
+			} else {
+				totalLength -= mover.end - mover.start;
+				start = Math.min(start, mover.start);
+				end = Math.max(end, mover.end);
+				Node next = mover.next;
+				mover.pre.next = mover.next;
+				if (mover.next != null) {
+					mover.next.pre = mover.pre;
+				}
+				mover.next = null;
+				mover.pre = null;
+				mover = next;
+			}
+		}
+		if (mover == null) {
+			totalLength += end - start;
+			prev.next = new Node(start, end);
+			prev.next.pre = prev;
+		}
+	}
+
+	public int getTotalLength() {
+		return totalLength;
+	}
+
+	class Node {
+		Node pre = null;
+		Node next = null;
+		int start;
+		int end;
+
+		public Node(int start, int end) {
+			this.start = start;
+			this.end = end;
+		}
+	}
+
+	// Solution 2 : time complexity: call O(1), get O(nlgn)
+	private List<Interval> intervals = new ArrayList<>();
+
+	public void add1(int start, int end) {
+		if (start >= end) {
+			return;
+		}
+		intervals.add(new Interval(start, end));
+	}
+
+	public int getTotalLength1() {
+		Collections.sort(intervals, new Comparator<Interval>() {
+			@Override
+			public int compare(Interval inter1, Interval inter2) {
+				return inter1.start - inter2.start;
+			}
+		});
+		int start = intervals.get(0).start;
+		int end = intervals.get(0).end;
+		int totalLen = 0;
+		for (Interval inter : intervals) {
+			if (end >= inter.start) {
+				end = Math.max(inter.end, end);
+			} else {
+				totalLen += end - start;
+				end = inter.end;
+				start = inter.start;
+			}
+		}
+		totalLen += end - start;
+		return totalLen;
 	}
 
 	public static void main(String[] args) {

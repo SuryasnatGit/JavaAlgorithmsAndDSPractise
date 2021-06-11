@@ -40,53 +40,49 @@ public class CountInversionInArray {
 
 	/**
 	 * 
-	 * Method 2 - Using merge sort. time complexity - O(n log n). space complexity - O(n)
+	 * Method 2 - Using merge sort. time complexity - O(n log n). space complexity - O(1)
 	 * 
 	 * @param arr
 	 * @return
 	 */
 	public int getInversionCount_mergeSort(int[] arr) {
 		int length = arr.length;
-		int[] temp = new int[length];
-		return merge(arr, temp, 0, length - 1);
+
+		return merge(arr, 0, length - 1);
 	}
 
-	private int merge(int[] arr, int[] temp, int start, int end) {
+	private int merge(int[] arr, int start, int end) {
 		int invCount = 0;
+
 		if (end > start) {
 			int mid = (start + end) / 2;
-			invCount = merge(arr, temp, start, mid); // left merge
-			invCount += merge(arr, temp, mid + 1, end); // right merge
-			invCount += mergeSort(arr, temp, start, mid, end);
+			invCount = merge(arr, start, mid); // left merge
+			invCount += merge(arr, mid + 1, end); // right merge
+			invCount += mergeSort(arr, start, mid, end);
 		}
+
 		return invCount;
 	}
 
-	private int mergeSort(int[] arr, int[] temp, int start, int mid, int end) {
+	private int mergeSort(int[] arr, int start, int mid, int end) {
 		int invCount = 0;
 		int i = start;// pointer to left sub array
 		int j = mid;// pointer to right sub array
-		int k = start;// pointer for final sub array
+
 		while (i <= mid - 1 && j <= end) {
-			if (arr[i] < arr[j]) {
-				temp[k++] = arr[i++];
-			} else {
-				temp[k++] = arr[j++];
 
-				// In merge process, let i is used for indexing left sub-array and j for right sub-array. At any
-				// step in merge(), if a[i] is greater than a[j], then there are (mid i) inversions. because left
-				// and right subarrays are sorted, so all the remaining elements in left-subarray (a[i+1], a[i+2]
-				// a[mid]) will be greater than a[j]
+			// In merge process, let i is used for indexing left sub-array and j for right sub-array. At any
+			// step in merge(), if a[i] is greater than a[j], then there are (mid - i) inversions. because left
+			// and right subarrays are sorted, so all the remaining elements in left-subarray (a[i+1], a[i+2]
+			// a[mid]) will be greater than a[j]
 
+			if (arr[i] > arr[j]) {
 				invCount += (mid - i);
 			}
+
+			i++;
+			j++;
 		}
-		// copy remaining elements of left sub-array to temp
-		while (i <= mid - 1)
-			temp[k++] = arr[i++];
-		// copy remaining elements of right sub-array to temp
-		while (j <= end)
-			temp[k++] = arr[j++];
 
 		return invCount;
 	}

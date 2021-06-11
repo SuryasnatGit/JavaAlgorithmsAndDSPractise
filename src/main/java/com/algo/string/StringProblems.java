@@ -1197,7 +1197,8 @@ public class StringProblems {
 		System.out.print("]");
 	}
 
-	// “2x+3y+4 = 5x-6y+1” 给一个equation, 保证是合法的， 但是系数可能是小数，并且有空格。再给一个x值，求y值
+	// "2x+3y+4 = 5x-6y+1" gives an equation, which is guaranteed to be legal, but the coefficient may be a decimal and
+	// there are spaces. Give another x value and find the y value
 	void evaluate(String S, int x) {
 		String[] arr = S.split("=");
 		arr[0] = arr[0].trim();
@@ -1218,7 +1219,7 @@ public class StringProblems {
 		System.out.println(res);
 	}
 
-	// 利用indexOf进行切分
+	// Segmentation using indexOf
 	double[] parse2(String S) {
 		double[] res = new double[3];
 
@@ -1292,13 +1293,16 @@ public class StringProblems {
 	}
 
 	/**
-	 * 给一个word，一个string，问word能不能用string里面的字母组出来，考虑个数因素。followup是如果给的是string流和一个list of words，如何判断能不能。
-	 * 如果words不能全部match，自己如何定义目标（比如match尽可能多的words或者尽可能多的字母个数）进行取舍。
+	 * Give a word, a string, and ask if the word can be grouped by letters in the string, considering the number.
+	 * Followup is how to judge if it is a string stream and a list of words. If you can't match all words, how do you
+	 * define your own goals (for example, match as many words as possible or as many letters as possible) to choose.
 	 */
 	boolean canForm(String word, String str) {
 		char[] arr = str.toCharArray();
 
 		Map<Character, Integer> map = new HashMap<Character, Integer>();
+
+		// calculate frequency of each letter in word
 		for (char c : word.toCharArray()) {
 			map.put(c, map.getOrDefault(c, 0) + 1);
 		}
@@ -1353,5 +1357,44 @@ public class StringProblems {
 		System.out.println(map.size());
 
 		return false;
+	}
+
+	public String replace(String origin, String from, String to) {
+		if (origin.length() < from.length() || from.equals(to)) {
+			return origin;
+		}
+		int len = from.length();
+		int[] count = new int[26];
+		for (char letter : from.toCharArray()) {
+			count[letter - 'a']++;
+		}
+		int[] curCount = new int[26];
+		int slow = 0;
+		int fast = 0;
+		while (fast < origin.length()) {
+			if (fast - slow + 1 <= len) {
+				curCount[origin.charAt(fast) - 'a']++;
+			} else {
+				boolean isSame = true;
+				for (int i = 0; i <= 25; i++) {
+					if (curCount[i] == count[i]) {
+						isSame = isSame && true;
+					} else {
+						isSame = false;
+					}
+				}
+				if (isSame && origin.substring(slow, fast).equals(from)) {
+					origin = origin.substring(0, slow) + to + origin.substring(fast);
+					Arrays.fill(curCount, 0);
+					fast = slow;
+					continue;
+				}
+				curCount[origin.charAt(slow) - 'a']--;
+				slow++;
+				curCount[origin.charAt(fast) - 'a']++;
+			}
+			fast++;
+		}
+		return origin;
 	}
 }
