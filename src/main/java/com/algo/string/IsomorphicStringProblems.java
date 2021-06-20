@@ -19,6 +19,9 @@ public class IsomorphicStringProblems {
 		System.out.println(iso.isIsomorphicStrings("egg", "add"));
 		System.out.println(iso.isIsomorphicStrings("egg", "ads"));
 
+		System.out.println(iso.isIsomorphicStringsBetter("egg", "add"));
+		System.out.println(iso.isIsomorphicStringsBetter("egg", "ads"));
+
 		System.out.println(iso.groupIsomorphicStrings(new String[] { "foo", "gjk", "pkk" }));
 	}
 
@@ -26,7 +29,8 @@ public class IsomorphicStringProblems {
 	 * Given two strings s and t, determine if they are isomorphic. Two strings are isomorphic if the characters in s
 	 * can be replaced to get t.
 	 * 
-	 * For example,"egg" and "add" are isomorphic, "foo" and "bar" are not. complexity - O(n)
+	 * For example,"egg" and "add" are isomorphic, "foo" and "bar" are not. complexity - O(n * n) as every search of
+	 * containsValue is O(n). S - O(n)
 	 * 
 	 * @param s1
 	 * @param s2
@@ -53,6 +57,30 @@ public class IsomorphicStringProblems {
 				charMap.put(ch1, ch2);
 			}
 		}
+		return true;
+	}
+
+	// T - O(n) S - O(1)
+	public boolean isIsomorphicStringsBetter(String s1, String s2) {
+		if (s1 == null || s2 == null)
+			return false;
+
+		if (s1.length() != s2.length())
+			return false;
+
+		int[] arrS1 = new int[256];
+		int[] arrS2 = new int[256];
+
+		for (int i = 0; i < s1.length(); i++) {
+
+			if (arrS1[s1.charAt(i)] != arrS2[s2.charAt(i)]) {
+				return false;
+			}
+
+			arrS1[s1.charAt(i)] = i;
+			arrS2[s2.charAt(i)] = i;
+		}
+
 		return true;
 	}
 

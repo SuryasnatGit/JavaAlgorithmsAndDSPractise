@@ -3,6 +3,38 @@ package com.algo.string;
 public class StringRotationProblems {
 
 	/**
+	 * Given a string and an offset, rotate string by offset. (rotate from left to right)
+	 * 
+	 * Given"abcdefg". offset=0 => "abcdefg" offset=1 => "gabcdef" offset=2 => "fgabcde" offset=3 => "efgabcd"
+	 * 
+	 * T O(n) time, S - O(1)
+	 * 
+	 */
+	public void rotateString(char[] input, int offset) {
+		if (input == null || input.length == 0) {
+			return;
+		}
+
+		int length = input.length;
+
+		offset %= length;
+
+		reverse(input, 0, length - offset - 1);
+		reverse(input, length - offset, length - 1);
+		reverse(input, 0, length - 1);
+
+		System.out.println(new String(input));
+	}
+
+	private void reverse(char[] input, int start, int end) {
+		for (int i = start, j = end; i < j; i++, j--) {
+			char temp = input[i];
+			input[i] = input[j];
+			input[j] = temp;
+		}
+	}
+
+	/**
 	 * Check if a given string can be derived from another string by circularly rotating it. Rotation can be clock wise
 	 * or anti clockwise.
 	 * 
@@ -148,5 +180,6 @@ public class StringRotationProblems {
 		StringRotationProblems p = new StringRotationProblems();
 		System.out.println(p.isRotatedString("abcd", "dabc"));
 		System.out.println(p.isRotatedString("abcd", "bcad"));
+		p.rotateString("apple".toCharArray(), 2);
 	}
 }

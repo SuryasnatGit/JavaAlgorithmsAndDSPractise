@@ -17,25 +17,20 @@ public class OddEvenLinkedList {
 		if (head == null)
 			return head;
 
-		ListNode result = head;
-		ListNode p1 = head;
-		ListNode p2 = head.next;
+		ListNode odd = head;
+		ListNode even = head.next;
 		ListNode connectLink = head.next;
 
-		while (p1 != null && p2 != null) {
-			if (p2.next == null)
-				break;
+		while (odd != null && even != null) {
+			odd.next = odd.next.next;
+			even.next = even.next.next;
 
-			p1.next = p2.next;
-			p1 = p1.next; // combines odds
-
-			p2.next = p1.next;
-			p2 = p2.next; // combines even
+			odd = odd.next; // combines odds
+			even = even.next; // combines even
 		}
-		// System.out.println(p1.toString());
-		// System.out.println(p2.toString());
-		p1.next = connectLink; // combines eveens to odds
-		return result;
+		odd.next = connectLink; // combines eveens to odds
+
+		return head;
 	}
 
 	/**

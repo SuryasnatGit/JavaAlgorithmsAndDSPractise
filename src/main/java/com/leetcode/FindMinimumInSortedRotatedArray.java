@@ -17,7 +17,7 @@ package com.leetcode;
  * 
  * Category : Medium
  * 
- * Tags : BS
+ * Tags : BinarySearch
  *
  */
 public class FindMinimumInSortedRotatedArray {
@@ -50,9 +50,64 @@ public class FindMinimumInSortedRotatedArray {
 		return nums[L];
 	}
 
+	/*
+	 * Regardless of Template #1, #2, #3, the essence is to find a non-monotonic increasing interval, which contains the
+	 * minimum value.
+	 * 
+	 * Inflection Point:
+	 * 
+	 * All the elements to the left of inflection point > first element of the array.
+	 * 
+	 * All the elements to the right of inflection point < first element of the array.
+	 * 
+	 */
+	public int findMin2(int[] nums) {
+		if (nums == null || nums.length == 0) {
+			return -1;
+		}
+
+		if (nums.length == 1) {
+			return nums[0];
+		}
+
+		int left = 0, right = nums.length - 1;
+
+		// if last element is greater than first element then there is no rotation
+		if (nums[right] > nums[0]) {
+			return nums[0];
+		}
+
+		while (left <= right) {
+			int mid = left + (right - left) / 2;
+
+			// when final inflection point is reached
+			// right of inflection point
+			if (nums[mid] > nums[mid + 1]) {
+				return nums[mid + 1];
+			}
+			// left of inflection point
+			if (nums[mid - 1] > nums[mid]) {
+				return nums[mid];
+			}
+
+			if (nums[mid] > nums[0]) {
+				// search in right side
+				left = mid + 1;
+			} else {
+				// search in left side
+				right = mid - 1;
+			}
+		}
+
+		return -1;
+	}
+
 	public static void main(String[] args) {
 		FindMinimumInSortedRotatedArray min = new FindMinimumInSortedRotatedArray();
-		System.out.println(min.findMin(new int[] { 7, 6, 3, 4, 5 }));
-		System.out.println(min.findMin1(new int[] { 7, 6, 3, 4, 5 }));
+		System.out.println(min.findMin(new int[] { 6, 7, 3, 4, 5 }));
+		System.out.println(min.findMin1(new int[] { 6, 7, 3, 4, 5 }));
+		System.out.println(min.findMin2(new int[] { 6, 7, 3, 4, 5 }));
+		System.out.println(min.findMin2(new int[] { 6, 7, 3, 3, 3, 4, 5 }));
+		System.out.println(min.findMin2(new int[] { 6, 7, 7, 7, 3, 4, 5 }));
 	}
 }
