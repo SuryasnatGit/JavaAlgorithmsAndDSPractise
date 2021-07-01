@@ -240,6 +240,51 @@ public class TwoSum {
 		return false;
 	}
 
+	/**
+	 * Given an array nums of n integers, find two integers in nums such that the sum is closest to a given number,
+	 * target. Return the difference between the sum of the two integers and the target.
+	 * 
+	 * Example
+	 * 
+	 * Given array nums = [-1, 2, 1, -4], and target = 4.
+	 * 
+	 * The minimum difference is 1. (4 - (2 + 1) = 1).
+	 * 
+	 * T - O(n log n) + O(n) ==> O(n log n)
+	 */
+	public int twoSumClosest(int[] nums, int target) {
+		if (nums == null || nums.length == 0) {
+			return 0;
+		}
+
+		if (nums.length == 2) {
+			return target - nums[0] - nums[1];
+		}
+
+		Arrays.sort(nums);
+
+		int left = 0, right = nums.length - 1, minDiff = Integer.MAX_VALUE;
+
+		while (left < right) {
+			int sum = nums[left] + nums[right];
+			int diff = Math.abs(sum - target);
+
+			if (diff == target) {
+				return 0;
+			}
+
+			minDiff = Math.min(diff, minDiff);
+
+			if (sum > target) {
+				right--;
+			} else {
+				left++;
+			}
+		}
+
+		return minDiff;
+	}
+
 	public static void main(String[] args) {
 		int[] a = new int[] { 2, 7, 11, 15 };
 		TwoSum two = new TwoSum();
@@ -254,6 +299,8 @@ public class TwoSum {
 		two.twoSumContainingDuplicates(new int[] { 1, 5, 2, 4, 2, 7, 4 }, 6).forEach(l -> System.out.println(l));
 
 		System.out.println(two.sumOfTwo(new int[] { 1, 2, 3 }, new int[] { 10, 20, 30, 40 }, 50));
+
+		System.out.println(two.twoSumClosest(new int[] { -1, 2, 1, -4 }, 4));
 	}
 
 }
