@@ -15,7 +15,7 @@ import java.util.Map;
  * Find cycle of length 3. Pass parent in DFS search. If there is a cycle check if my parent is
  * neighbor of the the node which caused it to be a cycle.
  */
-public class NumberofTriangles {
+public class NumberofTrianglesInGraph {
 
 	// number of vertices in graph
 	private int V = 4;
@@ -110,7 +110,7 @@ public class NumberofTriangles {
 		graph.addEdge(3, 4);
 		graph.addEdge(0, 4);
 		graph.addEdge(0, 3);
-		NumberofTriangles not = new NumberofTriangles();
+		NumberofTrianglesInGraph not = new NumberofTrianglesInGraph();
 		System.out.println(not.countTriangles(graph));
 
 	}

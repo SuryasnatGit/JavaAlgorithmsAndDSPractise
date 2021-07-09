@@ -13,7 +13,7 @@ public class TripletToSumInLinkList {
 			return;
 		}
 
-		MergeSortLinkList msll = new MergeSortLinkList();
+		MergeLinkListProblems msll = new MergeLinkListProblems();
 		head2 = msll.sort(head2, true); // O( n log n)
 		head3 = msll.sort(head3, false); // O( n log n)
 

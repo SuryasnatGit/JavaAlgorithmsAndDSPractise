@@ -4,13 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.algo.common.ListNode;
-
-import sun.awt.image.ImageWatched.Link;
+import com.algo.ds.linkedlist.CopyLinkListWIthArbitPointer.RandomListNode;
 
 public class MiscellaneousLinkedListProblems {
 
 	/**
-	 * Given a linked list, determine if it has a cycle in it.
+	 * Given a ListNodeed list, determine if it has a cycle in it.
 	 * 
 	 * If we have 2 pointers - fast and slow. It is guaranteed that the fast one will meet the slow one if there exists
 	 * a circle.
@@ -18,9 +17,9 @@ public class MiscellaneousLinkedListProblems {
 	 * @param head
 	 * @return
 	 */
-	public boolean hasCycle(Link head) {
-		Link slow = head;
-		Link fast = head;
+	public boolean hasCycle(ListNode head) {
+		ListNode slow = head;
+		ListNode fast = head;
 		while (fast != null && fast.next != null) {
 			slow = slow.next;
 			fast = fast.next.next;
@@ -32,8 +31,8 @@ public class MiscellaneousLinkedListProblems {
 	}
 
 	/**
-	 * Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the
-	 * nodes of the first two lists.
+	 * Merge two sorted ListNodeed lists and return it as a new list. The new list should be made by splicing together
+	 * the nodes of the first two lists.
 	 * 
 	 * The key to solve the problem is defining a fake head. Then compare the first elements from each list. Add the
 	 * smaller one to the merged list. Finally, when one of them is empty, simply append it to the merged list, since it
@@ -43,13 +42,13 @@ public class MiscellaneousLinkedListProblems {
 	 * @param b
 	 * @return
 	 */
-	public Link merge2SortedLists(Link a, Link b) {
-		Link tempHead = new Link(0);
-		Link headPtr = tempHead;
-		Link aPtr = a;
-		Link bPtr = b;
+	public ListNode merge2SortedLists(ListNode a, ListNode b) {
+		ListNode tempHead = new ListNode(0);
+		ListNode headPtr = tempHead;
+		ListNode aPtr = a;
+		ListNode bPtr = b;
 		while (aPtr != null && bPtr != null) {
-			if (aPtr.getKey() < bPtr.getKey()) {
+			if (aPtr.data < bPtr.data) {
 				headPtr.next = aPtr;
 				aPtr = aPtr.next;
 			} else {
@@ -67,20 +66,20 @@ public class MiscellaneousLinkedListProblems {
 
 	/**
 	 * Use 2 nested for loops. Outer loop will be for each node of the 1st list and inner loop will be for 2nd list. In
-	 * the inner loop, check if any of nodes of 2nd list is same as the current node of first linked list. Time
+	 * the inner loop, check if any of nodes of 2nd list is same as the current node of first ListNodeed list. Time
 	 * complexity of this method will be O(mn) where m and n are the number of nodes in two lists.
 	 * 
 	 * @param a
 	 * @param b
 	 * @return
 	 */
-	public int intersectionOfLinkedLists_1(Link a, Link b) {
-		Link pa = a;
+	public int intersectionOfListNodeedLists_1(ListNode a, ListNode b) {
+		ListNode pa = a;
 		while (pa != null) {
-			Link pb = b;
+			ListNode pb = b;
 			while (pb != null) {
-				if (pa.getKey() == pb.getKey())
-					return pa.getKey();
+				if (pa.data == pb.data)
+					return pa.data;
 				pb = pb.next;
 			}
 			pa = pa.next;
@@ -95,7 +94,7 @@ public class MiscellaneousLinkedListProblems {
 	 * @param b
 	 * @return
 	 */
-	public int intersectionOfLinkedLists_2(Link a, Link b) {
+	public int intersectionOfListNodeedLists_2(ListNode a, ListNode b) {
 		int ca = getCount(a);
 		int cb = getCount(b);
 		if (ca > cb) {
@@ -107,25 +106,25 @@ public class MiscellaneousLinkedListProblems {
 		}
 	}
 
-	private int intersectingNode(int d, Link l1, Link l2) {
-		Link curr1 = l1;
-		Link curr2 = l2;
+	private int intersectingNode(int d, ListNode l1, ListNode l2) {
+		ListNode curr1 = l1;
+		ListNode curr2 = l2;
 		for (int i = 0; i < d; i++) {
 			curr1 = curr1.next;
 		}
 		// now both curr1 and curr2 are at the same position
 		while (curr1 != null && curr2 != null) {
-			if (curr1.getKey() == curr2.getKey())
-				return curr1.getKey();
+			if (curr1.data == curr2.data)
+				return curr1.data;
 			curr1 = curr1.next;
 			curr2 = curr2.next;
 		}
 		return 0;
 	}
 
-	private int getCount(Link l) {
+	private int getCount(ListNode l) {
 		int count = 0;
-		Link curr = l;
+		ListNode curr = l;
 		while (curr != null) {
 			count++;
 			curr = curr.next;
@@ -133,55 +132,55 @@ public class MiscellaneousLinkedListProblems {
 		return count;
 	}
 
-	public Link unionListOfLists(Link a, Link b) {
-		Link head = new Link();
-		Link pa = a;
-		Link pb = b;
+	public ListNode unionListOfLists(ListNode a, ListNode b) {
+		ListNode head = new ListNode();
+		ListNode pa = a;
+		ListNode pb = b;
 		while (pa != null) {
-			head = pushToList(pa.getKey(), head);
+			head = pushToList(pa.data, head);
 			pa = pa.next;
 		}
 		while (pb != null) {
-			if (!isPresent(pb.getKey(), head))
-				head = pushToList(pb.getKey(), head);
+			if (!isPresent(pb.data, head))
+				head = pushToList(pb.data, head);
 			pb = pb.next;
 		}
 		return head;
 	}
 
-	private boolean isPresent(int key, Link head) {
-		Link cur = head;
+	private boolean isPresent(int key, ListNode head) {
+		ListNode cur = head;
 		while (cur != null) {
-			if (cur.getKey() == key)
+			if (cur.data == key)
 				return true;
 			cur = cur.next;
 		}
 		return false;
 	}
 
-	private Link pushToList(int key, Link head) {
-		Link temp = new Link(key);
+	private ListNode pushToList(int key, ListNode head) {
+		ListNode temp = new ListNode(key);
 		temp.next = head;
 		head = temp;
 		return head;
 	}
 
-	public Link intersectionListOfLists(Link a, Link b) {
-		Link result = new Link();
-		Link pa = a;
-		Link pb = b;
+	public ListNode intersectionListOfLists(ListNode a, ListNode b) {
+		ListNode result = new ListNode();
+		ListNode pa = a;
+		ListNode pb = b;
 		while (pb != null) {
-			if (isPresent(pb.getKey(), pa))
-				result = pushToList(pb.getKey(), result);
+			if (isPresent(pb.data, pa))
+				result = pushToList(pb.data, result);
 			pb = pb.next;
 		}
 		return result;
 	}
 
 	/**
-	 * Given a linked list, remove the nth node from the end of list and return its head.
+	 * Given a ListNodeed list, remove the nth node from the end of list and return its head.
 	 * 
-	 * For example, given linked list 1->2->3->4->5 and n = 2, the result is 1->2->3->5.
+	 * For example, given ListNodeed list 1->2->3->4->5 and n = 2, the result is 1->2->3->5.
 	 * 
 	 * 2 pass solution - Calculate the length first, and then remove the nth from the beginning.
 	 * 
@@ -189,12 +188,12 @@ public class MiscellaneousLinkedListProblems {
 	 * @param n
 	 * @return
 	 */
-	public Link removeNthNodeFromEnd_1(Link head, int n) {
+	public ListNode removeNthNodeFromEnd_1(ListNode head, int n) {
 		if (head == null)
 			return head;
 
 		// calculate the length
-		Link p = head;
+		ListNode p = head;
 		int i = 0;
 		while (p != null) {
 			i++;
@@ -220,7 +219,7 @@ public class MiscellaneousLinkedListProblems {
 	}
 
 	/**
-	 * https://www.techiedelight.com/rearrange-linked-list-alternating-high-low-values/
+	 * https://www.techiedelight.com/rearrange-ListNodeed-list-alternating-high-low-values/
 	 * 
 	 * @return
 	 */
@@ -264,7 +263,7 @@ public class MiscellaneousLinkedListProblems {
 	}
 
 	/**
-	 * https://www.techiedelight.com/sort-linked-list-containing-0s-1s-2s/
+	 * https://www.techiedelight.com/sort-ListNodeed-list-containing-0s-1s-2s/
 	 * 
 	 * @return
 	 */
@@ -313,12 +312,12 @@ public class MiscellaneousLinkedListProblems {
 	 * @param n
 	 * @return
 	 */
-	public Link removeNthNodeFromEnd_2(Link head, int n) {
+	public ListNode removeNthNodeFromEnd_2(ListNode head, int n) {
 		if (head == null)
 			return head;
 
-		Link fast = head;
-		Link slow = head;
+		ListNode fast = head;
+		ListNode slow = head;
 
 		// advance fast pointer by n steps
 		for (int i = 0; i < n; i++) {
@@ -371,9 +370,9 @@ public class MiscellaneousLinkedListProblems {
 	}
 
 	/**
-	 * You are given two linked lists representing two non-negative numbers. <br/>
+	 * You are given two ListNodeed lists representing two non-negative numbers. <br/>
 	 * The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and
-	 * return it as a linked list.
+	 * return it as a ListNodeed list.
 	 * 
 	 * Input: (2 -> 4 -> 3) + (5 -> 6 -> 4) <br/>
 	 * Output: 7 -> 0 -> 8
@@ -382,32 +381,32 @@ public class MiscellaneousLinkedListProblems {
 	 * @param l2
 	 * @return
 	 */
-	public Link add(Link l1, Link l2) {
-		Link sum = new Link(0); // initialize sum to 0
-		Link p1 = l1, p2 = l2, p3 = sum;
+	public ListNode add(ListNode l1, ListNode l2) {
+		ListNode sum = new ListNode(0); // initialize sum to 0
+		ListNode p1 = l1, p2 = l2, p3 = sum;
 		int carry = 0;
 		while (p1 != null || p2 != null) {
 			if (p1 != null) {
-				carry += p1.getKey();
+				carry += p1.data;
 				p1 = p1.next;
 			}
 			if (p2 != null) {
-				carry += p2.getKey();
+				carry += p2.data;
 				p2 = p2.next;
 			}
-			p3.next = new Link(carry % 10);
+			p3.next = new ListNode(carry % 10);
 			p3 = p3.next;
 			carry /= 10;
 		}
 		if (carry == 1)
-			p3.next = new Link(1);
+			p3.next = new ListNode(1);
 
 		System.out.println(sum.toString());
 		return sum.next;
 	}
 
 	/**
-	 * Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.
+	 * Given a ListNodeed list, reverse the nodes of a ListNodeed list k at a time and return its modified list.
 	 * 
 	 * If the number of nodes is not a multiple of k then left-out nodes in the end should remain as it is.
 	 * 
@@ -415,7 +414,7 @@ public class MiscellaneousLinkedListProblems {
 	 * 
 	 * Only constant memory is allowed.
 	 * 
-	 * For example, Given this linked list: 1->2->3->4->5
+	 * For example, Given this ListNodeed list: 1->2->3->4->5
 	 * 
 	 * For k = 2, you should return: 2->1->4->3->5
 	 * 
@@ -425,15 +424,15 @@ public class MiscellaneousLinkedListProblems {
 	 * @param k
 	 * @return
 	 */
-	public Link reverseNodesInKGroup(Link head, int k) {
+	public ListNode reverseNodesInKGroup(ListNode head, int k) {
 		if (head == null || k == 1)
 			return head;
 
-		Link temp = new Link(0);
+		ListNode temp = new ListNode(0);
 		temp.next = head;
 
-		Link pre = temp;
-		Link p = head;
+		ListNode pre = temp;
+		ListNode p = head;
 		int i = 0;
 		while (p != null) {
 			i++;
@@ -454,9 +453,9 @@ public class MiscellaneousLinkedListProblems {
 	 * 
 	 * 0->3->2->1->4->5->6 | | pre next
 	 **/
-	private Link reverse(Link pre, Link next) {
-		Link last = pre.next;
-		Link curr = last.next;
+	private ListNode reverse(ListNode pre, ListNode next) {
+		ListNode last = pre.next;
+		ListNode curr = last.next;
 		while (curr != next) {
 			last.next = curr.next;
 			curr.next = pre.next;
@@ -467,7 +466,7 @@ public class MiscellaneousLinkedListProblems {
 	}
 
 	/**
-	 * Reverse a linked list from position m to n. Do it in-place and in one-pass.
+	 * Reverse a ListNodeed list from position m to n. Do it in-place and in one-pass.
 	 * 
 	 * For example: given 1->2->3->4->5->NULL, m = 2 and n = 4, return 1->4->3->2->5->NULL.
 	 * 
@@ -477,16 +476,16 @@ public class MiscellaneousLinkedListProblems {
 	 * @param n
 	 * @return
 	 */
-	public Link reverseListBetween(Link head, int m, int n) {
+	public ListNode reverseListBetween(ListNode head, int m, int n) {
 		if (head == null || m == n)
 			return head;
 
-		Link prev = null; // track (m-1)th node
-		Link first = new Link(0);// track mth mode
-		Link second = new Link(0);// track (n+1)th node
+		ListNode prev = null; // track (m-1)th node
+		ListNode first = new ListNode(0);// track mth mode
+		ListNode second = new ListNode(0);// track (n+1)th node
 
 		int i = 0;
-		Link p = head;
+		ListNode p = head;
 		while (p != null) {
 			i++;
 
@@ -507,12 +506,12 @@ public class MiscellaneousLinkedListProblems {
 		if (first.next == null)
 			return head;
 
-		Link p1 = first.next;
-		Link p2 = p1.next;
+		ListNode p1 = first.next;
+		ListNode p2 = p1.next;
 		p1.next = second.next;
 
 		while (p1 != null && p2 != null) {
-			Link temp = p2.next;
+			ListNode temp = p2.next;
 			p2.next = p1;
 			p1 = p2;
 			p2 = temp;
@@ -527,8 +526,8 @@ public class MiscellaneousLinkedListProblems {
 	}
 
 	/**
-	 * A linked list is given such that each node contains an additional random pointer which could point to any node in
-	 * the list or null.
+	 * A ListNodeed list is given such that each node contains an additional random pointer which could point to any
+	 * node in the list or null.
 	 * 
 	 * Return a deep copy of the list. Approach 1 - using extra space <br/>
 	 * complexity - O(n) time and O(n) space
@@ -536,20 +535,20 @@ public class MiscellaneousLinkedListProblems {
 	 * @param head
 	 * @return
 	 */
-	public RandomLink copyListWithRandomPointer(RandomLink head) {
+	public RandomListNode copyListWithRandomPointer(RandomListNode head) {
 		if (head == null)
 			return head;
 
 		// this hash map is the extra space
-		Map<RandomLink, RandomLink> mapping = new HashMap<>();
+		Map<RandomListNode, RandomListNode> mapping = new HashMap<>();
 
-		RandomLink copy = new RandomLink();
-		RandomLink current = head, copycurrent = copy;
+		RandomListNode copy = new RandomListNode();
+		RandomListNode current = head, copycurrent = copy;
 
-		// loop through the list and add the mapping of original link and copy link
+		// loop through the list and add the mapping of original ListNode and copy ListNode
 		while (current.next != null) {
 			mapping.put(current, copycurrent);
-			copycurrent.next = new RandomLink();
+			copycurrent.next = new RandomListNode();
 			current = current.next;
 			copycurrent = copycurrent.next;
 		}
@@ -566,14 +565,14 @@ public class MiscellaneousLinkedListProblems {
 		return copy;
 	}
 
-	public RandomLink copyListWithRandomPointer1(RandomLink head) {
+	public RandomListNode copyListWithRandomPointer1(RandomListNode head) {
 		if (head == null)
 			return head;
 
 		// 1. copy next
-		RandomLink current = head;
+		RandomListNode current = head;
 		while (current != null) {
-			RandomLink temp = new RandomLink();
+			RandomListNode temp = new RandomListNode();
 			temp.next = current.next;
 			current.next = temp;
 			current = current.next.next;
@@ -588,10 +587,10 @@ public class MiscellaneousLinkedListProblems {
 
 		// 3. reset head and split
 		current = head;
-		RandomLink copy = head.next;
+		RandomListNode copy = head.next;
 		// separate the lists
 		while (current.next != null) {
-			RandomLink temp = current.next;
+			RandomListNode temp = current.next;
 			current.next = current.next.next;
 			current = temp;
 		}
@@ -599,7 +598,7 @@ public class MiscellaneousLinkedListProblems {
 	}
 
 	/**
-	 * Given a sorted linked list, delete all duplicates such that each element appear only once.
+	 * Given a sorted ListNodeed list, delete all duplicates such that each element appear only once.
 	 * 
 	 * For example,
 	 * 
@@ -608,12 +607,12 @@ public class MiscellaneousLinkedListProblems {
 	 * @param head
 	 * @return
 	 */
-	public Link removeDuplicates(Link head) {
+	public ListNode removeDuplicates(ListNode head) {
 		if (head == null || head.next == null)
 			return head;
-		Link p = head;
+		ListNode p = head;
 		while (p != null && p.next != null) {
-			if (p.getKey() == p.next.getKey()) {
+			if (p.data == p.next.data) {
 				p.next = p.next.next;
 			} else {
 				p = p.next;
@@ -623,38 +622,38 @@ public class MiscellaneousLinkedListProblems {
 	}
 
 	/**
-	 * Given a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the
-	 * original list.
+	 * Given a sorted ListNodeed list, delete all nodes that have duplicate numbers, leaving only distinct numbers from
+	 * the original list.
 	 * 
 	 * For example, given 1->1->1->2->3, return 2->3.
 	 * 
 	 * @param head
 	 * @return
 	 */
-	public Link completelyRemoveDuplicates(Link head) {
+	public ListNode completelyRemoveDuplicates(ListNode head) {
 		if (head == null || head.next == null)
 			return head;
-		// create a temp Link
-		Link temp = new Link(0);
+		// create a temp ListNode
+		ListNode temp = new ListNode(0);
 		temp.next = head;
-		Link p = temp;
+		ListNode p = temp;
 		while (p.next != null && p.next.next != null) {
-			if (p.next.getKey() == p.next.next.getKey()) {
-				int dup = p.next.getKey();
-				while (p.next != null && p.next.getKey() == dup) {
+			if (p.next.data == p.next.next.data) {
+				int dup = p.next.data;
+				while (p.next != null && p.next.data == dup) {
 					p.next = p.next.next;
 				}
 			} else {
 				p = p.next;
 			}
 		}
-		return temp.next == null ? new Link(0) : temp.next;
+		return temp.next == null ? new ListNode(0) : temp.next;
 
 	}
 
 	/**
-	 * Given a linked list and a value x, partition it such that all nodes less than x come before nodes greater than or
-	 * equal to x.
+	 * Given a ListNodeed list and a value x, partition it such that all nodes less than x come before nodes greater
+	 * than or equal to x.
 	 * 
 	 * You should preserve the original relative order of the nodes in each of the two partitions.
 	 * 
@@ -664,21 +663,21 @@ public class MiscellaneousLinkedListProblems {
 	 * @param x
 	 * @return
 	 */
-	public Link partitionListByValue(Link head, int x) {
+	public ListNode partitionListByValue(ListNode head, int x) {
 		if (head == null || head.next == null)
 			return head;
 
 		// make 2 temp heads
-		Link fakeHead1 = new Link(0);
-		Link fakeHead2 = new Link(0);
+		ListNode fakeHead1 = new ListNode(0);
+		ListNode fakeHead2 = new ListNode(0);
 
 		fakeHead1.next = head;
-		Link ptr = head;
-		Link previous = fakeHead1;
-		Link ptr2 = fakeHead2;
+		ListNode ptr = head;
+		ListNode previous = fakeHead1;
+		ListNode ptr2 = fakeHead2;
 
 		while (ptr != null) {
-			if (ptr.getKey() < x) {
+			if (ptr.data < x) {
 				ptr = ptr.next;
 				previous = previous.next;
 			} else {
@@ -697,22 +696,22 @@ public class MiscellaneousLinkedListProblems {
 		return fakeHead1.next;
 	}
 
-	public Link getIntersectionNode(Link linkA, Link linkB) {
-		if (linkA == null || linkB == null)
+	public ListNode getIntersectionNode(ListNode ListNodeA, ListNode ListNodeB) {
+		if (ListNodeA == null || ListNodeB == null)
 			return null;
-		while (linkA != null && linkB != null) {
-			if (linkA.getKey() == linkB.getKey())
-				return linkA;
+		while (ListNodeA != null && ListNodeB != null) {
+			if (ListNodeA.data == ListNodeB.data)
+				return ListNodeA;
 			else {
-				linkA = linkA.next;
-				linkB = linkB.next;
+				ListNodeA = ListNodeA.next;
+				ListNodeB = ListNodeB.next;
 			}
 		}
 		return null;
 	}
 
 	/**
-	 * Remove all elements from a linked list of integers that have value val.
+	 * Remove all elements from a list of integers that have value val.
 	 * 
 	 * Example
 	 * 
@@ -722,23 +721,23 @@ public class MiscellaneousLinkedListProblems {
 	 * @param val
 	 * @return
 	 */
-	public Link removeAllNodesWithValue(Link head, int val) {
-		Link temp = new Link(0);
+	public ListNode removeAllNodesWithValue(ListNode head, int val) {
+		ListNode temp = new ListNode(0);
 		temp.next = head;
-		Link p = temp; // new pointer points to temp
-		while (p.next != null) {
-			if (p.next.getKey() == val) {
-				Link tempNext = p.next;
-				p.next = tempNext.next;
+		ListNode curr = temp; // new pointer points to temp
+		while (curr.next != null) {
+			if (curr.next.data == val) {
+				ListNode tempNext = curr.next;
+				curr.next = tempNext.next;
 			} else {
-				p = p.next;
+				curr = curr.next;
 			}
 		}
 		return temp.next;
 	}
 
 	/**
-	 * Given a linked list, swap every two adjacent nodes and return its head.
+	 * Given a ListNodeed list, swap every two adjacent nodes and return its head.
 	 * 
 	 * For example, given 1->2->3->4, you should return the list as 2->1->4->3.
 	 * 
@@ -748,37 +747,37 @@ public class MiscellaneousLinkedListProblems {
 	 * @param head
 	 * @return
 	 */
-	public Link swapNodesInPairs_1(Link head) {
+	public ListNode swapNodesInPairs_1(ListNode head) {
 		if (head == null || head.next == null)
 			return head;
-		Link temp = new Link(0);
+		ListNode temp = new ListNode(0);
 		temp.next = head;
-		Link p = temp;
+		ListNode p = temp;
 		while (p.next != null && p.next.next != null) {
-			Link temp1 = p; // pointer to track first node
+			ListNode temp1 = p; // pointer to track first node
 			p = p.next;
 			temp1.next = p.next;
 
-			Link temp2 = p.next.next; // to track next node of the pair
+			ListNode temp2 = p.next.next; // to track next node of the pair
 			p.next.next = p;
 			p.next = temp2;
 		}
 		return temp.next;
 	}
 
-	public Link swapNodesInPairs_2(Link head) {
+	public ListNode swapNodesInPairs_2(ListNode head) {
 		if (head == null || head.next == null)
 			return head;
-		Link temp = new Link(0);
+		ListNode temp = new ListNode(0);
 		temp.next = head;
 
-		Link p1 = head;
-		Link p2 = head.next;
-		Link pre = temp;
+		ListNode p1 = head;
+		ListNode p2 = head.next;
+		ListNode pre = temp;
 		while (p1 != null && p2 != null) {
 			pre.next = p2;
 
-			Link temp1 = p2.next;
+			ListNode temp1 = p2.next;
 			p2.next = p1;
 			pre = p1;
 			p1.next = temp1;
@@ -791,7 +790,7 @@ public class MiscellaneousLinkedListProblems {
 
 	}
 
-	// https://www.techiedelight.com/split-linked-list-into-two-lists-list-containing-alternating-elements/
+	// https://www.techiedelight.com/split-ListNodeed-list-into-two-lists-list-containing-alternating-elements/
 	public ListNode[] splitLLInto2ListsContainingAltElements(ListNode head) {
 		ListNode first = head;
 		ListNode second = head.next;
@@ -813,7 +812,7 @@ public class MiscellaneousLinkedListProblems {
 		alternateSplit(first.next, second.next);
 	}
 
-	// https://www.techiedelight.com/intersection-two-given-sorted-linked-lists/
+	// https://www.techiedelight.com/intersection-two-given-sorted-ListNodeed-lists/
 	public ListNode sortedIntersectNode(ListNode a, ListNode b) {
 		ListNode res = null;
 		ListNode tail = res;
@@ -839,9 +838,9 @@ public class MiscellaneousLinkedListProblems {
 		return res;
 	}
 
-	public int compareLists(Link a, Link b) {
+	public int compareLists(ListNode a, ListNode b) {
 		while (a != null && b != null) {
-			if (a.getKey() != b.getKey())
+			if (a.data != b.data)
 				return 0;
 			a = a.next;
 			b = b.next;
@@ -849,12 +848,12 @@ public class MiscellaneousLinkedListProblems {
 		return a == null && b == null ? 1 : 0;
 	}
 
-	public Link mergeSortedListsRecursive(Link a, Link b) {
+	public ListNode mergeSortedListsRecursive(ListNode a, ListNode b) {
 		if (a == null)
 			return b;
 		if (b == null)
 			return a;
-		if (a.getKey() < b.getKey()) {
+		if (a.data < b.data) {
 			a.next = mergeSortedListsRecursive(a.next, b);
 			return a;
 		} else {
@@ -863,10 +862,10 @@ public class MiscellaneousLinkedListProblems {
 		}
 	}
 
-	public Link mergeSortedListsNonRecursive(Link a, Link b) {
-		Link temp = null;
+	public ListNode mergeSortedListsNonRecursive(ListNode a, ListNode b) {
+		ListNode temp = null;
 		while (a != null && b != null) {
-			if (a.getKey() < b.getKey()) {
+			if (a.data < b.data) {
 				temp = formSortedList(a, temp);
 				a = a.next;
 			} else {
@@ -885,9 +884,9 @@ public class MiscellaneousLinkedListProblems {
 		return temp;
 	}
 
-	private Link formSortedList(Link tempLink, Link head) {
-		Link current = head;
-		Link temp = new Link(tempLink.getKey());
+	private ListNode formSortedList(ListNode tempListNode, ListNode head) {
+		ListNode current = head;
+		ListNode temp = new ListNode(tempListNode.data);
 		if (head == null) {
 			head = temp;
 		} else {
@@ -897,21 +896,22 @@ public class MiscellaneousLinkedListProblems {
 		return head;
 	}
 
-	private void displayList(Link head) {
+	public void displayList(ListNode head) {
+		StringBuilder sb = new StringBuilder();
 		while (head != null) {
-			System.out.print(head.getKey() + "->");
+			sb.append(head.data + " ");
 			head = head.next;
 		}
-		System.out.println();
+		System.out.println(sb.toString());
 	}
 
 	/**
 	 *
 	 */
-	public Link deleteNodeInMiddle(Link head, int x) {
+	public ListNode deleteNodeInMiddle(ListNode head, int x) {
 		if (head == null)
 			return head;
-		Link current = head;
+		ListNode current = head;
 		if (x == 0) {
 			head = current.next;
 			return head;
@@ -926,7 +926,7 @@ public class MiscellaneousLinkedListProblems {
 		if (current == null || current.next == null)
 			return head;
 
-		// unlink the deleted node from the list
+		// unListNode the deleted node from the list
 		current.next = current.next.next;
 
 		return head;
@@ -934,24 +934,24 @@ public class MiscellaneousLinkedListProblems {
 
 	/**
 	 * Delete Middle Node: Implement an algorithm to delete a node in the middle (Le., any node but the fi rst and last
-	 * node, not necessarily the exact middle) of a singly linked list, given only access to that node. EXAMPLE Input:
-	 * the node c from the linked list a - >b- >c - >d - >e- >f Result: nothing is returned, but the new linked list
-	 * looks like a->b->d->e->f
+	 * node, not necessarily the exact middle) of a singly ListNodeed list, given only access to that node. EXAMPLE
+	 * Input: the node c from the ListNodeed list a - >b- >c - >d - >e- >f Result: nothing is returned, but the new
+	 * ListNodeed list looks like a->b->d->e->f
 	 * 
 	 * @param n
 	 * @return
 	 */
-	public boolean deleteMiddleNode(Link n) {
+	public boolean deleteMiddleNode(ListNode n) {
 		if (n == null || n.next == null)
 			return false;
-		Link next = n.next;
+		ListNode next = n.next;
 		n.data = next.data;
 		n.next = next.next;
 		return true;
 	}
 
-	public int getNthNodeFromEnd(Link head, int n) {
-		Link temp = head;
+	public int getNthNodeFromEnd(ListNode head, int n) {
+		ListNode temp = head;
 		int c = 0;
 		while (temp != null) {
 			c++;
@@ -962,28 +962,28 @@ public class MiscellaneousLinkedListProblems {
 		while (temp != null) {
 			c1++;
 			if (c1 == c - n)
-				return temp.getKey();
+				return temp.data;
 			temp = temp.next;
 		}
 		return 0;
 	}
 
 	/**
-	 * Given a linked list, swap every two adjacent nodes and return its head. For example, Given 1->2->3->4, you should
-	 * return the list as 2->1->4->3. Your algorithm should use only constant space. You may not modify the values in
-	 * the list, only nodes itself can be changed.
+	 * Given a ListNodeed list, swap every two adjacent nodes and return its head. For example, Given 1->2->3->4, you
+	 * should return the list as 2->1->4->3. Your algorithm should use only constant space. You may not modify the
+	 * values in the list, only nodes itself can be changed.
 	 * 
 	 * @param head
 	 * @return
 	 */
-	public Link swapPairs(Link head) {
-		Link dummy = new Link(-1);
+	public ListNode swapPairs(ListNode head) {
+		ListNode dummy = new ListNode(-1);
 
 		dummy.next = head;
-		Link p = dummy;
+		ListNode p = dummy;
 		while (p.next != null && p.next.next != null) {
-			Link next = p.next;
-			Link next2 = p.next.next;
+			ListNode next = p.next;
+			ListNode next2 = p.next.next;
 			p.next = next2;
 			next.next = next2.next;
 			next2.next = next;
@@ -994,20 +994,20 @@ public class MiscellaneousLinkedListProblems {
 		return dummy.next;
 	}
 
-	public Link cloneList(Link head) {
+	public ListNode cloneList(ListNode head) {
 		if (head == null)
 			return null;
 
-		Link newHead = null;
-		Link tail = null;
-		Link current = head;
+		ListNode newHead = null;
+		ListNode tail = null;
+		ListNode current = head;
 
 		while (current != null) {
 			if (newHead == null) {
-				newHead = new Link(current.data);
+				newHead = new ListNode(current.data);
 				tail = newHead;
 			} else {
-				Link temp = new Link(current.data);
+				ListNode temp = new ListNode(current.data);
 				tail.next = temp;
 				tail = tail.next;
 				tail.next = null;
@@ -1060,25 +1060,25 @@ public class MiscellaneousLinkedListProblems {
 		MiscellaneousLinkedListProblems prob = new MiscellaneousLinkedListProblems();
 
 		/*
-		 * Link l1 = new Link(2); Link l2 = new Link(4); Link l3 = new Link(3); l1.next = l2; l2.next = l3;
-		 * System.out.println(l1.toString()); Link a1 = new Link(5); Link a2 = new Link(6); Link a3 = new Link(4);
-		 * a1.next = a2; a2.next = a3; System.out.println(a1.toString()); System.out.println(prob.add(l1,
-		 * a1).toString());
+		 * ListNode l1 = new ListNode(2); ListNode l2 = new ListNode(4); ListNode l3 = new ListNode(3); l1.next = l2;
+		 * l2.next = l3; System.out.println(l1.toString()); ListNode a1 = new ListNode(5); ListNode a2 = new
+		 * ListNode(6); ListNode a3 = new ListNode(4); a1.next = a2; a2.next = a3; System.out.println(a1.toString());
+		 * System.out.println(prob.add(l1, a1).toString());
 		 */
 
-		// Link l1 = new Link(1);
-		// Link l2 = new Link(2);
-		// Link l3 = new Link(3);
-		// Link l4 = new Link(4);
+		// ListNode l1 = new ListNode(1);
+		// ListNode l2 = new ListNode(2);
+		// ListNode l3 = new ListNode(3);
+		// ListNode l4 = new ListNode(4);
 		// l1.next = l2;
 		// l2.next = l3;
 		// l3.next = l4;
 		// // prob.reorderList(l1);
 		//
 		// // for random pointer testing
-		// RandomLink r1 = new RandomLink();
-		// RandomLink r2 = new RandomLink();
-		// RandomLink r3 = new RandomLink();
+		// RandomListNode r1 = new RandomListNode();
+		// RandomListNode r2 = new RandomListNode();
+		// RandomListNode r3 = new RandomListNode();
 		// r1.next = r2;
 		// r1.random = r3;
 		// r2.next = r3;
@@ -1088,11 +1088,11 @@ public class MiscellaneousLinkedListProblems {
 		// System.out.println(r1.toString());
 		// prob.copyListWithRandomPointer(r1);
 
-		// Link l = new Link(0);
-		// Link temp = l;
+		// ListNode l = new ListNode(0);
+		// ListNode temp = l;
 		// for (int i = 1; i <= 5; i++) {
-		// // Link n =
-		// temp.next = new Link(i);
+		// // ListNode n =
+		// temp.next = new ListNode(i);
 		// temp = temp.next;
 		// }
 		// System.out.println(l.toString());
@@ -1100,7 +1100,7 @@ public class MiscellaneousLinkedListProblems {
 		// prob.testRemoveDuplicates();
 		// prob.testCompletelyRemoveDuplicates();
 		// prob.testPartitionListByValue();
-		// prob.testRemoveAllNodesWithValue();
+		prob.testRemoveAllNodesWithValue();
 		// prob.testSwapNodesInPairs_1();
 		// prob.testReverseNodesInKGroup();
 
@@ -1120,7 +1120,7 @@ public class MiscellaneousLinkedListProblems {
 		// b.next = new ListNode(3);
 		// b.next.next = new ListNode(5);
 
-		prob.testDeleteOddNodes();
+		// prob.testDeleteOddNodes();
 		// System.out.println(b);
 		//
 		// ListNode n = prob.sortedIntersectNode(a, b);
@@ -1140,11 +1140,11 @@ public class MiscellaneousLinkedListProblems {
 	}
 
 	private void testReverseNodesInKGroup() {
-		Link l1 = new Link(1);
-		Link l2 = new Link(2);
-		Link l3 = new Link(3);
-		Link l4 = new Link(4);
-		Link l5 = new Link(5);
+		ListNode l1 = new ListNode(1);
+		ListNode l2 = new ListNode(2);
+		ListNode l3 = new ListNode(3);
+		ListNode l4 = new ListNode(4);
+		ListNode l5 = new ListNode(5);
 		l1.next = l2;
 		l2.next = l3;
 		l3.next = l4;
@@ -1154,10 +1154,10 @@ public class MiscellaneousLinkedListProblems {
 	}
 
 	private void testSwapNodesInPairs_1() {
-		Link l1 = new Link(1);
-		Link l2 = new Link(2);
-		Link l3 = new Link(3);
-		Link l4 = new Link(4);
+		ListNode l1 = new ListNode(1);
+		ListNode l2 = new ListNode(2);
+		ListNode l3 = new ListNode(3);
+		ListNode l4 = new ListNode(4);
 		l1.next = l2;
 		l2.next = l3;
 		l3.next = l4;
@@ -1166,22 +1166,24 @@ public class MiscellaneousLinkedListProblems {
 	}
 
 	private void testRemoveAllNodesWithValue() {
-		Link l1 = new Link(1);
-		Link l2 = new Link(3);
-		Link l3 = new Link(3);
-		Link l4 = new Link(4);
+		ListNode l1 = new ListNode(1);
+		ListNode l2 = new ListNode(3);
+		ListNode l3 = new ListNode(3);
+		ListNode l4 = new ListNode(4);
 		l1.next = l2;
 		l2.next = l3;
 		l3.next = l4;
-		System.out.println(l1.toString());
-		System.out.println(removeAllNodesWithValue(l1, 3).toString());
+		new SingleLinkedList().displayList(l1);
+		ListNode res = removeAllNodesWithValue(l1, 3);
+		System.out.println();
+		new SingleLinkedList().displayList(res);
 	}
 
 	private void testRemoveDuplicates() {
-		Link l1 = new Link(1);
-		Link l2 = new Link(1);
-		Link l3 = new Link(2);
-		Link l4 = new Link(2);
+		ListNode l1 = new ListNode(1);
+		ListNode l2 = new ListNode(1);
+		ListNode l3 = new ListNode(2);
+		ListNode l4 = new ListNode(2);
 		l1.next = l2;
 		l2.next = l3;
 		l3.next = l4;
@@ -1190,10 +1192,10 @@ public class MiscellaneousLinkedListProblems {
 	}
 
 	private void testCompletelyRemoveDuplicates() {
-		Link l1 = new Link(1);
-		Link l2 = new Link(1);
-		Link l3 = new Link(2);
-		Link l4 = new Link(2);
+		ListNode l1 = new ListNode(1);
+		ListNode l2 = new ListNode(1);
+		ListNode l3 = new ListNode(2);
+		ListNode l4 = new ListNode(2);
 		l1.next = l2;
 		l2.next = l3;
 		l3.next = l4;
@@ -1202,16 +1204,16 @@ public class MiscellaneousLinkedListProblems {
 	}
 
 	public void testPartitionListByValue() {
-		Link l1 = new Link(1);
-		Link l2 = new Link(4);
+		ListNode l1 = new ListNode(1);
+		ListNode l2 = new ListNode(4);
 		l1.next = l2;
-		Link l3 = new Link(3);
+		ListNode l3 = new ListNode(3);
 		l2.next = l3;
-		Link l4 = new Link(2);
+		ListNode l4 = new ListNode(2);
 		l3.next = l4;
-		Link l5 = new Link(5);
+		ListNode l5 = new ListNode(5);
 		l4.next = l5;
-		Link l6 = new Link(2);
+		ListNode l6 = new ListNode(2);
 		l5.next = l6;
 		System.out.println(l1.toString());
 		System.out.println(partitionListByValue(l1, 3).toString());

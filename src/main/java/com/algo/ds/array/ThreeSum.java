@@ -35,45 +35,59 @@ public class ThreeSum {
 	 * 
 	 */
 	public List<List<Integer>> findThreeSumUniqueTriplets(int[] nums) {
+
 		// make use of set to avoid duplicates.
 		Set<List<Integer>> result = new HashSet<>();
 
-		if (nums == null || nums.length < 3)
+		if (nums == null || nums.length < 3) {
 			return new ArrayList<>();
+		}
 
 		// sort the array
 		Arrays.sort(nums); // O(N log N)
 
 		// O(N*N) = O(N^2)
 		for (int i = 0; i < nums.length - 2; i++) {
-			if (i == 0 || nums[i] > nums[i - 1]) {
-				int j = i + 1;
-				int k = nums.length - 1;
-				while (j < k) {
-					int sum = nums[i] + nums[j] + nums[k];
-					// 3 cases.
-					// equals to 0
-					if (sum == 0) {
-						List<Integer> temp = new ArrayList<>();
-						temp.add(nums[i]);
-						temp.add(nums[j]);
-						temp.add(nums[k]);
-						result.add(temp);
-						j++;
-						k--;
 
-						// handle duplicate cases
-						if (j < k && nums[j] == nums[j - 1])
-							j++;
-						if (j < k && nums[k] == nums[k + 1])
-							k--;
-					} else if (sum < 0) // < 0
+			if (i > 0 && nums[i] == nums[i - 1]) {
+				continue;
+			}
+
+			int j = i + 1;
+			int k = nums.length - 1;
+			int target = 0;
+
+			while (j < k) {
+
+				int sum = nums[i] + nums[j] + nums[k];
+
+				// 3 cases.
+				// equals to 0
+				if (sum == target) {
+					List<Integer> temp = new ArrayList<>();
+					temp.add(nums[i]);
+					temp.add(nums[j]);
+					temp.add(nums[k]);
+					result.add(temp);
+					j++;
+					k--;
+
+					// handle duplicate cases
+					while (j < k && nums[j] == nums[j - 1]) {
 						j++;
-					else // > 0
+					}
+
+					while (j < k && nums[k] == nums[k + 1]) {
 						k--;
+					}
+				} else if (sum < target) { // < 0
+					j++;
+				} else { // > 0
+					k--;
 				}
 			}
 		}
+
 		return new ArrayList<>(result);
 	}
 

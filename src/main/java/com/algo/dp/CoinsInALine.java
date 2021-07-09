@@ -1,45 +1,34 @@
 package com.algo.dp;
 
 /**
- * There are n coins in a line. (Assume n is even). Two players take turns to take a coin from one
- * of the ends of the line until there are no more coins left. The player with the larger amount of
- * money wins.
- * 
- * 1. Would you rather go first or second? Does it matter?
- * 
- * 2. Assume that you go first, describe an algorithm to compute the maximum amount of money you can
- * win.
- * 
- * Example:
- * 
- * suppose that there are 4 coins which have value 1 2 3 4 now you are first so you pick 4 then in
- * next term next person picks 3 then you pick 2 and then next person picks 1 so total of your money
- * is 4 + 2 = 6 next/opposite person will get 1 + 3 = 4 so maximum amount of value you can get is 6.
- * 
- * There are two choices: 1. The user chooses the ith coin with value Vi: The opponent either
- * chooses (i+1)th coin or jth coin. The opponent intends to choose the coin which leaves the user
- * with minimum value. i.e. The user can collect the value Vi + min(F(i+2, j), F(i+1, j-1) )
- * 
- * 2. The user chooses the jth coin with value Vj: The opponent either chooses ith coin or (j-1)th
- * coin. The opponent intends to choose the coin which leaves the user with minimum value. i.e. The
- * user can collect the value Vj + min(F(i+1, j-1), F(i, j-2) )
- * 
- * Following is recursive solution that is based on above two choices. We take the maximum of two
- * choices.
- * 
- * F(i, j) represents the maximum value the user can collect from i'th coin to j'th coin.
- * 
- * F(i, j) = Max(Vi + min(F(i+2, j), F(i+1, j-1) ), Vj + min(F(i+1, j-1), F(i, j-2) ))
- * 
- * Base Cases F(i, j) = Vi If j == i F(i, j) = max(Vi, Vj) If j == i+1
- * 
- * Why Dynamic Programming? The above relation exhibits overlapping sub-problems. In the above
- * relation, F(i+1, j-1) is calculated twice
- * 
- * @author M_402201
  *
+ * Tags : DP
  */
 public class CoinsInALine {
+
+	/**
+	 * Problem 1 :
+	 * 
+	 * There are n coins in a line. (Assume n is even). Two players take turns to take a coin from one of the ends of
+	 * the line until there are no more coins left. So, the goal is to provide a strategy in which the player with the
+	 * first move gets the maximum value coins in the end.
+	 * 
+	 * The player with the larger amount of money wins.
+	 *
+	 * Let’s make it more clear- Suppose we have coins lined up from Ci to Cj wit the values of Vi to Vj respectively.
+	 * 
+	 * MV(i, j) = maximum value the Player 1 can collect from i'th coin to j'th coin.
+	 * 
+	 * Case 1 - Player 1 Picks the ith coin (from starting) ==> Vi + Min{MV(i+2,j), MV(i+1, j-1)}
+	 * 
+	 * Case 2 - Player 1 Picks the jth coin (from the end) ==> Vj + Min{MV(i+1,j-1), MV(i, j-2)}
+	 * 
+	 * So now we need to decide whether Player 1 should pick ith coin or jth coin. Player 1 will pick the coin which
+	 * ever gives the more value considering 2 moves ahead
+	 * 
+	 * MV(i, j) = Max { Vi + Min{MV(i+2,j), MV(i+1, j-1)} , Vj + Min{MV(i+1,j-1), MV(i, j-2)}}
+	 * 
+	 */
 
 	// Returns optimal value possible that a player
 	// can collect from an array of coins of size n.
@@ -74,23 +63,22 @@ public class CoinsInALine {
 	/**
 	 * Approach 2 -Optimized approach DP using memoization
 	 * 
-	 * We have discussed an approach that makes 4 recursive calls. In this post, a new approach is
-	 * discussed that makes two recursive calls.
+	 * We have discussed an approach that makes 4 recursive calls. In this post, a new approach is discussed that makes
+	 * two recursive calls.
 	 * 
 	 * There are two choices:
 	 * 
-	 * 1. The user chooses the ith coin with value Vi: The opponent either chooses (i+1)th coin or jth
-	 * coin. The opponent intends to choose the coin which leaves the user with minimum value. i.e. The
-	 * user can collect the value Vi + (Sum – Vi) + F(i+1, j, Sum) where Sum is sum of coins from index
-	 * i to j. The expression can be simplified to Sum + F(i+1, j, Sum)
+	 * 1. The user chooses the ith coin with value Vi: The opponent either chooses (i+1)th coin or jth coin. The
+	 * opponent intends to choose the coin which leaves the user with minimum value. i.e. The user can collect the value
+	 * Vi + (Sum – Vi) + F(i+1, j, Sum) where Sum is sum of coins from index i to j. The expression can be simplified to
+	 * Sum + F(i+1, j, Sum)
 	 * 
-	 * 2. The user chooses the jth coin with value Vj: The opponent either chooses ith coin or (j-1)th
-	 * coin. The opponent intends to choose the coin which leaves the user with minimum value. i.e. The
-	 * user can collect the value Vj + (Sum – Vj) + F(i, j-1, Sum) where Sum is sum of coins from index
-	 * i to j. The expression can be simplified to Sum + F(i, j-1, Sum)
+	 * 2. The user chooses the jth coin with value Vj: The opponent either chooses ith coin or (j-1)th coin. The
+	 * opponent intends to choose the coin which leaves the user with minimum value. i.e. The user can collect the value
+	 * Vj + (Sum – Vj) + F(i, j-1, Sum) where Sum is sum of coins from index i to j. The expression can be simplified to
+	 * Sum + F(i, j-1, Sum)
 	 * 
-	 * Following is recursive solution that is based on above two choices. We take the maximum of two
-	 * choices.
+	 * Following is recursive solution that is based on above two choices. We take the maximum of two choices.
 	 * 
 	 * F(i, j) represents the maximum value the user can collect from i'th coin to j'th coin.
 	 * 

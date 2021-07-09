@@ -33,11 +33,11 @@ import com.algo.common.ListNode;
 public class AddNumberRepresentedByLinkList {
 
 	public ListNode addNumbers(ListNode head1, ListNode head2) {
-		ReverseLinkedList rll = new ReverseLinkedList();
-		head1 = rll.iterative(head1);
-		head2 = rll.iterative(head2);
+		ReverseLinkedListProblems rll = new ReverseLinkedListProblems();
+		head1 = rll.rev_iterative(head1);
+		head2 = rll.rev_iterative(head2);
 		ListNode result = add(head1, head2);
-		return rll.iterative(result);
+		return rll.rev_iterative(result);
 	}
 
 	private ListNode add(ListNode head1, ListNode head2) {
