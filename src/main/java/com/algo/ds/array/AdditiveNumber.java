@@ -1,8 +1,6 @@
 package com.algo.ds.array;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -107,114 +105,15 @@ public class AdditiveNumber {
 		return true;
 	}
 
-	// TODO : this is not working. check later.
-	// Method returns additive sequence from string as a list
-	public List<String> getAdditiveNumberSequence(String num) {
-		List<String> res = new ArrayList<>();
-		int l = num.length();
-
-		// loop untill l/2 only, because if first
-		// number is larger,then no possible sequence
-		// later
-		for (int i = 1; i <= l / 2; i++) {
-			for (int j = 1; j <= (l - i) / 2; j++) {
-				if (checkAddition(res, num.substring(0, i), num.substring(i, j), num.substring(i + j))) {
-					// adding first and second number at
-					// front of result list
-					res.add(0, num.substring(i, j));
-					res.add(0, num.substring(0, i));
-					return res;
-				}
-			}
-		}
-
-		// If code execution reaches here, then string
-		// doesn't have any additive sequence
-		res.clear();
-		return res;
-	}
-
-	// Recursive method to check c = a + b
-	private boolean checkAddition(List<String> res, String a, String b, String c) {
-		// both first and second number should be valid
-		if (!isValid(a) || !isValid(b))
-			return false;
-		String sum = addString(a, b);
-
-		// if sum is same as c then direct return
-		if (sum == c) {
-			res.add(sum);
-			return true;
-		}
-
-		/*
-		 * if sum size is greater than c, then no possible sequence further OR if c is not prefix of sum string, then no
-		 * possible sequence further
-		 */
-		if (c.length() <= sum.length() || sum != c.substring(0, sum.length()))
-			return false;
-		else {
-			res.add(sum);
-
-			// next recursive call will have b as first
-			// number, sum as second number and string
-			// c as third number after removing prefix
-			// sum string from c
-			return checkAddition(res, b, sum, c.substring(sum.length()));
-		}
-	}
-
-	// Checks whether num is valid or not, by
-	// checking first character and size
-	private boolean isValid(String num) {
-		if (num.length() > 1 && num.charAt(0) == '0')
-			return false;
-		return true;
-	}
-
-	// returns int value at pos string, if pos is
-	// out of bound then returns 0
-	private int val(String a, int pos) {
-		if (pos >= a.length())
-			return 0;
-
-		// converting character to integer
-		return (a.charAt(pos) - '0');
-	}
-
-	// add two number in string form and return
-	// result as a string
-	private String addString(String a, String b) {
-		String sum = "";
-		int i = a.length() - 1;
-		int j = b.length() - 1;
-		int carry = 0;
-
-		// loop untill both string get processed
-		while (i >= 0 || j >= 0) {
-			int t = val(a, i) + val(b, j) + carry;
-			sum += (t % 10 + '0');
-			carry = t / 10;
-			i--;
-			j--;
-		}
-
-		// not sure what this does in cpp code
-		// if (carry)
-		// sum += (carry + '0');
-		// reverse(sum.begin(), sum.end());
-		return sum;
-	}
-
 	public static void main(String[] args) {
 		AdditiveNumber an = new AdditiveNumber();
-		System.out.println(an.isAdditiveNumberIterative("112358"));
-		System.out.println(an.isAdditiveNumberIterative("991100102"));
+		// System.out.println(an.isAdditiveNumberIterative("112358"));
+		// System.out.println(an.isAdditiveNumberIterative("991100102"));
 		// System.out.println(an.getAdditiveNumberSequence("112358"));
 
-		System.out.println(an.isAdditiveNumber("112358"));
 		// System.out.println(an.isAdditiveNumber("112358"));
-		System.out.println(an.isAdditiveNumber("991100102"));
+		System.out.println(an.isAdditiveNumber("112359"));
+		// System.out.println(an.isAdditiveNumber("991100102"));
 		// System.out.println(an.isAdditiveNumber("991100102"));
 	}
 }

@@ -20,45 +20,50 @@ public class SearchForARange {
 
 	// T - O(log n)
 	public int[] searchRange(int[] nums, int target) {
-		if (nums == null || nums.length == 0)
-			return new int[] { -1, -1 };
 
-		int left = 0;
-		int right = nums.length - 1;
+		int[] result = new int[] { -1, -1 };
 
-		while (left <= right) {
+		if (nums == null || nums.length == 0) {
+			return result;
+		}
 
-			// This is responsible to handle when array has all dupes. Quiet simple.
-			if (nums[left] == nums[right] && nums[left] == target) {
-				return new int[] { left, right };
-			}
-
+		int left = 0, right = nums.length - 1;
+		// binary search for left boundry
+		while (left + 1 < right) {
 			int mid = left + (right - left) / 2;
-			if (nums[mid] == target) {
-				// When i find the target i expand the window from centre till i get the start and end of the repeated
-				// numbers
-				int start = mid;
-				int end = mid;
-
-				// STart should be greater than zero, its quite obvious right!!
-				while (start >= 0 && nums[start] == target) {
-					start--;
-				}
-				while (end < nums.length && nums[end] == target) {
-					end++;
-				}
-
-				start++;
-				end--;
-				return new int[] { start, end };
-			} else if (target < nums[mid]) {
-				right = mid - 1;
+			if (target <= nums[mid]) {
+				right = mid;
 			} else {
-				left = mid + 1;
+				left = mid;
 			}
 		}
 
-		return new int[] { -1, -1 };
+		if (nums[left] == target) {
+			result[0] = left;
+		} else if (nums[right] == target) {
+			result[0] = right;
+		}
+
+		// binary search for right boundry
+		left = 0;
+		right = nums.length - 1;
+
+		while (left + 1 < right) {
+			int mid = left + (right - left) / 2;
+			if (target >= nums[mid]) {
+				left = mid;
+			} else {
+				right = mid;
+			}
+		}
+
+		if (nums[right] == target) {
+			result[1] = right;
+		} else if (nums[left] == target) {
+			result[1] = left;
+		}
+
+		return result;
 	}
 
 	// T - O(n)
@@ -93,5 +98,13 @@ public class SearchForARange {
 		System.out.println(Arrays.toString(se.searchRange(new int[] { 5, 6, 7, 8, 9, 10 }, 90)));
 
 		System.out.println(Arrays.toString(se.searchRange(new int[] { 3, 3, 3 }, 3)));
+
+		System.out.println(Arrays.toString(se.searchRange1(new int[] { 5, 7, 7, 8, 8, 10 }, 8)));
+
+		System.out.println(Arrays.toString(se.searchRange1(new int[] { 5, 6, 7, 8, 9, 10 }, 9)));
+		//
+		System.out.println(Arrays.toString(se.searchRange1(new int[] { 5, 6, 7, 8, 9, 10 }, 90)));
+
+		System.out.println(Arrays.toString(se.searchRange1(new int[] { 3, 3, 3 }, 3)));
 	}
 }

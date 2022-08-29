@@ -14,6 +14,8 @@ import com.algo.common.TreeNode;
  */
 public class TreeTraversals {
 
+	// T - O(n)
+	// S - O(n) worst O(log n) average
 	public void inOrder(TreeNode root) {
 		if (root == null) {
 			return;
@@ -49,14 +51,12 @@ public class TreeTraversals {
 	public void inorderIterative(TreeNode root) {
 		Stack<TreeNode> stack = new Stack<TreeNode>();
 		TreeNode node = root;
-		while (true) {
+
+		while (!stack.isEmpty() || node != null) {
 			if (node != null) {
 				stack.push(node);
 				node = node.left;
 			} else {
-				if (stack.isEmpty()) {
-					break;
-				}
 				node = stack.pop();
 				System.out.print(node.data + " ");
 				node = node.right;
@@ -67,6 +67,7 @@ public class TreeTraversals {
 	public void preOrderIterative(TreeNode root) {
 		Stack<TreeNode> stack = new Stack<TreeNode>();
 		stack.push(root);
+
 		while (!stack.isEmpty()) {
 			root = stack.pop();
 			System.out.print(root.data + " ");
@@ -101,7 +102,8 @@ public class TreeTraversals {
 	public void postOrderIterativeOneStack(TreeNode root) {
 		TreeNode current = root;
 		Stack<TreeNode> stack = new Stack<>();
-		while (current != null || !stack.isEmpty()) {
+
+		while (!stack.isEmpty() || current != null) {
 			if (current != null) {
 				stack.push(current);
 				current = current.left;

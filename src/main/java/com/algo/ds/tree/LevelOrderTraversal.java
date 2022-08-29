@@ -1,6 +1,8 @@
 package com.algo.ds.tree;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -20,6 +22,25 @@ import com.algo.common.TreeNode;
 public class LevelOrderTraversal {
 
 	public void levelOrder(TreeNode root) {
+		List<List<Integer>> list = new ArrayList<>();
+		levelOrderRecursive(root, 0, list);
+		list.forEach(a -> System.out.println(a));
+	}
+
+	private void levelOrderRecursive(TreeNode node, int level, List<List<Integer>> list) {
+		if (node == null) {
+			return;
+		}
+
+		if (level == list.size()) {
+			list.add(new ArrayList<Integer>());
+		}
+		list.get(level).add(node.data);
+		levelOrderRecursive(node.left, level + 1, list);
+		levelOrderRecursive(node.right, level + 1, list);
+	}
+
+	public void levelOrderIterative(TreeNode root) {
 		if (root == null) {
 			System.out.println("Please enter a valid tree!");
 			return;
@@ -27,7 +48,7 @@ public class LevelOrderTraversal {
 		Queue<TreeNode> queue = new LinkedList<TreeNode>();
 		queue.offer(root);
 		System.out.println();
-		while (queue.size() > 0) {
+		while (!queue.isEmpty()) {
 			root = queue.poll();
 			System.out.print(root.data + " ");
 			if (root.left != null) {
@@ -39,7 +60,7 @@ public class LevelOrderTraversal {
 		}
 	}
 
-	public void reverseLevelOrderTraversal(TreeNode root) {
+	public void reverseLevelOrderIterative(TreeNode root) {
 		if (root == null) {
 			return;
 		}
@@ -64,15 +85,16 @@ public class LevelOrderTraversal {
 
 	public static void main(String args[]) {
 		LevelOrderTraversal loi = new LevelOrderTraversal();
-		BinaryTree bt = new BinaryTree();
-		TreeNode head = null;
-		head = bt.addNode(10, head);
-		head = bt.addNode(15, head);
-		head = bt.addNode(5, head);
-		head = bt.addNode(7, head);
-		head = bt.addNode(19, head);
-		head = bt.addNode(20, head);
-		head = bt.addNode(-1, head);
-		loi.levelOrder(head);
+
+		TreeNode root = new TreeNode(3);
+		root.left = new TreeNode(9);
+		root.right = new TreeNode(20);
+		root.right.left = new TreeNode(15);
+		root.right.right = new TreeNode(7);
+		loi.levelOrder(root);
+
+		loi.levelOrderIterative(root);
+		System.out.println();
+		loi.reverseLevelOrderIterative(root);
 	}
 }
