@@ -1,7 +1,10 @@
 package com.algo.ds.queue;
 
+import java.util.Arrays;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 /**
@@ -48,29 +51,23 @@ public class SimplyPath {
 
 	public String simplifyPath(String path) {
 		Deque<String> stack = new LinkedList<>();
-
+		Set<String> set = new HashSet<>(Arrays.asList("..", ".", ""));
 		StringTokenizer token = new StringTokenizer(path, "/");
 		while (token.hasMoreTokens()) {
 			String tok = token.nextToken();
-			if (tok.equals(".")) {
-				continue;
-			} else if (tok.equals("..")) {
-				stack.pollFirst();
-			} else {
-				stack.offerFirst(tok);
+			if (tok.equals("..") && !stack.isEmpty()) {
+				stack.pop();
+			} else if (!set.contains(tok)) {
+				stack.push(tok);
 			}
 		}
 
-		StringBuffer buff = new StringBuffer();
-		if (stack.isEmpty()) {
-			buff.append("/");
+		String result = "";
+		for (String dir : stack) {
+			result = "/" + dir + result;
 		}
 
-		while (!stack.isEmpty()) {
-			buff.append("/").append(stack.pollLast());
-		}
-
-		return buff.toString();
+		return result.isEmpty() ? "/" : result;
 	}
 
 	public static void main(String args[]) {
