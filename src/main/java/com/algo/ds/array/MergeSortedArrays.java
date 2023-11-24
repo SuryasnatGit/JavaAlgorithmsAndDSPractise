@@ -183,6 +183,38 @@ public class MergeSortedArrays {
 		}
 	}
 
+	/**
+	 * Given two sorted integer arrays nums1 _and _nums2, merge _nums2 _into _nums1 _as one sorted array. Note: The
+	 * number of elements initialized in nums1 and nums2 are m and n respectively. You may assume that nums1 has enough
+	 * space (size that is greater or equal to m + n) to hold additional elements from nums2. Example: Input:
+	 * 
+	 * nums1 = [1,2,3,0,0,0], m = 3 nums2 = [2,5,6], n = 3
+	 * 
+	 * 
+	 * Output: [1,2,2,3,5,6]
+	 * 
+	 * T - O(n) S - O(1)
+	 */
+	public void merge2SortedArrays(int[] nums1, int m, int[] nums2, int n) {
+		int k = m + n - 1;
+		int i = m - 1;
+		int j = n - 1;
+
+		while (i >= 0 && j >= 0) {
+			if (nums2[j] > nums1[i]) {
+				nums1[k--] = nums2[j--];
+			} else {
+				nums1[k--] = nums1[i--];
+			}
+		}
+
+		while (j >= 0) {
+			nums1[k--] = nums2[j--];
+		}
+
+		System.out.println(Arrays.toString(nums1));
+	}
+
 	public static void main(String args[]) {
 		Integer arr1[] = { 1, 5, 6, 9, 21 };
 		Integer arr2[] = { 4, 6, 11, 14 };
@@ -224,10 +256,13 @@ public class MergeSortedArrays {
 
 		int ar1[] = { 1, 5, 6, 9, 21 };
 		int ar2[] = { 4, 6, 11, 14 };
-		cm.merge2SortedArrays(ar1, ar2);
+		// cm.merge2SortedArrays(ar1, ar2);
+		//
+		// cm.inPlaceMerge2SortedArrays(ar1, ar2);
+		// System.out.println(Arrays.toString(ar1));
+		// System.out.println(Arrays.toString(ar2));
 
-		cm.inPlaceMerge2SortedArrays(ar1, ar2);
-		System.out.println(Arrays.toString(ar1));
-		System.out.println(Arrays.toString(ar2));
+		cm.merge2SortedArrays(new int[] { 1, 2, 0, 0, 0, 0, 0 }, 2, new int[] { 4, 5, 6, 7, 8 }, 5);
+		cm.merge2SortedArrays(new int[] { 1, 2, 3, 0, 0, 0, 0 }, 3, new int[] { 2, 4, 6 }, 3);
 	}
 }

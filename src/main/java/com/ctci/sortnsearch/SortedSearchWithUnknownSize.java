@@ -1,5 +1,8 @@
 package com.ctci.sortnsearch;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * CTCI - 10.4
  * 
@@ -16,26 +19,29 @@ public class SortedSearchWithUnknownSize {
 
 	// assume this method returns the element at index i
 	class Listy {
+		// sample DS which contains unknown number of elements
+		private List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
+
 		public int elementAt(int i) {
-			return 0;
+			return list.get(i);
 		}
 	}
 
-	public int search(Listy list, int value) {
+	public int search(Listy listy, int value) {
 		int index = 1;
 
 		// find the higher limit
-		while (list.elementAt(index) != -1 && list.elementAt(index) < value) {
+		while (listy.elementAt(index) != -1 && listy.elementAt(index) < value) {
 			index *= 2;
 		}
 
-		return binarySearch(list, value, index / 2, index);
+		return binarySearch(listy, value, index / 2, index);
 	}
 
-	private int binarySearch(Listy list, int value, int start, int end) {
+	private int binarySearch(Listy listy, int value, int start, int end) {
 		while (start <= end) {
-			int mid = (start + end) / 2;
-			int middleValue = list.elementAt(mid);
+			int mid = start + (end - start) / 2;
+			int middleValue = listy.elementAt(mid);
 			if (middleValue == value) {
 				return mid;
 			} else if (middleValue > value) {
@@ -45,5 +51,11 @@ public class SortedSearchWithUnknownSize {
 			}
 		}
 		return -1;
+	}
+
+	public static void main(String[] args) {
+		SortedSearchWithUnknownSize s = new SortedSearchWithUnknownSize();
+		System.out.println(s.search(s.new Listy(), 4));
+		System.out.println(s.search(s.new Listy(), 9));
 	}
 }
