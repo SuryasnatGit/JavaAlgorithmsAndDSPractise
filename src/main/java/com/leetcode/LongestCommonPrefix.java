@@ -12,8 +12,8 @@ import com.algo.ds.trie.Trie;
  * Input: {"apple", "ape", "april"} Output: "ap"
  *
  * The longest common prefix for an array of strings is the common prefix between 2 most dissimilar strings. For
- * example, in the given array {apple, ape, zebra}, there is no common prefix because the 2 most dissimilar
- * strings of the array ape and zebra do not share any starting characters.
+ * example, in the given array {apple, ape, zebra}, there is no common prefix because the 2 most dissimilar strings of
+ * the array ape and zebra do not share any starting characters.
  * 
  * 
  */
@@ -65,23 +65,23 @@ public class LongestCommonPrefix {
 	 */
 	public String lcpCharByCharMatching(String[] input) {
 		int minLength = findMinLength(input);
-		String res = "";
+		StringBuilder res = new StringBuilder();
 		for (int i = 0; i < minLength; i++) {
-			char c = input[0].charAt(i);
+			char c = input[0].charAt(i); // first string from list is enough for checking
 			for (int j = 1; j < input.length; j++) {
-				if (input[j].charAt(i) != c)
-					return res;
+				if (input[j].charAt(i) != c) {
+					return res.toString();
+				}
 			}
-			res += c;
+			res.append(c);
 		}
-		return res;
+		return res.toString();
 	}
 
 	private int findMinLength(String[] input) {
 		int minLength = Integer.MAX_VALUE;
 		for (int i = 0; i < input.length; i++) {
-			if (minLength > input[i].length())
-				minLength = input[i].length();
+			minLength = Math.min(minLength, input[i].length());
 		}
 		return minLength;
 	}

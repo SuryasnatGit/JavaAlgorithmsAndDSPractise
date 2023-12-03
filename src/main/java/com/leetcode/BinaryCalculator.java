@@ -51,6 +51,29 @@ public class BinaryCalculator {
 		return sb.reverse().toString();
 	}
 
+	public String add_simple(String a, String b) {
+		if (a == null)
+			return b;
+		if (b == null)
+			return a;
+
+		int i = a.length() - 1, j = b.length() - 1, carry = 0;
+		StringBuilder sb = new StringBuilder();
+		while (i >= 0 || j >= 0) {
+			int sum = carry;
+			if (j >= 0)
+				sum += b.charAt(j--) - '0';
+			if (i >= 0)
+				sum += a.charAt(i--) - '0';
+			sb.append(sum % 2);
+			carry = sum / 2;
+		}
+		if (carry != 0)
+			sb.append(carry);
+
+		return sb.reverse().toString();
+	}
+
 	public String subtract(String a, String b) {
 		return null;
 	}
@@ -67,5 +90,7 @@ public class BinaryCalculator {
 		BinaryCalculator bc = new BinaryCalculator();
 		System.out.println(bc.add("11", "1"));
 		System.out.println(bc.add("11001", "1001"));
+		System.out.println(bc.add_simple("11", "1"));
+		System.out.println(bc.add_simple("11001", "1001"));
 	}
 }

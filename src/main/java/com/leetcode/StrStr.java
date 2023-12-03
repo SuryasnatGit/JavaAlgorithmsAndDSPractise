@@ -6,6 +6,22 @@ package com.leetcode;
  */
 public class StrStr {
 
+	/*
+	 * Using subString()
+	 */
+	public int strStr1(String haystack, String needle) {
+		if (needle.equals("")) {
+			return 0;
+		}
+		int needleLength = needle.length();
+		for (int i = 0; i <= haystack.length() - needleLength; i++) {
+			if (haystack.substring(i, i + needleLength).equals(needle)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
 	/**
 	 * Brute force. T - O(nm) , S - O(1) .
 	 * 
@@ -135,6 +151,7 @@ public class StrStr {
 
 	public static void main(String[] args) {
 		StrStr str = new StrStr();
+		System.out.println("Usng naive approach..");
 		System.out.println(str.strStrNaive("needle in haystack", "needle"));
 		System.out.println(str.strStrNaive("needle in haystack", "in"));
 		System.out.println(str.strStrNaive("needle in haystack", "needle needle in haystack"));
@@ -142,7 +159,7 @@ public class StrStr {
 		System.out.println(str.strStrNaive("needle in haystack", ""));
 		System.out.println(str.strStrNaive("", "needle"));
 		System.out.println(str.strStrNaive("", ""));
-		System.out.println();
+		System.out.println("Using kmp approach..");
 		System.out.println(str.strStrKMP("needle in haystack", "needle"));
 		System.out.println(str.strStrKMP("needle in haystack", "in"));
 		System.out.println(str.strStrKMP("needle in haystack", "needle needle in haystack"));
@@ -150,6 +167,12 @@ public class StrStr {
 		System.out.println(str.strStrKMP("needle in haystack", ""));
 		System.out.println(str.strStrKMP("", "needle"));
 		System.out.println(str.strStrKMP("", ""));
+		System.out.println("Using substring() approach..");
+		System.out.println(str.strStr1("needle in haystack", "needle"));
+		System.out.println(str.strStr1("needle in haystack", "in"));
+		System.out.println(str.strStr1("needle in haystack", "needle needle in haystack"));
+		System.out.println(str.strStr1("needle in haystack", "man"));
+		System.out.println(str.strStr1("needle in haystack", ""));
 	}
 
 }

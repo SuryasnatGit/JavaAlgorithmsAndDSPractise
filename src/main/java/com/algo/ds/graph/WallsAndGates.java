@@ -25,11 +25,20 @@ import java.util.Queue;
  * The performance of recursive DFS is very unstable. It is much slower than BFS if the rooms are interconnected. It is
  * only faster than BFS when small groups of rooms are isolated. Thus, for this problem we should prefer BFS over DFS.
  * And the best Solution is Multi End BFS
+ * 
+ * TBD: space and time complexity
  */
 public class WallsAndGates {
-	private static final int d[][] = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } };
+	private static final int directions[][] = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } }; // directions from a point
 	private static final int INF = Integer.MAX_VALUE;
 
+	/**
+	 * The solution of DFS is to perform dfs search from gate, but the problem of DFS is that it may search to the same
+	 * position multiple times, and if it is shorter than the currently stored distance, the current distance is
+	 * updated, so the algorithm is not efficient and stable enough.
+	 * 
+	 * @param rooms
+	 */
 	public void wallsAndGatesDFS(int[][] rooms) {
 		if (rooms == null || rooms.length == 0 || rooms[0].length == 0)
 			return;
@@ -78,22 +87,22 @@ public class WallsAndGates {
 	}
 
 	private void addNeighbors(int[][] rooms, int row, int col, Queue<Cell> queue) {
-		for (int[] d1 : d) {
-			int r1 = row + d1[0];
-			int c1 = col + d1[1];
-			if (r1 < 0 || c1 < 0 || r1 >= rooms.length || c1 >= rooms[0].length || rooms[r1][c1] != INF) {
+		for (int[] direction : directions) {
+			int newrow = row + direction[0];
+			int newcol = col + direction[1];
+			if (newrow < 0 || newcol < 0 || newrow >= rooms.length || newcol >= rooms[0].length || rooms[newrow][newcol] != INF) {
 				continue;
 			}
-			rooms[r1][c1] = 1 + rooms[row][col];
-			queue.offer(new Cell(r1, c1));
+			rooms[newrow][newcol] = 1 + rooms[row][col];
+			queue.offer(new Cell(newrow, newcol));
 		}
 	}
 
 	private void gates(int[][] rooms, Queue<Cell> queue) {
-		for (int i = 0; i < rooms.length; i++) {
-			for (int j = 0; j < rooms[0].length; j++) {
-				if (rooms[i][j] == 0) {
-					queue.offer(new Cell(i, j));
+		for (int row = 0; row < rooms.length; row++) {
+			for (int col = 0; col < rooms[0].length; col++) {
+				if (rooms[row][col] == 0) {
+					queue.offer(new Cell(row, col));
 				}
 			}
 		}
