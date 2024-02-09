@@ -10,7 +10,10 @@ import java.util.Set;
 import com.algo.common.TreeNode;
 
 /**
- * Build a tree given a list of relationship (parent -> child, 以及一个boolean isLeft)。 用一个hashmap做的。
+ * 
+ * Build a tree given a list of relationship (parent -> child, and a boolean isLeft). Made with a hashmap.
+ * 
+ * T - O(n) S - O(n)
  */
 public class BuildTreeGivenRelationship {
 
@@ -69,10 +72,10 @@ public class BuildTreeGivenRelationship {
 				parentNode.right = childNode;
 			}
 
+			// every child node has a parent except the root node
 			hasParent.add(childNode);
 		}
 
-		// map.size() == hasParent.size() + 1
 		for (TreeNode node : map.values()) {
 			if (!hasParent.contains(node)) {
 				return node;
