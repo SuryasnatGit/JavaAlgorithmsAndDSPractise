@@ -1,5 +1,6 @@
 package com.leetcode;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,7 +21,10 @@ import java.util.List;
 public class PlaceFlowers {
 
 	/*
-	 * 遇到flower,直接jump +2. 遇到空地方，检查left and right. 如果左右皆空， 放花，jump +2, 如果不能放，jump +1
+	 * When you encounter a flower, jump +2 directly. When you encounter an empty space, check the left and right. If
+	 * the left and right are empty, place the flower and jump +2. If it cannot be placed, jump +1.
+	 * 
+	 * T - O(n) S - O(1)
 	 */
 	boolean canPlaceFlowers(List<Boolean> flowerbed, int count) {
 		if (count == 0) {
@@ -29,11 +33,13 @@ public class PlaceFlowers {
 
 		int pos = 0;
 		while (pos < flowerbed.size()) {
-			if (flowerbed.get(pos)) { // has flower
+			// has flower
+			if (flowerbed.get(pos)) {
 				pos += 2;
 				continue;
 			}
 
+			// encountered empty space
 			// If left and right are available, true means available
 			boolean left = false;
 			boolean right = false;
@@ -41,11 +47,11 @@ public class PlaceFlowers {
 			if (pos == 0) {
 				left = true; // Assume -1 doesnt have flower
 			} else {
-				left = !flowerbed.get(pos - 1);
+				left = !flowerbed.get(pos - 1); // inverse of false is true, i.e that bed is available
 			}
 
 			if (pos == flowerbed.size() - 1) {
-				right = true;
+				right = true; // assume length + 1doesn't have any flower
 			} else {
 				right = !flowerbed.get(pos + 1);
 			}
@@ -59,5 +65,11 @@ public class PlaceFlowers {
 		}
 
 		return count <= 0;
+	}
+
+	public static void main(String[] args) {
+		PlaceFlowers fl = new PlaceFlowers();
+		System.out.println(fl.canPlaceFlowers(Arrays.asList(true, false, false, false, true), 1));
+		System.out.println(fl.canPlaceFlowers(Arrays.asList(true, false, false, false, true), 2));
 	}
 }

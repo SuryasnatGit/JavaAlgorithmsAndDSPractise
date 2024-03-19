@@ -25,7 +25,9 @@ import java.util.Arrays;
 public class LeetCodeCandy {
 
 	/**
-	 * T - O(n) S - O(n)
+	 * Time complexity : O(n). The array candies[] of size n is traversed twice.
+	 * 
+	 * Space complexity : O(n). An array candies[] of size n is used.
 	 * 
 	 * @param ratings
 	 * @return
@@ -53,6 +55,8 @@ public class LeetCodeCandy {
 	}
 
 	/**
+	 * TODO : understand properly.
+	 * 
 	 * T - O(n) S - O(1)
 	 * 
 	 */
@@ -98,5 +102,11 @@ public class LeetCodeCandy {
 		System.out.println(candy.candyConstantSpace(new int[] { 1, 2, 2 }));
 		System.out.println(candy.candyOneArray(new int[] { 1, 0, 2 }));
 		System.out.println(candy.candyConstantSpace(new int[] { 1, 0, 2 }));
+		System.out.println(candy.candyOneArray(new int[] { 3, 1, 2, 2, 2, 1, 4 }));
+		System.out.println(candy.candyConstantSpace(new int[] { 3, 1, 2, 2, 2, 1, 4 }));
+		System.out.println(candy.candyOneArray(new int[] { 3, 1, 2, 2, 1, 4 }));
+		System.out.println(candy.candyConstantSpace(new int[] { 3, 1, 2, 2, 1, 4 }));
+		System.out.println(candy.candyOneArray(new int[] { 3, 1, 2, 1, 4 }));
+		System.out.println(candy.candyConstantSpace(new int[] { 3, 1, 2, 1, 4 }));
 	}
 }

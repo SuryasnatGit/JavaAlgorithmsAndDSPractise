@@ -1,7 +1,5 @@
 
-
 package com.leetcode;
-
 
 /**
  * Reverse digits of an integer. Example1: x = 123, return 321 Example2: x = -123, return -321 .<br/>
@@ -16,24 +14,26 @@ package com.leetcode;
  */
 public class ReverseInteger {
 
-    public int reverse(int num) {
-        int res = 0;
-        boolean sign = num > 0;
-        int x = Math.abs(num);
-        while (x > 0) {
-            // to prevent overflow, use divide instead of multiple operation to check first
-            if (res > Integer.MAX_VALUE / 10)
-                return 0;
-            res = res * 10 + x % 10;
-            x /= 10;
-        }
-        return sign ? res : -res;
-    }
+	public int reverse(int num) {
+		int res = 0;
+		boolean sign = num > 0;
+		int x = Math.abs(num);
+		while (x > 0) {
+			// to prevent overflow, use divide instead of multiple operation to check first
+			if (res > Integer.MAX_VALUE / 10)
+				return 0;
+			res = res * 10 + x % 10;
+			x /= 10;
+		}
+		return sign ? res : -res;
+	}
 
-    public static void main(String[] args) {
-        ReverseInteger ri = new ReverseInteger();
-        System.out.println(ri.reverse(345345345));
+	public static void main(String[] args) {
+		ReverseInteger ri = new ReverseInteger();
+		System.out.println(ri.reverse(345345345));
+		System.out.println(ri.reverse(100));
+		System.out.println(ri.reverse(1000000003));
 
-    }
+	}
 
 }

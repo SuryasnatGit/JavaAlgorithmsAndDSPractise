@@ -92,15 +92,20 @@ public class SlidingWIndowMaximum {
 
 		int len = nums.length;
 		int[] res = new int[len - k + 1];
-		LinkedList<Integer> list = new LinkedList<Integer>(); // 需要两头同时操作，所以LinkedList 实际上是一个双向链表
+		// Both ends need to be operated at the same time, so LinkedList is actually a doubly linked list
+		LinkedList<Integer> list = new LinkedList<Integer>();
 
-		for (int i = 0; i < nums.length; i++) { // List存index
-			if (!list.isEmpty() && list.peekFirst() < i - k + 1) { // 最左边的过时了
+		for (int i = 0; i < nums.length; i++) { // List storage index
+			// The one on the far left is outdated.
+			if (!list.isEmpty() && list.peekFirst() < i - k + 1) {
 				list.pollFirst();
 			}
 
-			// 我们只关心在一个section中的max, 如果左边的值小于新加入的值，左边的小值就没价值了，直接扔掉，这样保证List最左边就总是下一个max
-			while (!list.isEmpty() && nums[i] > nums[list.peekLast()]) { // 只留下大数，小数不管用 最终是个递减数列
+			// We only care about the max in a section. If the value on the left is smaller than the newly added value,
+			// the small value on the left is worthless and thrown away directly. This ensures that the leftmost value
+			// in the List is always the next max.
+			// Only large numbers are left, decimals are not used, and finally it is a decreasing sequence.
+			while (!list.isEmpty() && nums[i] > nums[list.peekLast()]) {
 				list.pollLast();
 			}
 

@@ -7,6 +7,7 @@ public class ReverseString {
 		for (int i = 0; i < s.length / 2; i++) {
 			swap(s, i, s.length - i - 1);
 		}
+		System.out.println(s);
 	}
 
 	private void swap(char[] s, int i, int j) {
@@ -15,22 +16,9 @@ public class ReverseString {
 		s[j] = temp;
 	}
 
-	// 2
-	public void reverseString2(char[] s) {
-		char[] res = new char[s.length];
-
-		for (int i = 0; i < s.length; i++) {
-			res[i] = s[s.length - i - 1];
-		}
-
-		System.out.println(res);
-	}
-
 	public static void main(String[] args) {
 		ReverseString rev = new ReverseString();
-		char[] s = "apple".toCharArray();
-		rev.reverseString1(s);
-		System.out.println(s);
-		rev.reverseString2(s);
+		rev.reverseString1("apple".toCharArray());
+		rev.reverseString1("mithun".toCharArray());
 	}
 }

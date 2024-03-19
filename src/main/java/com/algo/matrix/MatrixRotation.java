@@ -38,7 +38,10 @@ public class MatrixRotation {
 	 * 
 	 * To right rotate, we do following steps.
 	 * 
-	 * Find transpose of matrix. Reverse rows of the transpose.
+	 * Find transpose of matrix. the transpose of a matrix is an operator which flips a matrix over its diagonal; that
+	 * is, it switches the row and column indices of the matrix A by producing another matrix
+	 * 
+	 * Reverse rows of the transpose.
 	 * 
 	 * 
 	 */
