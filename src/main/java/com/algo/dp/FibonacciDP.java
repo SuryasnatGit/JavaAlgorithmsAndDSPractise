@@ -7,8 +7,22 @@ public class FibonacciDP {
 
 	public static void main(String[] args) {
 		FibonacciDP dp = new FibonacciDP();
-		System.out.println(dp.fibonacciDP(12));
-		System.out.println(dp.fibonacciOptimizedSpace(12));
+		System.out.println(dp.fibonnacciRecursive(10));
+		System.out.println(dp.fibonacciDP(10));
+		System.out.println(dp.fibonacciOptimizedSpace(10));
+	}
+
+	/**
+	 * T - O(2^n)
+	 * 
+	 */
+	public int fibonnacciRecursive(int num) {
+		if (num == 0)
+			return 0;
+		if (num == 1)
+			return 1;
+
+		return fibonnacciRecursive(num - 1) + fibonnacciRecursive(num - 2);
 	}
 
 	/**
@@ -47,8 +61,8 @@ public class FibonacciDP {
 	 * @return
 	 */
 	public int fibonacciOptimizedSpace(int num) {
-		if (num == 0)
-			return 0;
+		if (num < 2)
+			return num;
 		int a = 0;
 		int b = 1;
 		for (int i = 2; i < num; i++) {

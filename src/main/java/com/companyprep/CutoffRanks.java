@@ -1,6 +1,5 @@
 package com.companyprep;
 
-import java.util.Arrays;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -89,7 +88,6 @@ import java.util.TreeMap;
  * Explanation: In order, the players achieve the ranks [4,4,3,2,1]. Since the cutOffRank is 4, all 5 employees will be
  * left. So, the output is 5
  *
- * TODO : getting TLE in aonecode editor. but basic test cases work.
  */
 public class CutoffRanks {
 
@@ -100,7 +98,7 @@ public class CutoffRanks {
 	 */
 	public int cutOffRank1(int cutOffRank, int num, int[] scores) {
 
-		System.out.println(Arrays.toString(scores));
+		// System.out.println(Arrays.toString(scores));
 
 		// map of score in descending order to count of players having that score
 		SortedMap<Integer, Integer> scoreCountMap = new TreeMap<>((a, b) -> b - a);
@@ -109,7 +107,7 @@ public class CutoffRanks {
 			scoreCountMap.put(scores[i], scoreCountMap.getOrDefault(scores[i], 0) + 1);
 		}
 
-		System.out.println(scoreCountMap);
+		// System.out.println(scoreCountMap);
 
 		int count = 0;
 		for (Map.Entry<Integer, Integer> scoreCountMapEntry : scoreCountMap.entrySet()) {

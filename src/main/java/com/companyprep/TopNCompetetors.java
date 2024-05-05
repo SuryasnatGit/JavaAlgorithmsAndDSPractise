@@ -10,11 +10,10 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-// TODO: fix all edge cases.
 public class TopNCompetetors {
 
-	public ArrayList<String> topNCompetetors(int numCompetitors, int topNCompetitors, List<String> competitors,
-			int numReviews, List<String> reviews) {
+	public ArrayList<String> topNCompetetors(int topNCompetitors, List<String> competitors, int numReviews,
+			List<String> reviews) {
 
 		Set<String> set = new HashSet<>(competitors);
 		System.out.println("set :" + set);
@@ -36,7 +35,6 @@ public class TopNCompetetors {
 				if (set.contains(s)) {
 					found = true;
 					key = s;
-					// compCount.put(s, compCount.containsKey(s) ? compCount.get(s) + 1 : 1);
 				}
 			}
 			if (found) {
@@ -99,6 +97,6 @@ public class TopNCompetetors {
 		List<String> reviews = Arrays.asList("newshop is: everyone newshop", "best service newshop and fashionbeats",
 				"fashionbeats great value", "proud fashionbeats", "bymarket awesome", "thanks newshop",
 				"bymarket great");
-		System.out.println(top.topNCompetetors(6, 2, competetors, 6, reviews));
+		System.out.println(top.topNCompetetors(2, competetors, 6, reviews));
 	}
 }

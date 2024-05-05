@@ -31,8 +31,102 @@ package com.companyprep;
  * 
  * Now write an algorithm which will return the minimum number of jumps required to make them sit together.
  * 
- * TODO
+ * Algorithm : Greedy
+ * 
+ * Number of jumps is always minimum when people shift towards median. Every time two groups of people need to be merged
+ * together, the group with lesser number of people should join the larger group so that hops are minimum
+ * 
+ * Category : Hard
  */
 public class SeatArrangement {
+
+	// T - O(n * n) -- wrong solution
+	public int minimumJumps(char[] seats) {
+		int minJumps = Integer.MAX_VALUE;
+		for (int i = 0; i < seats.length; i++) {
+			int jumps = shift(seats, i);
+			System.out.println(jumps);
+			minJumps = Math.min(minJumps, jumps);
+		}
+		return minJumps;
+	}
+
+	// T - O(n)
+	public int minimumJumpsOptimized(String s) {
+		int i = findMedian(s.toCharArray());
+		if (i == -1) {
+			return 0;
+		}
+		return shift(s.toCharArray(), i);
+	}
+
+	private int findMedian(char[] seats) {
+		int count1 = 0;
+		for (int i = 0; i < seats.length; i++) {
+			if (seats[i] == 'x') {
+				count1++;
+			}
+		}
+
+		if (count1 == 0) {
+			return -1;
+		}
+
+		count1 = (count1 + 1) / 2; // half
+		int count2 = 0;
+		for (int i = 0; i < seats.length; i++) {
+			if (seats[i] == 'x') {
+				count2++;
+				if (count2 == count1) {
+					return i;
+				}
+			}
+		}
+		return -1;
+	}
+
+	private int shift(char[] seats, int pos) {
+		int count = 0;
+		// left scan of pos
+		int j = 0, k = pos;
+		while (j < k) {
+			if (seats[j] == '.') {
+				j++;
+			} else if (seats[k] == 'x') {
+				k--;
+			} else {
+				seats[k] = seats[j];
+				seats[j] = '.';
+				count += (k - j);
+				j++;
+				k--;
+			}
+		}
+
+		// right scan of pos
+		j = seats.length - 1;
+		k = pos;
+		while (j > k) {
+			if (seats[j] == '.') {
+				j--;
+			} else if (seats[k] == 'x') {
+				k++;
+			} else {
+				seats[k] = seats[j];
+				seats[j] = '.';
+				count += (j - k);
+				j--;
+				k++;
+			}
+		}
+
+		return count;
+	}
+
+	public static void main(String[] args) {
+		SeatArrangement sa = new SeatArrangement();
+		System.out.println(sa.minimumJumps("....x..xx...x..".toCharArray()));
+		System.out.println(sa.minimumJumpsOptimized("....x..xx...x..")); // median solution works
+	}
 
 }

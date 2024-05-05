@@ -17,9 +17,15 @@ package com.leetcode;
  * 
  * 1,1,5 → 1,5,1
  * 
- * 给一个整数，要求找出由相同的digits组成的另一个数，让新数字是一个比原数字小的数里面最大的。 比如： 321 -》 312.
+ * Given an integer, it is required to find another number composed of the same digits, so that the new number is the
+ * largest number smaller than the original number. For example: 321 -》312.
  * 
- * 刚看到这题毫无头绪，让面试官给了几个例子之后才发现是面经题那道 previous permutation
+ * I had no clue when I saw this question. After asking the interviewer to give a few examples, I found out that it was
+ * the previous permutation question in the interview.
+ * 
+ * Category : Hard
+ * 
+ * TODO : understand properly
  *
  */
 public class NextPermutation {
