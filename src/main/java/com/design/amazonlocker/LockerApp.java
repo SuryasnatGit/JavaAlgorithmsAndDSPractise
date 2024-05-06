@@ -1,4 +1,4 @@
-package com.ooad.amazonlocker;
+package com.design.amazonlocker;
 
 import java.util.ArrayList;
 import java.util.HashMap;

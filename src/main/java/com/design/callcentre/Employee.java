@@ -1,4 +1,4 @@
-package com.ooad.callcentre;
+package com.design.callcentre;
 
 /**
  * Base class for all employees

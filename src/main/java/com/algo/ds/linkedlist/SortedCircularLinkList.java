@@ -63,12 +63,12 @@ public class SortedCircularLinkList {
 	public static void main(String args[]) {
 		SortedCircularLinkList scll = new SortedCircularLinkList();
 		Node head = null;
-		head = scll.add(head, 10);
-		head = scll.add(head, 12);
-		head = scll.add(head, -1);
-		head = scll.add(head, -5);
-		head = scll.add(head, 11);
-		head = scll.add(head, 7);
+		head = scll.addInterval(head, 10);
+		head = scll.addInterval(head, 12);
+		head = scll.addInterval(head, -1);
+		head = scll.addInterval(head, -5);
+		head = scll.addInterval(head, 11);
+		head = scll.addInterval(head, 7);
 
 		scll.printList(head);
 	}

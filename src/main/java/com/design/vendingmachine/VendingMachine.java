@@ -1,6 +1,6 @@
 
 
-package com.ooad.vendingmachine;
+package com.design.vendingmachine;
 
 
 import java.util.List;

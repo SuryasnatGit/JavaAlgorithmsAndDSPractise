@@ -108,6 +108,13 @@ public class MergeIntervals {
 		return res;
 	}
 
+	// TODO: Question: How do you add intervals and merge them for a large stream of intervals? (Facebook Follow-up
+	// Question) . INterval tree
+
+	// https://leetcode.com/problems/merge-intervals/solution/
+
+	// https://leetcode.com/problems/merge-intervals/discuss/21452/Share-my-interval-tree-solution-no-sorting
+
 	class Interval {
 		int start;
 		int end;
@@ -140,7 +147,7 @@ public class MergeIntervals {
 	 * 
 	 */
 	// You can use the bucket sort idea First merge the list by yourself to ensure that there is no overlap
-	List<Interval> intersection(List<Interval> A, List<Interval> B) {
+	public List<Interval> intersection(List<Interval> A, List<Interval> B) {
 		List<Interval> res = new ArrayList<Interval>();
 		int pos1 = 0;
 		int pos2 = 0;
@@ -173,7 +180,7 @@ public class MergeIntervals {
 		return res;
 	}
 
-	List<Interval> union(List<Interval> A, List<Interval> B) {
+	public List<Interval> union(List<Interval> A, List<Interval> B) {
 		List<Interval> res = new ArrayList<Interval>();
 		int pos1 = 1;
 		int pos2 = 0;
@@ -247,14 +254,14 @@ public class MergeIntervals {
 	 * 
 	 * (2) Binary search tree. That is map, treemap. Keep the order after insertion, O(logN) add O(N) get time
 	 * 
-	 * follow up If you need to remove interval, which way?
+	 * TODO: follow up If you need to remove interval, which way?
 	 */
 
 	// Solution 1 : time complexity: call O(n), get O(1)
 	private Node head = new Node(0, 0);
 	private int totalLength = 0;
 
-	public void add(int start, int end) {
+	public void addInterval(int start, int end) {
 		if (start >= end) {
 			return;
 		}
@@ -293,7 +300,7 @@ public class MergeIntervals {
 		}
 	}
 
-	public int getTotalLength() {
+	public int getTotalBusyTime() {
 		return totalLength;
 	}
 

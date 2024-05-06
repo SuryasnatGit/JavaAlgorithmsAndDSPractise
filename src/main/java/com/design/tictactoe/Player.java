@@ -1,4 +1,4 @@
-package com.ooad.tictactoe;
+package com.design.tictactoe;
 
 /**
  * The Player class is applied to manage the player’s information. The number of wins and symbol of

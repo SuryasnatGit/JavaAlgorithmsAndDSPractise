@@ -31,40 +31,6 @@ public class MiscellaneousLinkedListProblems {
 	}
 
 	/**
-	 * Merge two sorted ListNodeed lists and return it as a new list. The new list should be made by splicing together
-	 * the nodes of the first two lists.
-	 * 
-	 * The key to solve the problem is defining a fake head. Then compare the first elements from each list. Add the
-	 * smaller one to the merged list. Finally, when one of them is empty, simply append it to the merged list, since it
-	 * is already sorted.
-	 * 
-	 * @param a
-	 * @param b
-	 * @return
-	 */
-	public ListNode merge2SortedLists(ListNode a, ListNode b) {
-		ListNode tempHead = new ListNode(0);
-		ListNode headPtr = tempHead;
-		ListNode aPtr = a;
-		ListNode bPtr = b;
-		while (aPtr != null && bPtr != null) {
-			if (aPtr.data < bPtr.data) {
-				headPtr.next = aPtr;
-				aPtr = aPtr.next;
-			} else {
-				headPtr.next = bPtr;
-				bPtr = bPtr.next;
-			}
-			headPtr = headPtr.next;
-		}
-		if (aPtr != null)
-			headPtr.next = aPtr;
-		if (bPtr != null)
-			headPtr.next = bPtr;
-		return tempHead.next;
-	}
-
-	/**
 	 * Use 2 nested for loops. Outer loop will be for each node of the 1st list and inner loop will be for 2nd list. In
 	 * the inner loop, check if any of nodes of 2nd list is same as the current node of first ListNodeed list. Time
 	 * complexity of this method will be O(mn) where m and n are the number of nodes in two lists.
@@ -260,48 +226,6 @@ public class MiscellaneousLinkedListProblems {
 		}
 
 		return head;
-	}
-
-	/**
-	 * https://www.techiedelight.com/sort-ListNodeed-list-containing-0s-1s-2s/
-	 * 
-	 * @return
-	 */
-	public ListNode sortList(ListNode head) {
-		// base case
-		if (head == null || head.next == null) {
-			return head;
-		}
-
-		// maintain three dummy_ nodes
-		ListNode dummy_0 = new ListNode(-1), dummy_1 = new ListNode(-1), dummy_2 = new ListNode(-1);
-
-		// maintain three references
-		ListNode zero = dummy_0, one = dummy_1, two = dummy_2;
-		ListNode curr = head;
-
-		// traverse the list
-		while (curr != null) {
-			if (curr.data == 0) {
-				zero.next = curr;
-				zero = zero.next;
-			} else if (curr.data == 1) {
-				one.next = curr;
-				one = one.next;
-			} else {
-				two.next = curr;
-				two = two.next;
-			}
-			curr = curr.next;
-		}
-
-		// combine lists containing 0's, 1's and 2's
-		zero.next = (dummy_1.next != null) ? (dummy_1.next) : (dummy_2.next);
-		one.next = dummy_2.next;
-		two.next = null;
-
-		// change head
-		return dummy_0.next;
 	}
 
 	/**
@@ -846,42 +770,6 @@ public class MiscellaneousLinkedListProblems {
 			b = b.next;
 		}
 		return a == null && b == null ? 1 : 0;
-	}
-
-	public ListNode mergeSortedListsRecursive(ListNode a, ListNode b) {
-		if (a == null)
-			return b;
-		if (b == null)
-			return a;
-		if (a.data < b.data) {
-			a.next = mergeSortedListsRecursive(a.next, b);
-			return a;
-		} else {
-			b.next = mergeSortedListsRecursive(a, b.next);
-			return b;
-		}
-	}
-
-	public ListNode mergeSortedListsNonRecursive(ListNode a, ListNode b) {
-		ListNode temp = null;
-		while (a != null && b != null) {
-			if (a.data < b.data) {
-				temp = formSortedList(a, temp);
-				a = a.next;
-			} else {
-				temp = formSortedList(b, temp);
-				b = b.next;
-			}
-		}
-		while (a != null) {
-			temp = formSortedList(a, temp);
-			a = a.next;
-		}
-		while (b != null) {
-			temp = formSortedList(b, temp);
-			b = b.next;
-		}
-		return temp;
 	}
 
 	private ListNode formSortedList(ListNode tempListNode, ListNode head) {

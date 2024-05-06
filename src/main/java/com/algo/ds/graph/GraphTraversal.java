@@ -3,6 +3,7 @@ package com.algo.ds.graph;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
@@ -33,13 +34,13 @@ import java.util.Stack;
 public class GraphTraversal {
 	/**
 	 * 
-	 * T - O(m + n) where m = num of vertices and n = num of edges
+	 * T - O(V + E) where V = num of vertices and E = num of edges. S - O(V) where V is number of vertices
 	 */
 
 	// Perform BFS on graph starting from vertex v
 	public void BFS_iterative(Graph1 graph, int v, boolean[] discovered) {
 		// create a queue used to do BFS
-		Queue<Integer> q = new ArrayDeque<>();
+		Queue<Integer> q = new LinkedList<>();
 
 		// mark source vertex as discovered
 		discovered[v] = true;
@@ -87,7 +88,7 @@ public class GraphTraversal {
 
 	// Perform iterative DFS on graph g starting from vertex v
 	public void DFS_iterative(Graph1 graph, int v, boolean[] discovered) {
-		// create a stack used to do iterative DFS
+		// create a stack used to do DFS
 		Stack<Integer> stack = new Stack<>();
 
 		// push the source node into stack

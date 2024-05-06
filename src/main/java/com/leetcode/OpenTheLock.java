@@ -30,11 +30,21 @@ import java.util.Set;
  * 
  * Example 3: Input: deadends = ["8887","8889","8878","8898","8788","8988","7888","9888"], target = "8888" Output: -1
  * 
- * Explanation: We can't reach the target without getting stuck. Example 4: Input: deadends = ["0000"], target = "8888"
- * Output: -1 Note: The length of deadends will be in the range [1, 500]. target will not be in the list deadends. Every
- * string in deadends and the string target will be a string of 4 digits from the 10,000 possibilities '0000' to '9999'.
+ * Explanation: We can't reach the target without getting stuck.
  * 
- * Category : Medium
+ * Example 4: Input: deadends = ["0000"], target = "8888"
+ * 
+ * Output: -1
+ * 
+ * Note: The length of deadends will be in the range [1, 500]. target will not be in the list deadends. Every string in
+ * deadends and the string target will be a string of 4 digits from the 10,000 possibilities '0000' to '9999'.
+ * 
+ * Why not DFS?
+ * 
+ * Because the problem here asks for the minimum number of steps to achieve the target state. Using BFS, we can report
+ * the answer as long as we reach the target state. But using DFS, we can't guarantee that the initial target state that
+ * we reach is the optimal solution. You still have to search the whole search space. Think about the problem that to
+ * find the depth of a binary tree, it is quite similar in this sense.
  * 
  * TODO : to understand the logic
  *
@@ -64,9 +74,9 @@ public class OpenTheLock {
 				if (lock.equals(target)) {
 					return ans;
 				}
-				for (int i = 0; i < 4; i++) {
+				for (int i = 0; i < 4; i++) { // for each lock
 					char ch = lockArray[i];
-					for (int d : dir) {
+					for (int d : dir) { // for each forward / backward direction
 						rotate(lockArray, i, d);
 						String newLock = new String(lockArray);
 						if (!deadends.contains(newLock)) {

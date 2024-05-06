@@ -1,4 +1,4 @@
-package com.ooad.chess;
+package com.design.chess;
 
 /**
  * A spot represents one block of the 8×8 grid and an optional piece

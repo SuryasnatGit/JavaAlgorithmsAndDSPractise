@@ -1,4 +1,4 @@
-package com.ooad.restaurant;
+package com.design.restaurant;
 
 public class Cashier {
 

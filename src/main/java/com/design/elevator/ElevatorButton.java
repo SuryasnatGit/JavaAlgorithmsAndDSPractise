@@ -1,4 +1,4 @@
-package com.ooad.elevator;
+package com.design.elevator;
 
 public class ElevatorButton extends Button {
 

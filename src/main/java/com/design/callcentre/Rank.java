@@ -1,4 +1,4 @@
-package com.ooad.callcentre;
+package com.design.callcentre;
 
 public enum Rank {
 	RESPONDENT(1), MANAGER(2), DIRECTOR(3);

@@ -1,4 +1,4 @@
-package com.ooad.bookmyshow;
+package com.design.bookmyshow;
 
 import java.util.Date;
 

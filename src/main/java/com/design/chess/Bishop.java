@@ -1,4 +1,4 @@
-package com.ooad.chess;
+package com.design.chess;
 
 public class Bishop extends Piece {
 

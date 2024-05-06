@@ -1,11 +1,13 @@
-package com.leetcode;
+package com.design.eventbus;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 电面是写一个EventBus，完成以下三个函数，用来监听事件的，一个event可以有多个listener，多个线程可能会同时调用其中的函数，
- * 有些listener的回调函数可能会运行很久，导其它的listener要等待很长的一段时间才能被触发，要解决这些问题。当时面的是Uber pool组mobile职位。
+ * The electric side is to write an EventBus to complete the following three functions to listen for events. An event
+ * can have multiple listeners, and multiple threads may call the functions at the same time. Some listener callback
+ * functions may run for a long time, causing other listeners to wait for a long time before being triggered. These
+ * problems must be solved. The interview was for a mobile position in the Uber pool group.
  * 
  * The EventBus allows for objects to subscribe for or publish events, without having explicit knowledge of each other.
  * The EventBus is not meant to be a general purpose publish/subscribe system or support interprocess communication. The

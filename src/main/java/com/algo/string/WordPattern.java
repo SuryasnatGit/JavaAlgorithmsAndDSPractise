@@ -21,6 +21,7 @@ import java.util.Set;
  * 
  * Category : Hard
  *
+ * TODO: find time complexity and improve it
  */
 public class WordPattern {
 
@@ -49,8 +50,10 @@ public class WordPattern {
 			if (!map.containsKey(c) && !set.contains(sub)) {
 				map.put(c, sub);
 				set.add(sub);
-				if (helper(pattern, str, i + 1, k, map, set))
+				if (helper(pattern, str, i + 1, k, map, set)) {
 					return true;
+				}
+				// else backtrack
 				map.remove(c);
 				set.remove(sub);
 			} else if (map.containsKey(c) && map.get(c).equals(sub)) {

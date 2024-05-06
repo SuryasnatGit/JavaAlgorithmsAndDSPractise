@@ -22,7 +22,12 @@ package com.leetcode;
  */
 public class FindMinimumInSortedRotatedArray {
 
-	// T - O(n)
+	/**
+	 * T - O(n)
+	 * 
+	 * @param nums
+	 * @return
+	 */
 	public int findMin(int[] nums) {
 		int min = nums[0];
 		for (int i = 1; i < nums.length; i++) {
@@ -38,7 +43,7 @@ public class FindMinimumInSortedRotatedArray {
 		int L = 0;
 		int R = nums.length - 1;
 		while (L < R && nums[L] >= nums[R]) {
-			int M = (L + R) / 2;
+			int M = L + (R - L) / 2;
 			if (nums[M] > nums[R]) {
 				L = M + 1;
 			} else if (nums[M] < nums[R]) {
@@ -106,6 +111,8 @@ public class FindMinimumInSortedRotatedArray {
 		FindMinimumInSortedRotatedArray min = new FindMinimumInSortedRotatedArray();
 		System.out.println(min.findMin(new int[] { 6, 7, 3, 4, 5 }));
 		System.out.println(min.findMin1(new int[] { 6, 7, 3, 4, 5 }));
+		System.out.println(min.findMin1(new int[] { 1, 2, 3, 4, 5 }));
+		System.out.println(min.findMin1(new int[] { 9, 8, 7, 6, 5 }));
 		System.out.println(min.findMin2(new int[] { 6, 7, 3, 4, 5 }));
 		System.out.println(min.findMin2(new int[] { 6, 7, 3, 3, 3, 4, 5 }));
 		System.out.println(min.findMin2(new int[] { 6, 7, 7, 7, 3, 4, 5 }));

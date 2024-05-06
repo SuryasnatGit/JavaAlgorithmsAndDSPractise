@@ -1,4 +1,4 @@
-package com.ooad.chess;
+package com.design.chess;
 
 /**
  * The basic building block of the system, every piece will be placed on a spot.

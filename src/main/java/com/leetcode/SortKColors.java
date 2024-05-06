@@ -29,7 +29,7 @@ import java.util.Map;
 public class SortKColors {
 
 	/**
-	 * T - O(n) 2 pass. S - O(1)
+	 * T - O(n) 2 pass. S - O(k)
 	 * 
 	 * @param nums
 	 * @param k
@@ -50,6 +50,20 @@ public class SortKColors {
 		System.out.println(Arrays.toString(nums));
 	}
 
+	// T - O(n) S - O(1)
+	/**
+	 * The time complexity of the code is O(n), where n is the length of the input list nums. This is because the while
+	 * loop iterates through each element of the list at most once. The variables i, j, and k are used to traverse the
+	 * array without the need to revisit elements. The increment and decrement operations on i, j, and k, as well as the
+	 * swaps, all occur in constant time, and the loop runs until k is no longer less than j.
+	 * 
+	 * The space complexity of the code is O(1) because the sorting is done in place. No additional storage is needed
+	 * that scales with the input size n. The only extra space used is for the three pointers i, j, and k, which use a
+	 * constant amount of space regardless of the size of the input list.
+	 * 
+	 * @param nums
+	 * @param k
+	 */
 	public void sortKColors1Pass(int[] nums, int k) {
 		int left = 0;
 		int right = nums.length - 1;

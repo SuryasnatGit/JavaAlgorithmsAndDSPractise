@@ -49,6 +49,12 @@ import java.util.StringTokenizer;
  */
 public class SimplyPath {
 
+	/**
+	 * T - O(n) S - O(n)
+	 * 
+	 * @param path
+	 * @return
+	 */
 	public String simplifyPath(String path) {
 		Deque<String> stack = new LinkedList<>();
 		Set<String> set = new HashSet<>(Arrays.asList("..", ".", ""));

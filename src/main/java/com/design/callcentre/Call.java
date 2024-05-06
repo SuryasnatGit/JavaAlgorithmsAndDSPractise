@@ -1,4 +1,4 @@
-package com.ooad.callcentre;
+package com.design.callcentre;
 
 public class Call {
 	// Minimal rank of employee who can handle this call

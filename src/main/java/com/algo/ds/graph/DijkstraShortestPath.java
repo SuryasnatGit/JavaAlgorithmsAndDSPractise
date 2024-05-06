@@ -27,7 +27,7 @@ public class DijkstraShortestPath {
 
 		// initialize all vertex with infinite distance from source vertex
 		for (Vertex<Integer> vertex : graph.getAllVertex()) {
-			minHeap.add(Integer.MAX_VALUE, vertex);
+			minHeap.addInterval(Integer.MAX_VALUE, vertex);
 		}
 
 		// set distance of source vertex to 0

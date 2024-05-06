@@ -1,4 +1,4 @@
-package com.companyprep;
+package com.leetcode;
 
 import com.algo.common.ListNode;
 

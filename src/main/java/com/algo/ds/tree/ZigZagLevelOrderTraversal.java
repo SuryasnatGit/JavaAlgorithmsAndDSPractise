@@ -8,26 +8,16 @@ import com.algo.common.TreeNode;
 
 /**
  *
- * Video link - https://youtu.be/vjt5Y6-1KsQ
- *
- * Given a root of binary tree, print in spiral order. e.g 1 2 3 4 5 6 7 8 9 10 11 should print 1 3 2 4 5 6 7 8 9 10 11
- *
- * Solution 1 : Use two stack. Put root in stack1. While stack1 is not empty take items from stack1 and put its child
- * left,right in stack2. Then once stack1 is empty pop from stack2 and put its child right, left into stack1.
- * 
- * Solution 2 : Use one dequeue. Technique is like above but instead of using two stack use dequeue. Also keep count
- * till which point you read in the dequeue.
- * 
- * Solution 3: Use one dequeue. Use a delimiter to separate between one stack growing from top and another one growing
- * from bottom.
+ * Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to
+ * right, then right to left for the next level and alternate between).
  * 
  * Time complexity is O(n) Space complexity is O(n)
  *
  * Reference https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
  * 
- * Category : Hard
+ * Category : Medium
  */
-public class TreeTraversalInSpiralOrder {
+public class ZigZagLevelOrderTraversal {
 
 	/**
 	 * Two stack to print in spiral way
@@ -125,7 +115,7 @@ public class TreeTraversalInSpiralOrder {
 		head.right.right.left = new TreeNode(11);
 		head.right.right.right = new TreeNode(13);
 
-		TreeTraversalInSpiralOrder tt = new TreeTraversalInSpiralOrder();
+		ZigZagLevelOrderTraversal tt = new ZigZagLevelOrderTraversal();
 		System.out.println("Two stack method");
 		tt.spiralWithTwoStack(head);
 		System.out.println("\nOne deque with count");

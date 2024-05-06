@@ -3,6 +3,7 @@ package com.leetcode;
 // TODO: complete the other portions
 public class BinaryCalculator {
 
+	// Binary value :: 11 + 10 = 0101 Decimal value :: 3 + 2 = 5
 	public String add(String a, String b) {
 		int lenA = a.length();
 		int lenB = b.length();
@@ -74,6 +75,9 @@ public class BinaryCalculator {
 		return sb.reverse().toString();
 	}
 
+	/*
+	 * Rules: 0 - 0 = 0 , 1 - 0 = 1 , 1 - 1 = 0 , 0 - 1 = 1 with 1 burrow
+	 */
 	public String subtract(String a, String b) {
 		return null;
 	}

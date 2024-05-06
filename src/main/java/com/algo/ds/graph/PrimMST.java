@@ -112,7 +112,7 @@ public class PrimMST {
 
 		// insert all vertices with infinite value initially.
 		for (Vertex<Integer> v : graph.getAllVertex()) {
-			minHeap.add(Integer.MAX_VALUE, v);
+			minHeap.addInterval(Integer.MAX_VALUE, v);
 		}
 
 		// start from any random vertex

@@ -14,7 +14,7 @@ import java.util.Set;
  * 
  * https://leetcode.com/problems/clone-graph/
  */
-public class CloneGraph {
+public class CloneUndirectedGraph {
 
 	class Node {
 		int label;
@@ -30,6 +30,7 @@ public class CloneGraph {
 		if (node == null) {
 			return null;
 		}
+
 		Node clone = new Node(node.label);
 		Set<Integer> visited = new HashSet<>();
 		Map<Integer, Node> map = new HashMap<>();
@@ -38,14 +39,14 @@ public class CloneGraph {
 		return clone;
 	}
 
-	private void dfs(Node current, Node clone, Map<Integer, Node> map,
-			Set<Integer> visited) {
+	private void dfs(Node current, Node clone, Map<Integer, Node> map, Set<Integer> visited) {
 		if (visited.contains(current.label)) {
 			return;
 		}
-		visited.add(current.label);
-		for (Node adj : current.neighbors) {
 
+		visited.add(current.label);
+
+		for (Node adj : current.neighbors) {
 			if (adj.label != current.label) {
 				Node adjClone = map.get(adj.label);
 				if (adjClone == null) {

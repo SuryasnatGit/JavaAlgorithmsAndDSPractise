@@ -300,7 +300,7 @@ public class AnagramStringProblems {
 	 * LC 438 : find all anagrams in a string
 	 */
 
-	public List<Integer> findAnagrams(String s, String p) {
+	public List<Integer> findAllSubstringsOfStringThatArePermutationOfAnotherString(String s, String p) {
 		List<Integer> result = new ArrayList<>();
 
 		if (s == null || s.length() == 0 || s.length() < p.length()) {
@@ -353,8 +353,8 @@ public class AnagramStringProblems {
 		ana.groupAnagrams_usingHashMap(strs).forEach(a -> System.out.println(a));
 		ana.printAnagramGroupsUsingTrie(strs);
 
-		System.out.println(ana.findAnagrams("BACDGABCDA", "ABCD"));
-		System.out.println(ana.findAnagrams("AAAAAAAA", "AAAA"));
+		System.out.println(ana.findAllSubstringsOfStringThatArePermutationOfAnotherString("BACDGABCDA", "ABCD"));
+		System.out.println(ana.findAllSubstringsOfStringThatArePermutationOfAnotherString("AAAAAAAA", "AAAA"));
 
 		System.out.println(ana.isAnagram("anagram", "nagaram"));
 	}

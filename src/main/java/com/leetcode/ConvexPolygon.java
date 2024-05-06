@@ -24,7 +24,8 @@ import java.util.List;
  * 
  * Explanation:
  * 
- * 凸多边形，所有内角必须都小于等于180度，如何求这个角度，利用cross product
+ * For a convex polygon, all interior angles must be less than or equal to 180 degrees. How to find this angle? Use
+ * cross product
  * 
  * The key observation for convexity is that vector pi+1-pi always turns to the same direction to pi+2-pi formed by any
  * 3 sequentially adjacent vertices, i.e., cross product (pi+1-pi) x (pi+2-pi) does not change sign when traversing
@@ -35,28 +36,28 @@ import java.util.List;
  */
 public class ConvexPolygon {
 
-	// http://www.cnblogs.com/EdwardLiu/p/6210805.html
 	public boolean isConvex(List<List<Integer>> points) {
 		boolean positive = false;
 		boolean negative = false;
 
 		for (int A = 0; A < points.size(); A++) {
-			int B = (A + 1) % points.size(); // 下一个点
-			int C = (B + 1) % points.size(); // 下下个点
+			int B = (A + 1) % points.size(); // next point
+			int C = (B + 1) % points.size(); // next point
 
 			List<Integer> p1 = points.get(A);
 			List<Integer> p2 = points.get(B);
 			List<Integer> p3 = points.get(C);
 
 			int crossProduct = crossProduct(p1.get(0), p1.get(1), p2.get(0), p2.get(1), p3.get(0), p3.get(1));
-			// 向量积必须一直正或者一直负
+			// The vector product must always be positive or always negative
 			if (crossProduct < 0) {
 				negative = true;
 			} else if (crossProduct > 0) {
 				positive = true;
 			}
 
-			if (positive && negative) { // 这里使用的思想跟判断数列是否单调是一样的
+			// The idea used here is the same as determining whether a sequence is monotonic
+			if (positive && negative) {
 				return false;
 			}
 

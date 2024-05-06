@@ -1,4 +1,4 @@
-package com.ooad.parkinglot;
+package com.design.parkinglot;
 
 import java.util.Date;
 import java.util.HashMap;

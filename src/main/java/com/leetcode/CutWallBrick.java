@@ -1,60 +1,59 @@
 package com.leetcode;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * 面试官是个白人，听口音像东欧来的。问题是，有一个wall，然后宽度和长度都固定。这个wall呢，用一个vector<vector<int>> wall表示， 每一行代表一行砖，每块砖的宽度不固定。然后wall代表砖的宽度。
- * 然后在墙上画线的话会cross这些砖，问你怎么画线可以cross的砖数最少(如果画的线正好在砖的一条边上不算cross)， 返回这个最少的砖数就行，还问了时间和空间复杂度。 follow
- * up是这面墙的高度很小，但是宽度很大，每一行可能有特别特别多的砖，问你怎么办。
+ * The interviewer was a white man with an accent that sounded like he was from Eastern Europe. The problem is, there is
+ * a wall, and then the width and length are fixed. This wall is represented by a vector<vector<int>> wall. Each row
+ * represents a row of bricks, and the width of each brick is not fixed. Then wall represents the width of the brick.
+ * Then if you draw a line on the wall, it will cross these bricks.
  * 
- * 只需要有墙高度个数的pointer就可以了，比较当前指向的值有没有overlap，然后increment最小的那个
+ * Q1 : I asked you how to draw the line so that the minimum number of bricks can be crossed (if the line you draw
+ * happens to be on one side of the brick, it does not count as a cross). Just return the minimum number of bricks.
+ * Asked about time and space complexity.
  * 
- * 第三轮那道题就是从上到下画一条直线，其实就是要找到最多的砖块的边是上下连通在一起的，沿着这样的边画线不算cross砖块。
+ * Q2 : follow Up is that the height of this wall is very small, but the width is very large. Each row may have a very
+ * large number of bricks. What should you do?
+ *
+ * You only need pointers with the number of wall heights. Compare the currently pointed value to see if it overlaps,
+ * and then use the one with the smallest increment.
+ *
+ * Q3 : The question in the third round is to draw a straight line from top to bottom. In fact, it is to find the sides
+ * of the most bricks that are connected up and down. Drawing a line along such sides does not count as crossing bricks.
+ * 
+ * T - O(n) where n is number of bricks, S - O(T) where T is width of wall.
+ * 
+ * https://medium.com/analytics-vidhya/brick-and-wall-problem-competetive-programming-a-complete-algorithm-with-code-e351354b6234
+ * 
+ * Advanced: https://algo.monster/liteproblems/2184
  */
 public class CutWallBrick {
 
 	public static void main(String[] args) {
-
+		int[][] matrix = { { 3, 5, 1, 1 }, { 2, 3, 3, 2 }, { 5, 5 }, { 4, 4, 2 }, { 1, 3, 3, 3 }, { 1, 1, 6, 1, 1 } };
+		CutWallBrick c = new CutWallBrick();
+		System.out.println(c.leastNumber(matrix, 10));
 	}
 
-	int minCut(int[][] matrix) {
-		// Cutting point, from left start point, Count
-		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-		int minCut = matrix.length;
-		for (int i = 0; i < matrix.length; i++) {
-			int sum = 0;
-			for (int j = 0; j < matrix[i].length; j++) {
-				sum += matrix[i][j];
-
-				if (!map.containsKey(sum)) {
-					map.put(sum, i); // 之前不存在这个切口，如果从这里切，上边的所有层都得经过
-				}
-			}
-		}
-
-		for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-			minCut = Math.min(minCut, entry.getValue());
-		}
-
-		return minCut;
-	}
-
-	// 这个是不是更好理解？
-	int minCutBetter(int[][] matrix) {
-		// Cutting point, from left start point, Count
-		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+	public int leastNumber(int[][] array, int width) {
+		// Total number of possible edges is width + 1
+		int[] hash = new int[width + 1];
 		int max = 0;
-		for (int i = 0; i < matrix.length; i++) {
+		// iterating over input array
+		for (int i = 0; i < array.length; i++) {
 			int sum = 0;
-			for (int j = 0; j < matrix[i].length; j++) {
-				sum += matrix[i][j];
-
-				map.put(sum, map.getOrDefault(sum, 0) + 1);
-				max = Math.max(max, map.get(sum));
+			for (int j = 0; j < array[i].length; j++) {
+				sum = sum + array[i][j];
+				array[i][j] = sum; // replacing the actual values with the position of edges
+				hash[sum] += 1; // storing the occurrences of edges.
 			}
 		}
-
-		return matrix.length - max;
+		// Loop to iterate over the input array which now contains the position of edges
+		for (int i = 0; i < array.length; i++) {
+			for (int j = 0; j < array[i].length - 1; j++) { // excluding the last element in the row
+				int ele = array[i][j];
+				int val = hash[ele]; // retrieving the occurrence of the edge from hash array
+				max = Math.max(max, val);// finding the maximum of occurrences of all edges
+			}
+		}
+		return array.length - max;
 	}
 }

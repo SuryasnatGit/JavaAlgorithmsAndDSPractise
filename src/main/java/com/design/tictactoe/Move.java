@@ -1,4 +1,4 @@
-package com.ooad.tictactoe;
+package com.design.tictactoe;
 
 /**
  * The Move class is applied to mark the location of the symbol by the row-column method. The

@@ -16,15 +16,13 @@ package com.leetcode;
  * Explanation: 22 in binary is "10110".
  * 
  * The first adjacent pair of 1's is "10110" with a distance of 2. The second adjacent pair of 1's is "10110" with a
- * distance of 1. The answer is the largest of these two distances, which is 2. Note that "10110" is not a valid pair
- * since there is a 1 separating the two 1's underlined.
+ * distance of 1. The answer is the largest of these two distances, which is 2.
  * 
- * TODO : understand more
- *
  */
-public class BinaryGap {
+public class LongestBinaryGap {
 
-	public int binaryGap1(int n) {
+	public int binaryGap(int n) {
+		System.out.println("Binary String :" + Integer.toBinaryString(n));
 		int res = 0, prev = 0, cur = 0, count = 0;
 		while (n > 0) {
 			int digit = n % 2;
@@ -47,8 +45,13 @@ public class BinaryGap {
 	}
 
 	public static void main(String[] args) {
-		BinaryGap bg = new BinaryGap();
+		LongestBinaryGap bg = new LongestBinaryGap();
 
-		System.out.println(bg.binaryGap1(22));
+		System.out.println(bg.binaryGap(1));
+		System.out.println(bg.binaryGap(2));
+		System.out.println(bg.binaryGap(3));
+
+		System.out.println(bg.binaryGap(22));
+		System.out.println(bg.binaryGap(145));
 	}
 }

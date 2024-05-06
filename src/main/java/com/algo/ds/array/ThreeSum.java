@@ -48,7 +48,7 @@ public class ThreeSum {
 
 		// O(N*N) = O(N^2)
 		for (int i = 0; i < nums.length - 2; i++) {
-
+			// check duplicates
 			if (i > 0 && nums[i] == nums[i - 1]) {
 				continue;
 			}
@@ -72,11 +72,10 @@ public class ThreeSum {
 					j++;
 					k--;
 
-					// handle duplicate cases
+					// check duplicates
 					while (j < k && nums[j] == nums[j - 1]) {
 						j++;
 					}
-
 					while (j < k && nums[k] == nums[k + 1]) {
 						k--;
 					}

@@ -1,4 +1,4 @@
-package com.ooad.amazonlocker;
+package com.design.amazonlocker;
 
 public class Locker {
 

@@ -27,16 +27,52 @@ public class LeetCodeCandy {
 	/**
 	 * Time complexity : O(n). The array candies[] of size n is traversed twice.
 	 * 
-	 * Space complexity : O(n). An array candies[] of size n is used.
+	 * Space complexity : O(n). Two arrays leftScan[] and rightScan[] of size n are used.
 	 * 
-	 * @param ratings
+	 * @param arr
 	 * @return
 	 */
-	public int candyOneArray(int[] ratings) {
+	public int candy_approach1_2array_3passes(int[] arr) {
+		int sum = 0;
+		int n = arr.length;
+		int[] left = new int[n];
+		int[] right = new int[n];
+		Arrays.fill(left, 1);
+		Arrays.fill(right, 1);
+
+		// first pass left to right
+		for (int i = 1; i < n; i++) {
+			if (arr[i] > arr[i - 1]) {
+				left[i] = left[i - 1] + 1;
+			}
+		}
+
+		// second pass right to left
+		for (int i = n - 2; i >= 0; i--) {
+			if (arr[i] > arr[i + 1]) {
+				right[i] = right[i + 1] + 1;
+			}
+		}
+
+		// third pass left to right
+		for (int i = 0; i < n; i++) {
+			sum += Math.max(left[i], right[i]);
+		}
+
+		return sum;
+	}
+
+	/**
+	 * Time complexity : O(n). The array candies[] of size n is traversed twice.
+	 * 
+	 * Space complexity : O(n). An array candies[] of size n is used.
+	 */
+	public int candy_approach2_1array_2passes(int[] ratings) {
 		int length = ratings.length;
 		int[] candies = new int[length];
 		Arrays.fill(candies, 1);
 
+		// first pass
 		for (int i = 1; i < length; i++) {
 			if (ratings[i] > ratings[i - 1]) {
 				candies[i] = candies[i - 1] + 1;
@@ -44,6 +80,7 @@ public class LeetCodeCandy {
 		}
 
 		int sum = candies[length - 1];
+		// second pass
 		for (int i = length - 2; i >= 0; i--) {
 			if (ratings[i] > ratings[i + 1]) {
 				candies[i] = Math.max(candies[i], candies[i + 1] + 1);
@@ -98,15 +135,14 @@ public class LeetCodeCandy {
 
 	public static void main(String[] args) {
 		LeetCodeCandy candy = new LeetCodeCandy();
-		System.out.println(candy.candyOneArray(new int[] { 1, 2, 2 }));
+		System.out.println(candy.candy_approach2_1array_2passes(new int[] { 1, 2, 2 }));
 		System.out.println(candy.candyConstantSpace(new int[] { 1, 2, 2 }));
-		System.out.println(candy.candyOneArray(new int[] { 1, 0, 2 }));
+		System.out.println(candy.candy_approach2_1array_2passes(new int[] { 1, 0, 2 }));
 		System.out.println(candy.candyConstantSpace(new int[] { 1, 0, 2 }));
-		System.out.println(candy.candyOneArray(new int[] { 3, 1, 2, 2, 2, 1, 4 }));
 		System.out.println(candy.candyConstantSpace(new int[] { 3, 1, 2, 2, 2, 1, 4 }));
-		System.out.println(candy.candyOneArray(new int[] { 3, 1, 2, 2, 1, 4 }));
 		System.out.println(candy.candyConstantSpace(new int[] { 3, 1, 2, 2, 1, 4 }));
-		System.out.println(candy.candyOneArray(new int[] { 3, 1, 2, 1, 4 }));
 		System.out.println(candy.candyConstantSpace(new int[] { 3, 1, 2, 1, 4 }));
+		System.out.println(candy.candy_approach1_2array_3passes(new int[] { 1, 0, 2 }));
+		System.out.println(candy.candy_approach1_2array_3passes(new int[] { 1, 2, 2 }));
 	}
 }
