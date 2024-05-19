@@ -2,6 +2,11 @@ package com.companyprep;
 
 import java.util.Arrays;
 
+/**
+ * Category : Hard
+ * 
+ * TODO : to understand more thoroughly
+ */
 public class BigIntegerOperations {
 
 	public int[] bigIntMultiple(int[] num1, int[] num2) {
@@ -64,44 +69,6 @@ public class BigIntegerOperations {
 		}
 	}
 
-	public String divide2Strings(String val1, String val2) {
-		StringBuilder sb = new StringBuilder();
-		int val2Int = Integer.valueOf(val2);
-		int carry = 0;
-		int pos = 0;
-
-		while (pos < val1.length()) {
-			String num = "";
-
-			if (carry != 0) {
-				num += carry;
-			}
-
-			num += val1.charAt(pos);
-			int val = Integer.valueOf(num);
-
-			int digit = val / val2Int;
-			carry = val % val2Int;
-
-			if (digit == 0) {
-				if (sb.length() != 0) {
-					sb.append(digit);
-				}
-			} else {
-				sb.append(digit);
-			}
-
-			pos++;
-		}
-
-		// if (carry != 0) {
-		// sb.append(carry);
-		// }
-
-		System.out.println(sb);
-		return sb.toString();
-	}
-
 	public static void main(String[] args) {
 		BigIntegerOperations bio = new BigIntegerOperations();
 		System.out.println(Arrays.toString(bio.bigIntMultiple(new int[] { 7 }, new int[] { 8 })));
@@ -110,6 +77,8 @@ public class BigIntegerOperations {
 																									// work.. refer
 																									// leetcode solution
 		System.out.println(Arrays.toString(bio.bigIntMultiple(new int[] { 0 }, new int[] { 0 })));
+		System.out.println(bio.divide2Integers(10, 2));
+		System.out.println(bio.divide2Integers(500000000, 2));
 	}
 
 }

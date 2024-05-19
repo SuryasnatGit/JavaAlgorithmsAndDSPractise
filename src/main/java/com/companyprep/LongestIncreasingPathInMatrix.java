@@ -15,9 +15,13 @@ package com.companyprep;
  * nums = [ [3,4,5], [3,2,6], [2,2,1] ] Return 4 The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not
  * allowed.
  * 
- * T - O(row * col)
+ * The solution uses depth-first search (DFS) along with memoization to efficiently find the longest increasing path
+ * 
+ * T - O(row * col) S - O(m * n) as well, due to the memoization cache that potentially stores the results for each cell
+ * in the matrix
+ * 
  */
-public class LongestIncresingPathInMatrix {
+public class LongestIncreasingPathInMatrix {
 
 	private int[][] directions = { { 1, 0 }, { -1, 0 }, { 0, 1 }, { 0, -1 } };
 
@@ -54,7 +58,7 @@ public class LongestIncresingPathInMatrix {
 	}
 
 	public static void main(String[] args) {
-		LongestIncresingPathInMatrix lip = new LongestIncresingPathInMatrix();
+		LongestIncreasingPathInMatrix lip = new LongestIncreasingPathInMatrix();
 		int[][] matrix = { { 9, 9, 4 }, { 6, 6, 8 }, { 2, 1, 1 } };
 		System.out.println(lip.longestPath(matrix));
 	}

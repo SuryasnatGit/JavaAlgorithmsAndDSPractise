@@ -3,6 +3,12 @@ package com.companyprep;
 /**
  * given n pairs of numbers (1122...nn) and arrange them so that the each number x is x spaces apart from another number
  * x.
+ * 
+ * Category : Hard
+ * 
+ * Tags : DP, DFS
+ * 
+ * TODO : check later
  *
  */
 public class GetDistanceString {
@@ -22,16 +28,13 @@ public class GetDistanceString {
 		}
 
 		for (int i = 1; i <= n; i++) {
-			if (visited[i] == 0) // The first occurance, add to anywhere
-			{
+			// The first occurence, add to anywhere
+			if (visited[i] == 0) {
 				visited[i]++;
 				dfs(n, visited, count + 1, now + i);
 				visited[i]--;
-			} else if (visited[i] == 1) { // now.length() will be current character's potential position, must be
-											// exactly i space apart
-				if (now.length() - i >= 0 && now.charAt(now.length() - i) == '0' + i) // i positions ahead of current
-																						// position should be i
-				{
+			} else if (visited[i] == 1) {
+				if (now.length() - i >= 0 && now.charAt(now.length() - i) == '0' + i) {
 					visited[i] = 2;
 					dfs(n, visited, count + 1, now + i);
 					visited[i]--;
@@ -42,7 +45,12 @@ public class GetDistanceString {
 
 	public static void main(String[] args) {
 		GetDistanceString gds = new GetDistanceString();
-		System.out.println(gds.getDistanceString(4));
+		System.out.println(gds.getDistanceString(0));
+		System.out.println(gds.getDistanceString(1));
+		System.out.println(gds.getDistanceString(2)); // doesn't work
+		System.out.println(gds.getDistanceString(3)); // doesn't work
+		System.out.println(gds.getDistanceString(4)); // works
+		System.out.println(gds.getDistanceString(5)); // works
 	}
 
 }

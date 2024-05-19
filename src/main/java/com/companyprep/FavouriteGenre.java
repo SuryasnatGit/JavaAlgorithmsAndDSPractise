@@ -24,6 +24,7 @@ import java.util.Map;
  * Explanation: David has 2 Rock, 2 Techno and 1 Jazz song. So he has 2 favorite genres. Emma has 2 Pop and 1 Dubstep
  * song. Pop is Emma's favorite genre.
  *
+ * Category : Hard
  * 
  */
 public class FavouriteGenre {
@@ -72,16 +73,6 @@ public class FavouriteGenre {
 		}
 
 		return result;
-	}
-
-	class Genre {
-		String genre;
-		int count;
-
-		public Genre(String genre, int count) {
-			this.genre = genre;
-			this.count = count;
-		}
 	}
 
 	public static void main(String[] args) {
