@@ -26,7 +26,7 @@ import java.util.Map;
  * 
  * S will consist of lowercase letters ('a' to 'z') only.
  * 
- * Category : Medium
+ * Category : Hard
  *
  * TODO: to complete
  */
