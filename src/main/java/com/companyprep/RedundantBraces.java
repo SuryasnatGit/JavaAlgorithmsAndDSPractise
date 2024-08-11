@@ -45,6 +45,8 @@ public class RedundantBraces {
 		RedundantBraces rb = new RedundantBraces();
 		System.out.println(rb.braces("((a + b))"));
 		System.out.println(rb.braces("(a + (a + b))"));
+		System.out.println(rb.braces("(a + ((a + b)))"));
+		System.out.println(rb.braces("a + b"));
 	}
 
 }

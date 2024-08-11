@@ -27,7 +27,7 @@ public class OptimalMemory {
 
 		List<int[]> list = new ArrayList<int[]>();
 
-		Arrays.sort(bgTasks);
+		Arrays.sort(bgTasks);// sort the small one
 
 		for (int fgTask : fgTasks) {
 			int rest = totalMem - fgTask;
@@ -39,7 +39,7 @@ public class OptimalMemory {
 				if (bgTasks[mid] < rest) {
 					high--;
 				} else if (bgTasks[mid] > rest) {
-					lo--;
+					lo++;
 				} else {
 					int[] res = new int[2];
 					res[0] = fgTask;

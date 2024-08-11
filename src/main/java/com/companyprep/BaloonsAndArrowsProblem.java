@@ -1,5 +1,7 @@
 package com.companyprep;
 
+import java.util.Arrays;
+
 /**
  * N number of balloons are kept at different heights. You are asked to find out number of arrows to burst them. When an
  * arrow hits the balloon it goes one level down. Assume that the balloons are having same size.
@@ -20,6 +22,8 @@ package com.companyprep;
  * 
  * Expecting the solution to be in O(1) space complexity.
  * 
+ * Continuity problem.
+ * 
  */
 public class BaloonsAndArrowsProblem {
 
@@ -30,9 +34,15 @@ public class BaloonsAndArrowsProblem {
 		int[] arr2 = { 5, 4, 2, 1 };
 		System.out.println(baa.numberOfArrows1(arr1));
 		System.out.println(baa.numberOfArrows1(arr2));
-
+		System.out.println("******");
 		System.out.println(baa.numberOfArrows2(arr1));
 		System.out.println(baa.numberOfArrows2(arr2));
+		System.out.println("******");
+		System.out.println(baa.numberOfArrows1(new int[] { 5, 4, 3, 2, 1 }));
+		System.out.println(baa.numberOfArrows2(new int[] { 5, 4, 3, 2, 1 }));
+		System.out.println("******");
+		System.out.println(baa.numberOfArrows1(new int[] { 5, 4, 4, 3, 2, 1 }));
+		System.out.println(baa.numberOfArrows2(new int[] { 5, 4, 4, 3, 2, 1 }));
 	}
 
 	public int numberOfArrows1(int[] arr) {
@@ -82,6 +92,8 @@ public class BaloonsAndArrowsProblem {
 					v--;
 				}
 			}
+			// helper log to determine state of ballons after each loop
+			System.out.println(Arrays.toString(arr));
 		}
 
 		return result;

@@ -33,9 +33,40 @@ import java.util.List;
  * connections are not critical.
  * 
  * Category : Hard
+ * 
+ * To identify critical connections, we need to find edges that are not part of any cycles in the graph. To do this, we
+ * can use Tarjan's algorithm which is designed to identify strongly connected components in a graph. A strongly
+ * connected component (SCC) is a part of the graph where every vertex is reachable from every other vertex in the same
+ * component.
+ * 
+ * Tarjan's algorithm uses Depth-First Search (DFS) and maintains two arrays, dfn and low, which help to track the
+ * discovery time of a node and the lowest discovery time reachable from that node, without using the parent-child
+ * connection, respectively
+ * 
+ * The idea is to perform a DFS from each unvisited node and use the dfn and low arrays to detect whether an edge is a
+ * bridge (or critical connection). A bridge is encountered if the low value of the child node is greater than the
+ * discovery time (dfn) of the parent, which means that there is no back edge from the child or any of its descendants
+ * to the parent or any of its ancestors.
+ * 
+ * TODO : to complete. refer https://algo.monster/liteproblems/1192
  *
  */
 public class DataCentreCriticalConnection {
+
+	public static void main(String[] args) {
+		DataCentreCriticalConnection dc = new DataCentreCriticalConnection();
+		List<Integer> list1 = Arrays.asList(1, 2);
+		List<Integer> list2 = Arrays.asList(1, 3);
+		List<Integer> list3 = Arrays.asList(3, 2);
+		List<Integer> list4 = Arrays.asList(3, 4);
+		List<List<Integer>> lists = new ArrayList<List<Integer>>();
+		lists.add(list1);
+		lists.add(list2);
+		lists.add(list3);
+		lists.add(list4);
+		// System.out.println(dc.criticalConnections(4, lists));
+		System.out.println(dc.criticalConnections1(4, lists));
+	}
 
 	private List<List<Integer>> result = new ArrayList<>();
 	private int rank = 0;

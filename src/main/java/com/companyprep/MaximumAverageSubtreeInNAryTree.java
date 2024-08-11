@@ -38,7 +38,7 @@ import java.util.Queue;
  * Category : Hard
  *
  */
-public class MaximumAverageSubtree {
+public class MaximumAverageSubtreeInNAryTree {
 
 	// Solution 1 - recursive way
 

@@ -27,47 +27,6 @@ import java.util.Set;
  */
 public class LongestStringMadeOfOnlyVowels {
 
-	public int longestVowelString(String s) {
-		Set<Character> set = new HashSet<>();
-		set.add('a');
-		set.add('e');
-		set.add('i');
-		set.add('o');
-		set.add('u');
-
-		int s1 = 0, s2 = 0, s3 = 0;
-		int i = 0, len = s.length();
-
-		while (i < len && set.contains(s.charAt(i)))
-			i++;
-
-		s1 = i > 0 ? i : s1;
-
-		if (s1 == len)
-			return s1;
-
-		int j = len - 1;
-		while (j >= 0 && set.contains(s.charAt(j)))
-			j--;
-
-		s2 = j < (len - 1) ? (len - j - 1) : s2;
-
-		for (; i <= j;) {
-			int lenT = 0;
-			while (i <= j && !set.contains(s.charAt(i)))
-				i++;
-			while (i <= j && set.contains(s.charAt(i))) {
-				lenT++;
-				i++;
-			}
-			s3 = lenT > s3 ? lenT : s3;
-		}
-
-		s1 = s1 > s2 ? (s1 + (s2 > s3 ? s2 : s3)) : (s2 + (s1 > s3 ? s1 : s3));
-
-		return s1;
-	}
-
 	/**
 	 * 3 cases:
 	 * 
@@ -85,7 +44,7 @@ public class LongestStringMadeOfOnlyVowels {
 	 */
 	private Set<Character> vowels = new HashSet<>(Arrays.asList('a', 'e', 'i', 'o', 'u'));
 
-	public int longestVowelString1(String S) {
+	public int longestVowelString(String S) {
 
 		int left = 0, right = S.length() - 1, res = 0;
 		while (left < right) {
@@ -95,8 +54,9 @@ public class LongestStringMadeOfOnlyVowels {
 			} else if (vowels.contains(S.charAt(right))) {
 				right--;
 				res++;
-			} else
+			} else {
 				break;
+			}
 		}
 
 		res += longestVowelSubstring(S, left, right);
@@ -108,8 +68,9 @@ public class LongestStringMadeOfOnlyVowels {
 		int res = 0, max = 0;
 		for (int k = left + 1; k < right; k++) {
 			if (vowels.contains(S.charAt(k))) {
-				if (res == 0)
+				if (res == 0) {
 					res = 1;
+				}
 				if (vowels.contains(S.charAt(k - 1))) {
 					res++;
 				}
@@ -123,9 +84,8 @@ public class LongestStringMadeOfOnlyVowels {
 
 	public static void main(String[] args) {
 		LongestStringMadeOfOnlyVowels lon = new LongestStringMadeOfOnlyVowels();
+
 		System.out.println(lon.longestVowelString("earthproblem"));
 		System.out.println(lon.longestVowelString("letsgosomewhere"));
-		System.out.println(lon.longestVowelString1("earthproblem"));
-		System.out.println(lon.longestVowelString1("letsgosomewhere"));
 	}
 }
