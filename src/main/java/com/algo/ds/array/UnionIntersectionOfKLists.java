@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
 
+// TODO : to revisit
 public class UnionIntersectionOfKLists {
 
 	public List<Integer> union(List<List<Integer>> source) {
@@ -40,7 +41,7 @@ public class UnionIntersectionOfKLists {
 			Node node = heap.poll();
 
 			if (res.isEmpty() || res.get(res.size() - 1) != node.val) {
-				res.add(node.val); // 去重， 添加不一样的
+				res.add(node.val); // Remove duplicates and add different ones
 			}
 
 			if (node.it.hasNext()) {
@@ -93,7 +94,7 @@ public class UnionIntersectionOfKLists {
 			} else {
 				if (node.val == prev) {
 					if (res.isEmpty() || res.get(res.size() - 1) != node.val) {
-						res.add(prev); // 总是滞后一步，当发现duplicate时，添加prev
+						res.add(prev); // Always one step behind, when a duplicate is found, add prev
 					}
 				} else {
 					prev = node.val;

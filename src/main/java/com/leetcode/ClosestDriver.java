@@ -11,7 +11,9 @@ import java.util.Set;
  * meters, find the driver closest to the passenger. If there is no driver within 5000 meters, return 0. All classes are
  * defined by themselves.
  * 
- * TODO : check further
+ * Refer ShortestPathInUndirectedGraph.java problem
+ * 
+ * Category : Hard
  */
 public class ClosestDriver {
 

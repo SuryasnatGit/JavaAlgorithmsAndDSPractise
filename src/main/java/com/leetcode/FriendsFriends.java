@@ -10,14 +10,18 @@ import java.util.Queue;
 import java.util.Set;
 
 /**
- * 已知一个函数，输入用户ID，可以返回该用户的所有友好（degree 1 friends），按好友ID从小到大排序。 要求实现函数来输出返回一个用户的所有好友的好友(degree 2 friends), 以及 degree 3
- * friends
- * 
- * 给你一个函数 可以返回当前的指定的id的friends，然后利用这个函数 找出给你的id（input） 的 两个以外（相距两层）的有最多mutual friends 的 id有哪些 是 我的这个ID与friends'
- * friend的共同好友最多的，因为friend是双向的 所以只要判断 我的friend有多少也是第三层的人的friend就行了， 也就是in-degree 但是也有可能， A-B-C.
- * D不是A的好友，但是D是C的好友，这样也是indegree啊
- * 
- * 我的思路： bfs 然后计算第二层的每层的入度， 入度最多的就是有mutual friends最多的
+ * It is known that there is a function that inputs a user ID and can return all the friends (degree 1 friends) of the
+ * user, sorted by the friend ID from small to large. It is required to implement a function to output and return the
+ * friends of all friends of a user (degree 2 friends), and degree 3 friends
+ *
+ * Give you a function that can return the current friends with the specified ID, and then use this function to find out
+ * which IDs have the most mutual friends other than the two IDs (input) given to you (two levels apart). This is mine.
+ * ID and friends' Friend has the most friends in common, because friends are two-way, so just judge how many of my
+ * friends are also friends of people on the third level, that is, in-degree, but it is also possible, A-B-C. D is not a
+ * friend of A, but D is a friend of C. This is also indegree.
+ *
+ * My idea: bfs then calculates the in-degree of each layer in the second layer. The one with the most in-degree is the
+ * one with the most mutual friends.
  * 
  * https://discuss.leetcode.com/topic/54969/fb-08-2016-phone-interview-find-2nd-degree-connections/3
  * 
@@ -34,7 +38,9 @@ import java.util.Set;
  * you can just apply BFS for two layers and for the node of second layer(2nd degree friends), count the number of 1st
  * degree friends who expand to it. Then just sort the 2nd layer.
  * 
- *
+ * Category : Hard
+ * 
+ * TODO : to check further and understand
  */
 public class FriendsFriends {
 	public static void main(String[] args) {
@@ -93,71 +99,6 @@ public class FriendsFriends {
 		}
 
 		// Sort res and find the persons which share most common friends
-	}
-
-	Map<String, Set<String>> getFriendsFriend(Map<String, Set<String>> map) {
-		Map<String, Set<String>> res = new HashMap<String, Set<String>>();
-
-		for (Map.Entry<String, Set<String>> entry : map.entrySet()) {
-			String name = entry.getKey();
-			Set<String> friends = entry.getValue();
-
-			res.put(name, new HashSet<String>());
-
-			for (String friend : friends) {
-				if (map.containsKey(friend)) {
-					res.get(name).addAll(map.get(friend));
-				}
-			}
-
-			System.out.print(name + " has friends' friend: ");
-			for (String friend : res.get(name)) {
-				System.out.print(friend + "--");
-			}
-			System.out.println();
-		}
-
-		return res;
-	}
-
-	Set<String> get2DegreeFriend(String host) {
-		Set<String> degree1 = getFriends(host);
-
-		Set<String> res = new HashSet<String>();
-		for (String friend : degree1) {
-			Set<String> degree2 = getFriend(friend);
-			res.addAll(degree2);
-		}
-
-		// Remove himself
-		if (res.contains(host)) {
-			res.remove(host);
-		}
-
-		// Degree2 is degree2, remove degree1
-		for (String name : degree1) {
-			res.remove(name);
-		}
-
-		return res;
-	}
-
-	// Better way
-	Set<String> get2DegreeFriendBetter(String host) {
-		Set<String> degree1 = getFriends(host);
-
-		Set<String> res = new HashSet<String>();
-		for (String friend : degree1) {
-			Set<String> degree2 = getFriend(friend);
-
-			for (String name : degree2) {
-				if (name.equals(host) || degree1.contains(name)) {
-					continue;
-				}
-				degree2.add(name);
-			}
-		}
-		return res;
 	}
 
 	class UndirectedGraphNode {

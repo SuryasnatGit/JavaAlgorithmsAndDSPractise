@@ -8,6 +8,8 @@ package com.algo.ds.array;
  * size of one subset must be (n-1)/2 and size of other subset must be (n+1)/2.
  * 
  * Category : Hard
+ * 
+ * Tags : Backtracking
  */
 public class TugOfWar {
 

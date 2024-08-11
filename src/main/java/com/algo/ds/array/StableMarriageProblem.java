@@ -1,5 +1,7 @@
 package com.algo.ds.array;
 
+import java.util.Arrays;
+
 /**
  * The Stable Marriage Problem states that given N men and N women, where each person has ranked all members of the
  * opposite sex in order of preference, marry the men and women together such that there are no two people of opposite
@@ -31,9 +33,25 @@ package com.algo.ds.array;
  * 
  * Algorithm:
  * 
- * Initialize all men and women to free while there exist a free man m who still has a woman w to propose to { w = m's
- * highest ranked such woman to whom he has not yet proposed if w is free (m, w) become engaged else some pair (m', w)
- * already exists if w prefers m to m' (m, w) become engaged m' becomes free else (m', w) remain engaged }
+ * <pre>
+ * 
+ * Initialize all men and women to free
+	while there exist a free man m who still has a woman w to propose to 
+	{
+	    w = m's highest ranked such woman to whom he has not yet proposed
+	    if w is free
+	       (m, w) become engaged
+	    else some pair (m', w) already exists
+	       if w prefers m to m'
+	          (m, w) become engaged
+	           m' becomes free
+	       else
+	          (m', w) remain engaged    
+	}
+ * 
+ * </pre>
+ * 
+ * T - O(n^2)
  * 
  * Category : Hard
  *
@@ -44,12 +62,11 @@ public class StableMarriageProblem {
 		int pair = priority[0].length;
 		int groomToBride[] = new int[pair];
 		int brideToGroom[] = new int[pair];
-		for (int i = 0; i < groomToBride.length; i++) {
-			groomToBride[i] = -1; // initialize
-		}
-		for (int i = 0; i < brideToGroom.length; i++) {
-			brideToGroom[i] = -1; // initialize
-		}
+
+		// initialize
+		Arrays.fill(groomToBride, -1);
+		Arrays.fill(brideToGroom, -1);
+
 		int groom;
 		int remaingGrooms = pair;
 		while (remaingGrooms > 0) {
