@@ -12,35 +12,34 @@ package com.algo.ds.array;
  * Input: "abcd" Output: "dcbabcd"
  *
  * 
- * Idea is to create a new string which is original string + $ + reverse of original string. Get
- * value of suffix which is also prefix using KMP. This part of string is good. Rest needs to be
- * copied in the front.
+ * Idea is to create a new string which is original string + $ + reverse of original string. Get value of suffix which
+ * is also prefix using KMP. This part of string is good. Rest needs to be copied in the front.
  *
  * Time complexity is O(n) Space complexity is O(n)
  *
  * https://leetcode.com/problems/shortest-palindrome/
+ * 
+ * Category : Hard
  */
 public class ShortestPalindrome {
 
 	/**
-	 * According to the question, we are allowed to insert the characters only at the beginning of the
-	 * string. Hence, we can find the largest segment from the beginning that is a palindrome, and we
-	 * can then easily reverse the remaining segment and append to the beginning. This must be the
-	 * required answer as no shorter palindrome could be found than this by just appending at the
-	 * beginning.
+	 * According to the question, we are allowed to insert the characters only at the beginning of the string. Hence, we
+	 * can find the largest segment from the beginning that is a palindrome, and we can then easily reverse the
+	 * remaining segment and append to the beginning. This must be the required answer as no shorter palindrome could be
+	 * found than this by just appending at the beginning.
 	 * 
-	 * For example: Take the string \text{"abcbabcab"}"abcbabcab". Here, the largest palindrome segment
-	 * from beginning is \text{"abcba"}"abcba", and the remaining segment is \text{"bcab"}"bcab". Hence
-	 * the required string is reverse of \text{"bcab"}"bcab"( = \text{"bacb"}"bacb") + original string(
-	 * = \text{"abcbabcab"}"abcbabcab") = \text{"bacbabcbabcab"}"bacbabcbabcab".
+	 * For example: Take the string \text{"abcbabcab"}"abcbabcab". Here, the largest palindrome segment from beginning
+	 * is \text{"abcba"}"abcba", and the remaining segment is \text{"bcab"}"bcab". Hence the required string is reverse
+	 * of \text{"bcab"}"bcab"( = \text{"bacb"}"bacb") + original string( = \text{"abcbabcab"}"abcbabcab") =
+	 * \text{"bacbabcbabcab"}"bacbabcbabcab".
 	 * 
-	 * Time complexity: O(n^2)O(n 2 ).
+	 * Time complexity: O(n^2)
 	 * 
-	 * We iterate over the entire length of string ss. In each iteration, we compare the substrings
-	 * which is linear in size of substrings to be compared. Hence, the total time complexity is O(n*n)
-	 * = O(n^2)O(n∗n)=O(n 2 ).
+	 * We iterate over the entire length of string ss. In each iteration, we compare the substrings which is linear in
+	 * size of substrings to be compared. Hence, the total time complexity is O(n*n)
 	 * 
-	 * Space complexity: O(n)O(n) extra space for the reverse string \text{rev}rev.
+	 * Space complexity: O(n) extra space for the reverse string \text{rev}rev.
 	 * 
 	 * 
 	 * 
@@ -62,46 +61,14 @@ public class ShortestPalindrome {
 	}
 
 	/**
-	 * Time complexity: O(n^2)O(n 2 ). Each iteration of \text{shortestPalindrome}shortestPalindrome is
-	 * linear in size of substring and the maximum number of recursive calls can be n/2n/2 times as
-	 * shown in the Intuition section. Let the time complexity of the algorithm be T(n). Since, at the
-	 * each step for the worst case, the string can be divide into 2 parts and we require only one part
-	 * for further computation. Hence, the time complexity for the worst case can be represented as :
-	 * T(n)=T(n-2)+O(n)T(n)=T(n−2)+O(n). So, T(n) = O(n) + O(n-2) + O(n-4) + ... +
-	 * O(1)T(n)=O(n)+O(n−2)+O(n−4)+...+O(1) which is O(n^2)O(n 2 ).
+	 * TODO : to understand properly
 	 * 
-	 * Space complexity: O(n)O(n) extra space for \text{remain_rev} string.
+	 * Time complexity: O(n)
 	 * 
-	 * @param s
-	 * @return
-	 */
-	public String shortestPalindrome_recursive(String s) {
-		int l = s.length();
-		int i = 0;
-		for (int j = l - 1; j > 0; j--) {
-			if (s.charAt(i) == s.charAt(j))
-				i++;
-		}
-
-		if (i == l)
-			return s; // whole string palindrome
-
-		String remainRev = s.substring(i, l);
-		String rev = "";
-		for (int j = l; j > 0; j--) {
-			rev += remainRev.charAt(j - 1);
-		}
-		return rev + shortestPalindrome_recursive(s.substring(0, i)) + s.substring(i);
-	}
-
-	/**
-	 * Time complexity: O(n)O(n).
-	 * 
-	 * In every iteration of the inner while loop, tt decreases until it reaches 0 or until it matches.
-	 * After that, it is incremented by one. Therefore, in the worst case, tt can only be decreased up
-	 * to nn times and increased up to nn times. Hence, the algorithm is linear with maximum (2 * n) *
-	 * 2(2∗n)∗2 iterations. Space complexity: O(n)O(n). Additional space for the reverse string and the
-	 * concatenated string.
+	 * In every iteration of the inner while loop, t decreases until it reaches 0 or until it matches. After that, it is
+	 * incremented by one. Therefore, in the worst case, t can only be decreased up to n times and increased up to n
+	 * times. Hence, the algorithm is linear with maximum (2 * n) * 2(2∗n)∗2 iterations. Space complexity: O(n).
+	 * Additional space for the reverse string and the concatenated string.
 	 * 
 	 * 
 	 * @param s

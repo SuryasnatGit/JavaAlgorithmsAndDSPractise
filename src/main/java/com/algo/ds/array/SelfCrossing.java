@@ -1,12 +1,11 @@
 package com.algo.ds.array;
 
 /**
- * You are given an array x of n positive numbers. You start at point (0,0) and moves x[0] metres to
- * the north, then x[1] metres to the west, x[2] metres to the south, x[3] metres to the east and so
- * on. In other words, after each move your direction changes counter-clockwise.
+ * You are given an array x of n positive numbers. You start at point (0,0) and moves x[0] metres to the north, then
+ * x[1] metres to the west, x[2] metres to the south, x[3] metres to the east and so on. In other words, after each move
+ * your direction changes counter-clockwise.
  * 
- * Write a one-pass algorithm with O(1) extra space to determine, if your path crosses itself, or
- * not.
+ * Write a one-pass algorithm with O(1) extra space to determine, if your path crosses itself, or not.
  * 
  * Example 1: Given x = [2, 1, 1, 2] Return true (self crossing)
  * 
@@ -14,62 +13,67 @@ package com.algo.ds.array;
  * 
  * Example 3: Given x = [1, 1, 1, 1] Return true (self crossing)
  * 
+ * Category : Hard
  */
 public class SelfCrossing {
 
 	/**
 	 * Understand the problem:
 	 * 
-	 * The problem is tricky to solve. There are in total three cases to consider if there is no cross
+	 * To solve the problem, we must understand the conditions that can cause the path to cross itself. There are
+	 * generally three cases where crossing can happen:
 	 * 
-	 * 1. Only have internal squirrels. In this case, the length of each step should go smaller and
-	 * smaller. So we only need to check if x[i] < x[i - 2].
+	 * Case 1: Fourth Line Crosses the First - This case happens when the current step overshoots the first step. More
+	 * specifically, the path crosses if the current distance is greater than or equal to the distance two steps back,
+	 * and the distance a step before is less than or equal to the distance three steps back.
 	 * 
-	 * 2. Only have external squirrels. In this case, the length of each step should go larger and
-	 * larger. So we only need to check if x[i] > x[i - 2].
+	 * Case 2: Fifth Line Meets the First - Here, the path's fifth segment overlaps with the first segment if the
+	 * current step is equal to the step three steps back, and the sum of the current step and the step four steps back
+	 * is greater than or equal to the step two steps back.
 	 * 
-	 * 3. In the third case, it goes external squirrel first then go internal. In this case, the trick
-	 * part is we may need to update the base of the internal squirrel.
+	 * Case 3: Sixth Line Crosses the First - This is a more complex scenario where the sixth line crosses over the
+	 * first. For this to happen, several conditions need to match: the fourth step is greater than or equal to the
+	 * second step, the fifth step is less than or equal to the third step, the sum of the third and the sixth steps is
+	 * greater than or equal to the first step, and the sixth step is greater than or equal to the difference between
+	 * the second and fourth steps.
 	 * 
 	 * 
 	 * @param x
 	 * @return
 	 */
-	public boolean isSelfCrossing(int[] x) {
-		if (x.length < 4) {
-			return false;
-		}
-		int v1 = -x[0];
-		int v2 = -x[1];
+	public boolean isSelfCrossing(int[] distance) {
+		// Enhanced for loop is unnecessary as we are directly accessing elements.
+		// Naming of the variable 'd' is changed to 'distances' for better readability.
 
-		int i = 2;
-		while (i < x.length) {
-			if (i % 2 == 0) {
-				if (i % 4 == 0) {
-					v1 -= x[i];
-				} else {
-					v1 += x[i];
-				}
-			} else {
-				if ((i + 1) % 4 == 0) {
-					v2 += x[i];
-				} else {
-					v2 -= x[i];
-				}
+		// Start from the fourth element (index starts from 0) and check for self-crossing
+		for (int i = 3; i < distance.length; ++i) {
+			// Scenario 1: Current line crosses the line 3 steps behind it
+			if (distance[i] >= distance[i - 2] && distance[i - 1] <= distance[i - 3]) {
+				return true;
 			}
-			if (i % 2 != 0) {
-				if ((v1 >= 0 && v2 <= 0) || (v1 <= 0 && v2 >= 0)) {
-					return true;
-				}
+
+			// Scenario 2: Current line touches or crosses the line 4 steps behind it
+			if (i >= 4 && distance[i - 1] == distance[i - 3] && distance[i] + distance[i - 4] >= distance[i - 2]) {
+				return true;
 			}
-			i++;
+
+			// Scenario 3: Current line crosses the line 5 steps behind it
+			if (i >= 5 && distance[i - 2] >= distance[i - 4] && distance[i - 1] <= distance[i - 3]
+					&& distance[i] >= distance[i - 2] - distance[i - 4]
+					&& distance[i - 1] + distance[i - 5] >= distance[i - 3]) {
+				return true;
+			}
 		}
+
+		// If none of the above scenarios occur, there is no self crossing
 		return false;
 	}
 
 	public static void main(String args[]) {
 		SelfCrossing sc = new SelfCrossing();
-		int input[] = { 3, 3, 4, 2, 2 };
-		System.out.print(sc.isSelfCrossing(input));
+		System.out.println(sc.isSelfCrossing(new int[] { 3, 3, 4, 2, 2 }));
+		System.out.println(sc.isSelfCrossing(new int[] { 1, 2, 3, 4 }));
+		System.out.println(sc.isSelfCrossing(new int[] { 5, 4, 3, 2, 1 }));
+		System.out.println(sc.isSelfCrossing(new int[] { 1, 1, 1, 1 }));
 	}
 }

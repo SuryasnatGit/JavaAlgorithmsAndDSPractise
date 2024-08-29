@@ -34,31 +34,6 @@ public class RepeatingAndMissingNumber {
 		return p;
 	}
 
-	/**
-	 * Method 2 - using count array. incomplete.. not working
-	 * 
-	 * Time Complexity: O(n) Auxiliary Space: O(n)
-	 * 
-	 * @param input
-	 * @return
-	 */
-	public Pair findNumbers_usingCountArray(int[] input) {
-		Pair p = new Pair();
-		int[] temp = new int[input.length + 1]; // temp has 1 more element to accommodate elements from 1 - n
-		Arrays.fill(temp, 0);
-		for (int i = 0; i < input.length; i++) {
-			if (temp[input[i]] == 0)
-				temp[input[i]] = 1;
-			else if (temp[input[i]] == 1)
-				p.repeating = i;
-		}
-		for (int i = 1; i < temp.length; i++) {
-			if (temp[i] == 0)
-				p.missing = i;
-		}
-		return p;
-	}
-
 	class Pair {
 		int repeating;
 		int missing;
@@ -105,9 +80,11 @@ public class RepeatingAndMissingNumber {
 	 * 
 	 * xor1 = xor1^1^2^.....^n In the result xor1, all elements would nullify each other except x and y. All the bits
 	 * that are set in xor1 will be set in either x or y. So if we take any set bit (We have chosen the rightmost set
-	 * bit in code) of xor1 and divide the elements of the array in two sets  one set of elements with same bit set and
+	 * bit in code) of xor1 and divide the elements of the array in two sets one set of elements with same bit set and
 	 * other set with same bit not set. By doing so, we will get x in one set and y in another set. Now if we do XOR of
 	 * all the elements in first set, we will get x, and by doing same in other set we will get y.
+	 * 
+	 * TODO: to check
 	 * 
 	 * @param arr
 	 * @param n
@@ -170,6 +147,5 @@ public class RepeatingAndMissingNumber {
 		int input[] = { 4, 3, 6, 2, 1, 1 };
 		System.out.println(rmn.findNumbers(input));
 		System.out.println(rmn.findNumbers_sorting(input));
-		System.out.println(rmn.findNumbers_usingCountArray(input));
 	}
 }

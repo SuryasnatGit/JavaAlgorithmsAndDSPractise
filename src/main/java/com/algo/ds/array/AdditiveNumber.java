@@ -60,60 +60,12 @@ public class AdditiveNumber {
 		return isValid(sumStr.length() + start, second, sumStr, num);
 	}
 
-	// T - O(n ^ 2)
-	public boolean isAdditiveNumberIterative(String num) {
-		int n = num.length();
-
-		for (int i = 1; i <= n / 2; i++) {// for substring index i(first num) starts at 1
-			for (int j = 1; Math.max(i, j) <= n - i - j; j++) {// if rest of string can contain the sum
-				if (isValid(i, j, num)) {
-					return true;
-				}
-			}
-		}
-
-		return false;
-	}
-
-	private boolean isValid(int i, int j, String num) {
-		// numbers in additive sequence cannot have leading zeros
-		if (num.charAt(0) == '0' && i > 1) {
-			return false;
-		}
-
-		if (num.charAt(i) == '0' && j > 1) {
-			return false;
-		}
-
-		String sum;
-
-		// extract x1 and x2, i & j are length of first and 2nd num
-		BigInteger x1 = new BigInteger(num.substring(0, i));
-		BigInteger x2 = new BigInteger(num.substring(i, i + j));
-
-		for (int start = i + j; start != num.length(); start += sum.length()) {
-			x2 = x2.add(x1);
-			x1 = x2.subtract(x1);
-			sum = x2.toString();
-
-			// check if the number string contains the sum starting at the specified offset(start)
-			if (!num.startsWith(sum, start)) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	public static void main(String[] args) {
 		AdditiveNumber an = new AdditiveNumber();
-		// System.out.println(an.isAdditiveNumberIterative("112358"));
-		// System.out.println(an.isAdditiveNumberIterative("991100102"));
-		// System.out.println(an.getAdditiveNumberSequence("112358"));
 
-		// System.out.println(an.isAdditiveNumber("112358"));
+		System.out.println(an.isAdditiveNumber("112358"));
 		System.out.println(an.isAdditiveNumber("112359"));
-		// System.out.println(an.isAdditiveNumber("991100102"));
-		// System.out.println(an.isAdditiveNumber("991100102"));
+		System.out.println(an.isAdditiveNumber("991100191"));
+		System.out.println(an.isAdditiveNumber("991100102"));
 	}
 }

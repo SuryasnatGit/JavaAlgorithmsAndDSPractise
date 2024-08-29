@@ -14,6 +14,8 @@ import com.algo.common.TreeNode;
  * 4. "Not Found" means not present in tree
  * 
  * Given a BST insertion order, {5,2,8,3,6,9,1} find the ABC notation for 6, 1, 10, 2 which is "10","00","NotFound", "0"
+ * 
+ * Category : Medium
  *
  */
 public class ABCNotation {

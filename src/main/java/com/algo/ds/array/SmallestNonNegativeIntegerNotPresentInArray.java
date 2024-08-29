@@ -1,7 +1,7 @@
 package com.algo.ds.array;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Given an array arr of unique nonnegative integers, implement a functiongetDifferentNumberthat finds the smallest
@@ -16,6 +16,8 @@ import java.util.Set;
  * Solve first for the case when you’re NOT allowed to modify the input arr. If successful and still have time, see if
  * you can come up with an algorithm with an improved space complexity when modifying arr is allowed. Do so without
  * trading off the time complexity
+ * 
+ * Category : Hard
  */
 public class SmallestNonNegativeIntegerNotPresentInArray {
 
@@ -28,41 +30,47 @@ public class SmallestNonNegativeIntegerNotPresentInArray {
 	 * @return
 	 */
 	public int firstMissingPositive1(int[] nums) {
-		int length = nums.length;
-		Set<Integer> set = new HashSet<Integer>();
-		for (int num : nums) {
-			set.add(num);
+		Map<Integer, Boolean> map = new HashMap<>();
+
+		for (int i = 0; i < nums.length; i++) {
+			map.put(nums[i], true);
 		}
-		// since first positive is 0
-		for (int i = 0; i < length; i++) {
-			if (!set.contains(i)) {
+		for (int i = 1; i <= nums.length + 1; i++) {
+			if (!map.containsKey(i)) {
 				return i;
 			}
 		}
-		return length;
+		return nums.length;
 	}
 
 	// T - O(n) S - O(1)
-	// TODO : not working. need to check.
+	// Ref : https://www.enjoyalgorithms.com/blog/first-missing-positive
 	public int firstMissingPositive2(int[] nums) {
 		int length = nums.length;
-		int temp = 0;
-		for (int i = 0; i < length; i++) {
-			temp = nums[i];
-			while (temp > 0 && temp < length && nums[temp] != temp) {
-				int t = nums[temp];
-				nums[temp] = temp;
-				temp = t;
+		int i = 0;
+
+		while (i < length) {
+			int j = nums[i] - 1;
+			if (nums[i] > 0 && nums[i] <= length && nums[j] != nums[i]) {
+				swap(nums, i, j);
+			} else {
+				i++;
 			}
 		}
 
-		for (int i = 0; i < length; i++) {
-			if (nums[i] != i) {
-				return i;
+		for (int j = 0; j < length; j++) {
+			if (nums[j] != j + 1) {
+				return j + 1;
 			}
 		}
 
-		return length;
+		return length + 1;
+	}
+
+	private void swap(int[] nums, int i, int j) {
+		int temp = nums[i];
+		nums[i] = nums[j];
+		nums[j] = temp;
 	}
 
 	public static void main(String[] args) {
