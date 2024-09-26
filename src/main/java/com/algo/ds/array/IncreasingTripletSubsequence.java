@@ -22,6 +22,8 @@ package com.algo.ds.array;
  * Time complexity is O(n) Space complexity is O(1)
  *
  * https://leetcode.com/problems/increasing-triplet-subsequence/
+ * 
+ * Category : Medium
  */
 public class IncreasingTripletSubsequence {
 	public boolean increasingTriplet(int[] nums) {

@@ -67,6 +67,7 @@ public class DivideNumbersInEqualGroupWithClosestSum {
 				if (possible(nums, sum, p, index - 1)) {
 					return true;
 				}
+				// back track
 				p[i] -= num;
 			}
 		}

@@ -91,7 +91,7 @@ public class AccountsMerge {
 		accounts.add(Arrays.asList("Mary", "mary@mail.com"));
 		accounts.add(Arrays.asList("John", "johnsmith@mail.com", "john_newyork@mail.com"));
 
-		System.out.println(am.accountsMerge(accounts));
+		am.accountsMerge(accounts).forEach(a -> System.out.println(a));
 	}
 }
 
@@ -102,6 +102,7 @@ class UnionFind {
 
 	public UnionFind() {
 		parent = new int[10001];
+		// initially every element is parent of itself
 		for (int i = 0; i <= 10000; ++i) {
 			parent[i] = i;
 		}

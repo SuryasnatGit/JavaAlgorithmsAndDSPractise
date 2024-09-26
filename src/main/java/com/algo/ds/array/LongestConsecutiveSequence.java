@@ -20,6 +20,8 @@ import java.util.Set;
  * 
  * Input: [100, 4, 200, 1, 3, 2] Output: 4 Explanation: The longest consecutive elements sequence is [1, 2, 3, 4].
  * Therefore its length is 4.
+ * 
+ * Category : Medium
  */
 public class LongestConsecutiveSequence {
 
@@ -27,23 +29,24 @@ public class LongestConsecutiveSequence {
 	public int longestConsecutive(int[] nums) {
 		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
 		int result = 1;
-		for (int i : nums) {
-			if (map.containsKey(i)) {
+		for (int num : nums) {
+			if (map.containsKey(num)) {
 				continue;
 			}
-			int left = map.containsKey(i - 1) ? map.get(i - 1) : 0;
-			int right = map.containsKey(i + 1) ? map.get(i + 1) : 0;
+			int left = map.containsKey(num - 1) ? map.get(num - 1) : 0;
+			int right = map.containsKey(num + 1) ? map.get(num + 1) : 0;
 
 			// sum is length of sequence
 			int sum = left + right + 1;
-			map.put(i, sum);
+			map.put(num, sum);
 
 			// keep track of max length
 			result = Math.max(sum, result);
 
 			// extending the length to the boundry of the sequence will do nothing if n has no neighbors
-			map.put(i - left, sum);
-			map.put(i + right, sum);
+			map.put(num - left, sum);
+			map.put(num + right, sum);
+			System.out.println(map);
 		}
 		return result;
 	}

@@ -7,7 +7,7 @@ import java.util.PriorityQueue;
  * Kth largest element in an array.
  * 
  * Given an array and a number k where k is smaller than size of array, we need to find the kth smallest element in the
- * given array. It is given that ll array elements are distinct.
+ * given array. It is given that all array elements are distinct.
  * 
  * Examples:
  * 
@@ -116,69 +116,12 @@ public class KthElementInArray {
 		return res;
 	}
 
-	/**
-	 * Using quick select. The idea is, not to do complete quicksort, but stop at the point where pivot itself is kth
-	 * smallest element. Also, not to recur for both left and right sides of pivot, but recur for one of them according
-	 * to the position of pivot. The worst case time complexity of this method is O(n^2), but it works in O(n) on
-	 * average.
-	 * 
-	 * TODO: check this. it returns wrong answer.
-	 * 
-	 * @param arr
-	 * @param k
-	 * @return
-	 */
-	public int kthElementUsingQuickSelect(int arr[], int k) {
-		int low = 0;
-		int high = arr.length - 1;
-		int pos = 0;
-		while (true) {
-			pos = quickSelect(arr, low, high);
-			if (pos == (k + low)) {
-				return arr[pos];
-			}
-			if (pos > k + low) {
-				high = pos - 1;
-			} else {
-				k = k - (pos - low + 1);
-				low = pos + 1;
-			}
-		}
-	}
-
-	private int quickSelect(int arr[], int low, int high) {
-		int pivot = low;
-		low++;
-		while (low <= high) {
-			if (arr[pivot] > arr[low]) {
-				low++;
-				continue;
-			}
-			if (arr[pivot] <= arr[high]) {
-				high--;
-				continue;
-			}
-			swap(arr, low, high);
-		}
-		if (arr[high] < arr[pivot]) {
-			swap(arr, pivot, high);
-		}
-		return high;
-	}
-
-	private void swap(int arr[], int low, int high) {
-		int temp = arr[low];
-		arr[low] = arr[high];
-		arr[high] = temp;
-	}
-
 	public static void main(String args[]) {
 		int arr[] = { 6, 2, 1, 3, 8, 9, 4 };
 		KthElementInArray kthElement = new KthElementInArray();
 		System.out.println(kthElement.kthSmallestUsingSort(arr, 5));// 6
 		System.out.println(kthElement.kthSmallestUsingMinHeap(arr, 5)); // 6
 		System.out.println(kthElement.kthSmallestUsingMaxHeap(arr, 5)); // 6
-		System.out.println(kthElement.kthElementUsingQuickSelect(arr, 5)); // 6
 		System.out.println(kthElement.kthLargestUsingMaxHeap(arr, 5)); // 3
 	}
 

@@ -20,11 +20,7 @@ public class MajorityElementInArray {
 	public int findMajorityHashing(int[] arr) {
 		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
 		for (int i : arr) {
-			if (map.containsKey(i)) {
-				map.put(i, map.get(i) + 1);
-			} else {
-				map.put(i, 1);
-			}
+			map.put(i, map.getOrDefault(i, 0) + 1);
 			if (map.get(i) > arr.length / 2) {
 				return i;
 			}
@@ -64,6 +60,7 @@ public class MajorityElementInArray {
 		return m;
 	}
 
+	// TODO : understand the rest
 	/**
 	 * Given an integer array of size n, find all elements that appear more than ⌊ n/3 ⌋ times. The algorithm should run
 	 * in linear time and in O(1) space.

@@ -2,7 +2,7 @@ package com.algo.ds.array;
 
 /**
  * Given a sorted array arr[] and a number x, write a function that counts the occurrences of x in arr[]. Expected time
- * complexity is O(Logn)
+ * complexity is O(Log n)
  * 
  * Examples:
  * 
@@ -72,9 +72,9 @@ public class FrequencyOfElementInSortedArray {
 
 	public static void main(String[] args) {
 		FrequencyOfElementInSortedArray fre = new FrequencyOfElementInSortedArray();
-		System.out.println(fre.count(new int[] { 1, 1, 2, 2, 2, 2, 3, }, 1));
-		System.out.println(fre.count(new int[] { 1, 1, 2, 2, 2, 2, 3, }, 2));
-		System.out.println(fre.count(new int[] { 1, 1, 2, 2, 2, 2, 3, }, 3));
-		System.out.println(fre.count(new int[] { 1, 1, 2, 2, 2, 2, 3, }, 4));
+		System.out.println(fre.count(new int[] { 1, 1, 2, 2, 2, 2, 3 }, 1));
+		System.out.println(fre.count(new int[] { 1, 1, 2, 2, 2, 2, 3 }, 2));
+		System.out.println(fre.count(new int[] { 1, 1, 2, 2, 2, 2, 3 }, 3));
+		System.out.println(fre.count(new int[] { 1, 1, 2, 2, 2, 2, 3 }, 4));
 	}
 }

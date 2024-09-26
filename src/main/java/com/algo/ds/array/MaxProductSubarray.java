@@ -1,8 +1,7 @@
 package com.algo.ds.array;
 
 /**
- * Find the contiguous subarray within an array (containing at least one number) which has the
- * largest product.
+ * Find the contiguous subarray within an array (containing at least one number) which has the largest product.
  * 
  * Examples:
  * 
@@ -14,8 +13,9 @@ package com.algo.ds.array;
  *
  * Time complexity is O(n) Space complexity is O(1)
  *
- * http://www.geeksforgeeks.org/maximum-product-subarray/
- * https://leetcode.com/problems/maximum-product-subarray/
+ * http://www.geeksforgeeks.org/maximum-product-subarray/ https://leetcode.com/problems/maximum-product-subarray/
+ * 
+ * Category : Medium
  */
 public class MaxProductSubarray {
 

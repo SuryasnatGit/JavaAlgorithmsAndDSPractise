@@ -16,7 +16,7 @@ import java.util.List;
  * 
  * arr={1 1 0 1 1 0 0 1 1 1 } m=2 output={1 1 0 1 1 1 1 1 1 1} position=5,6
  * 
- * Category : Medium
+ * Category : Hard
  * 
  * Tags : Sliding Window
  */
@@ -50,6 +50,8 @@ public class Flip0sMaximum1s {
 	}
 
 	/**
+	 * TODO : to understand
+	 * 
 	 * You are given with an array of 1s and 0s. And you are given with an integer m, which signifies number of flips
 	 * allowed.
 	 * 
@@ -66,10 +68,10 @@ public class Flip0sMaximum1s {
 	 * maintain a list of the positions of the zeros. Thus O(m) space. Here a solution in Java.
 	 * 
 	 * @param arr
-	 * @param m
+	 * @param flipsAllowed
 	 * @return
 	 */
-	public List<Integer> maximumConsequetive1sPositions(int[] arr, int m) {
+	public List<Integer> maximumConsequetive1sPositions(int[] arr, int flipsAllowed) {
 		// initialize variables
 		int maxBegin = 0;
 		int maxEnd = 0;
@@ -81,7 +83,7 @@ public class Flip0sMaximum1s {
 
 		for (int i = 0; i < arr.length; i++) {
 			if (arr[i] == 0) {
-				if (deque.size() < m) {
+				if (deque.size() < flipsAllowed) {
 					deque.addFirst(i);
 				} else {
 					int length = i - begin;

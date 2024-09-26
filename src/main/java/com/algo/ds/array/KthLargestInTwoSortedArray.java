@@ -45,7 +45,16 @@ public class KthLargestInTwoSortedArray {
 		return result[l - k]; // for smallest use k-1
 	}
 
-	// T - O(k) S - O(1). NOT WORKING..
+	/**
+	 * TODO :
+	 * 
+	 * T - O(k) S - O(1). NOT WORKING..
+	 * 
+	 * @param arr1
+	 * @param arr2
+	 * @param k
+	 * @return
+	 */
 	public int findKthLargestElementBetter(int[] arr1, int[] arr2, int k) {
 		int m = 0, n = 0, c = 0;
 		int l = arr1.length + arr2.length;
@@ -86,6 +95,8 @@ public class KthLargestInTwoSortedArray {
 	}
 
 	/**
+	 * TODO : to check
+	 *
 	 * Approach 2 -NOT WORKING. TO CHECK LATER . Divide and concqur. Using a modified binary search.
 	 * 
 	 * time complexity - O(log m + log n)

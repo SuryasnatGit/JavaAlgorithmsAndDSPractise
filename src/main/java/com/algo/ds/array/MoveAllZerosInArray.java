@@ -24,9 +24,7 @@ public class MoveAllZerosInArray {
 				fast++;
 				continue; // moves to the next iteration.
 			}
-			arr[slow] = arr[fast];
-			slow++;
-			fast++;
+			arr[slow++] = arr[fast++];
 		}
 		// accumulates all 0s at the end of the array
 		while (slow < arr.length) {
