@@ -1,7 +1,6 @@
 package com.algo.ds.array;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -17,45 +16,20 @@ import java.util.PriorityQueue;
  * 
  * Input: 2,1,1,1,3,4,4,4,5 M = 2 Output: 2,1,1,3,1,4,4,5,4
  * 
+ * TODO : to understand properly
+ * 
  * Category : Medium
  */
-class Pair {
-	int num;
-	int count;
-
-	Pair(int num, int count) {
-		this.count = count;
-		this.num = num;
-	}
-}
-
-class Comparators implements Comparator<Pair> {
-
-	@Override
-	public int compare(Pair o1, Pair o2) {
-		if (o1.count <= o2.count) {
-			return 1;
-		} else {
-			return -1;
-		}
-	}
-
-}
-
 public class GroupElementsInSizeM {
 
 	public boolean group(int input[], int m) {
+		System.out.println("Input : " + Arrays.toString(input) + " m : " + m);
 		Map<Integer, Integer> count = new HashMap<Integer, Integer>();
 		for (Integer i : input) {
-			int c = 1;
-			if (count.containsKey(i)) {
-				c = count.get(i);
-				c++;
-			}
-			count.put(i, c);
+			count.put(i, count.getOrDefault(i, 0) + 1);
 		}
 
-		PriorityQueue<Pair> maxHeap = new PriorityQueue<Pair>(count.size(), new Comparators());
+		PriorityQueue<Pair> maxHeap = new PriorityQueue<Pair>(count.size(), (p1, p2) -> p2.count - p1.count);
 		for (Integer s : count.keySet()) {
 			int c = count.get(s);
 			// if any count is greater than len/m then this arrangement is not possible
@@ -64,6 +38,7 @@ public class GroupElementsInSizeM {
 			}
 			maxHeap.offer(new Pair(s, c));
 		}
+		System.out.println(maxHeap);
 		int current = 0;
 		int start = current;
 		while (maxHeap.size() > 0) {
@@ -86,11 +61,24 @@ public class GroupElementsInSizeM {
 		int input[] = { 2, 1, 5, 1, 3, 5, 3, 3, 4 };
 		int input1[] = { 1, 2, 3, 8, 8, 8, 7, 8 };
 		GroupElementsInSizeM gps = new GroupElementsInSizeM();
-		boolean r = gps.group(input, 3);
-		System.out.println(r);
-		System.out.println(Arrays.toString(input));
-
+		System.out.println(gps.group(input, 3));
 		System.out.println(gps.group(input1, 3));
 
 	}
+}
+
+class Pair {
+	int num;
+	int count;
+
+	Pair(int num, int count) {
+		this.count = count;
+		this.num = num;
+	}
+
+	@Override
+	public String toString() {
+		return "Pair [num=" + num + ", count=" + count + "]";
+	}
+
 }

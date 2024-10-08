@@ -11,6 +11,8 @@ import com.algo.common.ListNode;
  * http://www.geeksforgeeks.org/merge-sort-for-linked-list/.
  * 
  * complexity - O(n log n) Test cases 0 ListNodes 1 ListNodes 2 ListNodes 3 ListNodes fully sorted reverse sorted
+ * 
+ * Category : Medium
  */
 public class MergeLinkListProblems {
 
@@ -91,7 +93,7 @@ public class MergeLinkListProblems {
 	/**
 	 * Using priority queue.
 	 * 
-	 * T - O(n log k) S - O(1)
+	 * T - O(n log k) S - O(k)
 	 */
 	public ListNode mergeKListsHeap(ArrayList<ListNode> lists) {
 		if (lists == null || lists.size() == 0) {

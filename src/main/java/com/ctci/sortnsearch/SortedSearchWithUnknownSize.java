@@ -14,6 +14,8 @@ import java.util.List;
  * 
  * Complexity - O(log n)
  * 
+ * Category : Medium
+ * 
  */
 public class SortedSearchWithUnknownSize {
 
@@ -30,7 +32,7 @@ public class SortedSearchWithUnknownSize {
 	public int search(Listy listy, int value) {
 		int index = 1;
 
-		// find the higher limit
+		// increase the index until it crosses the boundary
 		while (listy.elementAt(index) != -1 && listy.elementAt(index) < value) {
 			index *= 2;
 		}

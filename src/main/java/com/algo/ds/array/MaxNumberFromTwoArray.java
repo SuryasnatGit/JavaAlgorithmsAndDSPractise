@@ -5,9 +5,9 @@ import java.util.Stack;
 
 /**
  *
- * Given two arrays of length m and n with digits 0-9 representing two numbers. Create the maximum
- * number of length k <= m + n from digits of the two. The relative order of the digits from the
- * same array must be preserved. Return an array of the k digits.
+ * Given two arrays of length m and n with digits 0-9 representing two numbers. Create the maximum number of length k <=
+ * m + n from digits of the two. The relative order of the digits from the same array must be preserved. Return an array
+ * of the k digits.
  *
  * e.g nums1 = [3, 4, 6, 5] nums2 = [9, 1, 2, 5, 8, 3] k = 5 return [9, 8, 6, 5, 3]
  * 
@@ -20,17 +20,18 @@ import java.util.Stack;
  * Input: nums1 = [3, 9] nums2 = [8, 9] k = 3 Output: [9, 8, 9]
  * 
  * https://leetcode.com/problems/create-maximum-number/
+ * 
+ * Category : Hard
  */
 public class MaxNumberFromTwoArray {
 
 	/**
-	 * To find the maximum ,we can enumerate how many digits we should get from nums1 , we suppose it is
-	 * i.
+	 * To find the maximum ,we can enumerate how many digits we should get from nums1 , we suppose it is i.
 	 * 
 	 * So , the digits from nums2 is K – i.
 	 * 
-	 * And we can use a stack to get the get maximum number(x digits) from one array.（just like leetcode
-	 * Remove Duplicate Letters）
+	 * And we can use a stack to get the get maximum number(x digits) from one array.（just like leetcode Remove
+	 * Duplicate Letters）
 	 * 
 	 * OK, Once we choose two maximum subarray , we should combine it to the answer.
 	 * 
@@ -111,8 +112,8 @@ public class MaxNumberFromTwoArray {
 	 * if stack size < k push nums[i].<br/>
 	 * Return stack.
 	 * 
-	 * Since the stack length is known to be k, it is very easy to use an array to simulate the stack.
-	 * The time complexity is O(n) since each element is at most been pushed and popped once.
+	 * Since the stack length is known to be k, it is very easy to use an array to simulate the stack. The time
+	 * complexity is O(n) since each element is at most been pushed and popped once.
 	 * 
 	 * @param nums
 	 * @param k

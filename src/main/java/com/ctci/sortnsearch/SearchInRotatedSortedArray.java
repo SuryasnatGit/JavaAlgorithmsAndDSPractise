@@ -12,6 +12,8 @@ package com.ctci.sortnsearch;
  * 
  * Complexity: O(log n) if all elements are unique. But if many duplicates are there, then its O(n).
  * 
+ * Category : Medium
+ * 
  */
 public class SearchInRotatedSortedArray {
 

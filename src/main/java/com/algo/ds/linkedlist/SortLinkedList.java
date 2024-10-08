@@ -10,8 +10,23 @@ import com.algo.common.ListNode;
  * 
  * 1. find the midpoint of the LL (using fast and slow pointers) 2. merging 2 ordered LL 3. divide and conquer recursion
  * </p>
+ * 
+ * Priority : Medium
  */
 public class SortLinkedList {
+
+	public ListNode sort(ListNode head) {
+		if (head == null || head.next == null) {
+			return head;
+		}
+
+		ListNode mid = midpoint(head);
+		ListNode right = sort(mid.next);
+		mid.next = null;
+		ListNode left = sort(head);
+
+		return merge(left, right);
+	}
 
 	private ListNode midpoint(ListNode head) {
 		ListNode slow = head;
@@ -47,19 +62,6 @@ public class SortLinkedList {
 		}
 
 		return dummy.next;
-	}
-
-	public ListNode sort(ListNode head) {
-		if (head == null || head.next == null) {
-			return head;
-		}
-
-		ListNode mid = midpoint(head);
-		ListNode right = sort(mid.next);
-		mid.next = null;
-		ListNode left = sort(head);
-
-		return merge(left, right);
 	}
 
 	public static void main(String[] args) {

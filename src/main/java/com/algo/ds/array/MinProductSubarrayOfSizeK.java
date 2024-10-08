@@ -1,5 +1,8 @@
 package com.algo.ds.array;
 
+/**
+ * Category : Medium
+ */
 public class MinProductSubarrayOfSizeK {
 
 	public int minProduct1(int[] arr, int k) {
