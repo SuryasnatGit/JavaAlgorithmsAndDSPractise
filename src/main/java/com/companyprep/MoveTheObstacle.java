@@ -40,6 +40,8 @@ import java.util.Queue;
  * (2,0)->(2,1). The robot moves 3 times to remove the obstacle 9
  * 
  * Using BFS.
+ * 
+ * time complexity - O(r * c) space complexity - O(r * c) where r = num of rows, c = num of columns
  *
  */
 public class MoveTheObstacle {
