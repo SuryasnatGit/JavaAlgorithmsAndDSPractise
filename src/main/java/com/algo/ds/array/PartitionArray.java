@@ -13,6 +13,8 @@ package com.algo.ds.array;
  * 
  * You should do really partition in array nums instead of just counting the numbers of integers smaller than k. If all
  * elements in nums are smaller than k, then return nums.length
+ * 
+ * Category : Medium
  **/
 public class PartitionArray {
 

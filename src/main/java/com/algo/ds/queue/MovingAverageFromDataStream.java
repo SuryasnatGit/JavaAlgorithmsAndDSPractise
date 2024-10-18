@@ -12,6 +12,8 @@ import java.util.Queue;
  * m.next(5) = (10 + 3 + 5) / 3
  * 
  * T - O(1) S - O(k)
+ * 
+ * Category : Medium
  */
 public class MovingAverageFromDataStream {
 
