@@ -30,6 +30,8 @@ public class MaximumSubarraySum {
 	 * 
 	 * time complexity - O(n log n), Space - O(log n) stack space.
 	 * 
+	 * Category : Medium
+	 * 
 	 * @param a
 	 * @return
 	 */
@@ -118,7 +120,7 @@ public class MaximumSubarraySum {
 	 * and index = 1start searching from ; or when looping from end to beginning, use nums[n-1]initialization and index
 	 * = n - 2start from ).
 	 * 
-	 * 
+	 * Category : Hard
 	 * 
 	 * TODO : understand properly
 	 * 
@@ -190,6 +192,8 @@ public class MaximumSubarraySum {
 	 * An int type localMax, used every time when writing the i-th row and j-th column of globalMax, records the maximum
 	 * sum obtained by taking i subarrays among the first j numbers, but including the j-th number
 	 * 
+	 * TODO : understand properly
+	 * 
 	 */
 	public int maxKSubArrays(int[] nums, int k) {
 		// write your code here
@@ -240,6 +244,7 @@ public class MaximumSubarraySum {
 	 * compared when used, which sum[i - k]ensures that the interval length of maxSum is at least k (sum[i] - sum[i -
 	 * k], i - (i - k) = k).
 	 * 
+	 * TODO : understand properly
 	 * 
 	 */
 	public int maximumSubArrayWithAtleastKNumbers(int[] nums, int k) {
@@ -264,6 +269,57 @@ public class MaximumSubarraySum {
 			}
 		}
 		return maxSum;
+	}
+
+	/**
+	 * Using kadane's algorithm.
+	 * 
+	 * Simple idea of the Kadane’s algorithm is to look for all positive contiguous segments of the array
+	 * (max_ending_here is used for this). And keep track of maximum sum contiguous segment among all positive segments
+	 * (max_so_far is used for this). Each time we get a positive sum compare it with max_so_far and update max_so_far
+	 * if it is greater than max_so_far
+	 * 
+	 * TODO : to understand
+	 * 
+	 */
+	public void printMaximumSumSubArray(int[] A) {
+		// stores maximum sum sub-array found so far
+		int maxSoFar = 0;
+
+		// stores maximum sum of sub-array ending at current position
+		int maxEndingHere = 0;
+
+		// stores end-points of maximum sum sub-array found so far
+		int start = 0, end = 0;
+
+		// stores starting index of a positive sum sequence
+		int beg = 0;
+
+		// traverse the given array
+		for (int i = 0; i < A.length; i++) {
+			// update maximum sum of sub-array "ending" at index i
+			maxEndingHere = maxEndingHere + A[i];
+
+			// if maximum sum is negative, set it to 0
+			if (maxEndingHere < 0) {
+				maxEndingHere = 0; // empty sub-array
+				beg = i + 1;
+			}
+
+			// update result if current sub-array sum is found to be greater
+			if (maxSoFar < maxEndingHere) {
+				maxSoFar = maxEndingHere;
+				start = beg;
+				end = i;
+			}
+		}
+
+		System.out.println("The sum of contiguous sub-array with the " + "largest sum is " + maxSoFar);
+
+		System.out.print("The contiguous sub-array with the largest sum is ");
+		for (int i = start; i <= end; i++) {
+			System.out.print(A[i] + " ");
+		}
 	}
 
 	public static void main(String[] args) {

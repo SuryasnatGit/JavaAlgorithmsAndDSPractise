@@ -16,6 +16,8 @@ package com.leetcode;
  * Insertion, deletion or replace of any one character are all considered as one change.
  * 
  * Category : Hard
+ * 
+ * TODO : to understand properly
  */
 public class StrongPasswordChecker {
 

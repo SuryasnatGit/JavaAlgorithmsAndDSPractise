@@ -1,5 +1,7 @@
 package com.algo.ds.array;
 
+import java.util.Arrays;
+
 public class ArrayAddition {
 
 	public int[] add(int arr1[], int arr2[]) {
@@ -90,5 +92,8 @@ public class ArrayAddition {
 		for (int i = 0; i < result.length; i++) {
 			System.out.print(" " + result[i]);
 		}
+		System.out.println();
+		System.out.println(Arrays.toString(aa.plusOne(new int[] { 7, 5, 6 })));
+		System.out.println(Arrays.toString(aa.plusOne(new int[] { 7, 5, 9 })));
 	}
 }

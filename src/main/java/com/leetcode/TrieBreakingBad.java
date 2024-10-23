@@ -23,6 +23,8 @@ import java.util.Queue;
  * prefix. Said it can be done with trie
  * 
  * Category : Hard
+ * 
+ * TODO : to understand
  *
  */
 public class TrieBreakingBad {

@@ -1,5 +1,6 @@
 package com.leetcode;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,6 +72,58 @@ public class FractionToRecurringDecimal {
 		return result;
 	}
 
+	public String recurringDecimal1(BigInteger numerator, BigInteger denominator) {
+
+		// base check
+		if (numerator.equals(BigInteger.ZERO))
+			return "0";
+
+		if (denominator.equals(BigInteger.ZERO))
+			return "";
+
+		String result = "";
+
+		// check the sign
+		if (numerator.compareTo(BigInteger.ZERO) < 0 && denominator.compareTo(BigInteger.ZERO) < 0) {
+			result = "";
+		} else if (numerator.compareTo(BigInteger.ZERO) < 0 || denominator.compareTo(BigInteger.ZERO) < 0) {
+			result += "-";
+		}
+
+		numerator = numerator.abs();
+		denominator = denominator.abs();
+
+		BigInteger quotient = numerator.divide(denominator);
+		result += quotient;
+
+		BigInteger remainder = numerator.remainder(denominator);
+		if (remainder.equals(BigInteger.ZERO))
+			return result;
+
+		// key is remainder, value is length of decimal part
+		Map<BigInteger, Integer> map = new HashMap<>();
+		result += ".";
+		while (!remainder.equals(BigInteger.ZERO)) {
+			// System.out.println(map);
+			// if digits repeat
+			if (map.containsKey(remainder)) {
+				int beg = map.get(remainder);
+				String part1 = result.substring(0, beg);
+				String part2 = result.substring(beg, result.length());
+				result = part1 + "(" + part2 + ")";
+				return result;
+			}
+
+			// continue
+			map.put(remainder, result.length());
+			quotient = numerator.divide(denominator);
+			result += quotient;
+			remainder = numerator.remainder(denominator);
+		}
+
+		return result;
+	}
+
 	public String fractionToDecimal(int numerator, int denominator) {
 		StringBuilder sb = new StringBuilder();
 		Map<Integer, Integer> map = new HashMap<Integer, Integer>(); // remainder, position
@@ -98,7 +151,7 @@ public class FractionToRecurringDecimal {
 		sb.append(".");
 
 		while (remainder != 0) {
-			map.put(remainder, sb.length()); // 记录position， 为了方便之后加括号
+			map.put(remainder, sb.length()); // Record the position and add parentheses later for convenience.
 
 			remainder *= 10;
 			sb.append(remainder / denominator);
@@ -122,6 +175,19 @@ public class FractionToRecurringDecimal {
 		System.out.println(f.recurringDecimal(110, 6));
 		System.out.println(f.recurringDecimal(-50, 8));
 		System.out.println(f.recurringDecimal(-50, -8));
+		System.out.println(f.recurringDecimal(2, 3));
+
+		// last test case not working. expected "0.0000000004656612873077392578125"
+		System.out.println(f.recurringDecimal(-1, -2147483648));
+		System.out.println();
+
+		System.out.println(f.recurringDecimal1(BigInteger.valueOf(11L), BigInteger.valueOf(6L)));
+		// System.out.println(f.recurringDecimal1(10, 3));
+		// System.out.println(f.recurringDecimal1(1, 2));
+		// System.out.println(f.recurringDecimal1(110, 6));
+		// System.out.println(f.recurringDecimal1(-50, 8));
+		// System.out.println(f.recurringDecimal1(-50, -8));
+		// System.out.println(f.recurringDecimal1(2, 3));
 
 		// last test case not working. expected "0.0000000004656612873077392578125"
 		System.out.println(f.recurringDecimal(-1, -2147483648));
