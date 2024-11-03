@@ -10,6 +10,14 @@ package com.leetcode;
  * 
  * Output: "121"
  * 
+ * Example 2:
+ * 
+ * Input: n = "1"
+ * 
+ * Output: "0"
+ * 
+ * Explanation: 0 and 2 are the closest palindromes but we return the smallest which is 0.
+ * 
  * Note:
  * 
  * The input n is a positive integer represented by string, whose length will not exceed 18.

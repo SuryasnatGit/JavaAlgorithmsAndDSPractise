@@ -17,6 +17,8 @@ import java.util.PriorityQueue;
  * Input: k = 3 arr1[] : [4, 7, 30] arr2[] : [1, 2] arr3[] : [20, 40] The smallest range is [2 20]
  * 
  * 这是一个好题
+ * 
+ * TODO : to understand
  */
 public class FindSmallestRangeContainingElementsFromKArrays {
 

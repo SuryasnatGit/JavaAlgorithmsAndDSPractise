@@ -56,92 +56,64 @@ package com.leetcode;
  * 
  * Version strings do not start or end with dots, and they will not be two consecutive dots.
  * 
+ * The time complexity of the given code can be considered to be O(max(M, N)), where M is the length of version1 and N
+ * is the length of version2. This is because the code uses two while loops that iterate through each character of both
+ * version1 and version2 at most once. The inner while loops, which convert the version numbers from string to integer,
+ * contribute to the same overall time complexity because they iterate through each subsection of the versions delimited
+ * by the period character '.', still not exceeding the total length of the versions.
+ * 
+ * The space complexity of the code is O(1), since it only uses a fixed number of integer variables and does not
+ * allocate any variable-sized data structures dependent on the size of the input.
+ * 
  * Category : Medium
  *
  */
 public class CompareVersionNumbers {
 
-	public int compareVersion(String version1, String version2) {
-		String[] ver1Strings = version1.split("\\.");
-		String[] ver2Strings = version2.split("\\.");
+	public int compareVersion1(String version1, String version2) {
+		int length1 = version1.length(), length2 = version2.length(); // Store the lengths of the version strings
 
-		int i = 0, j = 0;
+		// Initialize two pointers for traversing the strings
+		for (int i = 0, j = 0; (i < length1) || (j < length2); ++i, ++j) {
+			int chunkVersion1 = 0, chunkVersion2 = 0; // Initialize version number chunks
 
-		while (i < ver1Strings.length && j < ver2Strings.length) {
-
-			if (ver1Strings[i].compareTo(ver2Strings[j]) != 0) {
-				String ver1String = removeLeadingZeros(ver1Strings[i]);
-				String ver2String = removeLeadingZeros(ver2Strings[i]);
-
-				int compare = compareTo(ver1String, ver2String);
-				if (compare != 0) {
-					return compare;
-				}
+			// Compute the whole chunk for version1 until a dot is encountered or the end of the string
+			while (i < length1 && version1.charAt(i) != '.') {
+				// Update the chunk by multiplying by 10 (moving one decimal place)
+				// and adding the integer value of the current character
+				chunkVersion1 = chunkVersion1 * 10 + (version1.charAt(i) - '0');
+				i++; // Move to the next character
 			}
 
-			i++;
-			j++;
-		}
-
-		if (i == ver1Strings.length && j == ver2Strings.length) {
-			return 0;
-		}
-
-		if (i < ver1Strings.length) {
-			if (onlyZeroLeft(ver1Strings, i)) {
-				return 0;
+			// Compute the whole chunk for version2 until a dot is encountered or the end of the string
+			while (j < length2 && version2.charAt(j) != '.') {
+				chunkVersion2 = chunkVersion2 * 10 + (version2.charAt(j) - '0');
+				j++; // Move to the next character
 			}
-			return 1;
-		} else {
-			if (onlyZeroLeft(ver2Strings, j)) {
-				return 0;
+
+			// Compare the extracted chunks from version1 and version2
+			if (chunkVersion1 != chunkVersion2) {
+				// Return -1 if chunkVersion1 is smaller, 1 if larger
+				return chunkVersion1 < chunkVersion2 ? -1 : 1;
 			}
-			return -1;
+			// If chunks are equal, proceed to the next set of chunks
 		}
-	}
-
-	private String removeLeadingZeros(String version) {
-		int zeroIndex = 0;
-		while (zeroIndex < version.length() && version.charAt(zeroIndex) == '0') {
-			zeroIndex++;
-		}
-		return version.substring(zeroIndex);
-	}
-
-	private int compareTo(String s1, String s2) {
-		if (s1.length() != s2.length()) {
-			return s1.length() > s2.length() ? 1 : -1;
-		}
-
-		if (s1.compareTo(s2) == 0) {
-			return 0;
-		}
-
-		return s1.compareTo(s2) < 0 ? -1 : 1;
-	}
-
-	private boolean onlyZeroLeft(String[] arr, int start) {
-		for (int i = start; i < arr.length; i++) {
-			if (!arr[i].equals("0")) {
-				return false;
-			}
-		}
-		return true;
+		// If all chunks have been successfully compared and are equal, return 0
+		return 0;
 	}
 
 	public static void main(String[] args) {
 		CompareVersionNumbers com = new CompareVersionNumbers();
-		System.out.println(com.compareVersion("0.1", "1.1"));
-		System.out.println(com.compareVersion("1.0.1", "1"));
-		System.out.println(com.compareVersion("7.5.2.4", "7.5.3"));
-		System.out.println(com.compareVersion("1.01", "1.001"));
-		System.out.println(com.compareVersion("1.0", "1.0.0"));
-		System.out.println(com.compareVersion("1.23", "3.1"));
 
-		// TODO: this test case does not work. to check later
 		String s1 = "19.8.3.17.5.01.0.0.4.0.0.0.0.0.0.0.0.0.0.0.0.0.00.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.000000.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.000000";
 		String s2 = "19.8.3.17.5.01.0.0.4.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0000.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.000000";
 
-		System.out.println(com.compareVersion(s1, s2));
+		System.out.println(com.compareVersion1("0.1", "1.1")); // -1
+		System.out.println(com.compareVersion1("1.0.1", "1")); // 1
+		System.out.println(com.compareVersion1("7.5.2.4", "7.5.3")); // -1
+		System.out.println(com.compareVersion1("1.01", "1.001")); // 0
+		System.out.println(com.compareVersion1("1.0", "1.0.0")); // 0
+		System.out.println(com.compareVersion1("1.23", "3.1")); // -1
+		System.out.println(com.compareVersion1(s1, s2)); // 0
 	}
 }

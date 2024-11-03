@@ -33,6 +33,14 @@ package com.leetcode;
  * 
  * Given m = 1, n = 1, return 9.
  * 
+ * T - Since there are 9 digits and each DFS invocation can lead up to 8 further invocations (minus the visited numbers
+ * and the cross numbers that require a middle number to be visited first), the upper bound can initially seem to be
+ * O(9!). Yet, the time complexity is better due to the constraints that cut down the search space significantly - the
+ * cross matrix prevents jumps over unvisited keys.
+ * 
+ * S - O(n) due to the recursive nature of DFS, where n in this context is the maximum depth of the recursive stack,
+ * which corresponds to the maximum length of the pattern (up to 9)
+ * 
  * Category : Hard
  *
  */
@@ -42,6 +50,10 @@ public class AndroidUnlockPatterns {
 	public int numberOfPatterns4(int m, int n) {
 		int res = 0;
 		boolean[] visited = new boolean[10];
+
+		// defining a cross matrix where cross[i][j] represents the middle point (the point that should be previously
+		// visited) when drawing a line from dot i to dot j. This matrix is precomputed and hard-coded into the solution
+		// to comply with the constraint regarding the line segments.
 		int[][] jumps = new int[10][10];
 
 		jumps[1][3] = jumps[3][1] = 2; // From a to b, need to go through c
@@ -62,6 +74,15 @@ public class AndroidUnlockPatterns {
 		return res;
 	}
 
+	/**
+	 * A recursive backtracking function dfs is implemented to explore all unique paths from any start dot.
+	 * 
+	 * @param cur
+	 * @param remain
+	 * @param visited
+	 * @param jumps
+	 * @return
+	 */
 	int dfs4(int cur, int remain, boolean[] visited, int[][] jumps) {
 		if (remain < 0) {
 			return 0;

@@ -13,6 +13,8 @@ import java.util.TreeMap;
  * Ask to design a data structure, either a list or an array. Take out all the elements in the linkedlist and keep them
  * sorted. Followup is what to do if peek () cannot be used. My thinking: if I got element A, and next element B is
  * smaller than A, then A is from the tail of the list; otherwise, A is from the head of the list.
+ * 
+ * TODO : to understand
  *
  */
 public class BlackBoxLinkedList {

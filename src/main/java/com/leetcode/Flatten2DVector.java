@@ -32,6 +32,8 @@ import java.util.Queue;
  * should be refactored into a common method.
  * 
  * Follow up: As an added challenge, try to code it using only iterators in C++ or iterators in Java.
+ * 
+ * Category : Medium
  *
  */
 public class Flatten2DVector implements Iterator<Integer> {

@@ -1,6 +1,7 @@
 package com.leetcode;
 
 // TODO: complete the other portions
+// Category : Medium
 public class BinaryCalculator {
 
 	// Binary value :: 11 + 10 = 0101 Decimal value :: 3 + 2 = 5

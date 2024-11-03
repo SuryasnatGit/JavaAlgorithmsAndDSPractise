@@ -39,10 +39,13 @@ public class BackspaceStringCompare {
 		System.out.println(back.isEqualUsingStack("ab##", "c#d#"));
 		System.out.println(back.isEqualUsingStack("a##c", "#a#c"));
 		System.out.println(back.isEqualUsingStack("a#c", "b"));
+		System.out.println(back.isEqualUsingStack("a#c", "c"));
+		System.out.println();
 		System.out.println(back.isEqualUsingPointers("ab#c", "ad#c"));
 		System.out.println(back.isEqualUsingPointers("ab##", "c#d#"));
 		System.out.println(back.isEqualUsingPointers("a##c", "#a#c"));
 		System.out.println(back.isEqualUsingPointers("a#c", "b"));
+		System.out.println(back.isEqualUsingPointers("a#c", "c"));
 	}
 
 	/**
@@ -50,7 +53,7 @@ public class BackspaceStringCompare {
 	 * 
 	 */
 	public boolean isEqualUsingStack(String s, String t) {
-		if (s != null && t != null && s.length() == t.length()) {
+		if (s != null && t != null) {
 			String resultS = navigateString(s);
 			String resultT = navigateString(t);
 			return (resultS.equals(resultT));
@@ -71,11 +74,13 @@ public class BackspaceStringCompare {
 	}
 
 	/**
+	 * TODO : does not work for a#c and c
+	 * 
 	 * Approach 2 : Using 2 pointer : T - O(N), S - O(1)
 	 * 
 	 */
 	public boolean isEqualUsingPointers(String s, String t) {
-		if (s != null && t != null && s.length() == t.length()) {
+		if (s != null && t != null) {
 			int indexS = s.length() - 1;
 			int indexT = t.length() - 1;
 			int skipS = 0, skipT = 0;

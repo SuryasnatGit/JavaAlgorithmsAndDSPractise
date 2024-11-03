@@ -6,6 +6,8 @@ import com.algo.common.TreeNode;
 
 /**
  * Implement an iterator for a binary search tree that will iterate the nodes by value in ascending order
+ * 
+ * Category : Medium
  *
  */
 public class BinarySearchTreeIterator {
