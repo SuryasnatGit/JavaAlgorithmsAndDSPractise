@@ -16,6 +16,14 @@ package com.companyprep;
  * 
  * The length of the input array is [1, 10]. Elements in the given array will be in range [2, 1000]. There is only one
  * optimal division for each test case.
+ * 
+ * Category : Medium
+ * 
+ * Tags : DP
+ * 
+ * https://algo.monster/liteproblems/553
+ * 
+ * TODO : to understand
  */
 public class OptimalDivision {
 	public String optimalDivision(int[] nums) {

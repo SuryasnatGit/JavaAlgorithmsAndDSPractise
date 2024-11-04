@@ -42,6 +42,8 @@ import java.util.Queue;
  * Using BFS.
  * 
  * time complexity - O(r * c) space complexity - O(r * c) where r = num of rows, c = num of columns
+ * 
+ * Category : Medium
  *
  */
 public class MoveTheObstacle {

@@ -21,6 +21,8 @@ import java.util.Map;
  * Movies are 1,2,3,4,5. Kohli ranks them 3,1,2,4,5, Dhoni ranks them 3,2,4,1,5. Compatibility difference is 2 because
  * Kohli ranks movie 1 before 2,4 but Dhoni ranks it after.
  * 
+ * Category : Easy
+ * 
  */
 public class CompatibilityDifference {
 

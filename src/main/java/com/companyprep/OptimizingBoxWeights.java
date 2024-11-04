@@ -17,7 +17,7 @@ import java.util.List;
  * Explanation: We can divide the numbers into two subsets A = [4, 5] and B = [1, 2, 2, 3]. The sum of A is 9 which is
  * greater than the sum of B which is 8. There are other ways to divide but A = [4, 5] is of minimal size of 2.
  * 
- * @author surya
+ * Category : Easy
  *
  */
 public class OptimizingBoxWeights {

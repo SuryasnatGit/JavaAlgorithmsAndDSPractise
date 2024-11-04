@@ -21,7 +21,7 @@ import java.util.Arrays;
  * 90min + 125min = 215 is the maximum number within 220 (250min - 30min)
  * 
  * 
- * @author M_402201
+ * Category : Easy
  *
  */
 public class MoviesOnFlight {

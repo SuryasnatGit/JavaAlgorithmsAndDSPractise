@@ -22,6 +22,8 @@ import java.util.Map;
  * ["Acity","Ccity",2], ["Bcity","Ccity",3]
  * 
  * Return ["Acity","Bcity",1], ["Acity","Ccity",2]
+ * 
+ * Category : Hard
  */
 public class MinimumSpanningTree {
 

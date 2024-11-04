@@ -13,6 +13,8 @@ import java.util.Stack;
  * 
  * ((a + b)) has redundant braces so answer will be 1 (a + (a + b)) doesn't have have any redundant braces so answer
  * will be 0
+ * 
+ * Category : Easy
  */
 public class RedundantBraces {
 	public int braces(String a) {

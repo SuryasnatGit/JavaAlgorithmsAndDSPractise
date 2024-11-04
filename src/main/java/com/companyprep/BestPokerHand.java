@@ -3,6 +3,11 @@ package com.companyprep;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * <p>
  * You are given an integer array ranks and a character array suits. You have 5 cards where the ith card has a rank of
@@ -52,13 +57,11 @@ import java.io.InputStreamReader;
  * 
  * </p>
  * 
+ * Category : Hard
+ * 
  * TODO: understand properly
  *
  */
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
 public class BestPokerHand {
 

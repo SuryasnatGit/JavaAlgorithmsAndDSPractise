@@ -45,7 +45,7 @@ import java.util.Map;
  * select the third(ID-2) and fourth(ID-3) package since you have to reserve exactly 30 space units.
  * 
  * 
- * @author M_402201
+ * Category : Easy
  *
  */
 public class AmazonSortCentre {

@@ -30,7 +30,7 @@ import java.util.PriorityQueue;
  * 
  * Input: ropes = [2, 2, 3, 3] Output: 20
  * 
- * @author surya
+ * Category : Easy
  *
  */
 public class ConnectRopes {

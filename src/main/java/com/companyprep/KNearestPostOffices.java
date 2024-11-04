@@ -17,6 +17,8 @@ import java.util.PriorityQueue;
  * 
  * Output from aonecode.com [[-1, 2], [0, 3], [4, 3]]
  * 
+ * Category : Easy
+ * 
  */
 public class KNearestPostOffices {
 

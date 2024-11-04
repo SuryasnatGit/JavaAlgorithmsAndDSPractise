@@ -43,7 +43,7 @@ import java.util.Set;
  * Words only consist of letters, never apostrophes or other punctuation symbols.
  * 
  * 
- * @author M_402201
+ * Category : Easy
  *
  */
 public class MostCommonWord {

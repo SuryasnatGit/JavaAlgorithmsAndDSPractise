@@ -10,6 +10,10 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+/**
+ * Category : Hard
+ * 
+ */
 public class TopNCompetetors {
 
 	public ArrayList<String> topNCompetetors(int topNCompetitors, List<String> competitors, int numReviews,

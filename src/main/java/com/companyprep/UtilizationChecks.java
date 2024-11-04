@@ -44,7 +44,7 @@ package com.companyprep;
  * 
  * Returns: int: an integer that represents the final number of instances running.
  *
- * 
+ * Category : Easy
  * 
  */
 public class UtilizationChecks {
