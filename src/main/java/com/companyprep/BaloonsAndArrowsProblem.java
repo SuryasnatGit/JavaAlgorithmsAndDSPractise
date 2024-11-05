@@ -24,6 +24,8 @@ import java.util.Arrays;
  * 
  * Continuity problem.
  * 
+ * Category : Medium
+ * 
  */
 public class BaloonsAndArrowsProblem {
 

@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * TODO : to check
+ */
 public class PredictTheWinner {
 
 	// Choose from 1 to max, inclusive. For the total sum, Whoever first meet target will win

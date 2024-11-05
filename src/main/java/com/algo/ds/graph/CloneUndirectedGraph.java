@@ -13,6 +13,8 @@ import java.util.Set;
  * Clone an undirected graph. Each node in the graph contains a label and a list of its neighbors.
  * 
  * https://leetcode.com/problems/clone-graph/
+ * 
+ * Category : Medium
  */
 public class CloneUndirectedGraph {
 

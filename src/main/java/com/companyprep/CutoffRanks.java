@@ -87,6 +87,8 @@ import java.util.TreeMap;
  * 
  * Explanation: In order, the players achieve the ranks [4,4,3,2,1]. Since the cutOffRank is 4, all 5 employees will be
  * left. So, the output is 5
+ * 
+ * Category : Medium
  *
  */
 public class CutoffRanks {

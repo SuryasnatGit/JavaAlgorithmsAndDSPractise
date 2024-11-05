@@ -9,6 +9,7 @@ import java.util.Arrays;
  * is 1 second ago. If it is, the request is successful, and the timestamp of the new request overwrites the pointer.
  * Then the pointer +1 and then mod, it is rotated.
  *
+ * TODO : to understand
  */
 public class RateLimiter {
 	int[] arr = null;

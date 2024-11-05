@@ -28,6 +28,8 @@ import java.util.PriorityQueue;
  * Your algorithm's time complexity must be better than O(n log n), where n is the array's size.<br/>
  * It's guaranteed that the answer is unique, in other words the set of the top k frequent elements is unique.<br/>
  * You can return the answer in any order.<br/>
+ * 
+ * Category : Medium
  *
  */
 public class TopKFrequentElements {

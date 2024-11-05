@@ -3,6 +3,9 @@ package com.leetcode;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Category : Medium
+ */
 public class ShortestWordDistance {
 
 	private HashMap<String, ArrayList<Integer>> map;

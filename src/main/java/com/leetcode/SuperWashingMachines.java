@@ -39,7 +39,7 @@ package com.leetcode;
  * 
  * Output: -1
  * 
- *
+ * Category : Medium
  * 
  */
 public class SuperWashingMachines {

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * https://algo.monster/liteproblems/133
+ * 
  * Given a directed graph clone it in O(n) time where n is total number of edges
  * 
  * Test cases: <br/>
@@ -13,6 +15,8 @@ import java.util.Map;
  * Graph is linear. <br/>
  * Graph is dense. <br/>
  * Graph is sparse
+ * 
+ * Category : Medium
  */
 public class CloneDirectedGraph<T> {
 

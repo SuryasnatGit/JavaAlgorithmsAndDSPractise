@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Category : Medium
+ */
 public class ShortestSubarrayWithHighestFrequencyWords {
 
 	public static void main(String[] args) {

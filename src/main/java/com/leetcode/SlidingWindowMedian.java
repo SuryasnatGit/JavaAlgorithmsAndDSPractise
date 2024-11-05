@@ -29,6 +29,7 @@ import java.util.PriorityQueue;
  * 
  * Note: You may assume k is always valid, ie: 1 ≤ k ≤ input array's size for non-empty array.
  * 
+ * Category : Hard
  *
  */
 public class SlidingWindowMediam {

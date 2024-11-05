@@ -20,6 +20,8 @@ import java.util.PriorityQueue;
  * k = 3 output: RestaurantA => ["apple", "banana", "orange"] RestaurantB => ["coke", "coffee"]
  * 
  * https://leetcode.com/discuss/interview-question/313432/UBER-TECHNICAL-PHONE-INTERVIEW-Find-the-top-k-best-selling-food-for-each-restaraunt.
+ * 
+ * Category : Medium
  */
 public class UberEatsProblem {
 

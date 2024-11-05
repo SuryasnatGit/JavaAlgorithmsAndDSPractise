@@ -11,6 +11,9 @@ import java.util.Arrays;
  * 2 + 7 + 8 = 17 <br/>
  * 7 + 8 + 5 = 20 <br/>
  * return [10,17,20]
+ * 
+ * Category : Easy
+ * 
  */
 public class WindowSum {
 

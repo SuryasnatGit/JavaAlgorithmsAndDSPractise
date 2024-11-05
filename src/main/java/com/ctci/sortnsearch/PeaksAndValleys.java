@@ -9,7 +9,9 @@ import java.util.Arrays;
  * {5, 8, 6, 2, 3, 4, 6}, {8, 6} are peaks and {5, 2} are valleys. Given an array of integers, sort the array into an
  * alternating sequence of peaks and valleys. EXAMPLE Input: {5, 3, 1,2, 3} Output: {5, 1,3,2, 3}
  * 
+ * Category : Medium
  * 
+ * TODO : to check again
  */
 public class PeaksAndValleys {
 

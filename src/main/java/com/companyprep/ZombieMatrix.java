@@ -25,6 +25,8 @@ import java.util.Queue;
  * Solve the problem:
  * 
  * BFS approach
+ * 
+ * Category : Medium
  *
  */
 public class ZombieMatrix {

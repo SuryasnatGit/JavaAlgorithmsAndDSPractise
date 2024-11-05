@@ -1,5 +1,8 @@
 package com.leetcode;
 
+/**
+ * Category : Easy
+ */
 public class ReverseString {
 
 	// 1

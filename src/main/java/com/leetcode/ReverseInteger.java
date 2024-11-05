@@ -10,7 +10,7 @@ package com.leetcode;
  * returns 0 when the reversed integer overflows. to protect your code from overflow, when met multiply operation, use
  * divide operation to check first.
  * 
- * @author ctsuser1
+ * Category : Medium
  */
 public class ReverseInteger {
 

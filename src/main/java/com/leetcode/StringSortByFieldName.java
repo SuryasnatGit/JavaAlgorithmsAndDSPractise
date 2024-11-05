@@ -15,6 +15,7 @@ import java.util.List;
  * 
  * assume the string to be single giant string
  *
+ * Category : Easy
  */
 public class StringSortByFieldName {
 

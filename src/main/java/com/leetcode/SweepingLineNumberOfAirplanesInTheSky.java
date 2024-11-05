@@ -18,6 +18,8 @@ import java.util.Map;
  * [ [1,10], [2,3], [5,8], [4,7] ] Return 3
  * 
  * 1.2 find the point which have the maximum overlap of intervals
+ * 
+ * Category : Hard
  */
 public class SweepingLineNumberOfAirplanesInTheSky {
 

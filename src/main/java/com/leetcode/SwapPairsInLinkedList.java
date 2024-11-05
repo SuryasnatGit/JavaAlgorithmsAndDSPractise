@@ -18,6 +18,10 @@ import com.algo.common.ListNode;
  * Example 3:
  * 
  * Input: head = [1] Output: [1]
+ * 
+ * Category : Hard
+ * 
+ * TODO : to understand
  *
  */
 public class SwapPairsInLinkedList {

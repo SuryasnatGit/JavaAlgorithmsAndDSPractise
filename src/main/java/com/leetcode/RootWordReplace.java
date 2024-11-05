@@ -1,9 +1,15 @@
 package com.leetcode;
 
 /**
- * 题目是给一个list of word， 每个word 叫做root word 然后还有个input string 是sentence， 要求是把sentence 中的单词如果有root word 是单词的prefix，
- * 就把这个单词替换成root word。最后返回替换后的sentence 例子： root word ["abc", "car", "race"] sentence "abcde cars ca bounse" return: "abc
- * car ca bounse" 另外不会有某个root word 是另外一个root word的prefix 用trie tree 解了。
+ * The question is to give a list of words. Each word is called a root word and there is an input string called a
+ * sentence. The requirement is to put the word in the sentence if it has a root word, which is the prefix of the word.
+ * Just replace this word with root word. Finally, the replaced sentence is returned. Example: root word ["abc", "car",
+ * "race"] sentence "abcde cars ca bounse" return: "abc car ca bounse" In addition, there will not be a root word that
+ * is the prefix of another root word. Use trie tree to solve it.
+ * 
+ * Category : Hard
+ * 
+ * TODO : to check
  *
  */
 public class RootWordReplace {

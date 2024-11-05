@@ -22,6 +22,10 @@ import java.util.TreeMap;
  * 
  * I used hashmap+treeMap to solve the problem.
  * 
+ * Category : Medium
+ * 
+ * TODO : to understand properly
+ * 
  */
 public class TimeTravelTable {
 

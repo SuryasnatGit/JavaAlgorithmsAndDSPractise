@@ -20,6 +20,7 @@ import java.util.Queue;
  * 
  * Output: 5 Explanation: Route is (0, 0), (0, 1), (1, 1), (2, 1), (2, 0), (3, 0) The minimum route takes 5 steps.
  *
+ * Category : Medium
  */
 public class TreasureIsland {
 

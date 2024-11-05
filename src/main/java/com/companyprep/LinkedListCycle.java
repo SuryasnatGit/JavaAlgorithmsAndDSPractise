@@ -6,7 +6,7 @@ import java.util.Set;
 import com.algo.common.ListNode;
 
 /**
- * 
+ * Category : Easy
  *
  */
 public class LinkedListCycle {
