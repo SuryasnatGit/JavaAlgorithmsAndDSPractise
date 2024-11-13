@@ -12,20 +12,19 @@ Given s = "AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT",
 
 Return:
 ["AAAAACCCCC", "CCCCCAAAAA"].
+
+Category : Medium
  */
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class DNASequence {
 
 	public static void main(String[] args) {
-		System.out.println(Math.sqrt(16.9));
-		System.out.println(Math.sqrt(169));
+		DNASequence dna = new DNASequence();
+		System.out.println(dna.findRepeatedDnaSequences2("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"));
 	}
 
 	/**
@@ -46,99 +45,17 @@ public class DNASequence {
 
 		for (int i = 0; i <= s.length() - 10; i++) {
 			String sub = s.substring(i, i + 10);
-
 			map.put(sub, map.getOrDefault(sub, 0) + 1);
 		}
 
 		for (Map.Entry<String, Integer> entry : map.entrySet()) {
 			String key = entry.getKey();
 			int value = entry.getValue();
-
 			if (value > 1) {
 				res.add(key);
 			}
 		}
 
 		return res;
-	}
-
-	public List<String> findRepeatedDnaSequencesStringBuilder(String s) {
-		List<String> res = new ArrayList<String>();
-		Set<String> repeated = new HashSet<String>();
-		Set<String> seen = new HashSet<String>();
-
-		StringBuilder sb = new StringBuilder(s.substring(0, 10));
-		seen.add(sb.toString());
-
-		for (int i = 10; i < s.length(); i++) {
-			sb.deleteCharAt(0); // deleteCharAt() is a linear-time operation
-			sb.append(s.charAt(i));
-
-			if (seen.contains(sb.toString())) {
-				repeated.add(sb.toString());
-			} else {
-				seen.add(sb.toString());
-			}
-		}
-
-		res.addAll(repeated);
-		return res;
-	}
-
-	// What if input is given character by character
-	public List<String> findRepeatedDnaSequencesIterator(Iterator<Character> it) {
-		List<String> res = new ArrayList<String>();
-		Set<String> repeated = new HashSet<String>(); // 比起单纯只用一个visited,这种方式可以去重
-		Set<String> seen = new HashSet<String>();
-
-		StringBuilder sb = new StringBuilder();
-		int count = 0; // count可以用sb.length()
-		while (count < 10 && it.hasNext()) {
-			sb.append(it.next());
-		}
-
-		if (sb.length() < 10) {
-			return null; // Even the first sequence is less than 10
-		}
-		seen.add(sb.toString());
-
-		while (it.hasNext()) {
-			sb.deleteCharAt(0);
-			sb.append(it.next());
-
-			if (seen.contains(sb.toString())) {
-				repeated.add(sb.toString());
-			} else {
-				seen.add(sb.toString());
-			}
-		}
-
-		res.addAll(repeated);
-		return res;
-	}
-
-	// This will significant reduce the number of substring()
-	public List<String> findRepeatedDnaSequences(String s) {
-		Set<Integer> existingBit = new HashSet<Integer>();
-		Set<String> existingStr = new HashSet<String>();
-
-		int[] arr = new int[26];
-		arr['A' - 'A'] = 0; // 00
-		arr['C' - 'A'] = 1; // 01
-		arr['G' - 'A'] = 2; // 10
-		arr['T' - 'A'] = 3; // 11
-
-		for (int i = 0; i <= s.length() - 10; i++) {
-			int v = 0;
-			for (int j = i; j < i + 10; j++) { // All the 10 digits
-				v <<= 2; // Move 2 digits left, the 2 digits stand for 1 letter
-				v |= arr[s.charAt(j) - 'A'];
-			}
-			if (!existingBit.add(v)) {
-				existingStr.add(s.substring(i, i + 10));
-			}
-		}
-
-		return new ArrayList<String>(existingStr);
 	}
 }

@@ -43,6 +43,22 @@ public class BinarySearchProblems {
 		return -1;
 	}
 
+	public int searchInsertPosition(int[] array, int target) {
+		int left = 0, right = array.length - 1;
+
+		while (left <= right) {
+			int mid = left + (right - left) / 2;
+			if (array[mid] == target) {
+				return mid;
+			} else if (array[mid] < target) {
+				left = mid + 1;
+			} else {
+				right = mid - 1;
+			}
+		}
+		return left;
+	}
+
 	/**
 	 * You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest
 	 * version of your product fails the quality check. Since each version is developed based on the previous version,
@@ -78,5 +94,9 @@ public class BinarySearchProblems {
 		int[] arr = { 1, 3, 5, 6, 9 };
 		System.out.println(bs.binarySearchRecursive(arr, 4, 0, 4));
 		System.out.println(bs.binarySearchIterative(arr, 6, 0, 4));
+		System.out.println(bs.searchInsertPosition(new int[] { 1, 3, 5, 6 }, 5));
+		System.out.println(bs.searchInsertPosition(new int[] { 1, 3, 5, 6 }, 2));
+		System.out.println(bs.searchInsertPosition(new int[] { 1, 3, 5, 6 }, 7));
+		System.out.println(bs.searchInsertPosition(new int[] { 1, 3, 5, 6 }, 0));
 	}
 }

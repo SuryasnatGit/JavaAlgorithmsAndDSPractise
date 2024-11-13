@@ -31,7 +31,9 @@ import java.util.List;
  * 3 sequentially adjacent vertices, i.e., cross product (pi+1-pi) x (pi+2-pi) does not change sign when traversing
  * sequentially along polygon vertices.
  * 
- * @author surya
+ * Category : Medium
+ * 
+ * TODO : to understand
  *
  */
 public class ConvexPolygon {

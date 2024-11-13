@@ -5,6 +5,8 @@ import com.algo.common.TreeNode;
 
 /**
  * Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
+ * 
+ * Category : Medium
  */
 public class ConvertSortedListToBinarySearchTree {
 

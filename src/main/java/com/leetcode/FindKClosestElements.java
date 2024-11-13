@@ -20,7 +20,7 @@ import java.util.List;
  * 1 <= arr.length <= 10^4 <br/>
  * Absolute value of elements in the array and x will not exceed 104
  * 
- * Priority : Medium
+ * Category : Medium
  *
  */
 public class FindKClosestElements {

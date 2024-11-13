@@ -12,18 +12,24 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 /**
- * 给一个json input，列了一个list的intersection。每个intersection有一个list的road。每条road有通向的intersection，cost和名字。
- * 求给一个起始intersection和一个终点intersection，找到最短的路径并且打印出来。 ex.
- * 
+ * Given a json input, a list of intersections is listed. Each intersection has a list of roads. Each road has a leading
+ * intersection, cost and name. Given a starting intersection and an ending intersection, find the shortest path and
+ * print it out. ex.
+ *
  * intersection A: [ {name: "road1", cost: 3, destination: "intersection B"}, {name: "road2", cost: 2, destination:
  * "intersection B"}, {name: "road3", cost: 1, destination: "intersection B"} ] intersection B: [ {name: "road4", cost:
  * 4, destination: "intersection C"} ] intersection C: []
+ *
+ * The shortest path from A to C: road3 -> road4
+ *
+ * The interviewer first asked how to convert this json into a data structure. The author chose to build an intersection
+ * class and a road class first, and then use a HashMap to build an adjacent list. The algorithm is to use dfs to search
+ *
+ * Refer to DijkstraShortestPath.java
  * 
- * 最短路径从A到C：road3 -> road4
+ * Category : Hard
  * 
- * 面试官先问如何把这个json转化成数据结构。楼主选择先建一个intersection class和一个road class，然后再用一个HashMap建一个adjacent list。算法是用dfs去搜索
- * 
- * 参考DijkstraShortestPath.java
+ * TODO : to understand
  *
  */
 public class ETAIntersection {
