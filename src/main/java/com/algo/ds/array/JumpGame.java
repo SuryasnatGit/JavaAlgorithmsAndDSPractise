@@ -2,6 +2,8 @@ package com.algo.ds.array;
 
 /**
  * Category : Medium
+ * 
+ * TODO : to understand all cases
  *
  */
 public class JumpGame {

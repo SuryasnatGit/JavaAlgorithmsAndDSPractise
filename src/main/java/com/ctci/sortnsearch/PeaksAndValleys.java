@@ -11,7 +11,6 @@ import java.util.Arrays;
  * 
  * Category : Medium
  * 
- * TODO : to check again
  */
 public class PeaksAndValleys {
 

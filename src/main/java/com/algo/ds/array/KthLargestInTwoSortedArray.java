@@ -46,55 +46,6 @@ public class KthLargestInTwoSortedArray {
 	}
 
 	/**
-	 * TODO :
-	 * 
-	 * T - O(k) S - O(1). NOT WORKING..
-	 * 
-	 * @param arr1
-	 * @param arr2
-	 * @param k
-	 * @return
-	 */
-	public int findKthLargestElementBetter(int[] arr1, int[] arr2, int k) {
-		int m = 0, n = 0, c = 0;
-		int l = arr1.length + arr2.length;
-
-		while (m < arr1.length && n < arr2.length) {
-			if (arr1[m] < arr2[n]) {
-				c++;
-				if (c == l - k - 1) {
-					return arr1[m];
-				}
-				m++;
-			} else {
-				c++;
-				if (c == l - k - 1) {
-					return arr2[n];
-				}
-				n++;
-			}
-		}
-
-		while (m < arr1.length) {
-			c++;
-			if (c == l - k - 1) {
-				return arr1[m];
-			}
-			m++;
-		}
-
-		while (n < arr2.length) {
-			c++;
-			if (c == l - k - 1) {
-				return arr2[n];
-			}
-			n++;
-		}
-
-		return -1;
-	}
-
-	/**
 	 * TODO : to check
 	 *
 	 * Approach 2 -NOT WORKING. TO CHECK LATER . Divide and concqur. Using a modified binary search.
@@ -171,23 +122,9 @@ public class KthLargestInTwoSortedArray {
 
 	public static void main(String args[]) {
 		KthLargestInTwoSortedArray kis = new KthLargestInTwoSortedArray();
-		int input1[] = { 1, 4, 7, 11, 17, 21 };
-		int input2[] = { -4, -1, 3, 5, 6, 28, 35, 41, 56, 70 };
-		// for (int i = 0; i < input1.length + input2.length; i++) {
-		// System.out.println("****");
-		// System.out.println(Arrays.toString(input1));
-		// System.out.println(Arrays.toString(input2));
-		// System.out.println(kis.kthLargest(input1, input2, 6));
-		// System.out.println("****");
-		// }
 
 		System.out.println(kis.findKthLargestElement(new int[] { 2, 3, 6, 7, 9, 11 }, new int[] { 1, 4, 8, 10 }, 5)); // 7
 		System.out.println(kis.findKthLargestElement(new int[] { 2, 3, 6, 7, 9, 11 }, new int[] { 1, 4, 8, 10 }, 6)); // 6
-
-		System.out.println(
-				kis.findKthLargestElementBetter(new int[] { 2, 3, 6, 7, 9, 11 }, new int[] { 1, 4, 8, 10 }, 5));
-		System.out.println(
-				kis.findKthLargestElementBetter(new int[] { 2, 3, 6, 7, 9, 11 }, new int[] { 1, 4, 8, 10 }, 6));
 
 		System.out.println(kis.kthLargestBinarySearch(new int[] { 2, 3, 6, 7, 9, 11 }, new int[] { 1, 4, 8, 10 }, 5));
 		System.out.println(kis.kthLargestBinarySearch(new int[] { 2, 3, 6, 7, 9, 11 }, new int[] { 1, 4, 8, 10 }, 6));

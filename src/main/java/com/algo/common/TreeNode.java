@@ -14,7 +14,7 @@ public class TreeNode {
 
 	// default constructor
 	public TreeNode() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public TreeNode(int d) {

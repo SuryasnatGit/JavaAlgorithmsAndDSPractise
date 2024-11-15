@@ -26,43 +26,34 @@ package com.algo.ds.array;
  * Category : Medium
  */
 public class IncreasingTripletSubsequence {
+
+	// Method to check if there exists an increasing triplet in the array.
 	public boolean increasingTriplet(int[] nums) {
-		int T[] = new int[3]; // O(1) space
-		int len = 0;
-		for (int i = 0; i < nums.length; i++) {// O(n) time
-			boolean found = false;
-			for (int j = 0; j < len; j++) {
-				if (T[j] >= nums[i]) {
-					T[j] = nums[i];
-					found = true;
-					break;
-				}
-			}
-			if (!found) {
-				T[len++] = nums[i];
-			}
-			if (len == 3) {
+		// Initialize two variables to hold the smallest and the middle value found so far.
+		int smallest = Integer.MAX_VALUE;
+		int middle = Integer.MAX_VALUE;
+
+		// Iterate over each number in the array.
+		for (int num : nums) {
+			// If the current number is greater than the middle value found,
+			// an increasing triplet sequence exists.
+			if (num > middle) {
 				return true;
 			}
-		}
-		return false;
-	}
 
-	// O(N)
-	public boolean increasingTripletN(int[] nums) {
-		// start with two largest values, as soon as we find a number bigger than both, while both have been updated,
-		// return true.
-		int small = Integer.MAX_VALUE, big = Integer.MAX_VALUE;
-		for (int n : nums) {
-			if (n <= small) {
-				small = n;
-			} // update small if n is smaller than both
-			else if (n <= big) {
-				big = n;
-			} // update big only if greater than small but smaller than big
-			else
-				return true; // return if you find a number bigger than both
+			// If the current number is the smallest we've seen so far,
+			// we update the smallest value.
+			if (num <= smallest) {
+				smallest = num;
+			} else {
+				// Otherwise, if it's between the smallest and the middle value,
+				// we update the middle value.
+				middle = num;
+			}
 		}
+
+		// If we did not return true within the loop, then no increasing
+		// triplet sequence was found.
 		return false;
 	}
 
