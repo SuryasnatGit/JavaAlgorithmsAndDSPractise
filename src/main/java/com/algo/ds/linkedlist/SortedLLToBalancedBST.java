@@ -1,5 +1,7 @@
 package com.algo.ds.linkedlist;
 
+import com.algo.ds.tree.NodeRef;
+
 /**
  * http://www.geeksforgeeks.org/sorted-linked-list-to-balanced-bst/.
  * 
@@ -8,6 +10,17 @@ package com.algo.ds.linkedlist;
  * Test cases empty list 0 1 or more node lists
  */
 public class SortedLLToBalancedBST {
+
+	class Node {
+
+		int data;
+		FlattenLinkList.Node next, child;
+
+		Node(int d) {
+			data = d;
+			next = child = null;
+		}
+	}
 
 	public Node toBalancedBST(Node head) {
 		LinkList ll = new LinkList();

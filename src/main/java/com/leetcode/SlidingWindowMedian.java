@@ -32,7 +32,7 @@ import java.util.PriorityQueue;
  * Category : Hard
  *
  */
-public class SlidingWindowMediam {
+public class SlidingWindowMedian {
 	public static void main(String[] args) {
 
 	}

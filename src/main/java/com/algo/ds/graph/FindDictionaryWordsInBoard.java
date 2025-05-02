@@ -34,7 +34,7 @@ You may assume that all inputs are consist of lowercase letters a-z.
 
 
  */
-public class Boggle {
+public class FindDictionaryWordsInBoard {
 
     public List<String> findWords(char[][] board, String[] words) {
         Trie t = new Trie();
@@ -159,7 +159,7 @@ public class Boggle {
     public static void main(String args[]) {
         char[][] board = {{'o','a','a','n'},{'e','t','a','e'},{'i','h','k','r'},{'i','f','l','v'}};
         String[] words = {"oath","pea","eat","rain"};
-        Boggle boggle = new Boggle();
+        FindDictionaryWordsInBoard boggle = new FindDictionaryWordsInBoard();
         List<String> result = boggle.findWords(board, words);
         result.stream().forEach(s -> System.out.println(s));
     }
