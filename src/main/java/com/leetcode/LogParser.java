@@ -8,22 +8,22 @@ import java.util.List;
 // TODO : incomplete
 public class LogParser {
 
-	public static void main(String[] args) {
-		List<LogEntry> list = new ArrayList<LogEntry>();
-		Comparator<LogEntry> com = new Comparator<LogEntry>(){
-			public int compare(LogEntry en1, LogEntry en2) {
-				if(en1.getDate() != en2.getDate()) {
-					return en1.getDate() - en2.getDate();
-				} else if() {
-					
-				}
-			}
-		};
-		
-		Collections.sort(list, com);
-		
-		return list; // Return sorted list of LogEntry
-	}
+//	public static void main(String[] args) {
+//		List<LogEntry> list = new ArrayList<LogEntry>();
+//		Comparator<LogEntry> com = new Comparator<LogEntry>(){
+//			public int compare(LogEntry en1, LogEntry en2) {
+//				if(en1.getDate() != en2.getDate()) {
+//					return en1.getDate() - en2.getDate();
+//				} else if() {
+//
+//				}
+//			}
+//		};
+//
+//		Collections.sort(list, com);
+//
+//		return list; // Return sorted list of LogEntry
+//	}
 
 	// Use binary search to fetch Logs under a specific window
 	List<LogEntry> fetch(int hour, int min, int date, int hour2) {

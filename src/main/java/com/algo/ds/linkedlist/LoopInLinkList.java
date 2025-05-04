@@ -3,6 +3,8 @@
 package com.algo.ds.linkedlist;
 
 
+import com.algo.common.ListNode;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,30 +18,16 @@ import java.util.Set;
 public class LoopInLinkList {
 
     /**
-     * Time complexity - O(n) .Space complexity - O(n) as set occupies n nodes max
-     * 
-     * @param head
-     * @return
-     */
-    public boolean hasCycle_usingHash(Node head) {
-        // container to hold the nodes
-        Set<Node> hashSet = new HashSet<>();
-        while (head != null) {
-            if (hashSet.contains(head))
-                return true;
-            hashSet.convertBSTRecursive(head);
-            head = head.next;
-        }
-        return false;
-    }
-
-    /**
      * extending the Node for second approach
      * 
      * @author ctsuser1
      */
-    class ExtNode extends Node {
+    class ExtNode extends ListNode {
         boolean isVisited = false;
+
+        public ExtNode(int d) {
+            super(d);
+        }
     }
 
     /**
@@ -48,7 +36,7 @@ public class LoopInLinkList {
      * @param head
      * @return
      */
-    public boolean hasCycle_markVisitedNodes(Node head) {
+    public boolean hasCycle_markVisitedNodes(ListNode head) {
         ExtNode curr = (ExtNode)head;
         while (curr != null) {
             if (curr.isVisited)
@@ -67,12 +55,12 @@ public class LoopInLinkList {
      * @param head
      * @return
      */
-    public boolean hasCycle(Node head) {
+    public boolean hasCycle(ListNode head) {
         if (head == null) {
             return false;
         }
-        Node slow = head;
-        Node fast = head;
+        ListNode slow = head;
+        ListNode fast = head;
         while (slow != null && fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
@@ -83,28 +71,4 @@ public class LoopInLinkList {
         return false;
     }
 
-    public static void main(String args[]) {
-        LinkList ll = new LinkList();
-        Node head = null;
-        head = ll.addNode(1, head);
-        head = ll.addNode(2, head);
-        head = ll.addNode(3, head);
-        head = ll.addNode(4, head);
-        head = ll.addNode(5, head);
-        head = ll.addNode(6, head);
-        head = ll.addNode(7, head);
-        head = ll.addNode(8, head);
-        Node node1 = ll.find(head, 8);
-        Node node2 = ll.find(head, 4);
-        node1.next = node2;
-        LoopInLinkList lll = new LoopInLinkList();
-        System.out.println(lll.hasCycle(head));
-
-        node2.next = null;
-        System.out.println(lll.hasCycle(head));
-
-        node1 = ll.find(head, 3);
-        node2.next = node1;
-        System.out.println(lll.hasCycle(head));
-    }
 }

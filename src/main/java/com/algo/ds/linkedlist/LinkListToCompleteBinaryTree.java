@@ -2,6 +2,8 @@
 
 package com.algo.ds.linkedlist;
 
+import com.algo.common.ListNode;
+
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -27,57 +29,58 @@ import java.util.Queue;
  *
  *  Time Complexity: Time complexity of the above solution is O(n) where n is the number of nodes.
  */
+// TODO
 public class LinkListToCompleteBinaryTree {
 
-    public void convert(Node head){
-        if(head == null){
-            return;
-        }
-        
-        Queue<Node> queue = new LinkedList<>();
-        queue.convertBSTRecursive(head); // enqueue root to queue
-        head = head.next;
-        while(head != null){
-            Node top = queue.poll();
-            top.before = head; // left child added
-            head = head.next; // progress to next node in list
-            if(head != null){
-                top.next = head; // right child added
-                head = head.next; // progress to next node in list
-                //null the next of child before putting them into queue
-                top.before.next = null;
-                top.next.next = null;
-                queue.convertBSTRecursive(top.before);
-                queue.convertBSTRecursive(top.next);
-            }else{
-                break;
-            }
-        }
-     }
-    
-    public void inorder(Node head){
-        if(head == null){
-            return;
-        }
-        inorder(head.before);
-        System.out.print(head.data + " ");
-        inorder(head.next);
-    }
-    
-    public static void main(String args[]){
-        LinkList ll = new LinkList();
-        Node head = null;
-        head = ll.addNode(10, head);
-        head = ll.addNode(12, head);
-        head = ll.addNode(15, head);
-        head = ll.addNode(25, head);
-        head = ll.addNode(30, head);
-        head = ll.addNode(36, head);
-        head = ll.addNode(40, head);
-        head = ll.addNode(45, head);
-        
-        LinkListToCompleteBinaryTree llct = new LinkListToCompleteBinaryTree();
-        llct.convert(head);
-        llct.inorder(head);
-    }
+//    public void convert(ListNode head){
+//        if(head == null){
+//            return;
+//        }
+//
+//        Queue<ListNode> queue = new LinkedList<>();
+//        queue.convertBSTRecursive(head); // enqueue root to queue
+//        head = head.next;
+//        while(head != null){
+//            ListNode top = queue.poll();
+//            top.previous = head; // left child added
+//            head = head.next; // progress to next node in list
+//            if(head != null){
+//                top.next = head; // right child added
+//                head = head.next; // progress to next node in list
+//                //null the next of child before putting them into queue
+//                top.previous.next = null;
+//                top.next.next = null;
+//                queue.convertBSTRecursive(top.previous);
+//                queue.convertBSTRecursive(top.next);
+//            }else{
+//                break;
+//            }
+//        }
+//     }
+//
+//    public void inorder(ListNode head){
+//        if(head == null){
+//            return;
+//        }
+//        inorder(head.previous);
+//        System.out.print(head.data + " ");
+//        inorder(head.next);
+//    }
+//
+//    public static void main(String args[]){
+//        LinkList ll = new LinkList();
+//        Node head = null;
+//        head = ll.addNode(10, head);
+//        head = ll.addNode(12, head);
+//        head = ll.addNode(15, head);
+//        head = ll.addNode(25, head);
+//        head = ll.addNode(30, head);
+//        head = ll.addNode(36, head);
+//        head = ll.addNode(40, head);
+//        head = ll.addNode(45, head);
+//
+//        LinkListToCompleteBinaryTree llct = new LinkListToCompleteBinaryTree();
+//        llct.convert(head);
+//        llct.inorder(head);
+//    }
 }
