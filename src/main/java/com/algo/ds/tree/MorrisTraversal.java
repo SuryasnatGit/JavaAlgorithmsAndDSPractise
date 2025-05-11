@@ -68,18 +68,18 @@ public class MorrisTraversal {
 	}
 
 	public static void main(String args[]) {
-		BinaryTree bt = new BinaryTree();
-		TreeNode root = null;
-		root = bt.addNode(10, root);
-		root = bt.addNode(50, root);
-		root = bt.addNode(-10, root);
-		root = bt.addNode(7, root);
-		root = bt.addNode(9, root);
-		root = bt.addNode(-20, root);
-		root = bt.addNode(30, root);
-		MorrisTraversal mt = new MorrisTraversal();
-		mt.inorder(root);
-		System.out.println();
-		mt.preorder(root);
+//		BinaryTree bt = new BinaryTree();
+//		TreeNode root = null;
+//		root = bt.addNode(10, root);
+//		root = bt.addNode(50, root);
+//		root = bt.addNode(-10, root);
+//		root = bt.addNode(7, root);
+//		root = bt.addNode(9, root);
+//		root = bt.addNode(-20, root);
+//		root = bt.addNode(30, root);
+//		MorrisTraversal mt = new MorrisTraversal();
+//		mt.inorder(root);
+//		System.out.println();
+//		mt.preorder(root);
 	}
 }

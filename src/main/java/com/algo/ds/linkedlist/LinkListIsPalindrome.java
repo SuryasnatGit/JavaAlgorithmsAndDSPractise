@@ -2,8 +2,6 @@ package com.algo.ds.linkedlist;
 
 import java.util.Stack;
 
-import com.algo.common.ListNode;
-
 /**
  * http://www.geeksforgeeks.org/function-to-check-if-a-singly-linked-list-is-palindrome/
  * 
@@ -21,13 +19,12 @@ public class LinkListIsPalindrome {
 	/**
 	 * Time complexity of above method is O(n), but it requires O(n) extra space.
 	 * 
-	 * @param headRef
 	 * @param head
 	 * @return
 	 */
-	public boolean isPalindrome_usingStack(ListNode head) {
+	public boolean isPalindrome_usingStack(Node head) {
 		Stack<Integer> stack = new Stack<>();
-		ListNode temp = head;
+		Node temp = head;
 		// 1st pass
 		while (temp != null) {
 			stack.push(temp.data);
@@ -49,14 +46,14 @@ public class LinkListIsPalindrome {
 	 * @param head
 	 * @return
 	 */
-	private ListNode secondHalf;
+	private Node secondHalf;
 
-	public boolean isPalindrome_usingReverseMethod(ListNode head) {
+	public boolean isPalindrome_usingReverseMethod(Node head) {
 		// initially slow and fast point to head
-		ListNode slow = head;
-		ListNode fast = head;
-		ListNode prevToSlow = head; // points to a node previous to slow pointer
-		ListNode midNode = null; // pointer for middle node(this will be null for even number of nodes and not null for
+		Node slow = head;
+		Node fast = head;
+		Node prevToSlow = head; // points to a node previous to slow pointer
+		Node midNode = null; // pointer for middle node(this will be null for even number of nodes and not null for
 									// odd
 									// number of nodes)
 		boolean result = true;
@@ -97,9 +94,9 @@ public class LinkListIsPalindrome {
 		return result;
 	}
 
-	private boolean compare(ListNode head1, ListNode head2) {
-		ListNode temp1 = head1;
-		ListNode temp2 = head2;
+	private boolean compare(Node head1, Node head2) {
+		Node temp1 = head1;
+		Node temp2 = head2;
 
 		while (temp1 != null && temp2 != null) {
 			if (temp1.data == temp2.data) {
@@ -116,9 +113,9 @@ public class LinkListIsPalindrome {
 	}
 
 	private void reverse() {
-		ListNode prev = null;
-		ListNode current = secondHalf;
-		ListNode next;
+		Node prev = null;
+		Node current = secondHalf;
+		Node next;
 		while (current != null) {
 			next = current.next;
 			current.next = prev;

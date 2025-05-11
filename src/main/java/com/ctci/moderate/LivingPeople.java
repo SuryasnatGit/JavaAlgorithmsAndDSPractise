@@ -43,13 +43,13 @@ public class LivingPeople {
 		return maxAliveYear;
 	}
 
-	public int getYearWithMostAlivePeopleOptimized(List<Person> persons, int startYear, int endYear) {
-		// sort years by birth and death
-		int[] birthYears = getSortedYears(persons, true);
-		int[] deathYears = getSortedYears(persons, false);
-
-		int birthIndex = 0, deathIndex = 0, currentAliveCount = 0, aliveCount = 0, maxAliveCount = 0, maxAliveYear = 0;
-	}
+//	public int getYearWithMostAlivePeopleOptimized(List<Person> persons, int startYear, int endYear) {
+//		// sort years by birth and death
+//		int[] birthYears = getSortedYears(persons, true);
+//		int[] deathYears = getSortedYears(persons, false);
+//
+//		int birthIndex = 0, deathIndex = 0, currentAliveCount = 0, aliveCount = 0, maxAliveCount = 0, maxAliveYear = 0;
+//	}
 
 	private int[] getSortedYears(List<Person> persons, boolean birthYearInculuded) {
 		int[] years = new int[persons.size()];

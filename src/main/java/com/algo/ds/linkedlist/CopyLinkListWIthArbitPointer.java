@@ -11,17 +11,17 @@ import java.util.Map;
  */
 public class CopyLinkListWIthArbitPointer {
 
-	static class RandomListNode {
+	static class RandomNode {
 		int label;
-		RandomListNode next, random;
+		RandomNode next, random;
 
-		RandomListNode(int x) {
+		RandomNode(int x) {
 			this.label = x;
 		}
 
 		@Override
 		public String toString() {
-			return "RandomListNode [label=" + label + "]";
+			return "RandomNode [label=" + label + "]";
 		}
 
 	}
@@ -32,17 +32,17 @@ public class CopyLinkListWIthArbitPointer {
 	 * @param head
 	 * @return
 	 */
-	public RandomListNode copyRandomList(RandomListNode head) {
-		Map<RandomListNode, RandomListNode> map = new HashMap<>();
+	public RandomNode copyRandomList(RandomNode head) {
+		Map<RandomNode, RandomNode> map = new HashMap<>();
 
 		// create 2 pointers. 1 for head and 2 for dummy
-		RandomListNode p = head; // pointer to head
-		RandomListNode dummy = new RandomListNode(0);
-		RandomListNode q = dummy; // pointer to dummy
+		RandomNode p = head; // pointer to head
+		RandomNode dummy = new RandomNode(0);
+		RandomNode q = dummy; // pointer to dummy
 
 		// traverse for copying next pointer
 		while (p != null) {
-			q.next = new RandomListNode(p.label);
+			q.next = new RandomNode(p.label);
 			map.put(p, q.next);
 			q = q.next;
 			p = p.next;
@@ -70,14 +70,14 @@ public class CopyLinkListWIthArbitPointer {
 	 * @param head
 	 * @return
 	 */
-	public RandomListNode copyRandomList1(RandomListNode head) {
+	public RandomNode copyRandomList1(RandomNode head) {
 		if (head == null) {
 			return null;
 		}
 
-		RandomListNode current = head;
+		RandomNode current = head;
 		while (current != null) {
-			RandomListNode newNode = new RandomListNode(current.label);
+			RandomNode newNode = new RandomNode(current.label);
 			newNode.next = current.next;
 			newNode.random = current.random;
 			current.next = newNode;
@@ -86,7 +86,7 @@ public class CopyLinkListWIthArbitPointer {
 
 		current = head;
 		while (current != null) {
-			RandomListNode next = current.next;
+			RandomNode next = current.next;
 			if (next.random != null) {
 				next.random = next.random.next;
 			}
@@ -94,8 +94,8 @@ public class CopyLinkListWIthArbitPointer {
 		}
 
 		current = head;
-		RandomListNode dummy = new RandomListNode(0);
-		RandomListNode newCurrent = dummy;
+		RandomNode dummy = new RandomNode(0);
+		RandomNode newCurrent = dummy;
 		while (current != null) {
 			newCurrent.next = current.next;
 			newCurrent = newCurrent.next;
@@ -106,7 +106,7 @@ public class CopyLinkListWIthArbitPointer {
 		return dummy.next;
 	}
 
-	public void printList(RandomListNode node) {
+	public void printList(RandomNode node) {
 		System.out.println();
 		while (node != null) {
 			System.out.print(node.label + "->");
@@ -119,23 +119,23 @@ public class CopyLinkListWIthArbitPointer {
 
 		CopyLinkListWIthArbitPointer cll = new CopyLinkListWIthArbitPointer();
 
-		RandomListNode randomListNode = new RandomListNode(-1);
-		RandomListNode randomListNode1 = new RandomListNode(4);
-		RandomListNode randomListNode2 = new RandomListNode(8);
-		RandomListNode randomListNode3 = new RandomListNode(-3);
-		RandomListNode randomListNode4 = new RandomListNode(7);
-		randomListNode.next = randomListNode1;
-		randomListNode1.next = randomListNode2;
-		randomListNode2.next = randomListNode3;
-		randomListNode3.next = randomListNode4;
+		RandomNode randomNode = new RandomNode(-1);
+		RandomNode randomNode1 = new RandomNode(4);
+		RandomNode randomNode2 = new RandomNode(8);
+		RandomNode randomNode3 = new RandomNode(-3);
+		RandomNode randomNode4 = new RandomNode(7);
+		randomNode.next = randomNode1;
+		randomNode1.next = randomNode2;
+		randomNode2.next = randomNode3;
+		randomNode3.next = randomNode4;
 
-		randomListNode.random = randomListNode1;
-		randomListNode2.random = randomListNode;
-		randomListNode1.random = randomListNode3;
-		randomListNode3.random = randomListNode2;
+		randomNode.random = randomNode1;
+		randomNode2.random = randomNode;
+		randomNode1.random = randomNode3;
+		randomNode3.random = randomNode2;
 
-		cll.printList(randomListNode);
-		RandomListNode copyRandomList1 = cll.copyRandomList(randomListNode);
+		cll.printList(randomNode);
+		RandomNode copyRandomList1 = cll.copyRandomList(randomNode);
 		cll.printList(copyRandomList1);
 	}
 }

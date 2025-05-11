@@ -1,10 +1,8 @@
 package com.algo.ds.linkedlist;
 
-import com.algo.common.ListNode;
-
 public class SingleLinkedList {
 
-	private ListNode head;
+	private Node head;
 
 	public SingleLinkedList() {
 		head = null;
@@ -14,7 +12,7 @@ public class SingleLinkedList {
 		return head == null;
 	}
 
-	public ListNode getHead() {
+	public Node getHead() {
 		return head;
 	}
 
@@ -23,19 +21,19 @@ public class SingleLinkedList {
 	}
 
 	public void addNodeAtFront(int d) {
-		ListNode node = new ListNode(d);
+		Node node = new Node(d);
 		node.next = head;
 		head = node;
 	}
 
 	public void addNodeAtEnd(int d) {
-		ListNode node = new ListNode(d);
+		Node node = new Node(d);
 		if (head == null) {
 			head = node;
 			return;
 		}
 
-		ListNode curr = head;
+		Node curr = head;
 		while (curr.next != null) {
 			curr = curr.next;
 		}
@@ -44,7 +42,7 @@ public class SingleLinkedList {
 	}
 
 	public void displayList() {
-		ListNode current = head;
+		Node current = head;
 		while (current != null) {
 			System.out.print(current.getData() + " -> ");
 			current = current.next;
@@ -52,8 +50,8 @@ public class SingleLinkedList {
 		System.out.print("null");
 	}
 
-	public void displayList(ListNode head) {
-		ListNode current = head;
+	public void displayList(Node head) {
+		Node current = head;
 		while (current != null) {
 			System.out.print(current.getData() + " -> ");
 			current = current.next;
@@ -61,8 +59,8 @@ public class SingleLinkedList {
 		System.out.print("null");
 	}
 
-	public ListNode findByKey(int key) {
-		ListNode current = head;
+	public Node findByKey(int key) {
+		Node current = head;
 		while (current.getData() != key) { // keep on looping until current data is not equal to key
 			if (current.next == null) { // if not found
 				return null;
@@ -73,9 +71,9 @@ public class SingleLinkedList {
 		return current; // found and return current
 	}
 
-	public ListNode deleteByKey(int key) {
-		ListNode previous = head;
-		ListNode current = head;
+	public Node deleteByKey(int key) {
+		Node previous = head;
+		Node current = head;
 		while (current.getData() != key) { // keep on looping until current data is
 			// not equal to key
 			if (current.next == null) // if not found
@@ -93,8 +91,8 @@ public class SingleLinkedList {
 		return current;
 	}
 
-	public int size(ListNode head) {
-		ListNode node = head;
+	public int size(Node head) {
+		Node node = head;
 		int count = 0;
 		while (node != null) {
 			count++;

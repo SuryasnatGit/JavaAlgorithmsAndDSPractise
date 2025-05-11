@@ -1,10 +1,8 @@
 package com.algo.ds.linkedlist;
 
-import com.algo.common.ListNode;
-
 public class LinkedListUtils {
 
-	public static void printList(ListNode head) {
+	public static void printList(Node head) {
 		StringBuilder sb = new StringBuilder();
 		while (head != null) {
 			sb.append(head.data).append(" ");

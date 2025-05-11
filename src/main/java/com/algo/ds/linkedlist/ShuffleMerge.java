@@ -58,25 +58,25 @@ public class ShuffleMerge {
 		}
 		return tempHead;
 	}
-
-	public static void main(String args[]) {
-		LinkList ll = new LinkList();
-		Node head1 = null;
-		Node head2 = null;
-		head1 = ll.addNode(1, head1);
-		head1 = ll.addNode(3, head1);
-		head1 = ll.addNode(5, head1);
-		head1 = ll.addNode(7, head1);
-		head1 = ll.addNode(9, head1);
-		head2 = ll.addNode(2, head2);
-		head2 = ll.addNode(4, head2);
-		head2 = ll.addNode(6, head2);
-		head2 = ll.addNode(8, head2);
-		head2 = ll.addNode(10, head2);
-		head2 = ll.addNode(12, head2);
-		head2 = ll.addNode(14, head2);
-		ShuffleMerge sm = new ShuffleMerge();
-		Node result = sm.shuffleMerge(head1, head2);
-		ll.printList(result);
-	}
+//
+//	public static void main(String args[]) {
+//		LinkList ll = new LinkList();
+//		Node head1 = null;
+//		Node head2 = null;
+//		head1 = ll.addNode(1, head1);
+//		head1 = ll.addNode(3, head1);
+//		head1 = ll.addNode(5, head1);
+//		head1 = ll.addNode(7, head1);
+//		head1 = ll.addNode(9, head1);
+//		head2 = ll.addNode(2, head2);
+//		head2 = ll.addNode(4, head2);
+//		head2 = ll.addNode(6, head2);
+//		head2 = ll.addNode(8, head2);
+//		head2 = ll.addNode(10, head2);
+//		head2 = ll.addNode(12, head2);
+//		head2 = ll.addNode(14, head2);
+//		ShuffleMerge sm = new ShuffleMerge();
+//		Node result = sm.shuffleMerge(head1, head2);
+//		ll.printList(result);
+//	}
 }

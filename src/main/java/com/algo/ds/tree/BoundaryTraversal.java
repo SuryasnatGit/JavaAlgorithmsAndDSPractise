@@ -67,17 +67,17 @@ public class BoundaryTraversal {
 	}
 
 	public static void main(String args[]) {
-		BinaryTree bt = new BinaryTree();
-		TreeNode head = null;
-		head = bt.addNode(100, head);
-		head = bt.addNode(90, head);
-		head = bt.addNode(10, head);
-		head = bt.addNode(15, head);
-		head = bt.addNode(25, head);
-		head = bt.addNode(5, head);
-		head = bt.addNode(7, head);
-		head = bt.addNode(-7, head);
-		BoundaryTraversal bd = new BoundaryTraversal();
-		bd.traversal(head);
+//		BinaryTree bt = new BinaryTree();
+//		TreeNode head = null;
+//		head = bt.addNode(100, head);
+//		head = bt.addNode(90, head);
+//		head = bt.addNode(10, head);
+//		head = bt.addNode(15, head);
+//		head = bt.addNode(25, head);
+//		head = bt.addNode(5, head);
+//		head = bt.addNode(7, head);
+//		head = bt.addNode(-7, head);
+//		BoundaryTraversal bd = new BoundaryTraversal();
+//		bd.traversal(head);
 	}
 }

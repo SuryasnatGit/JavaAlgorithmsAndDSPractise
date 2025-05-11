@@ -133,19 +133,19 @@ public class BinaryTreeToDoubleLinkList {
 	}
 
 	public static void main(String args[]) {
-		BinaryTreeToDoubleLinkList btd = new BinaryTreeToDoubleLinkList();
-		BinaryTree bt = new BinaryTree();
-		TreeNode head = null;
-		head = bt.addNode(100, head);
-		head = bt.addNode(90, head);
-		head = bt.addNode(10, head);
-		head = bt.addNode(15, head);
-		head = bt.addNode(25, head);
-		head = bt.addNode(5, head);
-		head = bt.addNode(7, head);
-		head = bt.addNode(-7, head);
-		// btd.toDoubleLL(head);
-		btd.toDoubleLinkList(head);
-		btd.print(head);
+//		BinaryTreeToDoubleLinkList btd = new BinaryTreeToDoubleLinkList();
+//		BinaryTree bt = new BinaryTree();
+//		TreeNode head = null;
+//		head = bt.addNode(100, head);
+//		head = bt.addNode(90, head);
+//		head = bt.addNode(10, head);
+//		head = bt.addNode(15, head);
+//		head = bt.addNode(25, head);
+//		head = bt.addNode(5, head);
+//		head = bt.addNode(7, head);
+//		head = bt.addNode(-7, head);
+//		// btd.toDoubleLL(head);
+//		btd.toDoubleLinkList(head);
+//		btd.print(head);
 	}
 }

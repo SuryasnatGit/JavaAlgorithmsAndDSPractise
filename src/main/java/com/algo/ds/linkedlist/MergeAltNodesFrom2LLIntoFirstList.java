@@ -9,7 +9,7 @@ public class MergeAltNodesFrom2LLIntoFirstList {
 	// Function to construct a linked list by merging alternate nodes of
 	// two given linked lists using dummy node
 	public Node[] merge(Node a, Node b) {
-		Node dummy = new Node();
+		Node dummy = new Node(0);
 		Node tail = dummy;
 
 		while (true) {

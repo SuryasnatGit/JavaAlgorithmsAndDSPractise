@@ -99,55 +99,55 @@ public class PrimMST {
 	 *
 	 * References https://en.wikipedia.org/wiki/Prim%27s_algorithm CLRS book
 	 */
-	public List<Edge<Integer>> primMST_adjacencyList(Graph<Integer> graph) {
-
-		// binary heap + map data structure
-		BinaryMinHeap<Vertex<Integer>> minHeap = new BinaryMinHeap<>();
-
-		// map of vertex to edge which gave minimum weight to this vertex.
-		Map<Vertex<Integer>, Edge<Integer>> vertexToEdge = new HashMap<>();
-
-		// stores final result
-		List<Edge<Integer>> result = new ArrayList<>();
-
-		// insert all vertices with infinite value initially.
-		for (Vertex<Integer> v : graph.getAllVertex()) {
-			minHeap.addInterval(Integer.MAX_VALUE, v);
-		}
-
-		// start from any random vertex
-		Vertex<Integer> startVertex = graph.getAllVertex().iterator().next();
-
-		// for the start vertex decrease the value in heap + map to 0
-		minHeap.decrease(startVertex, 0);
-
-		// iterate till heap + map has elements in it
-		while (!minHeap.empty()) {
-			// extract min value vertex from heap + map
-			Vertex<Integer> current = minHeap.extractMin();
-
-			// get the corresponding edge for this vertex from map if present and add it to final result.
-			// This edge wont be present for first vertex.
-			Edge<Integer> spanningTreeEdge = vertexToEdge.get(current);
-			if (spanningTreeEdge != null) {
-				result.add(spanningTreeEdge);
-			}
-
-			// iterate through all the adjacent vertices
-			for (Edge<Integer> edge : current.getEdges()) {
-				Vertex<Integer> adjacent = getVertexForEdge(current, edge);
-				// check if adjacent vertex exist in heap + map and weight attached with this vertex is greater than
-				// this edge weight
-				if (minHeap.containsData(adjacent) && minHeap.getWeight(adjacent) > edge.getWeight()) {
-					// decrease the value of adjacent vertex to this edge weight.
-					minHeap.decrease(adjacent, edge.getWeight());
-					// add vertex->edge mapping in the graph.
-					vertexToEdge.put(adjacent, edge);
-				}
-			}
-		}
-		return result;
-	}
+//	public List<Edge<Integer>> primMST_adjacencyList(Graph<Integer> graph) {
+//
+//		// binary heap + map data structure
+//		BinaryMinHeap<Vertex<Integer>> minHeap = new BinaryMinHeap<>();
+//
+//		// map of vertex to edge which gave minimum weight to this vertex.
+//		Map<Vertex<Integer>, Edge<Integer>> vertexToEdge = new HashMap<>();
+//
+//		// stores final result
+//		List<Edge<Integer>> result = new ArrayList<>();
+//
+//		// insert all vertices with infinite value initially.
+//		for (Vertex<Integer> v : graph.getAllVertex()) {
+//			minHeap.addInterval(Integer.MAX_VALUE, v);
+//		}
+//
+//		// start from any random vertex
+//		Vertex<Integer> startVertex = graph.getAllVertex().iterator().next();
+//
+//		// for the start vertex decrease the value in heap + map to 0
+//		minHeap.decrease(startVertex, 0);
+//
+//		// iterate till heap + map has elements in it
+//		while (!minHeap.empty()) {
+//			// extract min value vertex from heap + map
+//			Vertex<Integer> current = minHeap.extractMin();
+//
+//			// get the corresponding edge for this vertex from map if present and add it to final result.
+//			// This edge wont be present for first vertex.
+//			Edge<Integer> spanningTreeEdge = vertexToEdge.get(current);
+//			if (spanningTreeEdge != null) {
+//				result.add(spanningTreeEdge);
+//			}
+//
+//			// iterate through all the adjacent vertices
+//			for (Edge<Integer> edge : current.getEdges()) {
+//				Vertex<Integer> adjacent = getVertexForEdge(current, edge);
+//				// check if adjacent vertex exist in heap + map and weight attached with this vertex is greater than
+//				// this edge weight
+//				if (minHeap.containsData(adjacent) && minHeap.getWeight(adjacent) > edge.getWeight()) {
+//					// decrease the value of adjacent vertex to this edge weight.
+//					minHeap.decrease(adjacent, edge.getWeight());
+//					// add vertex->edge mapping in the graph.
+//					vertexToEdge.put(adjacent, edge);
+//				}
+//			}
+//		}
+//		return result;
+//	}
 
 	private Vertex<Integer> getVertexForEdge(Vertex<Integer> v, Edge<Integer> e) {
 		return e.getVertex1().equals(v) ? e.getVertex2() : e.getVertex1();
@@ -173,10 +173,10 @@ public class PrimMST {
 		graph.addEdge(3, 6, 4);
 
 		PrimMST prims = new PrimMST();
-		Collection<Edge<Integer>> edges = prims.primMST_adjacencyList(graph);
-		for (Edge<Integer> edge : edges) {
-			System.out.println(edge);
-		}
+//		Collection<Edge<Integer>> edges = prims.primMST_adjacencyList(graph);
+//		for (Edge<Integer> edge : edges) {
+//			System.out.println(edge);
+//		}
 
 		int graph1[][] = new int[][] { { 0, 2, 0, 6, 0 }, { 2, 0, 3, 8, 5 }, { 0, 3, 0, 0, 7 }, { 6, 8, 0, 0, 9 },
 				{ 0, 5, 7, 9, 0 }, };

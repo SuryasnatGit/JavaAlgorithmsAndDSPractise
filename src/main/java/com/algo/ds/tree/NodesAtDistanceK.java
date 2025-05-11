@@ -96,20 +96,20 @@ public class NodesAtDistanceK {
 	}
 
 	public static void main(String args[]) {
-		NodesAtDistanceK nad = new NodesAtDistanceK();
-		TreeNode root = null;
-		BinaryTree bt = new BinaryTree();
-		root = bt.addNode(10, root);
-		root = bt.addNode(3, root);
-		root = bt.addNode(-1, root);
-		root = bt.addNode(8, root);
-		root = bt.addNode(-6, root);
-		root = bt.addNode(-11, root);
-		root = bt.addNode(18, root);
-		root = bt.addNode(11, root);
-		root = bt.addNode(13, root);
-		root = bt.addNode(26, root);
-		root = bt.addNode(27, root);
-		nad.printkdistanceNode(root, root.left.right, 2);
+//		NodesAtDistanceK nad = new NodesAtDistanceK();
+//		TreeNode root = null;
+//		BinaryTree bt = new BinaryTree();
+//		root = bt.addNode(10, root);
+//		root = bt.addNode(3, root);
+//		root = bt.addNode(-1, root);
+//		root = bt.addNode(8, root);
+//		root = bt.addNode(-6, root);
+//		root = bt.addNode(-11, root);
+//		root = bt.addNode(18, root);
+//		root = bt.addNode(11, root);
+//		root = bt.addNode(13, root);
+//		root = bt.addNode(26, root);
+//		root = bt.addNode(27, root);
+//		nad.printkdistanceNode(root, root.left.right, 2);
 	}
 }

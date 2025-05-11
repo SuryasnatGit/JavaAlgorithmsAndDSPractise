@@ -24,17 +24,17 @@ public class MiddleElementOfLinkList {
 
 	public static void main(String args[]) {
 		MiddleElementOfLinkList mle = new MiddleElementOfLinkList();
-		LinkList ll = new LinkList();
+		SingleLinkedList ll = new SingleLinkedList();
 		Node head = null;
-		head = ll.addNode(1, head);
+		ll.addNodeAtEnd(1);
 		System.out.println(mle.middle(head));
-		head = ll.addNode(2, head);
+		ll.addNode(2);
 		System.out.println(mle.middle(head));
-		head = ll.addNode(3, head);
-		System.out.println(mle.middle(head));
-		head = ll.addNode(4, head);
-		System.out.println(mle.middle(head));
-		head = ll.addNode(5, head);
-		System.out.println(mle.middle(head));
+//		head = ll.addNode(3, head);
+//		System.out.println(mle.middle(head));
+//		head = ll.addNode(4, head);
+//		System.out.println(mle.middle(head));
+//		head = ll.addNode(5, head);
+//		System.out.println(mle.middle(head));
 	}
 }

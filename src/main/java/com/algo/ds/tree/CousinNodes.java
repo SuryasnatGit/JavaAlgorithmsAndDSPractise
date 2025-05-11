@@ -159,15 +159,15 @@ public class CousinNodes {
 	public static void main(String args[]) {
 		BinaryTree bt = new BinaryTree();
 		TreeNode head = null;
-		head = bt.addNode(10, head);
-		head = bt.addNode(15, head);
-		head = bt.addNode(5, head);
-		head = bt.addNode(7, head);
-		head = bt.addNode(19, head);
-		head = bt.addNode(20, head);
-		head = bt.addNode(-1, head);
-		head = bt.addNode(21, head);
-		head = bt.addNode(-6, head);
+		bt.insert(10);
+		bt.insert(15);
+		bt.insert(5);
+		bt.insert(7);
+		bt.insert(19);
+		bt.insert(20);
+		bt.insert(-1);
+		bt.insert(21);
+		bt.insert(-6);
 		CousinNodes cn = new CousinNodes();
 		System.out.println("iterative results");
 		System.out.println(cn.areCousinNodesIterative(head, 10, 19));

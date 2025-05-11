@@ -90,19 +90,19 @@ public class IsCompleteBinaryTree {
 	}
 
 	public static void main(String args[]) {
-		BinaryTree bt = new BinaryTree();
-		TreeNode head = null;
-		head = bt.addNode(3, head);
-		head = bt.addNode(-6, head);
-		head = bt.addNode(7, head);
-		head = bt.addNode(-10, head);
-		head = bt.addNode(-15, head);
-		head = bt.addNode(-4, head);
-		head = bt.addNode(4, head);
-		head = bt.addNode(11, head);
-		head = bt.addNode(-9, head);
-
-		IsCompleteBinaryTree icbt = new IsCompleteBinaryTree();
-		System.out.println(icbt.isComplete(head));
+//		BinaryTree bt = new BinaryTree();
+//		TreeNode head = null;
+//		bt.addNode(3, head);
+//		bt.addNode(-6, head);
+//		head = bt.addNode(7, head);
+//		head = bt.addNode(-10, head);
+//		head = bt.addNode(-15, head);
+//		head = bt.addNode(-4, head);
+//		head = bt.addNode(4, head);
+//		head = bt.addNode(11, head);
+//		head = bt.addNode(-9, head);
+//
+//		IsCompleteBinaryTree icbt = new IsCompleteBinaryTree();
+//		System.out.println(icbt.isComplete(head));
 	}
 }

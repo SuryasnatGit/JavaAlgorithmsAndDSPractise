@@ -55,26 +55,26 @@ public class NextInorderSuccessorOfTwoTree {
 	}
 
 	public static void main(String args[]) {
-		BinaryTree bt = new BinaryTree();
-		TreeNode node = null;
-		node = bt.addNode(10, node);
-		node = bt.addNode(-5, node);
-		node = bt.addNode(7, node);
-		node = bt.addNode(20, node);
-		node = bt.addNode(3, node);
-		node = bt.addNode(14, node);
-
-		TreeNode node1 = null;
-		node1 = bt.addNode(8, node1);
-		node1 = bt.addNode(-10, node1);
-		node1 = bt.addNode(18, node1);
-		node1 = bt.addNode(2, node1);
-		node1 = bt.addNode(11, node1);
-
-		NextInorderSuccessorOfTwoTree nis = new NextInorderSuccessorOfTwoTree(node, node1);
-		while (nis.hasNext()) {
-			System.out.println(nis.next().data);
-		}
+//		BinaryTree bt = new BinaryTree();
+//		TreeNode node = null;
+//		node = bt.addNode(10, node);
+//		node = bt.addNode(-5, node);
+//		node = bt.addNode(7, node);
+//		node = bt.addNode(20, node);
+//		node = bt.addNode(3, node);
+//		node = bt.addNode(14, node);
+//
+//		TreeNode node1 = null;
+//		node1 = bt.addNode(8, node1);
+//		node1 = bt.addNode(-10, node1);
+//		node1 = bt.addNode(18, node1);
+//		node1 = bt.addNode(2, node1);
+//		node1 = bt.addNode(11, node1);
+//
+//		NextInorderSuccessorOfTwoTree nis = new NextInorderSuccessorOfTwoTree(node, node1);
+//		while (nis.hasNext()) {
+//			System.out.println(nis.next().data);
+//		}
 
 	}
 

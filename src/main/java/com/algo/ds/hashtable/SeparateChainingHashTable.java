@@ -1,6 +1,6 @@
 package com.algo.ds.hashtable;
 
-import com.algo.ds.linkedlist.Link;
+import com.algo.ds.linkedlist.Node;
 import com.algo.ds.linkedlist.SortedList;
 
 
@@ -34,8 +34,8 @@ public class SeparateChainingHashTable {
      * 
      * @param link
      */
-	public void insert(Link link){
-		int hashVal = hashFunc(link.getKey());
+	public void insert(Node link){
+		int hashVal = hashFunc(link.getData());
 		int bucketIndex = getBucketIndex(hashVal);
 		sortedListArr[bucketIndex].insert(link);
 	}
@@ -52,10 +52,10 @@ public class SeparateChainingHashTable {
      * @param key
      * @return
      */
-	public Link find(int key){
+	public Node find(int key){
 		int hashVal = hashFunc(key);
 		int bucketIndex = getBucketIndex(hashVal);
-		Link link = sortedListArr[bucketIndex].find(key);
+		Node link = sortedListArr[bucketIndex].find(key);
 		return link;
 	}
 	

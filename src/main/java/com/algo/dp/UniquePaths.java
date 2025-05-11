@@ -255,7 +255,7 @@ public class UniquePaths {
 	int m = 0;
 	int n = 0;
 
-	public int uniquePath2Robots(int[][] M) {
+	public void uniquePath2Robots(int[][] M) {
 		m = M.length;
 		n = M[0].length;
 		List<Integer> meetPoints = new ArrayList<Integer>();
@@ -304,47 +304,47 @@ public class UniquePaths {
 	 * only 1 move(UP, DOWN, LEFT, RIGHT), no int[][] dashboard for us. We dont know the borders, but move() can take us
 	 * to 4 directions
 	 */
-	int getArea(int[] start) {
-		Set<String> visited = new HashSet<String>();
-		Set<String> obstacles = new HashSet<String>();
-
-		visited.add(encode(start[0], start[1]));
-		dfs(visited, obstacles, start[0], start[1]);
-		return visited.size();
-	}
+//	int getArea(int[] start) {
+//		Set<String> visited = new HashSet<String>();
+//		Set<String> obstacles = new HashSet<String>();
+//
+//		visited.add(encode(start[0], start[1]));
+//		dfs(visited, obstacles, start[0], start[1]);
+//		return visited.size();
+//	}
 
 	int[][] directions = { { -1, 0 }, { 0, -1 }, { 1, 0 }, { 0, 1 } };
 
-	private void dfs(Set<String> visited, Set<String> obstacles, int i, int j) {
-		for (int[] dir : directions) {
-			int x = i + dir[0];
-			int y = j + dir[1];
-			String id = encode(x, y);
-
-			if (visited.contains(id) || obstacles.contains(id)) {
-				continue; // Don't repeat the same mistakes
-			}
-
-			if (move(x, y)) { // [x, y] is available
-				visited.add(id);
-				dfs(visited, obstacles, x, y); // Go deeper
-			} else {
-				obstacles.add(id);
-			}
-
-			// No matter success or failure, move back. If you follow the traditional thinking and go on without going
-			// back, if you reach a dead end, this dfs will be over. No, This question has to go back to the starting
-			// point, continue searching
-			moveBack(dir);
-		}
-	}
+//	private void dfs(Set<String> visited, Set<String> obstacles, int i, int j) {
+//		for (int[] dir : directions) {
+//			int x = i + dir[0];
+//			int y = j + dir[1];
+//			String id = encode(x, y);
+//
+//			if (visited.contains(id) || obstacles.contains(id)) {
+//				continue; // Don't repeat the same mistakes
+//			}
+//
+//			if (move(x, y)) { // [x, y] is available
+//				visited.add(id);
+//				dfs(visited, obstacles, x, y); // Go deeper
+//			} else {
+//				obstacles.add(id);
+//			}
+//
+//			// No matter success or failure, move back. If you follow the traditional thinking and go on without going
+//			// back, if you reach a dead end, this dfs will be over. No, This question has to go back to the starting
+//			// point, continue searching
+//			moveBack(dir);
+//		}
+//	}
 
 	String encode(int i, int j) {
 		return i + "," + j;
 	}
 
 	void moveBack(int[] dir) {
-		move(-dir[0], -dir[1]);
+//		move(-dir[0], -dir[1]);
 	}
 
 	public static void main(String[] args) {

@@ -1,8 +1,6 @@
 
 package com.algo.ds.linkedlist;
 
-import com.algo.common.ListNode;
-
 /**
  * Given a singly linked list and a key, find key using binary search approach. To perform a Binary search based on
  * Divide and Conquer Algorithm, determination of the middle element is important. Binary Search is usually fast and
@@ -18,12 +16,12 @@ import com.algo.common.ListNode;
  */
 public class BinarySearchSingleLinkedList {
 
-	public ListNode binarySearch(ListNode head, int value) {
-		ListNode start = head;
-		ListNode last = null;
+	public Node binarySearch(Node head, int value) {
+		Node start = head;
+		Node last = null;
 
 		while (last == null || last.next != start) {
-			ListNode middle = findMiddleElement(start, last);
+			Node middle = findMiddleElement(start, last);
 			if (middle == null)
 				return null;
 			if (middle.data == value)
@@ -36,12 +34,12 @@ public class BinarySearchSingleLinkedList {
 		return null;
 	}
 
-	private ListNode findMiddleElement(ListNode start, ListNode end) {
+	private Node findMiddleElement(Node start, Node end) {
 		if (start == null)
 			return null;
 
-		ListNode slow = start;
-		ListNode fast = start.next;
+		Node slow = start;
+		Node fast = start.next;
 
 		while (fast != end) {
 			fast = fast.next;

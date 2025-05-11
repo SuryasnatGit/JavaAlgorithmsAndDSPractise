@@ -1,20 +1,18 @@
 package com.algo.ds.linkedlist;
 
-import com.algo.common.ListNode;
-
 public class ReverseLinkedListProblems {
 
 	/*
 	 * Reverse linked list
 	 * 
 	 */
-	public ListNode rev_iterative(ListNode head) {
+	public Node rev_iterative(Node head) {
 
-		ListNode result = null;
-		ListNode curr = head;
+		Node result = null;
+		Node curr = head;
 
 		while (curr != null) {
-			ListNode next = curr.next;
+			Node next = curr.next;
 
 			curr.next = result;
 			result = curr;
@@ -25,11 +23,11 @@ public class ReverseLinkedListProblems {
 		return result;
 	}
 
-	public ListNode rev_recursive(ListNode head) {
+	public Node rev_recursive(Node head) {
 		return recursive(head, null, head);
 	}
 
-	private ListNode recursive(ListNode curr, ListNode prev, ListNode head) {
+	private Node recursive(Node curr, Node prev, Node head) {
 		// base case: end of the list reached
 		if (curr == null) {
 			// fix head pointer
@@ -51,12 +49,12 @@ public class ReverseLinkedListProblems {
 	 * 
 	 * Input: 1->2->3->4->5->NULL, m = 2, n = 4 Output: 1->4->3->2->5->NULL
 	 */
-	public ListNode reverseListInPositionBetween(ListNode head, int m, int n) {
+	public Node reverseListInPositionBetween(Node head, int m, int n) {
 		if (head == null || head.next == null || m >= n) {
 			return head;
 		}
 
-		ListNode dummy = new ListNode(0);
+		Node dummy = new Node(0);
 		dummy.next = head;
 		head = dummy;
 
@@ -68,16 +66,16 @@ public class ReverseLinkedListProblems {
 			head = head.next;
 		}
 
-		ListNode prev = head;
-		ListNode curr = head.next;
-		ListNode tail = head.next;
+		Node prev = head;
+		Node curr = head.next;
+		Node tail = head.next;
 		prev.next = null;
 
 		for (int i = m; i <= n; i++) {
 			if (i == n) {
 				tail.next = curr.next;
 			}
-			ListNode next = curr.next;
+			Node next = curr.next;
 			curr.next = prev.next;
 			prev.next = curr;
 			curr = next;
@@ -89,17 +87,17 @@ public class ReverseLinkedListProblems {
 	public static void main(String[] args) {
 		ReverseLinkedListProblems rev = new ReverseLinkedListProblems();
 
-		ListNode head = new ListNode(1);
-		head.next = new ListNode(2);
-		head.next.next = new ListNode(3);
-		head.next.next.next = new ListNode(4);
-		head.next.next.next.next = new ListNode(5);
+		Node head = new Node(1);
+		head.next = new Node(2);
+		head.next.next = new Node(3);
+		head.next.next.next = new Node(4);
+		head.next.next.next.next = new Node(5);
 
-		// ListNode res = rev.iterative(head);
-		// ListNode res = rev.rev_recursive(head);
+		// Node res = rev.iterative(head);
+		// Node res = rev.rev_recursive(head);
 		// new SingleLinkedList().displayList(res);
 
-		ListNode res1 = rev.reverseListInPositionBetween(head, 2, 4);
+		Node res1 = rev.reverseListInPositionBetween(head, 2, 4);
 		new SingleLinkedList().displayList(res1);
 	}
 }

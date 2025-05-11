@@ -4,8 +4,6 @@ package com.algo.ds.linkedlist;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.algo.common.ListNode;
-
 public class RemoveDuplicatesFromList {
 
 	/**
@@ -26,11 +24,11 @@ public class RemoveDuplicatesFromList {
 	 * 
 	 * @param head
 	 */
-	public void removeDuplicatesFromSortedList(ListNode head) {
+	public void removeDuplicatesFromSortedList(Node head) {
 		if (head == null) {
 			return;
 		}
-		ListNode current = head;
+		Node current = head;
 		while (current != null && current.next != null) {
 			if (current.data == current.next.data) {
 				current.next = current.next.next;
@@ -48,10 +46,10 @@ public class RemoveDuplicatesFromList {
 	 * 
 	 * @param head
 	 */
-	public void removeDuplicatesFromUnsortedList_using2Loops(ListNode head) {
+	public void removeDuplicatesFromUnsortedList_using2Loops(Node head) {
 		if (head == null)
 			return;
-		ListNode pointer1, pointer2, duplicate = null;
+		Node pointer1, pointer2, duplicate = null;
 		// initially set ptr1 to head
 		pointer1 = head;
 		while (pointer1 != null && pointer1.next != null) { // outer loop
@@ -61,7 +59,7 @@ public class RemoveDuplicatesFromList {
 				if (pointer1.data == pointer2.next.data) {
 					duplicate = pointer2.next;
 					pointer2.next = pointer2.next.next;
-					System.gc();// this removes the duplicate ListNode
+					System.gc();// this removes the duplicate Node
 				} else {
 					pointer2 = pointer2.next;
 				}
@@ -77,12 +75,12 @@ public class RemoveDuplicatesFromList {
 	 * 
 	 * @param head
 	 */
-	public void removeDuplicatesFromUnsortedList_usingHashing(ListNode head) {
+	public void removeDuplicatesFromUnsortedList_usingHashing(Node head) {
 		if (head == null)
 			return;
 		Set<Integer> set = new HashSet<>();
-		ListNode current = head;
-		ListNode previous = null;
+		Node current = head;
+		Node previous = null;
 		while (current != null) {
 			int value = current.data;
 			if (set.contains(value)) {
@@ -109,7 +107,7 @@ public class RemoveDuplicatesFromList {
 	 * 
 	 * @param head
 	 */
-	public ListNode removeAllDuplicates_recursive(ListNode head) {
+	public Node removeAllDuplicates_recursive(Node head) {
 		if (head == null || head.next == null)
 			return head;
 		if (head.data == head.next.data) {
@@ -129,17 +127,17 @@ public class RemoveDuplicatesFromList {
 	 * @param head
 	 * @return
 	 */
-	public ListNode removeAllDuplicates_2pointer(ListNode head) {
+	public Node removeAllDuplicates_2pointer(Node head) {
 		if (head == null || head.next == null)
 			return head;
 
-		// dummy ListNode
-		ListNode dummy = new ListNode(0);
+		// dummy Node
+		Node dummy = new Node(0);
 		dummy.next = head;
 
-		ListNode prev = dummy;
-		ListNode curr = head;
-		ListNode next;
+		Node prev = dummy;
+		Node curr = head;
+		Node next;
 		while (curr != null && curr.next != null) {
 			next = curr.next;
 			while (next != null && curr.data == next.data) {

@@ -1,7 +1,9 @@
 package com.algo.ds.linkedlist;
 
+import com.algo.common.ListNode;
+
 /**
- * http://www.geeksforgeeks.org/maximum-sum-linked-list-two-sorted-linked-lists-common-nodes/. <br/>
+ * http://www.geeksforgeeks.org/maximum-sum-linked-list-two-sorted-linked-lists-common-ListNodes/. <br/>
  * for explanation see - https://www.tutorialcup.com/linked-list/sum-linked-list-out-sorted-linked-lists.htm <br/>
  * Test cases -<br/>
  * Test that chains never meet <br/>
@@ -11,19 +13,19 @@ package com.algo.ds.linkedlist;
  */
 public class MergeForLargestSum {
 
-	Node maxChain(Node head1, Node head2) {
+	ListNode maxChain(ListNode head1, ListNode head2) {
 		if (head1 == null) {
 			return head2;
 		}
 		if (head2 == null) {
 			return head1;
 		}
-		Node curr1 = head1;
-		Node curr2 = head2;
+		ListNode curr1 = head1;
+		ListNode curr2 = head2;
 		int sum1 = 0;
 		int sum2 = 0;
-		Node result = null;
-		Node prev = null;
+		ListNode result = null;
+		ListNode prev = null;
 		// this loop goes on till both curr1 and curr2 have same number of elements
 		while (curr1 != null && curr2 != null) {
 			if (curr1.data == curr2.data) {
@@ -87,36 +89,36 @@ public class MergeForLargestSum {
 		return result;
 	}
 
-	public static void main(String args[]) {
-		LinkList ll = new LinkList();
-		Node head1 = null;
-		head1 = ll.addNode(1, head1);
-		head1 = ll.addNode(3, head1);
-		head1 = ll.addNode(30, head1);
-		head1 = ll.addNode(90, head1);
-		head1 = ll.addNode(120, head1);
-		head1 = ll.addNode(240, head1);
-		head1 = ll.addNode(243, head1);
-		head1 = ll.addNode(251, head1);
-		head1 = ll.addNode(511, head1);
-		System.out.println("LL1 :");
-		ll.printList(head1);
-		Node head2 = null;
-		head2 = ll.addNode(0, head2);
-		head2 = ll.addNode(3, head2);
-		head2 = ll.addNode(12, head2);
-		head2 = ll.addNode(32, head2);
-		head2 = ll.addNode(90, head2);
-		head2 = ll.addNode(125, head2);
-		head2 = ll.addNode(240, head2);
-		head2 = ll.addNode(249, head2);
-		head2 = ll.addNode(251, head2);
-		head2 = ll.addNode(260, head2);
-		System.out.println("LL2 :");
-		ll.printList(head2);
-		MergeForLargestSum mls = new MergeForLargestSum();
-		Node result = mls.maxChain(head1, head2);
-		System.out.println("Result :");
-		ll.printList(result);
-	}
+//	public static void main(String args[]) {
+//		LinkList ll = new LinkList();
+//		ListNode head1 = null;
+//		head1 = ll.addListNode(1, head1);
+//		head1 = ll.addListNode(3, head1);
+//		head1 = ll.addListNode(30, head1);
+//		head1 = ll.addListNode(90, head1);
+//		head1 = ll.addListNode(120, head1);
+//		head1 = ll.addListNode(240, head1);
+//		head1 = ll.addListNode(243, head1);
+//		head1 = ll.addListNode(251, head1);
+//		head1 = ll.addListNode(511, head1);
+//		System.out.println("LL1 :");
+//		ll.printList(head1);
+//		ListNode head2 = null;
+//		head2 = ll.addListNode(0, head2);
+//		head2 = ll.addListNode(3, head2);
+//		head2 = ll.addListNode(12, head2);
+//		head2 = ll.addListNode(32, head2);
+//		head2 = ll.addListNode(90, head2);
+//		head2 = ll.addListNode(125, head2);
+//		head2 = ll.addListNode(240, head2);
+//		head2 = ll.addListNode(249, head2);
+//		head2 = ll.addListNode(251, head2);
+//		head2 = ll.addListNode(260, head2);
+//		System.out.println("LL2 :");
+//		ll.printList(head2);
+//		MergeForLargestSum mls = new MergeForLargestSum();
+//		ListNode result = mls.maxChain(head1, head2);
+//		System.out.println("Result :");
+//		ll.printList(result);
+//	}
 }

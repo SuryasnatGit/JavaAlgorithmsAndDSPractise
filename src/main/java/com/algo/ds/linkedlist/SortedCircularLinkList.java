@@ -15,11 +15,11 @@ public class SortedCircularLinkList {
 
 	public ListNode add(ListNode head, int data) {
 		if (head == null) {
-			head = ListNode.newListNode(data);
+			head = new ListNode(data);
 			head.next = head;
 			return head;
 		}
-		ListNode ListNode = ListNode.newListNode(data);
+		ListNode ListNode = new ListNode(data);
 		ListNode tail = getTail(head);
 		if (ListNode.data < head.data) {
 			ListNode.next = head;

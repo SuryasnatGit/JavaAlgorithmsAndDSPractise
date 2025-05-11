@@ -14,7 +14,7 @@ import com.algo.common.TreeNode;
  */
 public class HashTableChainingBinaryTree<K, V> {
 
-	private TreeNode<K, V>[] table;
+	private TreeNode[] table;
 	private int size;
 
 	public HashTableChainingBinaryTree(int size) {
@@ -68,16 +68,16 @@ public class HashTableChainingBinaryTree<K, V> {
 
 	public void put(int key, int value) {
 		int hash = hashFunction(key);
-		TreeNode<K, V> root = table[hash];
+		TreeNode root = table[hash];
 		root = insert(root, key, value);
 		table[hash] = root;
 	}
 
-	private TreeNode<K, V> insert(TreeNode<K, V> node, int key, int value) {
+	private TreeNode insert(TreeNode node, int key, int value) {
 		if (node == null)
-			node = new TreeNode<K, V>(key, value);
+			node = new TreeNode(value);
 		else {
-			if (value < node.value)
+			if (value < node.data)
 				node.left = insert(node.left, key, value);
 			else
 				node.right = insert(node.right, key, value);
@@ -87,33 +87,33 @@ public class HashTableChainingBinaryTree<K, V> {
 
 	public Integer get(int key) {
 		int hash = hashFunction(key);
-		TreeNode<K, V> root = table[hash];
-		while (root.key != key) {
-			if (key < root.key)
+		TreeNode root = table[hash];
+		while (root.data != key) {
+			if (key < root.data)
 				root = root.left;
 			else
 				root = root.right;
 			if (root == null)
 				return null;
 		}
-		return root.value;
+		return root.data;
 	}
 
 	public int remove(int key) {
 		int hash = hashFunction(key);
-		TreeNode<K, V> root = table[hash];
+		TreeNode root = table[hash];
 		root = delete(root, key);
-		return root.value;
+		return root.data;
 	}
 
-	private TreeNode<K, V> delete(TreeNode<K, V> treeNode, int key) {
+	private TreeNode delete(TreeNode treeNode, int key) {
 		int hash = hashFunction(key);
-		TreeNode<K, V> root = table[hash];
-		TreeNode<K, V> current = root;
-		TreeNode<K, V> parent = root;
+		TreeNode root = table[hash];
+		TreeNode current = root;
+		TreeNode parent = root;
 		boolean isLeftChild = false;
-		while (current.key != key) {
-			if (key < current.key) {
+		while (current.data != key) {
+			if (key < current.data) {
 				current = current.left;
 				isLeftChild = true;
 			} else {
@@ -156,7 +156,7 @@ public class HashTableChainingBinaryTree<K, V> {
 
 		// 4. when current has both left and right child
 		if (current.left != null && current.right != null) {
-			TreeNode<K, V> successor = findSuccessor(current);
+			TreeNode successor = findSuccessor(current);
 			if (current == root)
 				root = null;
 			else {
@@ -171,10 +171,10 @@ public class HashTableChainingBinaryTree<K, V> {
 		return current;
 	}
 
-	private TreeNode<K, V> findSuccessor(TreeNode<K, V> deleteNode) {
-		TreeNode<K, V> successor = null;
-		TreeNode<K, V> successorParent = null;
-		TreeNode<K, V> current = deleteNode.right;
+	private TreeNode findSuccessor(TreeNode deleteNode) {
+		TreeNode successor = null;
+		TreeNode successorParent = null;
+		TreeNode current = deleteNode.right;
 		while (current != null) {
 			successorParent = successor;
 			successor = current;

@@ -53,19 +53,19 @@ public class ReverseAlternateKNodes {
 	}
 
 	public static void main(String args[]) {
-		LinkList ll = new LinkList();
+		SingleLinkedList ll = new SingleLinkedList();
 		Node head = null;
-		head = ll.addNode(1, head);
-		head = ll.addNode(2, head);
-		head = ll.addNode(3, head);
-		head = ll.addNode(4, head);
-		head = ll.addNode(5, head);
-		head = ll.addNode(6, head);
-		head = ll.addNode(7, head);
-		head = ll.addNode(8, head);
+		ll.addNode(1);
+		ll.addNode(2);
+		ll.addNode(3);
+		ll.addNode(4);
+		ll.addNode(5);
+		ll.addNode(6);
+		ll.addNode(7);
+		ll.addNode(8);
 
 		ReverseAlternateKNodes ra = new ReverseAlternateKNodes();
 		head = ra.reverse(head, 3, true);
-		ll.printList(head);
+		ll.displayList(head);
 	}
 }
