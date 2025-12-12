@@ -1,7 +1,5 @@
 package com.algo.ds.linkedlist;
 
-import com.algo.common.ListNode;
-
 /**
  * <p>
  * Sort a linked list in O(n log n) time using constant space complexity.
@@ -15,22 +13,22 @@ import com.algo.common.ListNode;
  */
 public class SortLinkedList {
 
-	public ListNode sort(ListNode head) {
+	public Node sort(Node head) {
 		if (head == null || head.next == null) {
 			return head;
 		}
 
-		ListNode mid = midpoint(head);
-		ListNode right = sort(mid.next);
+		Node mid = midpoint(head);
+		Node right = sort(mid.next);
 		mid.next = null;
-		ListNode left = sort(head);
+		Node left = sort(head);
 
 		return merge(left, right);
 	}
 
-	private ListNode midpoint(ListNode head) {
-		ListNode slow = head;
-		ListNode fast = head.next;
+	private Node midpoint(Node head) {
+		Node slow = head;
+		Node fast = head.next;
 
 		while (fast != null && fast.next != null) {
 			fast = fast.next.next;
@@ -40,9 +38,9 @@ public class SortLinkedList {
 		return slow;
 	}
 
-	private ListNode merge(ListNode left, ListNode right) {
-		ListNode dummy = new ListNode(0);
-		ListNode pointer = dummy;
+	private Node merge(Node left, Node right) {
+		Node dummy = new Node(0);
+		Node pointer = dummy;
 
 		while (left != null && right != null) {
 			if (left.data <= right.data) {
@@ -66,12 +64,12 @@ public class SortLinkedList {
 
 	public static void main(String[] args) {
 		SortLinkedList sll = new SortLinkedList();
-		ListNode head = new ListNode(7);
-		head.next = new ListNode(5);
-		head.next.next = new ListNode(9);
-		head.next.next.next = new ListNode(3);
-		head.next.next.next.next = new ListNode(6);
-		ListNode sorted = sll.sort(head);
+		Node head = new Node(7);
+		head.next = new Node(5);
+		head.next.next = new Node(9);
+		head.next.next.next = new Node(3);
+		head.next.next.next.next = new Node(6);
+		Node sorted = sll.sort(head);
 		LinkedListUtils.printList(sorted);
 	}
 }

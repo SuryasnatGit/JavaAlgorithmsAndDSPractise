@@ -34,12 +34,12 @@ public class NodesWithNoSibling {
 	public static void main(String args[]) {
 		BinaryTree bt = new BinaryTree();
 		TreeNode root = null;
-		root = bt.addNode(10, root);
-		root = bt.addNode(5, root);
-		root = bt.addNode(-1, root);
-		root = bt.addNode(-5, root);
-		root = bt.addNode(20, root);
-		root = bt.addNode(25, root);
+		bt.insert(10);
+		bt.insert(5);
+		bt.insert(-1);
+		bt.insert(-5);
+		bt.insert(20);
+		bt.insert(25);
 		NodesWithNoSibling nws = new NodesWithNoSibling();
 		nws.printNodes(root);
 	}

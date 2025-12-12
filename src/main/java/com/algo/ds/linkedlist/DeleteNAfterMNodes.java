@@ -39,16 +39,16 @@ public class DeleteNAfterMNodes {
 	}
 
 	public static void main(String args[]) {
-		DeleteNAfterMNodes daf = new DeleteNAfterMNodes();
-		LinkList ll = new LinkList();
-		Node head = null;
-		head = ll.addNode(1, head);
-		head = ll.addNode(2, head);
-		head = ll.addNode(3, head);
-		head = ll.addNode(4, head);
-		head = ll.addNode(5, head);
-		head = ll.addNode(6, head);
-		daf.deleteNAfterMNodes(head, 2, 2);
-		ll.printList(head);
+//		DeleteNAfterMNodes daf = new DeleteNAfterMNodes();
+//		LinkList ll = new LinkList();
+//		Node head = null;
+//		head = ll.addNode(1, head);
+//		head = ll.addNode(2, head);
+//		head = ll.addNode(3, head);
+//		head = ll.addNode(4, head);
+//		head = ll.addNode(5, head);
+//		head = ll.addNode(6, head);
+//		daf.deleteNAfterMNodes(head, 2, 2);
+//		ll.printList(head);
 	}
 }

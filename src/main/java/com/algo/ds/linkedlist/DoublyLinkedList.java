@@ -1,6 +1,5 @@
 package com.algo.ds.linkedlist;
 
-import sun.awt.image.ImageWatched.Link;
 
 /**
  * this is also a impl of deque using a doubly linked list.
@@ -8,8 +7,8 @@ import sun.awt.image.ImageWatched.Link;
  */
 public class DoublyLinkedList {
 
-	private Link first;
-	private Link last;
+	private Node first;
+	private Node last;
 
 	public DoublyLinkedList() {
 		first = null; // no links exist
@@ -21,7 +20,7 @@ public class DoublyLinkedList {
 	}
 
 	public void insertFirst(int d) {
-		Link newLink = new Link(d);
+		Node newLink = new Node(d);
 		if (isEmpty())
 			last = newLink;
 		else
@@ -31,7 +30,7 @@ public class DoublyLinkedList {
 	}
 
 	public void insertLast(int d) {
-		Link newLink = new Link(d);
+		Node newLink = new Node(d);
 		if (isEmpty())
 			first = newLink;
 		else {
@@ -41,8 +40,8 @@ public class DoublyLinkedList {
 		last = newLink;
 	}
 
-	public Link deleteFirst() {
-		Link temp = first;
+	public Node deleteFirst() {
+		Node temp = first;
 		if (first.next == null)
 			last = null;
 		else
@@ -51,8 +50,8 @@ public class DoublyLinkedList {
 		return temp;
 	}
 
-	public Link deleteLast() {
-		Link temp = last;
+	public Node deleteLast() {
+		Node temp = last;
 		if (first.next == null)
 			first = null;
 		else
@@ -68,13 +67,13 @@ public class DoublyLinkedList {
 	 * @param d
 	 */
 	public boolean insertAfter(int key, int d) {
-		Link current = first;
+		Node current = first;
 		while (current.data != key) {
 			current = current.next;
 			if (current == null)
 				return false;
 		}
-		Link newLink = new Link(d);
+		Node newLink = new Node(d);
 		if (current == last) {
 			newLink.next = null;
 			last = newLink;
@@ -87,8 +86,8 @@ public class DoublyLinkedList {
 		return true;
 	}
 
-	public Link deleteKey(int key) {
-		Link current = first;
+	public Node deleteKey(int key) {
+		Node current = first;
 		while (current.data != key) {
 			current = current.next;
 			if (current == null)

@@ -107,17 +107,17 @@ public class ConnectNodesAtSameLevel {
 
 	public static void main(String args[]) {
 		BinaryTree bt = new BinaryTree();
-		TreeNode root = null;
-		root = bt.addNode(10, root);
-		root = bt.addNode(15, root);
-		root = bt.addNode(5, root);
-		root = bt.addNode(7, root);
-		root = bt.addNode(19, root);
-		root = bt.addNode(20, root);
-		root = bt.addNode(-1, root);
-		root = bt.addNode(21, root);
-		ConnectNodesAtSameLevel cns = new ConnectNodesAtSameLevel();
+		bt.insert(10);
+		bt.insert(15);
+		bt.insert(5);
+		bt.insert(7);
+		bt.insert(19);
+		bt.insert(20);
+		bt.insert(-1);
+		bt.insert(21);
 
-		cns.connect(root);
+		ConnectNodesAtSameLevel connect = new ConnectNodesAtSameLevel();
+		connect.connect(bt.getRoot());
+
 	}
 }

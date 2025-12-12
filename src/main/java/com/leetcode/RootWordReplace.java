@@ -34,11 +34,12 @@ public class RootWordReplace {
 			for (int len = 1; len <= s.length(); len++) {
 				String sub = s.substring(0, len);
 
-				TrieBreakingBad.TrieNode node = root.search(sub, 0);
+				TrieNode node = root.search(sub, 0);
 				if (node == null) { // Nothing with this prefix
 					break;
 				} else if (node.hasWord) {
-					arr[i] = node.word;
+					// TODO : to check
+//					arr[i] = node.word;
 					break;
 				} else {
 					// has this prefix, continue

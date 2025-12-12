@@ -55,29 +55,29 @@ import java.util.TreeSet;
  */
 public class UnflattenTree {
 
-	public static Node unflattenTree(List<Node> nodes) {
-		Node parent = new Node("/");
-
-		SortedMap<Integer, SortedSet<String>> map = new TreeMap<>();
-		// preprocess
-		for (Node node : nodes) {
-			String path = node.getPath();
-			String[] names = path.split("/");
-			for (int i = 0; i < names.length; i++) {
-				if (map.containsKey(i)) {
-					map.get(i).add(names[i]);
-				} else {
-					SortedSet<String> set = new TreeSet<>();
-					set.add(names[i]);
-					map.put(i, set);
-				}
-			}
-		}
-
-		for (Map.Entry<Integer, SortedSet<String>> entry : map.entrySet()) {
-
-		}
-	}
+//	public static Node unflattenTree(List<Node> nodes) {
+//		Node parent = new Node("/");
+//
+//		SortedMap<Integer, SortedSet<String>> map = new TreeMap<>();
+//		// preprocess
+//		for (Node node : nodes) {
+//			String path = node.getPath();
+//			String[] names = path.split("/");
+//			for (int i = 0; i < names.length; i++) {
+//				if (map.containsKey(i)) {
+//					map.get(i).add(names[i]);
+//				} else {
+//					SortedSet<String> set = new TreeSet<>();
+//					set.add(names[i]);
+//					map.put(i, set);
+//				}
+//			}
+//		}
+//
+//		for (Map.Entry<Integer, SortedSet<String>> entry : map.entrySet()) {
+//
+//		}
+//	}
 }
 
 class Node implements Comparable<Node> {

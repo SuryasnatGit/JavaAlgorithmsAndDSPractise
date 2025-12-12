@@ -80,18 +80,18 @@ public class ReorderList {
 	}
 
 	public static void main(String[] args) {
-		ReorderList rl = new ReorderList();
-		LinkList ll = new LinkList();
-		ListNode head1 = null;
-		head1 = ll.addNode(1, head1);
-		head1 = ll.addNode(2, head1);
-		head1 = ll.addNode(3, head1);
-		head1 = ll.addNode(4, head1);
-		head1 = ll.addNode(5, head1);
-		head1 = ll.addNode(6, head1);
-		ll.printList(head1);
-
-		rl.reorderList(head1);
-		ll.printList(head1);
+//		ReorderList rl = new ReorderList();
+//		LinkList ll = new LinkList();
+//		ListNode head1 = null;
+//		head1 = ll.addNode(1, head1);
+//		head1 = ll.addNode(2, head1);
+//		head1 = ll.addNode(3, head1);
+//		head1 = ll.addNode(4, head1);
+//		head1 = ll.addNode(5, head1);
+//		head1 = ll.addNode(6, head1);
+//		ll.printList(head1);
+//
+//		rl.reorderList(head1);
+//		ll.printList(head1);
 	}
 }

@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.algo.ds.array.FindElementsOccurringMoreThanNByKTimes.Pair;
+//import com.algo.ds.array.FindElementsOccurringMoreThanNByKTimes.Pair;
 
 /**
  * Given an array of distinct integer values, count the number of distinct pairs of integers that have difference k. For
@@ -108,9 +108,10 @@ public class IntegerPairWithDifferenceK {
 	 * @param k
 	 * @return
 	 */
-	public List<Pair> getPairs_balancedBST(int[] arr, int k) {
-		return null;
-	}
+	// TODO
+//	public List<Pair> getPairs_balancedBST(int[] arr, int k) {
+//		return null;
+//	}
 
 	public static void main(String[] args) {
 		IntegerPairWithDifferenceK intk = new IntegerPairWithDifferenceK();

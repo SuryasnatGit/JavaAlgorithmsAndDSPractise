@@ -283,15 +283,15 @@ public class SerializeDeserializeTree {
 		return root;
 	}
 
-	public NaryTreeNode build(String input) {
-		if (input == null || input.length() <= 2) {
-			return null;
-		}
-
-		int[] pos = { 1 };
-		NaryTreeNode root = helper(input, pos);
-		return root;
-	}
+//	public NaryTreeNode build(String input) {
+//		if (input == null || input.length() <= 2) {
+//			return null;
+//		}
+//
+//		int[] pos = { 1 };
+//		NaryTreeNode root = helper(input, pos);
+//		return root;
+//	}
 
 	Node deserialize(String s) {
 		Node root = null;

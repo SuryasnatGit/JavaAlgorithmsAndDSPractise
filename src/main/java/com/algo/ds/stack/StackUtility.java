@@ -1,5 +1,7 @@
 package com.algo.ds.stack;
 
+import java.util.Stack;
+
 public class StackUtility {
 
 	public String reverseString(String sourceStr) {
@@ -79,7 +81,7 @@ public class StackUtility {
 	public boolean isBalanced(String expression) {
 		String opening = "({[";
 		String closing = ")}]";
-		MyStack<Character> stack = new LinkedListStack<>();
+		Stack<Character> stack = new Stack<>();
 		for (char c : expression.toCharArray()) {
 			if (opening.indexOf(c) != -1) {
 				stack.push(c);
@@ -94,7 +96,7 @@ public class StackUtility {
 	}
 
 	public boolean isHtmlMatched(String html) {
-		MyStack<String> stack = new LinkedListStack<>();
+		Stack<String> stack = new Stack<>();
 		int start = html.indexOf("<");
 		while (start != -1) {
 			int end = html.indexOf(">", start + 1);

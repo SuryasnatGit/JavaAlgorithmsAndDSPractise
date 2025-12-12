@@ -1,6 +1,6 @@
 package com.ctci.linkedlist;
 
-import com.algo.ds.linkedlist.Link;
+import com.algo.common.ListNode;
 
 /**
  * Given a linked list and a value x, partition it such that all nodes less than x come first, then
@@ -21,14 +21,14 @@ import com.algo.ds.linkedlist.Link;
  */
 public class PartitionList {
 
-	public Link partitionList_maintainOrder(Link head, int x) {
+	public ListNode partitionList_maintainOrder(ListNode head, int x) {
 		// initialize 3 lists
-		Link headLess = null, tailLess = null;
-		Link headEqual = null, tailEqual = null;
-		Link headMore = null, tailMore = null;
+		ListNode headLess = null, tailLess = null;
+		ListNode headEqual = null, tailEqual = null;
+		ListNode headMore = null, tailMore = null;
 		while (head != null) {
 			// if less
-			if (head.getKey() < x) {
+			if (head.getData() < x) {
 				if (headLess == null) {
 					headLess = tailLess = head;
 				} else {
@@ -38,7 +38,7 @@ public class PartitionList {
 			}
 
 			// if equals
-			if (head.getKey() == x) {
+			if (head.getData() == x) {
 				if (headEqual == null) {
 					headEqual = tailEqual = null;
 				} else {
@@ -48,7 +48,7 @@ public class PartitionList {
 			}
 
 			// if more
-			if (head.getKey() > x) {
+			if (head.getData() > x) {
 				if (headMore == null) {
 					headMore = tailMore = null;
 				} else {

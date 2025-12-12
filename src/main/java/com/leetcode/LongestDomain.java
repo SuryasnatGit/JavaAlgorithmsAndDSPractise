@@ -34,9 +34,9 @@ public class LongestDomain {
 		for (String sec : sections) {
 			now = now + sec + ".";
 
-			if (!root.contains(now)) {
-				break;
-			}
+//			if (!root.contains(now)) {
+//				break;
+//			}
 		}
 
 		return reverse(now);

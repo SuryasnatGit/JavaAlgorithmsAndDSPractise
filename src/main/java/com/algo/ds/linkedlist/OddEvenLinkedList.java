@@ -1,7 +1,5 @@
 package com.algo.ds.linkedlist;
 
-import com.algo.common.ListNode;
-
 public class OddEvenLinkedList {
 
 	/**
@@ -13,13 +11,13 @@ public class OddEvenLinkedList {
 	 * @param head
 	 * @return
 	 */
-	public ListNode rearrangeOddEvenListByPosition(ListNode head) {
+	public Node rearrangeOddEvenListByPosition(Node head) {
 		if (head == null)
 			return head;
 
-		ListNode odd = head;
-		ListNode even = head.next;
-		ListNode connectLink = head.next;
+		Node odd = head;
+		Node even = head.next;
+		Node connectLink = head.next;
 
 		while (odd != null && even != null) {
 			odd.next = odd.next.next;
@@ -38,10 +36,10 @@ public class OddEvenLinkedList {
 	 * 
 	 * @return
 	 */
-	public ListNode rearrangeOddEvenListByValue(ListNode head) {
-		ListNode odd = null, oddTail = null;
-		ListNode even = null, evenTail = null;
-		ListNode curr = head;
+	public Node rearrangeOddEvenListByValue(Node head) {
+		Node odd = null, oddTail = null;
+		Node even = null, evenTail = null;
+		Node curr = head;
 
 		while (curr != null) {
 			if ((curr.data & 1) != 0) // current node is odd
@@ -89,20 +87,20 @@ public class OddEvenLinkedList {
 		SingleLinkedList sll = new SingleLinkedList();
 
 		OddEvenLinkedList oe = new OddEvenLinkedList();
-		ListNode head = new ListNode(1);
-		ListNode one = new ListNode(2);
+		Node head = new Node(1);
+		Node one = new Node(2);
 		head.next = one;
-		ListNode two = new ListNode(3);
+		Node two = new Node(3);
 		one.next = two;
-		ListNode three = new ListNode(4);
+		Node three = new Node(4);
 		two.next = three;
-		ListNode four = new ListNode(5);
+		Node four = new Node(5);
 		three.next = four;
 
-		ListNode res = oe.rearrangeOddEvenListByPosition(head);
+		Node res = oe.rearrangeOddEvenListByPosition(head);
 		sll.displayList(res);
 		System.out.println();
-		ListNode res1 = oe.rearrangeOddEvenListByValue(head);
+		Node res1 = oe.rearrangeOddEvenListByValue(head);
 		sll.displayList(res1);
 	}
 }

@@ -1,7 +1,5 @@
 package com.algo.ds.linkedlist;
 
-import com.algo.common.ListNode;
-
 /**
  * Date 10/10/2016 Given a list, rotate the list to the right by k places, where k is non-negative.
  * 
@@ -14,13 +12,13 @@ import com.algo.common.ListNode;
  * https://leetcode.com/problems/rotate-list/
  */
 public class RotateList {
-	public ListNode rotateRight(ListNode head, int k) {
+	public Node rotateRight(Node head, int k) {
 		if (head == null || k == 0) {
 			return head;
 		}
 
-		ListNode slow = head;
-		ListNode fast = head;
+		Node slow = head;
+		Node fast = head;
 		int i = 0;
 		while (i < k && fast != null) {
 			fast = fast.next;
@@ -36,7 +34,7 @@ public class RotateList {
 			slow = slow.next;
 		}
 
-		ListNode next = slow.next;
+		Node next = slow.next;
 		slow.next = null;
 		fast.next = head;
 
@@ -44,21 +42,21 @@ public class RotateList {
 	}
 
 	/**
-	 * To rotate the linked list counter clockwise, we need to 1. change next of kth ListNode to NULL, 2. next of last
-	 * ListNode to previous head ListNode, 3. and finally change head to (k+1)th ListNode. So we need to get hold of
-	 * three nodes: kth ListNode, (k+1)th ListNode and last ListNode. Traverse the list from beginning and stop at kth
-	 * ListNode. Store pointer to kth ListNode. We can get (k+1)th ListNode using kthNode->next. Keep traversing till
-	 * end and store pointer to last ListNode also. Finally, change pointers as stated above.
+	 * To rotate the linked list counter clockwise, we need to 1. change next of kth Node to NULL, 2. next of last
+	 * Node to previous head Node, 3. and finally change head to (k+1)th Node. So we need to get hold of
+	 * three nodes: kth Node, (k+1)th Node and last Node. Traverse the list from beginning and stop at kth
+	 * Node. Store pointer to kth Node. We can get (k+1)th Node using kthNode->next. Keep traversing till
+	 * end and store pointer to last Node also. Finally, change pointers as stated above.
 	 * 
 	 * @return
 	 */
-	public ListNode rotateLeft(ListNode head, int k) {
+	public Node rotateLeft(Node head, int k) {
 		if (head == null || k == 0)
 			return head;
 
-		// navigate to kth ListNode
+		// navigate to kth Node
 		int count = 1;
-		ListNode current = head;
+		Node current = head;
 		while (count < k && current != null) {
 			current = current.next;
 			count++;
@@ -69,20 +67,20 @@ public class RotateList {
 		if (current == null)
 			return head;
 
-		// store kth ListNode
-		ListNode kthNode = current;
+		// store kth Node
+		Node kthNode = current;
 
-		// navigate to last ListNode
+		// navigate to last Node
 		while (current.next != null)
 			current = current.next;
 
-		// point last ListNode next to current head
+		// point last Node next to current head
 		current.next = head;
 
-		// make next of kth ListNode as new head
+		// make next of kth Node as new head
 		head = kthNode.next;
 
-		// point next of kth ListNode to null
+		// point next of kth Node to null
 		kthNode.next = null;
 
 		return head;
@@ -101,7 +99,7 @@ public class RotateList {
 		sll.displayList(sll.getHead());
 		RotateList rl = new RotateList();
 
-		ListNode node = rl.rotateRight(sll.getHead(), 4);
+		Node node = rl.rotateRight(sll.getHead(), 4);
 		System.out.println();
 
 		sll.displayList(node);
@@ -116,7 +114,7 @@ public class RotateList {
 		sll1.addNodeAtEnd(4);
 		sll1.addNodeAtEnd(5);
 		sll1.addNodeAtEnd(6);
-		ListNode node1 = rl.rotateLeft(sll1.getHead(), 4);
+		Node node1 = rl.rotateLeft(sll1.getHead(), 4);
 		sll.displayList(node1);
 	}
 }

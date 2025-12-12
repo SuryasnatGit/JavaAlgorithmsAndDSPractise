@@ -50,22 +50,22 @@ public class PopulateInOrderSuccessor {
 	}
 
 	public static void main(String args[]) {
-		BinaryTree bt = new BinaryTree();
-		TreeNode head = null;
-		head = bt.addNode(10, head);
-		head = bt.addNode(15, head);
-		head = bt.addNode(5, head);
-		head = bt.addNode(7, head);
-		head = bt.addNode(19, head);
-		head = bt.addNode(20, head);
-		head = bt.addNode(-1, head);
-		head = bt.addNode(21, head);
-		PopulateInOrderSuccessor pio = new PopulateInOrderSuccessor();
-		pio.populate(head);
-		while (head.left != null) {
-			head = head.left;
-		}
-		pio.print(head);
+//		BinaryTree bt = new BinaryTree();
+//		TreeNode head = null;
+//		head = bt.addNode(10, head);
+//		head = bt.addNode(15, head);
+//		head = bt.addNode(5, head);
+//		head = bt.addNode(7, head);
+//		head = bt.addNode(19, head);
+//		head = bt.addNode(20, head);
+//		head = bt.addNode(-1, head);
+//		head = bt.addNode(21, head);
+//		PopulateInOrderSuccessor pio = new PopulateInOrderSuccessor();
+//		pio.populate(head);
+//		while (head.left != null) {
+//			head = head.left;
+//		}
+//		pio.print(head);
 	}
 }
 

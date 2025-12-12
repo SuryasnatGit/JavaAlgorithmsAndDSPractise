@@ -1,7 +1,5 @@
 package com.algo.ds.linkedlist;
 
-import com.algo.common.ListNode;
-
 /**
  * http://www.geeksforgeeks.org/sum-of-two-linked-lists/<br/>
  * Test case.. <br/>
@@ -32,27 +30,27 @@ import com.algo.common.ListNode;
  */
 public class AddNumberRepresentedByLinkList {
 
-	public ListNode addNumbers(ListNode head1, ListNode head2) {
+	public Node addNumbers(Node head1, Node head2) {
 		ReverseLinkedListProblems rll = new ReverseLinkedListProblems();
 		head1 = rll.rev_iterative(head1);
 		head2 = rll.rev_iterative(head2);
-		ListNode result = add(head1, head2);
+		Node result = add(head1, head2);
 		return rll.rev_iterative(result);
 	}
 
-	private ListNode add(ListNode head1, ListNode head2) {
+	private Node add(Node head1, Node head2) {
 		if (head1 == null && head2 == null) {
 			return null;
 		}
 
-		ListNode dummy = new ListNode(-1);
-		ListNode current = dummy;
+		Node dummy = new Node(-1);
+		Node current = dummy;
 
 		int carry = 0;
 		while (head1 != null && head2 != null) {
 			int sum = head1.data + head2.data + carry;
 			carry = sum / 10;
-			current.next = new ListNode(sum % 10);
+			current.next = new Node(sum % 10);
 			current = current.next;
 			head1 = head1.next;
 			head2 = head2.next;
@@ -61,7 +59,7 @@ public class AddNumberRepresentedByLinkList {
 		while (head1 != null) {
 			int sum = head1.data + carry;
 			carry = sum / 10;
-			current.next = new ListNode(sum % 10);
+			current.next = new Node(sum % 10);
 			current = current.next;
 			head1 = head1.next;
 		}
@@ -69,13 +67,13 @@ public class AddNumberRepresentedByLinkList {
 		while (head2 != null) {
 			int sum = head2.data + carry;
 			carry = sum / 10;
-			current.next = new ListNode(sum % 10);
+			current.next = new Node(sum % 10);
 			current = current.next;
 			head2 = head2.next;
 		}
 
 		if (carry != 0) {
-			current.next = new ListNode(carry);
+			current.next = new Node(carry);
 			current = current.next;
 		}
 
@@ -85,15 +83,15 @@ public class AddNumberRepresentedByLinkList {
 	public static void main(String args[]) {
 		AddNumberRepresentedByLinkList anr = new AddNumberRepresentedByLinkList();
 
-		ListNode h1 = new ListNode(3);
-		h1.next = new ListNode(4);
-		h1.next.next = new ListNode(5);
+		Node h1 = new Node(3);
+		h1.next = new Node(4);
+		h1.next.next = new Node(5);
 
-		ListNode h2 = new ListNode(7);
-		h2.next = new ListNode(4);
-		h2.next.next = new ListNode(5);
+		Node h2 = new Node(7);
+		h2.next = new Node(4);
+		h2.next.next = new Node(5);
 
-		ListNode res = anr.addNumbers(h1, h2);
+		Node res = anr.addNumbers(h1, h2);
 		MiscellaneousLinkedListProblems m = new MiscellaneousLinkedListProblems();
 		m.displayList(res);
 	}

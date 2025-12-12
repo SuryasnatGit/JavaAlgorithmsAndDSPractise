@@ -1,9 +1,10 @@
 package com.ctci.linkedlist;
 
-import com.algo.ds.linkedlist.Link;
+
+import com.algo.common.ListNode;
 
 /**
- * Implement an algorithm to find the kth to last element of a singly linked list.
+ * Implement an algorithm to find the kth to last element of a singly ListNodeed list.
  * 
  * @author surya
  *
@@ -12,33 +13,33 @@ public class FindKthToLastElement {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Link l1 = new Link(1);
-		l1.next = new Link(2);
-		l1.next.next = new Link(3);
-		l1.next.next.next = new Link(4);
-		l1.next.next.next.next = new Link(5);
+		ListNode l1 = new ListNode(1);
+		l1.next = new ListNode(2);
+		l1.next.next = new ListNode(3);
+		l1.next.next.next = new ListNode(4);
+		l1.next.next.next.next = new ListNode(5);
 		FindKthToLastElement kth = new FindKthToLastElement();
 		kth.printList(l1);
-		Link l = kth.findKthElement(l1, 2);
-		System.out.println("kth element is :" + l.getKey());
+		ListNode l = kth.findKthElement(l1, 2);
+		System.out.println("kth element is :" + l.getData());
 		kth.printKthToLastElement(l1, 2);
 	}
 
-	public void printList(Link head) {
+	public void printList(ListNode head) {
 		while (head != null) {
-			System.out.print(head.getKey() + "->");
+			System.out.print(head.getData() + "->");
 			head = head.next;
 		}
 		System.out.println("NULL");
 	}
 
-	public Link findKthElement(Link head, int k) {
-		Link curr = head;
+	public ListNode findKthElement(ListNode head, int k) {
+		ListNode curr = head;
 		int c = 1;
 		while (curr.next != null && c++ != k) {
 			curr = curr.next;
 		}
-		return k > c ? new Link(0) : curr;
+		return k > c ? new ListNode(0) : curr;
 	}
 
 	/**
@@ -48,12 +49,12 @@ public class FindKthToLastElement {
 	 * @param k
 	 * @return
 	 */
-	public int printKthToLastElement(Link head, int k) {
+	public int printKthToLastElement(ListNode head, int k) {
 		if (head == null)
 			return 0;
 		int index = printKthToLastElement(head.next, k) + 1;
 		if (index == k)
-			System.out.println("kth to last element is :" + head.getKey());
+			System.out.println("kth to last element is :" + head.getData());
 		return index;
 	}
 
@@ -67,15 +68,15 @@ public class FindKthToLastElement {
 		public int value = 0;
 	}
 
-	public Link getKthToLastElement(Link head, int k) {
+	public ListNode getKthToLastElement(ListNode head, int k) {
 		Index idx = new Index();
 		return getKthToLastElement(head, k, idx);
 	}
 
-	public Link getKthToLastElement(Link head, int k, Index index) {
+	public ListNode getKthToLastElement(ListNode head, int k, Index index) {
 		if (head == null)
 			return null;
-		Link node = getKthToLastElement(head.next, k, index);
+		ListNode node = getKthToLastElement(head.next, k, index);
 		index.value = index.value + 1;
 		if (index.value == k)
 			return head;
@@ -85,9 +86,9 @@ public class FindKthToLastElement {
 	/**
 	 * Approach 3 - Iterative approach. Using 2 pointers. O(n) time and O(1) space.
 	 */
-	public Link getKthToLastElement_using2Pointers(Link head, int k) {
-		Link p1 = head;
-		Link p2 = head;
+	public ListNode getKthToLastElement_using2Pointers(ListNode head, int k) {
+		ListNode p1 = head;
+		ListNode p2 = head;
 
 		// move p1 k nodes into the list
 		for (int i = 0; i < k; i++) {

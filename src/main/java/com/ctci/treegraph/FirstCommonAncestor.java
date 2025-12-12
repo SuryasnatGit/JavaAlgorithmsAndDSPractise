@@ -26,11 +26,11 @@ public class FirstCommonAncestor<K, V> {
 	 * @param q
 	 * @return
 	 */
-	public TreeNode<K, V> commonAncestor(TreeNode<K, V> p, TreeNode<K, V> q) {
+	public TreeNode commonAncestor(TreeNode p, TreeNode q) {
 		if (p == q)
 			return null;
 
-		TreeNode<K, V> ancestor = p;
+		TreeNode ancestor = p;
 		while (ancestor != null) {
 			if (isOnPath(ancestor, q))
 				return ancestor;
@@ -46,7 +46,7 @@ public class FirstCommonAncestor<K, V> {
 	 * @param node
 	 * @return
 	 */
-	private boolean isOnPath(TreeNode<K, V> ancestor, TreeNode<K, V> node) {
+	private boolean isOnPath(TreeNode ancestor, TreeNode node) {
 		while (node != ancestor && node != null)
 			node = node.parent;
 		return node == ancestor;

@@ -1,5 +1,7 @@
 package com.algo.ds.linkedlist;
 
+import com.algo.common.ListNode;
+
 /**
  * http://www.geeksforgeeks.org/sorted-insert-for-circular-linked-list/
  * 
@@ -11,48 +13,48 @@ package com.algo.ds.linkedlist;
  */
 public class SortedCircularLinkList {
 
-	public Node add(Node head, int data) {
+	public ListNode add(ListNode head, int data) {
 		if (head == null) {
-			head = Node.newNode(data);
+			head = new ListNode(data);
 			head.next = head;
 			return head;
 		}
-		Node node = Node.newNode(data);
-		Node tail = getTail(head);
-		if (node.data < head.data) {
-			node.next = head;
-			tail.next = node;
-			return node;
+		ListNode ListNode = new ListNode(data);
+		ListNode tail = getTail(head);
+		if (ListNode.data < head.data) {
+			ListNode.next = head;
+			tail.next = ListNode;
+			return ListNode;
 		}
-		Node current = head;
-		Node pre = null;
-		while (current != tail && node.data >= current.data) {
+		ListNode current = head;
+		ListNode pre = null;
+		while (current != tail && ListNode.data >= current.data) {
 			pre = current;
 			current = current.next;
 		}
-		if (node.data < current.data) {
-			node.next = current;
-			pre.next = node;
+		if (ListNode.data < current.data) {
+			ListNode.next = current;
+			pre.next = ListNode;
 		} else {
-			node.next = tail.next;
-			tail.next = node;
+			ListNode.next = tail.next;
+			tail.next = ListNode;
 		}
 		return head;
 	}
 
-	private Node getTail(Node head) {
-		Node temp = head;
+	private ListNode getTail(ListNode head) {
+		ListNode temp = head;
 		while (temp.next != head) {
 			temp = temp.next;
 		}
 		return temp;
 	}
 
-	public void printList(Node head) {
+	public void printList(ListNode head) {
 		if (head == null) {
 			return;
 		}
-		Node current = head.next;
+		ListNode current = head.next;
 		System.out.println(head.data);
 		while (current != head) {
 			System.out.println(current.data);
@@ -60,16 +62,16 @@ public class SortedCircularLinkList {
 		}
 	}
 
-	public static void main(String args[]) {
-		SortedCircularLinkList scll = new SortedCircularLinkList();
-		Node head = null;
-		head = scll.addInterval(head, 10);
-		head = scll.addInterval(head, 12);
-		head = scll.addInterval(head, -1);
-		head = scll.addInterval(head, -5);
-		head = scll.addInterval(head, 11);
-		head = scll.addInterval(head, 7);
-
-		scll.printList(head);
-	}
+//	public static void main(String args[]) {
+//		SortedCircularLinkList scll = new SortedCircularLinkList();
+//		ListNode head = null;
+//		head = scll.addInterval(head, 10);
+//		head = scll.addInterval(head, 12);
+//		head = scll.addInterval(head, -1);
+//		head = scll.addInterval(head, -5);
+//		head = scll.addInterval(head, 11);
+//		head = scll.addInterval(head, 7);
+//
+//		scll.printList(head);
+//	}
 }

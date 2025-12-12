@@ -1,11 +1,13 @@
 package com.algo.ds.linkedlist;
 
+import com.algo.common.ListNode;
+
 import java.util.Stack;
 
 /**
  * https://www.geeksforgeeks.org/reverse-a-list-in-groups-of-given-size/
  * 
- * Given a linked list, write a function to reverse every k nodes (where k is an input to the
+ * Given a linked list, write a function to reverse every k ListNodes (where k is an input to the
  * function). Example: Inputs: 1->2->3->4->5->6->7->8->NULL and k = 3 Output:
  * 3->2->1->6->5->4->8->7->NULL.
  * 
@@ -21,16 +23,16 @@ public class ReverseKNodes {
 	 * @param k
 	 * @return
 	 */
-	public Node reverse(Node head, int k) {
+	public ListNode reverse(ListNode head, int k) {
 		if (head == null) {
 			return null;
 		}
-		Node previous = null;
-		Node current = head;
-		Node next = null;
+		ListNode previous = null;
+		ListNode current = head;
+		ListNode next = null;
 		int count = 0;
 
-		// reverse first k nodes of linked list
+		// reverse first k ListNodes of linked list
 		while (current != null && count < k) {
 			next = current.next;
 			current.next = previous;
@@ -38,8 +40,8 @@ public class ReverseKNodes {
 			current = next;
 			count++;
 		}
-		// next is now pointer to (k + 1)th node. recursively call for the list starting from current and
-		// make rest of list as next of first node.
+		// next is now pointer to (k + 1)th ListNode. recursively call for the list starting from current and
+		// make rest of list as next of first ListNode.
 		if (next != null)
 			head.next = reverse(current, k);
 		return previous;
@@ -53,10 +55,10 @@ public class ReverseKNodes {
 	 * @param k
 	 * @return
 	 */
-	public Node reverseUsingStack(Node head, int k) {
-		Stack<Node> stack = new Stack<>();
-		Node current = head;
-		Node previous = null;
+	public ListNode reverseUsingStack(ListNode head, int k) {
+		Stack<ListNode> stack = new Stack<>();
+		ListNode current = head;
+		ListNode previous = null;
 
 		while (current != null) {
 			// update stack with k number of elements
@@ -84,19 +86,19 @@ public class ReverseKNodes {
 		return head;
 	}
 
-	public static void main(String args[]) {
-		LinkList ll = new LinkList();
-		Node head = null;
-		head = ll.addNode(1, head);
-		head = ll.addNode(2, head);
-		head = ll.addNode(3, head);
-		head = ll.addNode(4, head);
-		head = ll.addNode(5, head);
-		head = ll.addNode(6, head);
-		head = ll.addNode(7, head);
-		head = ll.addNode(8, head);
-		ReverseKNodes rn = new ReverseKNodes();
-		head = rn.reverseUsingStack(head, 3);
-		ll.printList(head);
-	}
+//	public static void main(String args[]) {
+//		LinkList ll = new LinkList();
+//		ListNode head = null;
+//		head = ll.addListNode(1, head);
+//		head = ll.addListNode(2, head);
+//		head = ll.addListNode(3, head);
+//		head = ll.addListNode(4, head);
+//		head = ll.addListNode(5, head);
+//		head = ll.addListNode(6, head);
+//		head = ll.addListNode(7, head);
+//		head = ll.addListNode(8, head);
+//		ReverseKListNodes rn = new ReverseKListNodes();
+//		head = rn.reverseUsingStack(head, 3);
+//		ll.printList(head);
+//	}
 }

@@ -2,45 +2,45 @@ package com.algo.ds.linkedlist;
 
 public class SortedList {
 
-	private Link first;
+	private Node first;
 	
 	public SortedList() {
 		first = null;
 	}
 	
-	public void insert(Link link){
-		Link previous = null;
-		Link current = first;
-		while(current != null && link.getKey() > current.getKey()){
+	public void insert(Node Node){
+		Node previous = null;
+		Node current = first;
+		while(current != null && Node.getData() > current.getData()){
 			previous = current;
 			current = current.next;
 		}
 		
 		if(previous == null)
-			first = link;
+			first = Node;
 		else
-			previous.next = link;
+			previous.next = Node;
 		
-		link.next = current;
+		Node.next = current;
 	}
 	
 	public void delete(int key){
-		Link previous = null;
-		Link current = first;
-		while(current != null && key != current.getKey()){
+		Node previous = null;
+		Node current = first;
+		while(current != null && key != current.getData()){
 			previous = current;
 			current = current.next;
 		}
 		if(previous == null)
-			first = first.next; // if beginning of list, delete first link
+			first = first.next; // if beginning of list, delete first Node
 		else
 			previous.next = current.next; // delete current
 	}
 	
-	public Link find(int key){
-		Link current = first;
-		while(current != null && current.getKey() <= key){
-			if(current.getKey() == key)
+	public Node find(int key){
+		Node current = first;
+		while(current != null && current.getData() <= key){
+			if(current.getData() == key)
 				return current;
 			current = current.next;
 		}

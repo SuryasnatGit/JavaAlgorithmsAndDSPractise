@@ -1,10 +1,9 @@
-package com.companyprep;
+package com.design;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import org.graalvm.compiler.loop.InductionVariable.Direction;
 
 /**
  * Mediator pattern is used to reduce communication complexity between multiple objects or classes. Sounds like Event
@@ -37,72 +36,72 @@ class BigPlane extends Airplane {
 enum Action {
 	TAKEOFF, LAND
 }
-
-class Runway {
-	boolean isAvailable;
-	Direction direction;
-}
-
-class Airport {
-	Mediator mediator = new Mediator();
-	List<Runway> runways = new ArrayList<Runway>();
-
-	// Once flight takes off from original airport, register to the destination's comingFlight to receive messages
-	List<Flight> comingFlights = new ArrayList<Flight>();
-
-	void broadcast(String message) {
-		for (Flight flight : comingFlights) {
-			flight.newMessage(message);
-		}
-	}
-}
-
-class Flight {
-	Airplane plane;
-	Action action;
-	Airport from;
-	Airport to;
-
-	void requestToTakeOff() {
-		from.getMediator().ready(this, Action.TAKEOFF);
-	}
-
-	void requestToLand() {
-		Mediator.land(this, Action.LAND);
-	}
-
-	Flight(Airplane plane, Action action) {
-		this.plane = plane;
-		this.action = action;
-	}
-}
-
-class Mediator {
-	// static Queue<Airplane> readyToFly = new LinkedList<Airplane>();
-	ConcurrentLinkedQueue<Flight> readyTo = new ConcurrentLinkedQueue<Flight>();
-	// static ConcurrentLinkedQueue<Action> action = new ConcurrentLinkedQueue<Action>();
-	// static ConcurrentLinkedQueue<Airplane> readyToLand = new ConcurrentLinkedQueue<Airplane>();
-
-	RunwayManager runwayManager = RunwayManager.getInstance();
-
-	public Mediator() {
-	}
-
-	static void ready(Flight plane, Action action) {
-		readyTo.offer(flight);
-	}
-
-	void schedule() { // Stream Processing
-		while (true) {
-			if (!readyTo.isEmpty() && isGreen) {
-				Flight flight = readyTo.poll();
-				boolean gotRanway = runwayManager.assignRunway(flight); // This will block the thread, until a runway is
-																		// available and set to flight
-
-				if (gotRanway) {
-					takeOff(flight);
-				}
-			}
-		}
-	}
-}
+//
+//class Runway {
+//	boolean isAvailable;
+//	Direction direction;
+//}
+//
+//class Airport {
+//	Mediator mediator = new Mediator();
+//	List<Runway> runways = new ArrayList<Runway>();
+//
+//	// Once flight takes off from original airport, register to the destination's comingFlight to receive messages
+//	List<Flight> comingFlights = new ArrayList<Flight>();
+//
+//	void broadcast(String message) {
+//		for (Flight flight : comingFlights) {
+//			flight.newMessage(message);
+//		}
+//	}
+//}
+//
+//class Flight {
+//	Airplane plane;
+//	Action action;
+//	Airport from;
+//	Airport to;
+//
+//	void requestToTakeOff() {
+//		from.getMediator().ready(this, Action.TAKEOFF);
+//	}
+//
+//	void requestToLand() {
+//		Mediator.land(this, Action.LAND);
+//	}
+//
+//	Flight(Airplane plane, Action action) {
+//		this.plane = plane;
+//		this.action = action;
+//	}
+//}
+//
+//class Mediator {
+//	// static Queue<Airplane> readyToFly = new LinkedList<Airplane>();
+//	ConcurrentLinkedQueue<Flight> readyTo = new ConcurrentLinkedQueue<Flight>();
+//	// static ConcurrentLinkedQueue<Action> action = new ConcurrentLinkedQueue<Action>();
+//	// static ConcurrentLinkedQueue<Airplane> readyToLand = new ConcurrentLinkedQueue<Airplane>();
+//
+//	RunwayManager runwayManager = RunwayManager.getInstance();
+//
+//	public Mediator() {
+//	}
+//
+//	static void ready(Flight plane, Action action) {
+//		readyTo.offer(flight);
+//	}
+//
+//	void schedule() { // Stream Processing
+//		while (true) {
+//			if (!readyTo.isEmpty() && isGreen) {
+//				Flight flight = readyTo.poll();
+//				boolean gotRanway = runwayManager.assignRunway(flight); // This will block the thread, until a runway is
+//																		// available and set to flight
+//
+//				if (gotRanway) {
+//					takeOff(flight);
+//				}
+//			}
+//		}
+//	}
+//}

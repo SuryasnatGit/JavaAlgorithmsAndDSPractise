@@ -42,17 +42,17 @@ public class NextInorderSuccessorIterator {
 	}
 
 	public static void main(String args[]) {
-		BinaryTree bt = new BinaryTree();
-		TreeNode node = null;
-		node = bt.addNode(10, node);
-		node = bt.addNode(-5, node);
-		node = bt.addNode(7, node);
-		node = bt.addNode(20, node);
-		node = bt.addNode(3, node);
-		node = bt.addNode(14, node);
-		NextInorderSuccessorIterator nis = new NextInorderSuccessorIterator(node);
-		while (nis.hasNext()) {
-			System.out.println(nis.next());
-		}
+//		BinaryTree bt = new BinaryTree();
+//		TreeNode node = null;
+//		node = bt.addNode(10, node);
+//		node = bt.addNode(-5, node);
+//		node = bt.addNode(7, node);
+//		node = bt.addNode(20, node);
+//		node = bt.addNode(3, node);
+//		node = bt.addNode(14, node);
+//		NextInorderSuccessorIterator nis = new NextInorderSuccessorIterator(node);
+//		while (nis.hasNext()) {
+//			System.out.println(nis.next());
+//		}
 	}
 }

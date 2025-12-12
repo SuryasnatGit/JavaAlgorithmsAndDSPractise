@@ -5,12 +5,10 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-import com.algo.common.ListNode;
-
 /**
  * http://www.geeksforgeeks.org/merge-sort-for-linked-list/.
  * 
- * complexity - O(n log n) Test cases 0 ListNodes 1 ListNodes 2 ListNodes 3 ListNodes fully sorted reverse sorted
+ * complexity - O(n log n) Test cases 0 Nodes 1 Nodes 2 Nodes 3 Nodes fully sorted reverse sorted
  * 
  * Category : Medium
  */
@@ -21,21 +19,21 @@ public class MergeLinkListProblems {
 	 *            The head of linked list.
 	 * @return: You should return the head of the sorted linked list, using constant space complexity.
 	 */
-	public ListNode mergeSortList(ListNode head) {
+	public Node mergeSortList(Node head) {
 		if (head == null || head.next == null) {
 			return head;
 		}
-		ListNode mid = findMiddle(head);
-		ListNode right = mergeSortList(mid.next);
+		Node mid = findMiddle(head);
+		Node right = mergeSortList(mid.next);
 		mid.next = null;
-		ListNode left = mergeSortList(head);
+		Node left = mergeSortList(head);
 
 		return merge2SortedLists(left, right);
 	}
 
-	private ListNode findMiddle(ListNode head) {
-		ListNode slow = head;
-		ListNode fast = head.next;
+	private Node findMiddle(Node head) {
+		Node slow = head;
+		Node fast = head.next;
 		while (fast != null && fast.next != null) {
 			fast = fast.next.next;
 			slow = slow.next;
@@ -43,9 +41,9 @@ public class MergeLinkListProblems {
 		return slow;
 	}
 
-	public ListNode merge2SortedLists(ListNode head1, ListNode head2) {
-		ListNode dummy = new ListNode(0);
-		ListNode pointer = dummy;
+	public Node merge2SortedLists(Node head1, Node head2) {
+		Node dummy = new Node(0);
+		Node pointer = dummy;
 
 		while (head1 != null && head2 != null) {
 			if (head1.data < head2.data) {
@@ -72,21 +70,21 @@ public class MergeLinkListProblems {
 	 * 
 	 * T - O(n log k) S - O(1)
 	 */
-	public ListNode mergeKListsNaive(List<ListNode> lists) {
+	public Node mergeKListsNaive(List<Node> lists) {
 		if (lists.size() == 0) {
 			return null;
 		}
 		return mergeHelper(lists, 0, lists.size() - 1);
 	}
 
-	private ListNode mergeHelper(List<ListNode> lists, int start, int end) {
+	private Node mergeHelper(List<Node> lists, int start, int end) {
 		if (start == end) {
 			return lists.get(start);
 		}
 
 		int mid = start + (end - start) / 2;
-		ListNode left = mergeHelper(lists, start, mid);
-		ListNode right = mergeHelper(lists, mid + 1, end);
+		Node left = mergeHelper(lists, start, mid);
+		Node right = mergeHelper(lists, mid + 1, end);
 		return merge2SortedLists(left, right);
 	}
 
@@ -95,13 +93,13 @@ public class MergeLinkListProblems {
 	 * 
 	 * T - O(n log k) S - O(k)
 	 */
-	public ListNode mergeKListsHeap(ArrayList<ListNode> lists) {
+	public Node mergeKListsHeap(ArrayList<Node> lists) {
 		if (lists == null || lists.size() == 0) {
 			return null;
 		}
 
-		Comparator<ListNode> listNodeComparator = new Comparator<ListNode>() {
-			public int compare(ListNode left, ListNode right) {
+		Comparator<Node> NodeComparator = new Comparator<Node>() {
+			public int compare(Node left, Node right) {
 				if (left == null) {
 					return 1;
 				} else if (right == null) {
@@ -111,17 +109,17 @@ public class MergeLinkListProblems {
 			}
 		};
 
-		Queue<ListNode> heap = new PriorityQueue<ListNode>(lists.size(), listNodeComparator);
+		Queue<Node> heap = new PriorityQueue<Node>(lists.size(), NodeComparator);
 		for (int i = 0; i < lists.size(); i++) {
 			if (lists.get(i) != null) {
 				heap.add(lists.get(i));
 			}
 		}
 
-		ListNode dummy = new ListNode(0);
-		ListNode tail = dummy;
+		Node dummy = new Node(0);
+		Node tail = dummy;
 		while (!heap.isEmpty()) {
-			ListNode head = heap.poll();
+			Node head = heap.poll();
 			tail.next = head;
 			tail = head;
 			if (head.next != null) {
@@ -134,20 +132,20 @@ public class MergeLinkListProblems {
 	public static void main(String args[]) {
 		MergeLinkListProblems msll = new MergeLinkListProblems();
 
-		ListNode head1 = new ListNode(1);
-		head1.next = new ListNode(5);
-		head1.next.next = new ListNode(3);
+		Node head1 = new Node(1);
+		head1.next = new Node(5);
+		head1.next.next = new Node(3);
 
-		ListNode head2 = new ListNode(2);
-		head2.next = new ListNode(4);
-		head2.next.next = new ListNode(6);
+		Node head2 = new Node(2);
+		head2.next = new Node(4);
+		head2.next.next = new Node(6);
 
 		MiscellaneousLinkedListProblems mis = new MiscellaneousLinkedListProblems();
 
-		ListNode head = msll.mergeSortList(head1);
+		Node head = msll.mergeSortList(head1);
 		mis.displayList(head);
 
-		ListNode mergedNode = msll.merge2SortedLists(head1, head2);
+		Node mergedNode = msll.merge2SortedLists(head1, head2);
 		mis.displayList(mergedNode);
 	}
 }

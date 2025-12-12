@@ -8,7 +8,7 @@ import java.util.Arrays;
  *
  * CTCI - 17.3
  */
-public class RandomSet {
+public class RandomNumberGenerator {
 
 	public int[] set(int[] original, int m) {
 		int[] ran = new int[m];
@@ -33,7 +33,7 @@ public class RandomSet {
 	}
 
 	public static void main(String[] args) {
-		RandomSet rs = new RandomSet();
+		RandomNumberGenerator rs = new RandomNumberGenerator();
 		int[] res = rs.set(new int[] { 1, 5, 6, 2, 3, 7 }, 4);
 		System.out.println(Arrays.toString(res));
 	}

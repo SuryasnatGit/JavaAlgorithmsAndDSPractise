@@ -80,16 +80,16 @@ public class BinaryTreeToCircularLinkList {
 	}
 
 	public static void main(String args[]) {
-		BinaryTreeToCircularLinkList btc = new BinaryTreeToCircularLinkList();
-		BinaryTree bt = new BinaryTree();
-		TreeNode root = null;
-		root = bt.addNode(10, root);
-		root = bt.addNode(3, root);
-		root = bt.addNode(-1, root);
-		root = bt.addNode(8, root);
-		root = bt.addNode(-6, root);
-		root = bt.addNode(13, root);
-		root = btc.convert(root);
-		btc.print(root);
+//		BinaryTreeToCircularLinkList btc = new BinaryTreeToCircularLinkList();
+//		BinaryTree bt = new BinaryTree();
+//		TreeNode root = null;
+//		root = bt.addNode(10, root);
+//		root = bt.addNode(3, root);
+//		root = bt.addNode(-1, root);
+//		root = bt.addNode(8, root);
+//		root = bt.addNode(-6, root);
+//		root = bt.addNode(13, root);
+//		root = btc.convert(root);
+//		btc.print(root);
 	}
 }
