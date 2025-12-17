@@ -1,12 +1,6 @@
 package com.algo.ds.graph;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * 
@@ -38,7 +32,7 @@ public class GraphTraversal {
 	 */
 
 	// Perform BFS on graph starting from vertex v
-	public void BFS_iterative(Graph1 graph, int v, boolean[] discovered) {
+    public void bfsIterative(Graph1 graph, int v, boolean[] discovered) {
 		// create a queue used to do BFS
 		Queue<Integer> q = new LinkedList<>();
 
@@ -64,6 +58,14 @@ public class GraphTraversal {
 			}
 		}
 	}
+
+    public void bfsDisconnectedUndirectedGraph(Graph1 graph, boolean[] discovered) {
+        for (int v : graph.getAllVertex()) {
+            if (!discovered[v]) {
+                bfsIterative(graph, v, discovered);
+            }
+        }
+    }
 
 	// Perform BFS recursively on graph
 	public void BFS_recursive(Graph1 graph, Queue<Integer> q, boolean[] discovered) {
@@ -191,6 +193,7 @@ class Edge1 {
 class Graph1 {
 	// A List of Lists to represent an adjacency list
 	List<List<Integer>> adjList = null;
+    List<Integer> vertexList = new ArrayList<Integer>();
 
 	// Constructor
 	Graph1(List<Edge1> edges, int N) {
@@ -207,6 +210,11 @@ class Graph1 {
 
 			adjList.get(src).add(dest);
 			adjList.get(dest).add(src);
+            vertexList.add(src);
 		}
 	}
+
+    public List<Integer> getAllVertex() {
+        return vertexList;
+    }
 }
