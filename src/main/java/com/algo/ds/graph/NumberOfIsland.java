@@ -19,13 +19,15 @@ import java.util.*;
  */
 public class NumberOfIsland {
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 
-        int matrix[][] = {{1, 1, 0, 1, 0}, {1, 0, 0, 1, 1}, {0, 0, 0, 0, 0}, {1, 0, 1, 0, 1},
-                {1, 0, 0, 0, 0}};
         NumberOfIsland island = new NumberOfIsland();
-        System.out.println(island.numberOfIslandDFS(matrix));
-        System.out.println(island.numberOfIslandsDisjointSets(5, 5, matrix));
+        System.out.println(island.numberOfIslandDFS(new int[][]{{1, 1, 0, 1, 0}, {1, 0, 0, 1, 1}, {0, 0, 0, 0, 0}, {1, 0, 1, 0, 1},
+                {1, 0, 0, 0, 0}}));
+        System.out.println(island.numberOfIslandsBFS(new int[][]{{1, 1, 0, 1, 0}, {1, 0, 0, 1, 1}, {0, 0, 0, 0, 0}, {1, 0, 1, 0, 1},
+                {1, 0, 0, 0, 0}}));
+        System.out.println(island.numberOfIslandsUF(new int[][]{{1, 1, 0, 1, 0}, {1, 0, 0, 1, 1}, {0, 0, 0, 0, 0}, {1, 0, 1, 0, 1},
+                {1, 0, 0, 0, 0}}));
     }
 
     /**
@@ -67,47 +69,52 @@ public class NumberOfIsland {
      * Solution 2 - Using BFS
      *
      */
-    public void numberOfIslandsBFS(int[][] mat, boolean[][] processed, int i, int j) {
+    public int numberOfIslandsBFS(int[][] grid) {
+        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+            return 0;
+        }
 
-        int[] row = {-1, -1, -1, 0, 1, 0, 1, 1};
-        int[] col = {-1, 1, 0, -1, -1, 1, 0, 1};
+        int[] row = {1, 0, -1, 0};
+        int[] col = {0, 1, 0, -1};
+        int numOfIslands = 0;
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == 1) {
+                    numOfIslands++;
+                    grid[i][j] = 0;
+                    // create an empty queue and enqueue source node
+                    Queue<Pair> q = new LinkedList<>();
+                    q.offer(new Pair(i, j));
 
-        // create an empty queue and enqueue source node
-        Queue<Pair> q = new LinkedList<>();
-        q.add(new Pair(i, j));
+                    // run till queue is not empty
+                    while (!q.isEmpty()) {
+                        Pair p = q.poll();
 
-        // mark source node as processed
-        processed[i][j] = true;
-
-        // run till queue is not empty
-        while (!q.isEmpty()) {
-            // pop front node from queue and process it
-            int x = q.peek().x;
-            int y = q.peek().y;
-            q.poll();
-
-            // check for all 8 possible movements from current cell
-            // and enqueue each valid movement
-            for (int k = 0; k < 8; k++) {
-                // Skip if location is invalid or already processed
-                // or has water
-                if (isSafe(mat, x + row[k], y + col[k], processed)) {
-                    // skip if location is invalid or it is already
-                    // processed or consists of water
-                    processed[x + row[k]][y + col[k]] = true;
-                    q.add(new Pair(x + row[k], y + col[k]));
+                        // check for all 8 possible movements from current cell
+                        // and enqueue each valid movement
+                        for (int k = 0; k < 4; k++) {
+                            // Skip if location is invalid or already processed
+                            // or has water
+                            if (isSafe(grid, p.x + row[k], p.y + col[k])) {
+                                // skip if location is invalid or it is already
+                                // processed or consists of water
+                                grid[p.x + row[k]][p.y + col[k]] = 0;
+                                q.add(new Pair(p.x + row[k], p.y + col[k]));
+                            }
+                        }
+                    }
                 }
             }
         }
+        return numOfIslands;
     }
 
     /**
      * Function to check if it is safe to go to position (x, y) from current position. The function returns false if (x,
      * y) is not valid matrix coordinates or (x, y) represents water or position (x, y) is already processed
      */
-    private boolean isSafe(int[][] mat, int x, int y, boolean[][] processed) {
-        return (x >= 0) && (x < processed.length) && (y >= 0) && (y < processed[0].length)
-                && (mat[x][y] == 1 && !processed[x][y]);
+    private boolean isSafe(int[][] grid, int x, int y) {
+        return (x >= 0 && x < grid.length && y >= 0 && y < grid[0].length && grid[x][y] == 1);
     }
 
     /**
@@ -115,53 +122,67 @@ public class NumberOfIsland {
      *
      *
      */
-    public List<Integer> numberOfIslandsDisjointSets(int n, int m, int[][] positions) {
-        if (positions.length == 0 || positions[0].length == 0) {
-            return Collections.emptyList();
+    public int numberOfIslandsUF(int[][] grid) {
+        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+            return 0;
+        }
+        UnionFind uf = new UnionFind(grid);
+        int[][] directions = new int[][]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+        int rows = grid.length;
+        int cols = grid[0].length;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (grid[i][j] == 1) {
+                    for (int[] direction : directions) {
+                        int x = i + direction[0];
+                        int y = j + direction[1];
+                        if (isSafe(grid, x, y)) {
+                            int id1 = i * cols + j;
+                            int id2 = x * cols + y;
+                            uf.union(id1, id2);
+                        }
+                    }
+                }
+            }
+        }
+        return uf.count;
+    }
+
+    class UnionFind {
+        private int[] parent;
+        private int count;
+
+        public UnionFind(int[][] grid) {
+            int rows = grid.length;
+            int cols = grid[0].length;
+            parent = new int[rows * cols];
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    if (grid[i][j] == 1) {
+                        int id = i * cols + j;
+                        parent[id] = id;
+                        count++;
+                    }
+                }
+            }
         }
 
-        int count = 0;
-
-        DisjointSet ds = new DisjointSet();
-        Set<Integer> land = new HashSet<>();
-        List<Integer> result = new ArrayList<>();
-
-        for (int[] position : positions) {
-            int index = position[0] * m + position[1];
-            land.add(index);
-            ds.makeSet(index);
-            count++;
-
-            // find the four neighbors;
-            int n1 = (position[0] - 1) * m + position[1];
-            int n2 = (position[0] + 1) * m + position[1];
-            int n3 = (position[0]) * m + position[1] + 1;
-            int n4 = (position[0]) * m + position[1] - 1;
-
-            if (position[0] - 1 >= 0 && land.contains(n1)) {
-                if (ds.union(index, n1)) {
-                    count--;
-                }
+        public void union(int i, int j) {
+            int parentI = find(i);
+            int parentJ = find(j);
+            if (parentI != parentJ) {
+                parent[parentI] = parentJ;
+                count--;
             }
-            if (position[0] + 1 < n && land.contains(n2)) {
-                if (ds.union(index, n2)) {
-                    count--;
-                }
-            }
-            if (position[1] + 1 < m && land.contains(n3)) {
-                if (ds.union(index, n3)) {
-                    count--;
-                }
-            }
-            if (position[1] - 1 >= 0 && land.contains(n4)) {
-                if (ds.union(index, n4)) {
-                    count--;
-                }
-            }
-            result.add(count);
         }
 
-        return result;
+        public int find(int x) {
+            if (parent[x] == x) {
+                return x;
+            }
+            parent[x] = find(parent[x]);
+            return parent[x];
+        }
     }
 }
 
@@ -173,3 +194,4 @@ class Pair {
         this.y = y;
     }
 }
+

@@ -43,139 +43,73 @@ import com.algo.common.ListNode;
  */
 public class LRUCache {
 
-	private ListNode head; // points to most recently used item
-	private ListNode tail; // points to least recently used item
-	private Map<Integer, ListNode> map = new HashMap<Integer, ListNode>(); // map item to linked list node
+	private ListNode head = new ListNode(-1, -1); // points to most recently used item
+	private ListNode tail = new ListNode(-1, -1); // points to least recently used item
+	private Map<Integer, ListNode> map = new HashMap<>(); // map item to linked list node
 	private int MAX_SIZE = 5;
-	private int size = 0;
 
-	public LRUCache(int size) {
-		MAX_SIZE = size;
+	public LRUCache(int capacity) {
+		this.MAX_SIZE = capacity;
+		this.head.next = tail;
+		this.tail.previous = head;
 	}
 
-	public void used(int data) {
-		if (containsInCache(data)) { // cache hit
-			ListNode node = map.get(data);
-			// if any other node other than head is accessed then it has to be moved to the head position as its the
-			// most recently accessed
-			if (node != head) {
-				deleteFromCache(data);
-				node.next = head;
-				head.previous = node;
-				head = node;
-				map.put(data, node);
-			}
-		} else { // cache miss
-			addIntoCache(data);
+	public void put(int key, int value) {
+		if (get(key) != -1) { // valid value exists. will be overwritten
+			map.get(key).value = value;
+			return;
 		}
+		if (map.size() == MAX_SIZE) {
+			// evict from head (LRU)
+			map.remove(head.next.data);
+			head.next = head.next.next;
+			head.next.previous = head;
+		}
+		ListNode node = new ListNode(key, value);
+		map.put(key, node);
+		moveNodeToTail(node);
+	}
+
+	// work with only tail node
+	private void moveNodeToTail(ListNode current) {
+		current.next = tail;
+		tail.previous.next = current;
+		current.previous = tail.previous;
+		tail.previous = current;
 	}
 
 	public int get(int key) {
-		if (containsInCache(key)) {
-			ListNode node = map.get(key);
-			if (node != head) {
-				// remove from cache
-				deleteFromCache(key);
-				addToFront(node, key);
-			}
-			return node.data;
+		if (!map.containsKey(key)) {
+			return -1;
 		}
-		return -1;
-	}
+		ListNode current = map.get(key);
+		// detach current so that it can be moved to tail of list
+		current.previous.next = current.next;
+		current.next.previous = current.previous;
+		moveNodeToTail(current);
 
-	private void addToFront(ListNode node, int key) {
-		node.next = head;
-		head.previous = node;
-		head = node;
-		map.put(key, node);
-	}
-
-	public void addIntoCache(int data) {
-		size++;
-		if (head == null) {
-			head = new ListNode(data);
-			tail = head;
-			return;
-		}
-		if (size > MAX_SIZE) { // eviction
-			tail = tail.previous;
-			ListNode next = tail.next;
-			tail.next = null;
-			next.previous = null;
-			map.remove(next.data);
-		}
-		ListNode newNode = new ListNode(data);
-		newNode.next = head;
-		if (head != null) {
-			head.previous = newNode;
-		}
-		head = newNode;
-		map.put(data, newNode);
-		return;
+		return current.data;
 	}
 
 	public void printCache() {
-		ListNode temp = head;
-		while (temp != null) {
-			System.out.print(temp.data + " ");
-			temp = temp.next;
+		ListNode node = head.next;
+		while (node != null && node.data != -1) {
+			System.out.println(node.data);
+			node = node.next;
 		}
-		System.out.println();
 	}
 
-	public boolean containsInCache(int data) {
-		return map.containsKey(data);
-	}
-
-	public void deleteFromCache(int data) {
-		ListNode node = map.get(data);
-		if (node == null) {
-			return;
-		}
-		map.remove(data);
-		if (size == 1) {
-			head = null;
-			tail = null;
-		} else if (node == head) {
-			head = head.next;
-			if (head != null) {
-				head.previous = null;
-			}
-			node.next = null;
-		} else if (node == tail) {
-			tail = tail.previous;
-			tail.next = null;
-		} else {
-			ListNode before = node.previous;
-			ListNode next = node.next;
-			before.next = next;
-			next.previous = before;
-		}
-	}
 
 	public static void main(String args[]) {
-		LRUCache lruCache = new LRUCache(5);
-		lruCache.used(4);
-
-		lruCache.used(5);
+		LRUCache lruCache = new LRUCache(2);
+		lruCache.put(1, 1);
+		lruCache.put(2, 2);
 		lruCache.printCache();
-		lruCache.used(6);
+		lruCache.put(3, 3);
 		lruCache.printCache();
-		lruCache.used(5);
+		System.out.println(lruCache.get(3));
 		lruCache.printCache();
-		lruCache.used(9);
-		lruCache.printCache();
-		lruCache.used(10);
-		lruCache.printCache();
-		lruCache.used(11);
-		lruCache.printCache();
-		lruCache.used(16);
-		lruCache.printCache();
-		lruCache.used(10);
-		lruCache.printCache();
-		lruCache.deleteFromCache(10);
-		lruCache.printCache();
-		lruCache.deleteFromCache(9);
+		System.out.println(lruCache.get(2));
 		lruCache.printCache();
 	}
 }

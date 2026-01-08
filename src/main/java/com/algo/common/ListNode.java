@@ -3,11 +3,19 @@ package com.algo.common;
 public class ListNode {
 
 	public int data;
+	public int value;
 	public ListNode next;
 	public ListNode previous;
 
-	public ListNode(int d) {
-		this.data = d;
+	public ListNode(int key) {
+		this.data = key;
+		this.next = null;
+		this.previous = null;
+	}
+
+	public ListNode(int key, int value) {
+		this.data = key;
+		this.value = value;
 		this.next = null;
 		this.previous = null;
 	}
